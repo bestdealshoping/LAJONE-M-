@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="ht">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Aktive kont administratè | LAJONÈ'M</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script src="js/supabase.js"></script>
+
+  <style>
+    :root {
+      --ble: #0B3B75;
+      --ble-fonse: #082d59;
+      --or: #F2B705;
+      --vet: #2E8B57;
+      --blan: #FFFFFF;
+      --gri: #f4f7fb;
+      --gri-text: #64748b;
+      --nwa: #172033;
+      --wouj: #dc3545;
+      --lonbraj: 0 15px 40px rgba(11, 59, 117, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Montserrat", Arial, sans-serif;
+      background:
+        linear-gradient(
+          135deg,
+          rgba(11, 59, 117, 0.08),
+          rgba(242, 183, 5, 0.08)
+        ),
+        var(--gri);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      color: var(--nwa);
+    }
+
+    .container {
+      width: 100%;
+      max-width: 500px;
+    }
+
+    .card {
+      background: var(--blan);
+      border-radius: 22px;
+      box-shadow: var(--lonbraj);
+      overflow: hidden;
+    }
+
+    .header {
+      background: var(--ble);
+      color: var(--blan);
+      text-align: center;
+      padding: 35px 25px 30px;
+      position: relative;
+    }
+
+    .header::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 5px;
+      background: var(--or);
+    }
+
+    .logo {
+      width: 76px;
+      height: 76px;
+      margin: 0 auto 15px;
+      border-radius: 50%;
+      background: var(--blan);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--ble);
+      font-size: 27px;
+      font-weight: 800;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    .header h1 {
+      font-size: 25px;
+      margin-bottom: 8px;
+      font-weight: 800;
+    }
+
+    .header p {
+      font-size: 14px;
+      opacity: 0.92;
+      line-height: 1.5;
+    }
+
+    .content {
+      padding: 30px 25px 35px;
+    }
+
+    .welcome {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .welcome h2 {
+      color: var(--ble);
+      font-size: 21px;
+      margin-bottom: 8px;
+    }
+
+    .welcome p {
+      color: var(--gri-text);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    label {
+      display: block;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--nwa);
+    }
+
+    input {
+      width: 100%;
+      padding: 14px 15px;
+      border: 1px solid #d8e0ea;
+      border-radius: 11px;
+      font-size: 15px;
+      outline: none;
+      transition: 0.2s;
+      background: #fff;
+    }
+
+    input:focus {
+      border-color: var(--ble);
+      box-shadow: 0 0 0 3px rgba(11, 59, 117, 0.09);
+    }
+
+    .password-wrapper {
+      position: relative;
+    }
+
+    .password-wrapper input {
+      padding-right: 50px;
+    }
+
+    .toggle-password {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      font-size: 18px;
+      padding: 5px;
+      color: var(--gri-text);
+    }
+
+    .requirements {
+      background: #f7f9fc;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 14px;
+      margin: 20px 0;
+    }
+
+    .requirements-title {
+      font-weight: 700;
+      font-size: 13px;
+      margin-bottom: 9px;
+      color: var(--ble);
+    }
+
+    .requirement {
+      font-size: 12px;
+      margin: 5px 0;
+      color: var(--gri-text);
+    }
+
+    .requirement.valid {
+      color: var(--vet);
+    }
+
+    .requirement.invalid {
+      color: var(--wouj);
+    }
+
+    .btn {
+      width: 100%;
+      border: none;
+      border-radius: 12px;
+      padding: 15px;
+      background: var(--ble);
+      color: white;
+      font-size: 15px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .btn:hover {
+      background: var(--ble-fonse);
+      transform: translateY(-1px);
+    }
+
+    .btn:disabled {
+      opacity: 0.65;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .message {
+      display: none;
+      border-radius: 11px;
+      padding: 13px 15px;
+      margin-bottom: 18px;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .message.success {
+      display: block;
+      background: #eaf8f0;
+      border: 1px solid #b9e5cb;
+      color: #17683b;
+    }
+
+    .message.error {
+      display: block;
+      background: #fff0f0;
+      border: 1px solid #f0bcbc;
+      color: #a52323;
+    }
+
+    .loading {
+      text-align: center;
+      padding: 30px 10px;
+      color: var(--gri-text);
+      font-size: 14px;
+    }
+
+    .footer {
+      text-align: center;
+      padding-top: 22px;
+      color: var(--gri-text);
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    .footer strong {
+      color: var(--ble);
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .success-box {
+      text-align: center;
+      padding: 15px 5px;
+    }
+
+    .success-icon {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      background: #eaf8f0;
+      color: var(--vet);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 35px;
+      margin: 0 auto 18px;
+    }
+
+    .success-box h2 {
+      color: var(--ble);
+      margin-bottom: 10px;
+      font-size: 21px;
+    }
+
+    .success-box p {
+      color: var(--gri-text);
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .btn-secondary {
+      display: inline-block;
+      text-decoration: none;
+      background: var(--or);
+      color: #172033;
+      padding: 13px 20px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 12px;
+      }
+
+      .content {
+        padding: 25px 18px 30px;
+      }
+
+      .header {
+        padding: 30px 18px 25px;
+      }
+
+      .header h1 {
+        font-size: 22px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <div class="card">
+
+      <div class="header">
+        <div class="logo">L</div>
+
+        <h1>LAJONÈ'M</h1>
+
+        <p>
+          Laj yo se onè nou.
+        </p>
+      </div>
+
+      <div class="content">
+
+        <!-- ZÒN LOADING -->
+        <div id="loadingBox" class="loading">
+          Verifikasyon envitasyon an ap fèt...
+        </div>
+
+        <!-- FÒM AKTIVASYON -->
+        <div id="activationBox" class="hidden">
+
+          <div class="welcome">
+
+            <h2>Aktive kont ou</h2>
+
+            <p>
+              Byenveni nan ekip administrasyon LAJONÈ'M.
+              Kreye modpas ou pou finalize aktivasyon kont ou.
+            </p>
+
+          </div>
+
+          <div id="messageBox" class="message"></div>
+
+          <form id="activationForm">
+
+            <div class="form-group">
+
+              <label for="password">
+                Nouvo modpas
+              </label>
+
+              <div class="password-wrapper">
+
+                <input
+                  type="password"
+                  id="password"
+                  placeholder="Antre modpas ou"
+                  autocomplete="new-password"
+                  required
+                >
+
+                <button
+                  type="button"
+                  class="toggle-password"
+                  id="togglePassword"
+                >
+                  👁
+                </button>
+
+              </div>
+
+            </div>
+
+            <div class="form-group">
+
+              <label for="confirmPassword">
+                Konfime modpas la
+              </label>
+
+              <div class="password-wrapper">
+
+                <input
+                  type="password"
+                  id="confirmPassword"
+                  placeholder="Retape modpas la"
+                  autocomplete="new-password"
+                  required
+                >
+
+                <button
+                  type="button"
+                  class="toggle-password"
+                  id="toggleConfirmPassword"
+                >
+                  👁
+                </button>
+
+              </div>
+
+            </div>
+
+            <div class="requirements">
+
+              <div class="requirements-title">
+                Kondisyon pou modpas la
+              </div>
+
+              <div
+                id="reqLength"
+                class="requirement"
+              >
+                ○ Omwen 8 karaktè
+              </div>
+
+              <div
+                id="reqUpper"
+                class="requirement"
+              >
+                ○ Omwen 1 lèt majiskil
+              </div>
+
+              <div
+                id="reqNumber"
+                class="requirement"
+              >
+                ○ Omwen 1 chif
+              </div>
+
+              <div
+                id="reqMatch"
+                class="requirement"
+              >
+                ○ De modpas yo dwe menm
+              </div>
+
+            </div>
+
+            <button
+              type="submit"
+              class="btn"
+              id="submitBtn"
+            >
+              Aktive kont mwen
+            </button>
+
+          </form>
+
+        </div>
+
+        <!-- SUKSE -->
+        <div
+          id="successBox"
+          class="hidden"
+        >
+
+          <div class="success-box">
+
+            <div class="success-icon">
+              ✓
+            </div>
+
+            <h2>
+              Kont ou aktive avèk siksè
+            </h2>
+
+            <p>
+              Modpas ou kreye avèk siksè.
+              Kounye a ou kapab antre nan espas administrasyon LAJONÈ'M
+              avèk imel ak nouvo modpas ou.
+            </p>
+
+            <a
+              href="login.html"
+              class="btn-secondary"
+            >
+              Ale sou paj koneksyon an
+            </a>
+
+          </div>
+
+        </div>
+
+        <!-- ERÈ ENVITASYON -->
+        <div
+          id="errorBox"
+          class="hidden"
+        >
+
+          <div class="welcome">
+
+            <h2>
+              Envitasyon an pa valab
+            </h2>
+
+            <p id="errorText">
+              Lyen aktivasyon sa a pa disponib oswa li ekspire.
+            </p>
+
+          </div>
+
+        </div>
+
+        <div class="footer">
+
+          <strong>LAJONÈ'M</strong><br>
+
+          Wè. Akonpaye. Valorizasyon.
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
+
+    /*
+      ==========================================================
+      AKTIVASYON ADMINISTRATÈ — LAJONÈ'M
+      ==========================================================
+    */
+
+    const loadingBox = document.getElementById("loadingBox");
+    const activationBox = document.getElementById("activationBox");
+    const successBox = document.getElementById("successBox");
+    const errorBox = document.getElementById("errorBox");
+    const errorText = document.getElementById("errorText");
+    const messageBox = document.getElementById("messageBox");
+
+    const activationForm =
+      document.getElementById("activationForm");
+
+    const passwordInput =
+      document.getElementById("password");
+
+    const confirmPasswordInput =
+      document.getElementById("confirmPassword");
+
+    const submitBtn =
+      document.getElementById("submitBtn");
+
+
+    /*
+      ----------------------------------------------------------
+      MESAJ
+      ----------------------------------------------------------
+    */
+
+    function montreMessage(message, type = "error") {
+
+      messageBox.textContent = message;
+
+      messageBox.className =
+        "message " + type;
+
+    }
+
+
+    /*
+      ----------------------------------------------------------
+      PASSWORD TOGGLE
+      ----------------------------------------------------------
+    */
+
+    document
+      .getElementById("togglePassword")
+      .addEventListener("click", function () {
+
+        const type =
+          passwordInput.type === "password"
+            ? "text"
+            : "password";
+
+        passwordInput.type = type;
+
+      });
+
+
+    document
+      .getElementById("toggleConfirmPassword")
+      .addEventListener("click", function () {
+
+        const type =
+          confirmPasswordInput.type === "password"
+            ? "text"
+            : "password";
+
+        confirmPasswordInput.type = type;
+
+      });
+
+
+    /*
+      ----------------------------------------------------------
+      VERIFY PASSWORD
+      ----------------------------------------------------------
+    */
+
+    function verifyPassword() {
+
+      const password =
+        passwordInput.value;
+
+      const confirmPassword =
+        confirmPasswordInput.value;
+
+
+      const validLength =
+        password.length >= 8;
+
+      const validUpper =
+        /[A-Z]/.test(password);
+
+      const validNumber =
+        /[0-9]/.test(password);
+
+      const validMatch =
+        password.length > 0 &&
+        password === confirmPassword;
+
+
+      meteRequirement(
+        "reqLength",
+        validLength,
+        "Omwen 8 karaktè"
+      );
+
+      meteRequirement(
+        "reqUpper",
+        validUpper,
+        "Omwen 1 lèt majiskil"
+      );
+
+      meteRequirement(
+        "reqNumber",
+        validNumber,
+        "Omwen 1 chif"
+      );
+
+      meteRequirement(
+        "reqMatch",
+        validMatch,
+        "De modpas yo dwe menm"
+      );
+
+
+      return (
+        validLength &&
+        validUpper &&
+        validNumber &&
+        validMatch
+      );
+
+    }
+
+
+    function meteRequirement(
+      id,
+      valid,
+      text
+    ) {
+
+      const element =
+        document.getElementById(id);
+
+      element.className =
+        valid
+          ? "requirement valid"
+          : "requirement invalid";
+
+      element.textContent =
+        valid
+          ? "✓ " + text
+          : "○ " + text;
+
+    }
+
+
+    passwordInput.addEventListener(
+      "input",
+      verifyPassword
+    );
+
+    confirmPasswordInput.addEventListener(
+      "input",
+      verifyPassword
+    );
+
+
+    /*
+      ----------------------------------------------------------
+      VERIFY SESSION
+      ----------------------------------------------------------
+    */
+
+    async function verifyeEnvitasyon() {
+
+      try {
+
+        /*
+          Supabase ap detekte session
+          ki soti nan lyen invitation lan.
+        */
+
+        const {
+          data,
+          error
+        } = await supabaseClient.auth.getSession();
+
+
+        if (error) {
+
+          throw error;
+
+        }
+
+
+        if (!data || !data.session) {
+
+          loadingBox.classList.add("hidden");
+
+          errorBox.classList.remove("hidden");
+
+          errorText.textContent =
+            "Nou pa jwenn sesyon envitasyon an. " +
+            "Tanpri ouvri lyen envitasyon ou te resevwa nan imel la ankò.";
+
+          return;
+
+        }
+
+
+        const user =
+          data.session.user;
+
+
+        /*
+          Verifye ke imel itilizatè a egziste.
+        */
+
+        if (!user || !user.email) {
+
+          throw new Error(
+            "Kont itilizatè a pa disponib."
+          );
+
+        }
+
+
+        loadingBox.classList.add("hidden");
+
+        activationBox.classList.remove("hidden");
+
+
+      } catch (error) {
+
+        console.error(
+          "AKTIVASYON ERROR:",
+          error
+        );
+
+        loadingBox.classList.add("hidden");
+
+        errorBox.classList.remove("hidden");
+
+        errorText.textContent =
+          error.message ||
+          "Nou pa kapab verifye envitasyon an.";
+
+      }
+
+    }
+
+
+    /*
+      ----------------------------------------------------------
+      AKTIVE KONT
+      ----------------------------------------------------------
+    */
+
+    activationForm.addEventListener(
+      "submit",
+      async function (event) {
+
+        event.preventDefault();
+
+
+        messageBox.className =
+          "message";
+
+        messageBox.textContent = "";
+
+
+        const password =
+          passwordInput.value.trim();
+
+        const confirmPassword =
+          confirmPasswordInput.value.trim();
+
+
+        if (!verifyPassword()) {
+
+          montreMessage(
+            "Tanpri respekte tout kondisyon modpas yo."
+          );
+
+          return;
+
+        }
+
+
+        if (password !== confirmPassword) {
+
+          montreMessage(
+            "Modpas yo pa menm."
+          );
+
+          return;
+
+        }
+
+
+        submitBtn.disabled = true;
+
+        submitBtn.textContent =
+          "Aktivasyon an ap fèt...";
+
+
+        try {
+
+          /*
+            Mete nouvo modpas la sou kont
+            Supabase Auth itilizatè a.
+          */
+
+          const {
+            data,
+            error
+          } = await supabaseClient.auth.updateUser({
+
+            password: password
+
+          });
+
+
+          if (error) {
+
+            throw error;
+
+          }
+
+
+          if (!data || !data.user) {
+
+            throw new Error(
+              "Nou pa kapab finalize aktivasyon kont lan."
+            );
+
+          }
+
+
+          /*
+            Aktivasyon fini.
+          */
+
+          activationBox.classList.add("hidden");
+
+          successBox.classList.remove("hidden");
+
+
+        } catch (error) {
+
+          console.error(
+            "UPDATE PASSWORD ERROR:",
+            error
+          );
+
+
+          let message =
+            error.message ||
+            "Yon erè rive pandan aktivasyon an.";
+
+
+          if (
+            message
+              .toLowerCase()
+              .includes("password")
+          ) {
+
+            message =
+              "Modpas la pa aksepte. " +
+              "Tanpri itilize omwen 8 karaktè, " +
+              "1 lèt majiskil ak 1 chif.";
+
+          }
+
+
+          montreMessage(
+            message,
+            "error"
+          );
+
+
+          submitBtn.disabled = false;
+
+          submitBtn.textContent =
+            "Aktive kont mwen";
+
+        }
+
+      }
+    );
+
+
+    /*
+      ----------------------------------------------------------
+      DEMARE
+      ----------------------------------------------------------
+    */
+
+    verifyeEnvitasyon();
+
+  </script>
+
+</body>
+</html>
