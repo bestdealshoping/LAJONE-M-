@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html lang="ht">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Aktivite | LAJONÈ'M</title>
+
+  <meta
+    name="description"
+    content="Dekouvri aktivite LAJONÈ'M yo: aktivite ki fini, aktivite k ap fèt ak aktivite ki planifye."
+  >
+
+  <link rel="stylesheet" href="css/style.css">
+
+  <style>
+    /* ================================
+       AKTIVITE PAGE
+    ================================= */
+
+    .page-hero {
+      padding: 90px 20px;
+      text-align: center;
+      background: linear-gradient(
+        135deg,
+        #0B3B75,
+        #07284f
+      );
+      color: #ffffff;
+    }
+
+    .page-hero .section-tag {
+      display: inline-block;
+      margin-bottom: 15px;
+    }
+
+    .page-hero h1 {
+      margin: 0 0 18px;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+    }
+
+    .page-hero p {
+      max-width: 760px;
+      margin: 0 auto;
+      line-height: 1.8;
+      font-size: 1.05rem;
+    }
+
+    .activity-section {
+      padding: 70px 20px;
+    }
+
+    .activity-section:nth-child(even) {
+      background: #f5f7fa;
+    }
+
+    .activity-section-header {
+      margin-bottom: 35px;
+    }
+
+    .activity-section-header h2 {
+      margin: 10px 0;
+      color: #0B3B75;
+      font-size: 2rem;
+    }
+
+    .activity-section-header p {
+      color: #667085;
+      max-width: 700px;
+      line-height: 1.7;
+    }
+
+    .activity-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 25px;
+    }
+
+    .activity-card {
+      background: #ffffff;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      border: 1px solid #e5e9ef;
+    }
+
+    .activity-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 14px 35px rgba(0, 0, 0, 0.12);
+    }
+
+    .activity-image {
+      height: 210px;
+      background: #e5e9ef;
+      overflow: hidden;
+    }
+
+    .activity-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .activity-placeholder {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(
+        135deg,
+        #0B3B75,
+        #2E8B57
+      );
+      color: #ffffff;
+      font-size: 1.5rem;
+      font-weight: 800;
+    }
+
+    .activity-content {
+      padding: 25px;
+    }
+
+    .activity-status {
+      display: inline-block;
+      padding: 6px 12px;
+      border-radius: 30px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .status-fini {
+      background: #e8f5e9;
+      color: #2E8B57;
+    }
+
+    .status-ankou {
+      background: #fff4d6;
+      color: #9a6b00;
+    }
+
+    .status-planifye {
+      background: #e7f0ff;
+      color: #0B3B75;
+    }
+
+    .activity-content h3 {
+      margin: 0 0 12px;
+      color: #0B3B75;
+      font-size: 1.3rem;
+    }
+
+    .activity-description {
+      color: #667085;
+      line-height: 1.7;
+      margin-bottom: 18px;
+    }
+
+    .activity-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      margin-bottom: 20px;
+      color: #475467;
+      font-size: 0.92rem;
+    }
+
+    .activity-meta strong {
+      color: #263238;
+    }
+
+    .activity-program {
+      margin-bottom: 15px;
+      color: #2E8B57;
+      font-weight: 700;
+    }
+
+    .empty-activity {
+      padding: 45px 20px;
+      text-align: center;
+      background: #ffffff;
+      border: 1px dashed #cbd5e1;
+      border-radius: 14px;
+      color: #667085;
+    }
+
+    .empty-activity h3 {
+      color: #0B3B75;
+      margin-bottom: 8px;
+    }
+
+    .activity-loading {
+      padding: 50px;
+      text-align: center;
+      color: #667085;
+    }
+
+    .activity-error {
+      padding: 35px;
+      text-align: center;
+      background: #fff5f5;
+      border: 1px solid #f3b5b5;
+      border-radius: 14px;
+      color: #a61b1b;
+    }
+
+    .activity-counter {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 35px;
+      height: 35px;
+      padding: 0 10px;
+      margin-left: 8px;
+      border-radius: 50px;
+      background: #F2B705;
+      color: #07284f;
+      font-size: 0.85rem;
+      font-weight: 800;
+    }
+
+    @media (max-width: 900px) {
+      .activity-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .page-hero {
+        padding: 65px 18px;
+      }
+
+      .activity-section {
+        padding: 50px 18px;
+      }
+
+      .activity-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .activity-image {
+        height: 220px;
+      }
+
+      .activity-section-header h2 {
+        font-size: 1.7rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ================================
+       HEADER
+  ================================= -->
+  <header class="site-header">
+
+    <div class="container nav-container">
+
+      <a href="index.html" class="logo">
+        <span class="logo-main">LAJONÈ'M</span>
+        <span class="logo-sub">
+          Laj yo se onè nou.
+        </span>
+      </a>
+
+      <nav class="main-nav">
+
+        <a href="index.html">
+          Akèy
+        </a>
+
+        <a href="sou-nou.html">
+          Sou nou
+        </a>
+
+        <a href="pwogram.html">
+          Pwogram
+        </a>
+
+        <a href="aktivite.html" class="active">
+          Aktivite
+        </a>
+
+        <a href="don.html">
+          Fè yon don
+        </a>
+
+        <a href="volonte.html">
+          Vin volontè
+        </a>
+
+        <a href="kontak.html">
+          Kontakte nou
+        </a>
+
+      </nav>
+
+    </div>
+
+  </header>
+
+
+  <!-- ================================
+       HERO
+  ================================= -->
+  <main>
+
+    <section class="page-hero">
+
+      <div class="container">
+
+        <span class="section-tag">
+          LAJONÈ'M
+        </span>
+
+        <h1>
+          Aktivite nou yo
+        </h1>
+
+        <p>
+          Dekouvri travay LAJONÈ'M ap fè pou wè,
+          akonpaye epi valorize moun aje yo nan
+          kominote a.
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================================
+         AKTIVITE FINI
+    ================================= -->
+    <section class="activity-section">
+
+      <div class="container">
+
+        <div class="activity-section-header">
+
+          <span class="section-tag">
+            SA NOU REYALIZE
+          </span>
+
+          <h2>
+            Aktivite ki fini
+            <span
+              id="total-fini"
+              class="activity-counter"
+            >
+              0
+            </span>
+          </h2>
+
+          <p>
+            Men aktivite LAJONÈ'M deja reyalize
+            pou pote sipò, prezans ak diyite
+            bay moun aje yo.
+          </p>
+
+        </div>
+
+        <div
+          id="aktivite-fini"
+          class="activity-grid"
+        >
+
+          <div class="activity-loading">
+            Nap chaje aktivite yo...
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================================
+         AKTIVITE ANKOU
+    ================================= -->
+    <section class="activity-section">
+
+      <div class="container">
+
+        <div class="activity-section-header">
+
+          <span class="section-tag">
+            KOUNYE A
+          </span>
+
+          <h2>
+            Aktivite k ap fèt
+            <span
+              id="total-ankou"
+              class="activity-counter"
+            >
+              0
+            </span>
+          </h2>
+
+          <p>
+            Aktivite ak aksyon ekip LAJONÈ'M
+            ap reyalize kounye a.
+          </p>
+
+        </div>
+
+        <div
+          id="aktivite-ankou"
+          class="activity-grid"
+        >
+
+          <div class="activity-loading">
+            Nap chaje aktivite yo...
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================================
+         AKTIVITE PLANIFYE
+    ================================= -->
+    <section class="activity-section">
+
+      <div class="container">
+
+        <div class="activity-section-header">
+
+          <span class="section-tag">
+            SA K AP VINI
+          </span>
+
+          <h2>
+            Aktivite ki planifye
+            <span
+              id="total-planifye"
+              class="activity-counter"
+            >
+              0
+            </span>
+          </h2>
+
+          <p>
+            Men aktivite LAJONÈ'M ap prepare
+            pou pwochen etap yo.
+          </p>
+
+        </div>
+
+        <div
+          id="aktivite-planifye"
+          class="activity-grid"
+        >
+
+          <div class="activity-loading">
+            Nap chaje aktivite yo...
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================================
+         CTA
+    ================================= -->
+    <section class="cta-section">
+
+      <div class="container">
+
+        <div class="cta-content">
+
+          <span class="section-tag">
+            PATISIPE
+          </span>
+
+          <h2>
+            YO TE LA POU NOU.
+            KOUNYE A, SE TOU PA NOU.
+          </h2>
+
+          <p>
+            Ou kapab ede nou kontinye fè plis
+            pou moun aje ki bezwen sipò ak
+            prezans nou.
+          </p>
+
+          <div class="cta-buttons">
+
+            <a
+              href="volonte.html"
+              class="btn btn-primary"
+            >
+              Vin volontè
+            </a>
+
+            <a
+              href="don.html"
+              class="btn btn-secondary"
+            >
+              Fè yon don
+            </a>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- ================================
+       FOOTER
+  ================================= -->
+  <footer class="site-footer">
+
+    <div class="container footer-grid">
+
+      <div>
+
+        <h3>
+          LAJONÈ'M
+        </h3>
+
+        <p>
+          Laj yo se onè nou.
+        </p>
+
+        <p>
+          Wè. Akonpaye. Valorizasyon.
+        </p>
+
+      </div>
+
+
+      <div>
+
+        <h3>
+          Kontakte nou
+        </h3>
+
+        <p>
+          Cap-Haïtien, Ayiti
+        </p>
+
+        <p>
+          +509 42824391\ +509 35274215
+        </p>
+
+        <p>
+          woldjyimpactlab@gmail.com
+        </p>
+
+      </div>
+
+
+      <div>
+
+        <h3>
+          Lyen rapid
+        </h3>
+
+        <p>
+          <a href="sou-nou.html">
+            Sou nou
+          </a>
+        </p>
+
+        <p>
+          <a href="pwogram.html">
+            Pwogram
+          </a>
+        </p>
+
+        <p>
+          <a href="volonte.html">
+            Vin volontè
+          </a>
+        </p>
+
+        <p>
+          <a href="don.html">
+            Fè yon don
+          </a>
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class="footer-bottom">
+
+      <div class="container">
+
+        <p>
+          ©
+          <span id="annee"></span>
+          LAJONÈ'M —
+          Laj yo se onè nou.
+        </p>
+
+      </div>
+
+    </div>
+
+  </footer>
+
+
+  <!-- ================================
+       SUPABASE
+  ================================= -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script src="js/supabase.js"></script>
+
+
+  <!-- ================================
+       AKTIVITE JAVASCRIPT
+  ================================= -->
+  <script>
+
+    document.addEventListener(
+      "DOMContentLoaded",
+      () => {
+
+        const annee =
+          document.getElementById("annee");
+
+        if (annee) {
+          annee.textContent =
+            new Date().getFullYear();
+        }
+
+        chajeAktivite();
+
+      }
+    );
+
+
+    async function chajeAktivite() {
+
+      try {
+
+        const { data, error } =
+          await supabaseClient
+            .from("aktivite")
+            .select(`
+              id,
+              pwogram_id,
+              tit,
+              slug,
+              deskripsyon,
+              tip,
+              estati,
+              dat_aktivite,
+              dat_fin,
+              kote,
+              kantite_benefisye,
+              kantite_volonte,
+              imaj_prensipal_url,
+              pwogram (
+                id,
+                non,
+                slug
+              )
+            `)
+            .eq("piblik", true)
+            .order(
+              "dat_aktivite",
+              {
+                ascending: false
+              }
+            );
+
+
+        if (error) {
+          throw error;
+        }
+
+
+        const aktivite =
+          data || [];
+
+
+        const fini =
+          aktivite.filter(
+            item => item.estati === "fini"
+          );
+
+        const ankou =
+          aktivite.filter(
+            item => item.estati === "ankou"
+          );
+
+        const planifye =
+          aktivite.filter(
+            item => item.estati === "planifye"
+          );
+
+
+        meteKantite(
+          "total-fini",
+          fini.length
+        );
+
+        meteKantite(
+          "total-ankou",
+          ankou.length
+        );
+
+        meteKantite(
+          "total-planifye",
+          planifye.length
+        );
+
+
+        aficheAktivite(
+          "aktivite-fini",
+          fini,
+          "fini"
+        );
+
+        aficheAktivite(
+          "aktivite-ankou",
+          ankou,
+          "ankou"
+        );
+
+        aficheAktivite(
+          "aktivite-planifye",
+          planifye,
+          "planifye"
+        );
+
+
+      } catch (error) {
+
+        console.error(
+          "Erè Supabase aktivite:",
+          error
+        );
+
+
+        montreErè(
+          "aktivite-fini"
+        );
+
+        montreErè(
+          "aktivite-ankou"
+        );
+
+        montreErè(
+          "aktivite-planifye"
+        );
+
+      }
+
+    }
+
+
+    function aficheAktivite(
+      containerId,
+      aktivite,
+      estati
+    ) {
+
+      const container =
+        document.getElementById(containerId);
+
+
+      if (!container) return;
+
+
+      if (aktivite.length === 0) {
+
+        const mesaj = {
+          fini:
+            "Pa gen aktivite ki fini pou montre pou kounye a.",
+
+          ankou:
+            "Pa gen aktivite k ap fèt kounye a.",
+
+          planifye:
+            "Pa gen aktivite planifye pou kounye a."
+        };
+
+
+        container.innerHTML = `
+
+          <div class="empty-activity">
+
+            <h3>
+              Pa gen aktivite
+            </h3>
+
+            <p>
+              ${mesaj[estati]}
+            </p>
+
+          </div>
+
+        `;
+
+        return;
+      }
+
+
+      container.innerHTML =
+        aktivite
+          .map(item =>
+            kreyeKatAktivite(
+              item,
+              estati
+            )
+          )
+          .join("");
+
+    }
+
+
+    function kreyeKatAktivite(
+      item,
+      estati
+    ) {
+
+      const statusText = {
+        fini: "Fini",
+        ankou: "K ap fèt",
+        planifye: "Planifye"
+      };
+
+
+      const image =
+        item.imaj_prensipal_url
+          ? `
+
+            <img
+              src="${escapeHTML(
+                item.imaj_prensipal_url
+              )}"
+              alt="${escapeHTML(
+                item.tit
+              )}"
+              loading="lazy"
+            >
+
+          `
+          : `
+
+            <div class="activity-placeholder">
+              LAJONÈ'M
+            </div>
+
+          `;
+
+
+      const program =
+        item.pwogram &&
+        item.pwogram.non
+          ? `
+
+            <div class="activity-program">
+              ${escapeHTML(
+                item.pwogram.non
+              )}
+            </div>
+
+          `
+          : "";
+
+
+      const description =
+        item.deskripsyon
+          ? escapeHTML(
+              item.deskripsyon
+            )
+          : "Pa gen deskripsyon disponib.";
+
+
+      const date =
+        formatDate(
+          item.dat_aktivite
+        );
+
+
+      const endDate =
+        item.dat_fin
+          ? formatDate(
+              item.dat_fin
+            )
+          : "";
+
+
+      return `
+
+        <article class="activity-card">
+
+          <div class="activity-image">
+            ${image}
+          </div>
+
+
+          <div class="activity-content">
+
+            <span
+              class="activity-status status-${estati}"
+            >
+              ${statusText[estati]}
+            </span>
+
+
+            ${program}
+
+
+            <h3>
+              ${escapeHTML(
+                item.tit
+              )}
+            </h3>
+
+
+            <p class="activity-description">
+              ${description}
+            </p>
+
+
+            <div class="activity-meta">
+
+              ${
+                date
+                  ? `
+                    <div>
+                      <strong>
+                        Dat:
+                      </strong>
+                      ${date}
+                      ${
+                        endDate
+                          ? ` — ${endDate}`
+                          : ""
+                      }
+                    </div>
+                  `
+                  : ""
+              }
+
+
+              ${
+                item.kote
+                  ? `
+                    <div>
+                      <strong>
+                        Kote:
+                      </strong>
+                      ${escapeHTML(
+                        item.kote
+                      )}
+                    </div>
+                  `
+                  : ""
+              }
+
+
+              ${
+                item.kantite_benefisye !== null &&
+                item.kantite_benefisye !== undefined
+                  ? `
+                    <div>
+                      <strong>
+                        Benefisyè:
+                      </strong>
+                      ${Number(
+                        item.kantite_benefisye
+                      )}
+                    </div>
+                  `
+                  : ""
+              }
+
+
+              ${
+                item.kantite_volonte !== null &&
+                item.kantite_volonte !== undefined
+                  ? `
+                    <div>
+                      <strong>
+                        Volontè:
+                      </strong>
+                      ${Number(
+                        item.kantite_volonte
+                      )}
+                    </div>
+                  `
+                  : ""
+              }
+
+            </div>
+
+          </div>
+
+        </article>
+
+      `;
+
+    }
+
+
+    function meteKantite(
+      id,
+      kantite
+    ) {
+
+      const element =
+        document.getElementById(id);
+
+      if (element) {
+        element.textContent =
+          kantite;
+      }
+
+    }
+
+
+    function formatDate(dateValue) {
+
+      if (!dateValue) {
+        return "";
+      }
+
+
+      const date =
+        new Date(dateValue);
+
+
+      if (Number.isNaN(
+        date.getTime()
+      )) {
+        return "";
+      }
+
+
+      return date.toLocaleDateString(
+        "ht-HT",
+        {
+          day: "2-digit",
+          month: "long",
+          year: "numeric"
+        }
+      );
+
+    }
+
+
+    function montreErè(
+      containerId
+    ) {
+
+      const container =
+        document.getElementById(
+          containerId
+        );
+
+
+      if (!container) return;
+
+
+      container.innerHTML = `
+
+        <div class="activity-error">
+
+          <h3>
+            Nou pa kapab chaje aktivite yo.
+          </h3>
+
+          <p>
+            Tanpri verifye koneksyon Supabase la
+            epi eseye ankò.
+          </p>
+
+        </div>
+
+      `;
+
+    }
+
+
+    function escapeHTML(value) {
+
+      return String(
+        value ?? ""
+      )
+        .replace(
+          /&/g,
+          "&amp;"
+        )
+        .replace(
+          /</g,
+          "&lt;"
+        )
+        .replace(
+          />/g,
+          "&gt;"
+        )
+        .replace(
+          /"/g,
+          "&quot;"
+        )
+        .replace(
+          /'/g,
+          "&#039;"
+        );
+
+    }
+
+  </script>
+
+</body>
+</html>

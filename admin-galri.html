@@ -1,0 +1,2228 @@
+<!DOCTYPE html>
+<html lang="ht">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Jesyon Galri | LAJONÈ'M</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@400;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <style>
+    :root {
+      --ble: #0B3B75;
+      --ble-fonse: #082d59;
+      --or: #F2B705;
+      --vèt: #2E8B57;
+      --blan: #ffffff;
+      --gri: #f4f6f8;
+      --gri-border: #e1e5ea;
+      --tèks: #263238;
+      --wouj: #c62828;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Open Sans", sans-serif;
+      background: var(--gri);
+      color: var(--tèks);
+    }
+
+    /* =========================
+       HEADER
+    ========================= */
+
+    .topbar {
+      background: var(--ble);
+      color: var(--blan);
+      min-height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 25px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-logo {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: var(--or);
+      color: var(--ble);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-family: "Montserrat", sans-serif;
+    }
+
+    .brand-text strong {
+      display: block;
+      font-family: "Montserrat", sans-serif;
+      font-size: 18px;
+    }
+
+    .brand-text span {
+      font-size: 12px;
+      opacity: .85;
+    }
+
+    .btn-deconnexion {
+      border: 1px solid rgba(255,255,255,.4);
+      background: transparent;
+      color: white;
+      padding: 9px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .btn-deconnexion:hover {
+      background: rgba(255,255,255,.1);
+    }
+
+    /* =========================
+       LAYOUT
+    ========================= */
+
+    .layout {
+      display: flex;
+      min-height: calc(100vh - 70px);
+    }
+
+    .sidebar {
+      width: 245px;
+      background: white;
+      border-right: 1px solid var(--gri-border);
+      padding: 20px 12px;
+      flex-shrink: 0;
+    }
+
+    .sidebar-title {
+      font-family: "Montserrat", sans-serif;
+      font-size: 11px;
+      text-transform: uppercase;
+      color: #777;
+      font-weight: 700;
+      padding: 0 12px 10px;
+    }
+
+    .sidebar a {
+      display: block;
+      text-decoration: none;
+      color: #37474f;
+      padding: 11px 12px;
+      border-radius: 6px;
+      margin-bottom: 4px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .sidebar a:hover,
+    .sidebar a.active {
+      background: #eef4fa;
+      color: var(--ble);
+    }
+
+    .content {
+      flex: 1;
+      padding: 30px;
+      min-width: 0;
+    }
+
+    /* =========================
+       TITRE
+    ========================= */
+
+    .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 25px;
+    }
+
+    .page-header h1 {
+      font-family: "Montserrat", sans-serif;
+      color: var(--ble);
+      font-size: 27px;
+      margin-bottom: 5px;
+    }
+
+    .page-header p {
+      color: #68747c;
+      font-size: 14px;
+    }
+
+    .btn-primary {
+      border: none;
+      background: var(--ble);
+      color: white;
+      padding: 11px 17px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    .btn-primary:hover {
+      background: var(--ble-fonse);
+    }
+
+    /* =========================
+       STATISTIK
+    ========================= */
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+
+    .stat-card {
+      background: white;
+      border: 1px solid var(--gri-border);
+      border-radius: 8px;
+      padding: 18px;
+    }
+
+    .stat-card span {
+      display: block;
+      color: #707b82;
+      font-size: 13px;
+      margin-bottom: 6px;
+    }
+
+    .stat-card strong {
+      color: var(--ble);
+      font-family: "Montserrat", sans-serif;
+      font-size: 27px;
+    }
+
+    /* =========================
+       UPLOAD
+    ========================= */
+
+    .panel {
+      background: white;
+      border: 1px solid var(--gri-border);
+      border-radius: 8px;
+      margin-bottom: 25px;
+      overflow: hidden;
+    }
+
+    .panel-header {
+      padding: 17px 20px;
+      border-bottom: 1px solid var(--gri-border);
+    }
+
+    .panel-header h2 {
+      font-family: "Montserrat", sans-serif;
+      font-size: 17px;
+      color: var(--ble);
+    }
+
+    .panel-body {
+      padding: 20px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .form-group {
+      margin-bottom: 3px;
+    }
+
+    .form-group.full {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 7px;
+      color: #37474f;
+    }
+
+    input,
+    textarea,
+    select {
+      width: 100%;
+      border: 1px solid #ccd3d8;
+      border-radius: 6px;
+      padding: 11px;
+      font-family: "Open Sans", sans-serif;
+      font-size: 14px;
+      background: white;
+    }
+
+    textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+      outline: none;
+      border-color: var(--ble);
+    }
+
+    .file-info {
+      font-size: 12px;
+      color: #777;
+      margin-top: 6px;
+    }
+
+    .preview-container {
+      display: none;
+      margin-top: 12px;
+    }
+
+    .preview-container img {
+      max-width: 220px;
+      max-height: 150px;
+      object-fit: cover;
+      border-radius: 6px;
+      border: 1px solid var(--gri-border);
+    }
+
+    .form-actions {
+      margin-top: 20px;
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn-secondary {
+      border: 1px solid #c9d0d5;
+      background: white;
+      color: #455a64;
+      padding: 10px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .btn-danger {
+      border: none;
+      background: var(--wouj);
+      color: white;
+      padding: 9px 12px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .btn-success {
+      border: none;
+      background: var(--vèt);
+      color: white;
+      padding: 9px 12px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .btn-small {
+      border: 1px solid #cbd2d7;
+      background: white;
+      color: var(--ble);
+      padding: 8px 11px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    /* =========================
+       GALRI
+    ========================= */
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .photo-card {
+      background: white;
+      border: 1px solid var(--gri-border);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .photo-image {
+      width: 100%;
+      height: 190px;
+      background: #edf0f2;
+      overflow: hidden;
+    }
+
+    .photo-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .photo-content {
+      padding: 15px;
+    }
+
+    .photo-title {
+      color: var(--ble);
+      font-family: "Montserrat", sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 7px;
+    }
+
+    .photo-description {
+      font-size: 13px;
+      color: #65727a;
+      line-height: 1.5;
+      margin-bottom: 10px;
+    }
+
+    .photo-meta {
+      font-size: 12px;
+      color: #777;
+      margin-bottom: 10px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .badge-published {
+      background: #e5f5ec;
+      color: #237348;
+    }
+
+    .badge-hidden {
+      background: #f0f1f2;
+      color: #68747c;
+    }
+
+    .photo-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+
+    /* =========================
+       MESSAGES
+    ========================= */
+
+    .message {
+      display: none;
+      padding: 12px 15px;
+      border-radius: 6px;
+      margin-bottom: 18px;
+      font-size: 14px;
+    }
+
+    .message.success {
+      background: #e7f5ed;
+      color: #236b45;
+      border: 1px solid #bce3cc;
+    }
+
+    .message.error {
+      background: #fdecec;
+      color: #9c2424;
+      border: 1px solid #efbcbc;
+    }
+
+    .loading {
+      text-align: center;
+      padding: 35px;
+      color: #68747c;
+    }
+
+    .empty {
+      text-align: center;
+      padding: 45px 20px;
+      color: #68747c;
+      background: white;
+      border: 1px solid var(--gri-border);
+      border-radius: 8px;
+    }
+
+    /* =========================
+       MODAL
+    ========================= */
+
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.55);
+      z-index: 2000;
+      padding: 20px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal.show {
+      display: flex;
+    }
+
+    .modal-content {
+      background: white;
+      width: 100%;
+      max-width: 600px;
+      max-height: 90vh;
+      overflow-y: auto;
+      border-radius: 8px;
+    }
+
+    .modal-header {
+      padding: 17px 20px;
+      border-bottom: 1px solid var(--gri-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-header h2 {
+      font-family: "Montserrat", sans-serif;
+      color: var(--ble);
+      font-size: 18px;
+    }
+
+    .close-modal {
+      border: none;
+      background: none;
+      font-size: 25px;
+      cursor: pointer;
+      color: #555;
+    }
+
+    .modal-body {
+      padding: 20px;
+    }
+
+    .modal-body img {
+      width: 100%;
+      max-height: 400px;
+      object-fit: contain;
+      background: #f1f2f3;
+      border-radius: 6px;
+    }
+
+    /* =========================
+       RESPONSIVE
+    ========================= */
+
+    @media (max-width: 1000px) {
+      .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 760px) {
+      .sidebar {
+        display: none;
+      }
+
+      .content {
+        padding: 20px 15px;
+      }
+
+      .page-header {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .form-group.full {
+        grid-column: auto;
+      }
+
+      .gallery-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      .topbar {
+        padding: 0 15px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- =========================
+       HEADER
+  ========================= -->
+
+  <header class="topbar">
+
+    <div class="brand">
+      <div class="brand-logo">L</div>
+
+      <div class="brand-text">
+        <strong>LAJONÈ'M</strong>
+        <span>Panno administrasyon</span>
+      </div>
+    </div>
+
+    <button class="btn-deconnexion" onclick="dekonèkte()">
+      Dekonekte
+    </button>
+
+  </header>
+
+
+  <div class="layout">
+
+    <!-- =========================
+         SIDEBAR
+    ========================= -->
+
+    <aside class="sidebar">
+
+      <div class="sidebar-title">
+        Administrasyon
+      </div>
+
+      <a href="admin.html">
+        Dashboard
+      </a>
+
+      <a href="admin-aktivite.html">
+        Aktivite
+      </a>
+
+      <a href="admin-pwogram.html">
+        Pwogram
+      </a>
+
+      <a href="admin-volonte.html">
+        Volontè
+      </a>
+
+      <a href="admin-benefisye.html">
+        Benefisyè
+      </a>
+
+      <a href="admin-vizit.html">
+        Vizit
+      </a>
+
+      <a href="admin-don.html">
+        Don
+      </a>
+
+      <a href="admin-donatè.html">
+        Donatè
+      </a>
+
+      <a href="admin-nouvel.html">
+        Nouvèl
+      </a>
+
+      <a href="admin-patne.html">
+        Patnè
+      </a>
+
+      <a href="admin-galri.html" class="active">
+        Galri
+      </a>
+
+      <a href="admin-rapo.html">
+        Rapò
+      </a>
+
+      <a href="admin-mesaj.html">
+        Mesaj
+      </a>
+
+    </aside>
+
+
+    <!-- =========================
+         CONTENT
+    ========================= -->
+
+    <main class="content">
+
+      <div class="page-header">
+
+        <div>
+          <h1>Jesyon Galri</h1>
+          <p>
+            Ajoute, jere epi pibliye foto aktivite LAJONÈ'M yo.
+          </p>
+        </div>
+
+        <button
+          class="btn-primary"
+          onclick="afficheFormUpload()"
+        >
+          + Ajoute yon foto
+        </button>
+
+      </div>
+
+
+      <!-- MESSAGES -->
+
+      <div id="messageSuccess" class="message success"></div>
+
+      <div id="messageError" class="message error"></div>
+
+
+      <!-- =========================
+           STATISTIK
+      ========================= -->
+
+      <div class="stats">
+
+        <div class="stat-card">
+          <span>Total foto</span>
+          <strong id="statTotal">0</strong>
+        </div>
+
+        <div class="stat-card">
+          <span>Foto pibliye</span>
+          <strong id="statPublie">0</strong>
+        </div>
+
+        <div class="stat-card">
+          <span>Foto kache</span>
+          <strong id="statKache">0</strong>
+        </div>
+
+      </div>
+
+
+      <!-- =========================
+           FORM UPLOAD
+      ========================= -->
+
+      <section
+        class="panel"
+        id="uploadPanel"
+        style="display:none;"
+      >
+
+        <div class="panel-header">
+          <h2>Ajoute yon nouvo foto</h2>
+        </div>
+
+        <div class="panel-body">
+
+          <form id="formGalri">
+
+            <div class="form-grid">
+
+              <div class="form-group">
+
+                <label for="tit">
+                  Tit foto *
+                </label>
+
+                <input
+                  type="text"
+                  id="tit"
+                  placeholder="Egzanp: Distribisyon manje"
+                  required
+                >
+
+              </div>
+
+
+              <div class="form-group">
+
+                <label for="kategori">
+                  Kategori
+                </label>
+
+                <select id="kategori">
+
+                  <option value="">
+                    Chwazi yon kategori
+                  </option>
+
+                  <option value="Aktivite">
+                    Aktivite
+                  </option>
+
+                  <option value="Benefisyè">
+                    Benefisyè
+                  </option>
+
+                  <option value="Volontè">
+                    Volontè
+                  </option>
+
+                  <option value="Don">
+                    Don
+                  </option>
+
+                  <option value="Evènman">
+                    Evènman
+                  </option>
+
+                  <option value="Kominote">
+                    Kominote
+                  </option>
+
+                  <option value="Lòt">
+                    Lòt
+                  </option>
+
+                </select>
+
+              </div>
+
+
+              <div class="form-group">
+
+                <label for="aktivite_id">
+                  Aktivite
+                </label>
+
+                <select id="aktivite_id">
+
+                  <option value="">
+                    San aktivite
+                  </option>
+
+                </select>
+
+              </div>
+
+
+              <div class="form-group">
+
+                <label for="dat_foto">
+                  Dat foto
+                </label>
+
+                <input
+                  type="date"
+                  id="dat_foto"
+                >
+
+              </div>
+
+
+              <div class="form-group full">
+
+                <label for="deskripsyon">
+                  Deskripsyon
+                </label>
+
+                <textarea
+                  id="deskripsyon"
+                  placeholder="Bay yon ti deskripsyon sou foto a..."
+                ></textarea>
+
+              </div>
+
+
+              <div class="form-group full">
+
+                <label for="foto">
+                  Chwazi foto *
+                </label>
+
+                <input
+                  type="file"
+                  id="foto"
+                  accept="image/jpeg,image/png,image/webp,image/gif"
+                  required
+                >
+
+                <div class="file-info">
+                  Fòma aksepte: JPG, PNG, WEBP, GIF.
+                  Maksimòm 5 MB.
+                </div>
+
+                <div
+                  class="preview-container"
+                  id="previewContainer"
+                >
+                  <img
+                    id="previewImage"
+                    alt="Aperçu foto"
+                  >
+                </div>
+
+              </div>
+
+            </div>
+
+
+            <div class="form-actions">
+
+              <button
+                type="submit"
+                class="btn-primary"
+                id="btnUpload"
+              >
+                Upload foto
+              </button>
+
+              <button
+                type="button"
+                class="btn-secondary"
+                onclick="kacheFormUpload()"
+              >
+                Anile
+              </button>
+
+            </div>
+
+          </form>
+
+        </div>
+
+      </section>
+
+
+      <!-- =========================
+           GALRI
+      ========================= -->
+
+      <section class="panel">
+
+        <div class="panel-header">
+
+          <h2>
+            Foto yo
+          </h2>
+
+        </div>
+
+        <div class="panel-body">
+
+          <div
+            id="galleryContainer"
+            class="gallery-grid"
+          >
+
+            <div class="loading">
+              Ap chaje foto yo...
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+    </main>
+
+  </div>
+
+
+  <!-- =========================
+       MODAL PREVIEW
+  ========================= -->
+
+  <div
+    class="modal"
+    id="photoModal"
+  >
+
+    <div class="modal-content">
+
+      <div class="modal-header">
+
+        <h2 id="modalTitle">
+          Foto
+        </h2>
+
+        <button
+          class="close-modal"
+          onclick="femenModal()"
+        >
+          ×
+        </button>
+
+      </div>
+
+      <div class="modal-body">
+
+        <img
+          id="modalImage"
+          src=""
+          alt="Foto"
+        >
+
+        <p
+          id="modalDescription"
+          style="margin-top:15px; line-height:1.6;"
+        ></p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- SUPABASE -->
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script src="js/supabase.js"></script>
+
+
+  <script>
+
+    /* =====================================================
+       VARIABLES
+    ===================================================== */
+
+    const BUCKET = "galri";
+
+    let toutFoto = [];
+
+
+    /* =====================================================
+       VERIFIKASYON ADMIN
+    ===================================================== */
+
+    async function verifyeAdministrateur() {
+
+      try {
+
+        const {
+          data: { user },
+          error: userError
+        } = await supabaseClient.auth.getUser();
+
+
+        if (userError || !user) {
+
+          window.location.href = "login.html";
+
+          return false;
+        }
+
+
+        const {
+          data,
+          error
+        } = await supabaseClient
+          .from("itilizatè_admin")
+          .select(`
+            id,
+            user_id,
+            non,
+            siyati,
+            email,
+            wòl,
+            aktif
+          `)
+          .eq("user_id", user.id)
+          .eq("aktif", true)
+          .maybeSingle();
+
+
+        if (error) {
+
+          console.error(
+            "Erè verifikasyon admin:",
+            error
+          );
+
+          montreErreur(
+            "Nou pa kapab verifye aksè administratè a."
+          );
+
+          return false;
+        }
+
+
+        if (!data) {
+
+          await supabaseClient.auth.signOut();
+
+          window.location.href = "login.html";
+
+          return false;
+        }
+
+
+        return true;
+
+      } catch (error) {
+
+        console.error(error);
+
+        window.location.href = "login.html";
+
+        return false;
+      }
+
+    }
+
+
+    /* =====================================================
+       CHARGE AKTIVITE YO
+    ===================================================== */
+
+    async function chajeAktivite() {
+
+      const select =
+        document.getElementById("aktivite_id");
+
+
+      const {
+        data,
+        error
+      } = await supabaseClient
+        .from("aktivite")
+        .select(`
+          id,
+          tit,
+          dat_aktivite
+        `)
+        .neq("estati", "anile")
+        .order("dat_aktivite", {
+          ascending: false
+        });
+
+
+      if (error) {
+
+        console.error(
+          "Erè chaje aktivite:",
+          error
+        );
+
+        return;
+      }
+
+
+      if (!data) return;
+
+
+      data.forEach(aktivite => {
+
+        const option =
+          document.createElement("option");
+
+        option.value = aktivite.id;
+
+        option.textContent =
+          aktivite.tit;
+
+        select.appendChild(option);
+
+      });
+
+    }
+
+
+    /* =====================================================
+       CHARGE GALRI
+    ===================================================== */
+
+    async function chajeGalri() {
+
+      const container =
+        document.getElementById("galleryContainer");
+
+
+      container.innerHTML = `
+        <div class="loading">
+          Ap chaje foto yo...
+        </div>
+      `;
+
+
+      const {
+        data,
+        error
+      } = await supabaseClient
+        .from("galri")
+        .select(`
+          id,
+          tit,
+          deskripsyon,
+          foto_url,
+          aktivite_id,
+          kategori,
+          piblik,
+          dat_foto
+        `)
+        .order("dat_foto", {
+          ascending: false,
+          nullsFirst: false
+        });
+
+
+      if (error) {
+
+        console.error(
+          "Erè chaje galri:",
+          error
+        );
+
+        montreErreur(
+          "Nou pa kapab chaje foto yo: " +
+          (error.message || "Erè enkoni")
+        );
+
+        container.innerHTML = `
+          <div class="empty">
+            Pa kapab chaje galri a.
+          </div>
+        `;
+
+        return;
+      }
+
+
+      toutFoto = data || [];
+
+
+      meteStatistik(toutFoto);
+
+
+      if (toutFoto.length === 0) {
+
+        container.innerHTML = `
+          <div class="empty">
+            Pa gen okenn foto nan galri a ankò.
+          </div>
+        `;
+
+        return;
+      }
+
+
+      container.innerHTML = "";
+
+
+      toutFoto.forEach(foto => {
+
+        container.appendChild(
+          kreyeKatFoto(foto)
+        );
+
+      });
+
+    }
+
+
+    /* =====================================================
+       STATISTIK
+    ===================================================== */
+
+    function meteStatistik(foto) {
+
+      const total = foto.length;
+
+      const publie =
+        foto.filter(
+          item => item.piblik === true
+        ).length;
+
+      const kache =
+        total - publie;
+
+
+      document.getElementById(
+        "statTotal"
+      ).textContent = total;
+
+
+      document.getElementById(
+        "statPublie"
+      ).textContent = publie;
+
+
+      document.getElementById(
+        "statKache"
+      ).textContent = kache;
+
+    }
+
+
+    /* =====================================================
+       KREYE KAT FOTO
+    ===================================================== */
+
+    function kreyeKatFoto(foto) {
+
+      const card =
+        document.createElement("article");
+
+      card.className = "photo-card";
+
+
+      const statusClass =
+        foto.piblik
+          ? "badge-published"
+          : "badge-hidden";
+
+
+      const statusText =
+        foto.piblik
+          ? "Pibliye"
+          : "Kache";
+
+
+      const date =
+        foto.dat_foto
+          ? new Date(
+              foto.dat_foto + "T00:00:00"
+            ).toLocaleDateString("fr-FR")
+          : "Pa espesifye";
+
+
+      card.innerHTML = `
+
+        <div class="photo-image">
+
+          <img
+            src="${escapeHTML(foto.foto_url || "")}"
+            alt="${escapeHTML(foto.tit || "Foto")}"
+            loading="lazy"
+          >
+
+        </div>
+
+
+        <div class="photo-content">
+
+          <div class="photo-title">
+            ${escapeHTML(foto.tit || "San tit")}
+          </div>
+
+
+          <span class="badge ${statusClass}">
+            ${statusText}
+          </span>
+
+
+          <div class="photo-description">
+
+            ${escapeHTML(
+              foto.deskripsyon ||
+              "Pa gen deskripsyon."
+            )}
+
+          </div>
+
+
+          <div class="photo-meta">
+
+            <strong>Kategori:</strong>
+            ${escapeHTML(
+              foto.kategori || "Lòt"
+            )}
+
+            <br>
+
+            <strong>Dat:</strong>
+            ${date}
+
+          </div>
+
+
+          <div class="photo-actions">
+
+            <button
+              class="btn-small"
+              onclick="previewFoto('${foto.id}')"
+            >
+              Wè
+            </button>
+
+
+            <button
+              class="btn-small"
+              onclick="modifieFoto('${foto.id}')"
+            >
+              Modifye
+            </button>
+
+
+            <button
+              class="${
+                foto.piblik
+                  ? "btn-secondary"
+                  : "btn-success"
+              }"
+              onclick="chanjePublication('${foto.id}', ${!foto.piblik})"
+            >
+              ${
+                foto.piblik
+                  ? "Kache"
+                  : "Pibliye"
+              }
+            </button>
+
+
+            <button
+              class="btn-danger"
+              onclick="efaseFoto('${foto.id}')"
+            >
+              Efase
+            </button>
+
+          </div>
+
+        </div>
+      `;
+
+
+      return card;
+
+    }
+
+
+    /* =====================================================
+       PREVIEW FOTO ANVAN UPLOAD
+    ===================================================== */
+
+    document
+      .getElementById("foto")
+      .addEventListener(
+        "change",
+        function() {
+
+          const file = this.files[0];
+
+          const preview =
+            document.getElementById(
+              "previewImage"
+            );
+
+          const container =
+            document.getElementById(
+              "previewContainer"
+            );
+
+
+          if (!file) {
+
+            container.style.display = "none";
+
+            return;
+          }
+
+
+          if (!file.type.startsWith("image/")) {
+
+            montreErreur(
+              "Fichye sa a pa yon imaj."
+            );
+
+            this.value = "";
+
+            container.style.display = "none";
+
+            return;
+          }
+
+
+          if (file.size > 5 * 1024 * 1024) {
+
+            montreErreur(
+              "Foto a twò gwo. Maksimòm lan se 5 MB."
+            );
+
+            this.value = "";
+
+            container.style.display = "none";
+
+            return;
+          }
+
+
+          const reader =
+            new FileReader();
+
+
+          reader.onload = function(e) {
+
+            preview.src = e.target.result;
+
+            container.style.display = "block";
+
+          };
+
+
+          reader.readAsDataURL(file);
+
+        }
+      );
+
+
+    /* =====================================================
+       UPLOAD FOTO
+    ===================================================== */
+
+    document
+      .getElementById("formGalri")
+      .addEventListener(
+        "submit",
+        async function(e) {
+
+          e.preventDefault();
+
+
+          const btn =
+            document.getElementById(
+              "btnUpload"
+            );
+
+
+          const tit =
+            document.getElementById(
+              "tit"
+            ).value.trim();
+
+
+          const deskripsyon =
+            document.getElementById(
+              "deskripsyon"
+            ).value.trim();
+
+
+          const kategori =
+            document.getElementById(
+              "kategori"
+            ).value;
+
+
+          const aktivite_id =
+            document.getElementById(
+              "aktivite_id"
+            ).value || null;
+
+
+          const dat_foto =
+            document.getElementById(
+              "dat_foto"
+            ).value || null;
+
+
+          const file =
+            document.getElementById(
+              "foto"
+            ).files[0];
+
+
+          if (!tit || !file) {
+
+            montreErreur(
+              "Tanpri mete tit foto a epi chwazi yon foto."
+            );
+
+            return;
+          }
+
+
+          if (file.size > 5 * 1024 * 1024) {
+
+            montreErreur(
+              "Foto a pa dwe depase 5 MB."
+            );
+
+            return;
+          }
+
+
+          btn.disabled = true;
+
+          btn.textContent =
+            "Ap upload foto a...";
+
+
+          try {
+
+            /*
+              Kreye yon non fichye inik.
+            */
+
+            const extension =
+              file.name
+                .split(".")
+                .pop()
+                .toLowerCase();
+
+
+            const nonFichye =
+              "foto-" +
+              Date.now() +
+              "-" +
+              Math.random()
+                .toString(36)
+                .substring(2, 9) +
+              "." +
+              extension;
+
+
+            /*
+              Upload dirèk nan bucket galri.
+            */
+
+            const {
+              error: uploadError
+            } = await supabaseClient
+              .storage
+              .from(BUCKET)
+              .upload(
+                nonFichye,
+                file,
+                {
+                  cacheControl: "3600",
+                  upsert: false,
+                  contentType: file.type
+                }
+              );
+
+
+            if (uploadError) {
+
+              console.error(
+                "Erè upload Storage:",
+                uploadError
+              );
+
+              throw new Error(
+                "Upload foto a echwe: " +
+                uploadError.message
+              );
+            }
+
+
+            /*
+              Jwenn URL piblik foto a.
+            */
+
+            const {
+              data: publicData
+            } = supabaseClient
+              .storage
+              .from(BUCKET)
+              .getPublicUrl(
+                nonFichye
+              );
+
+
+            const foto_url =
+              publicData.publicUrl;
+
+
+            /*
+              Mete enfòmasyon foto a
+              nan tab galri.
+            */
+
+            const {
+              error: dbError
+            } = await supabaseClient
+              .from("galri")
+              .insert({
+                tit: tit,
+                deskripsyon:
+                  deskripsyon || null,
+                foto_url: foto_url,
+                aktivite_id:
+                  aktivite_id,
+                kategori:
+                  kategori || null,
+                piblik: true,
+                dat_foto:
+                  dat_foto || null
+              });
+
+
+            if (dbError) {
+
+              console.error(
+                "Erè insert galri:",
+                dbError
+              );
+
+
+              /*
+                Si insert DB echwe,
+                efase fichye a nan Storage
+                pou pa kite fichye san metadata.
+              */
+
+              await supabaseClient
+                .storage
+                .from(BUCKET)
+                .remove([
+                  nonFichye
+                ]);
+
+
+              throw new Error(
+                "Foto a te upload men nou pa kapab anrejistre li nan galri: " +
+                dbError.message
+              );
+            }
+
+
+            montreSucces(
+              "Foto a upload epi pibliye avèk siksè."
+            );
+
+
+            this.reset();
+
+
+            document.getElementById(
+              "previewContainer"
+            ).style.display = "none";
+
+
+            kacheFormUpload();
+
+
+            await chajeGalri();
+
+
+          } catch (error) {
+
+            console.error(error);
+
+            montreErreur(
+              error.message ||
+              "Nou pa kapab upload foto a."
+            );
+
+
+          } finally {
+
+            btn.disabled = false;
+
+            btn.textContent =
+              "Upload foto";
+
+          }
+
+        }
+      );
+
+
+    /* =====================================================
+       CHANJE PUBLICATION
+    ===================================================== */
+
+    async function chanjePublication(
+      id,
+      nouvoEta
+    ) {
+
+      const {
+        error
+      } = await supabaseClient
+        .from("galri")
+        .update({
+          piblik: nouvoEta
+        })
+        .eq("id", id);
+
+
+      if (error) {
+
+        console.error(
+          error
+        );
+
+        montreErreur(
+          "Nou pa kapab modifye eta piblikasyon an: " +
+          error.message
+        );
+
+        return;
+      }
+
+
+      montreSucces(
+        nouvoEta
+          ? "Foto a pibliye."
+          : "Foto a kache."
+      );
+
+
+      await chajeGalri();
+
+    }
+
+
+    /* =====================================================
+       EFase FOTO
+    ===================================================== */
+
+    async function efaseFoto(id) {
+
+      const foto =
+        toutFoto.find(
+          item => item.id === id
+        );
+
+
+      if (!foto) return;
+
+
+      const konfime =
+        confirm(
+          "Èske ou sèten ou vle efase foto sa a? Aksyon sa a pa ka anile."
+        );
+
+
+      if (!konfime) return;
+
+
+      try {
+
+        /*
+          Jwenn non fichye a nan URL la.
+        */
+
+        let filePath = null;
+
+
+        if (foto.foto_url) {
+
+          const marker =
+            "/storage/v1/object/public/" +
+            BUCKET +
+            "/";
+
+
+          const index =
+            foto.foto_url.indexOf(
+              marker
+            );
+
+
+          if (index !== -1) {
+
+            filePath =
+              decodeURIComponent(
+                foto.foto_url.substring(
+                  index + marker.length
+                )
+              );
+
+          }
+
+        }
+
+
+        /*
+          Efase fichye Storage.
+        */
+
+        if (filePath) {
+
+          const {
+            error: storageError
+          } = await supabaseClient
+            .storage
+            .from(BUCKET)
+            .remove([
+              filePath
+            ]);
+
+
+          if (storageError) {
+
+            console.warn(
+              "Foto Storage pa efase:",
+              storageError
+            );
+
+          }
+
+        }
+
+
+        /*
+          Efase metadata nan DB.
+        */
+
+        const {
+          error: dbError
+        } = await supabaseClient
+          .from("galri")
+          .delete()
+          .eq("id", id);
+
+
+        if (dbError) {
+
+          throw dbError;
+        }
+
+
+        montreSucces(
+          "Foto a efase avèk siksè."
+        );
+
+
+        await chajeGalri();
+
+
+      } catch (error) {
+
+        console.error(error);
+
+        montreErreur(
+          "Nou pa kapab efase foto a: " +
+          error.message
+        );
+
+      }
+
+    }
+
+
+    /* =====================================================
+       PREVIEW
+    ===================================================== */
+
+    function previewFoto(id) {
+
+      const foto =
+        toutFoto.find(
+          item => item.id === id
+        );
+
+
+      if (!foto) return;
+
+
+      document.getElementById(
+        "modalTitle"
+      ).textContent =
+        foto.tit || "Foto";
+
+
+      document.getElementById(
+        "modalImage"
+      ).src =
+        foto.foto_url;
+
+
+      document.getElementById(
+        "modalDescription"
+      ).textContent =
+        foto.deskripsyon ||
+        "Pa gen deskripsyon.";
+
+
+      document
+        .getElementById("photoModal")
+        .classList.add("show");
+
+    }
+
+
+    function femenModal() {
+
+      document
+        .getElementById("photoModal")
+        .classList.remove("show");
+
+    }
+
+
+    /* =====================================================
+       MODIFYE FOTO
+    ===================================================== */
+
+    async function modifieFoto(id) {
+
+      const foto =
+        toutFoto.find(
+          item => item.id === id
+        );
+
+
+      if (!foto) return;
+
+
+      const nouvoTit =
+        prompt(
+          "Nouvo tit foto a:",
+          foto.tit || ""
+        );
+
+
+      if (nouvoTit === null) return;
+
+
+      const nouvoDescription =
+        prompt(
+          "Nouvo deskripsyon:",
+          foto.deskripsyon || ""
+        );
+
+
+      if (nouvoDescription === null) return;
+
+
+      const {
+        error
+      } = await supabaseClient
+        .from("galri")
+        .update({
+          tit: nouvoTit.trim(),
+          deskripsyon:
+            nouvoDescription.trim()
+        })
+        .eq("id", id);
+
+
+      if (error) {
+
+        console.error(
+          error
+        );
+
+        montreErreur(
+          "Nou pa kapab modifye foto a: " +
+          error.message
+        );
+
+        return;
+      }
+
+
+      montreSucces(
+        "Enfòmasyon foto a modifye."
+      );
+
+
+      await chajeGalri();
+
+    }
+
+
+    /* =====================================================
+       FORM UPLOAD
+    ===================================================== */
+
+    function afficheFormUpload() {
+
+      document.getElementById(
+        "uploadPanel"
+      ).style.display = "block";
+
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+
+    }
+
+
+    function kacheFormUpload() {
+
+      document.getElementById(
+        "uploadPanel"
+      ).style.display = "none";
+
+    }
+
+
+    /* =====================================================
+       MESSAGES
+    ===================================================== */
+
+    function montreSucces(message) {
+
+      const element =
+        document.getElementById(
+          "messageSuccess"
+        );
+
+
+      const errorElement =
+        document.getElementById(
+          "messageError"
+        );
+
+
+      errorElement.style.display =
+        "none";
+
+
+      element.textContent =
+        message;
+
+
+      element.style.display =
+        "block";
+
+
+      setTimeout(() => {
+
+        element.style.display =
+          "none";
+
+      }, 5000);
+
+    }
+
+
+    function montreErreur(message) {
+
+      const element =
+        document.getElementById(
+          "messageError"
+        );
+
+
+      const successElement =
+        document.getElementById(
+          "messageSuccess"
+        );
+
+
+      successElement.style.display =
+        "none";
+
+
+      element.textContent =
+        message;
+
+
+      element.style.display =
+        "block";
+
+    }
+
+
+    /* =====================================================
+       SECURITY HTML
+    ===================================================== */
+
+    function escapeHTML(value) {
+
+      if (value === null ||
+          value === undefined) {
+
+        return "";
+
+      }
+
+
+      return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+    }
+
+
+    /* =====================================================
+       DEKONEKTE
+    ===================================================== */
+
+    async function dekonèkte() {
+
+      await supabaseClient.auth.signOut();
+
+      window.location.href =
+        "login.html";
+
+    }
+
+
+    /* =====================================================
+       KLIK DEYÒ MODAL
+    ===================================================== */
+
+    document
+      .getElementById("photoModal")
+      .addEventListener(
+        "click",
+        function(e) {
+
+          if (e.target === this) {
+
+            femenModal();
+
+          }
+
+        }
+      );
+
+
+    /* =====================================================
+       INITIALISATION
+    ===================================================== */
+
+    async function demare() {
+
+      const adminOK =
+        await verifyeAdministrateur();
+
+
+      if (!adminOK) return;
+
+
+      await chajeAktivite();
+
+      await chajeGalri();
+
+    }
+
+
+    demare();
+
+  </script>
+
+</body>
+</html>

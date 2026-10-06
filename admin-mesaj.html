@@ -1,0 +1,2356 @@
+<!DOCTYPE html>
+<html lang="ht">
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Mesaj — Admin | LAJONÈ'M</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Open+Sans:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  >
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase.js"></script>
+
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+
+    body {
+      font-family: "Open Sans", sans-serif;
+      background: #f4f7fb;
+      color: #172033;
+    }
+
+
+    button,
+    input,
+    textarea,
+    select {
+      font-family: inherit;
+    }
+
+
+    /* =========================
+       LAYOUT
+    ========================= */
+
+    .admin-layout {
+      min-height: 100vh;
+      display: flex;
+    }
+
+
+    /* =========================
+       SIDEBAR
+    ========================= */
+
+    .sidebar {
+      width: 260px;
+      background: #0B3B75;
+      color: white;
+      min-height: 100vh;
+
+      position: fixed;
+      left: 0;
+      top: 0;
+      bottom: 0;
+
+      overflow-y: auto;
+
+      z-index: 1000;
+    }
+
+
+    .logo-area {
+      padding: 24px 20px;
+      border-bottom: 1px solid rgba(255,255,255,.15);
+    }
+
+
+    .logo-area h1 {
+      font-family: "Montserrat", sans-serif;
+      font-size: 22px;
+      font-weight: 800;
+    }
+
+
+    .logo-area p {
+      margin-top: 5px;
+      font-size: 12px;
+      opacity: .8;
+    }
+
+
+    .menu {
+      padding: 18px 12px;
+    }
+
+
+    .menu-title {
+      font-size: 11px;
+      text-transform: uppercase;
+      opacity: .55;
+
+      margin: 12px 10px 8px;
+
+      font-weight: 700;
+    }
+
+
+    .menu a {
+      display: flex;
+      align-items: center;
+
+      gap: 10px;
+
+      text-decoration: none;
+
+      color: white;
+
+      padding: 11px 12px;
+
+      border-radius: 8px;
+
+      margin-bottom: 4px;
+
+      font-size: 14px;
+
+      transition: .2s;
+    }
+
+
+    .menu a:hover,
+    .menu a.active {
+      background: rgba(255,255,255,.14);
+    }
+
+
+    /* =========================
+       MAIN
+    ========================= */
+
+    .main {
+      margin-left: 260px;
+
+      width: calc(100% - 260px);
+
+      min-height: 100vh;
+    }
+
+
+    .topbar {
+      height: 70px;
+
+      background: white;
+
+      border-bottom: 1px solid #e4e8ef;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: space-between;
+
+      padding: 0 28px;
+
+      position: sticky;
+
+      top: 0;
+
+      z-index: 500;
+    }
+
+
+    .topbar h2 {
+      font-family: "Montserrat", sans-serif;
+
+      font-size: 20px;
+
+      color: #0B3B75;
+    }
+
+
+    .topbar-right {
+      display: flex;
+
+      align-items: center;
+
+      gap: 12px;
+    }
+
+
+    .admin-name {
+      font-size: 14px;
+
+      font-weight: 600;
+    }
+
+
+    .logout-btn {
+      border: none;
+
+      background: #dc3545;
+
+      color: white;
+
+      padding: 9px 14px;
+
+      border-radius: 7px;
+
+      cursor: pointer;
+
+      font-weight: 600;
+    }
+
+
+    .menu-toggle {
+      display: none;
+
+      border: none;
+
+      background: #0B3B75;
+
+      color: white;
+
+      padding: 8px 11px;
+
+      border-radius: 7px;
+
+      font-size: 20px;
+
+      cursor: pointer;
+    }
+
+
+    /* =========================
+       CONTENT
+    ========================= */
+
+    .content {
+      padding: 28px;
+    }
+
+
+    .page-heading {
+      display: flex;
+
+      justify-content: space-between;
+
+      align-items: center;
+
+      gap: 20px;
+
+      margin-bottom: 24px;
+    }
+
+
+    .page-heading h1 {
+      font-family: "Montserrat", sans-serif;
+
+      font-size: 26px;
+
+      color: #0B3B75;
+    }
+
+
+    .page-heading p {
+      margin-top: 5px;
+
+      color: #657083;
+
+      font-size: 14px;
+    }
+
+
+    /* =========================
+       STATS
+    ========================= */
+
+    .stats {
+      display: grid;
+
+      grid-template-columns: repeat(4, 1fr);
+
+      gap: 18px;
+
+      margin-bottom: 24px;
+    }
+
+
+    .stat-card {
+      background: white;
+
+      padding: 20px;
+
+      border-radius: 12px;
+
+      border: 1px solid #e5e9f0;
+
+      box-shadow: 0 3px 12px rgba(0,0,0,.04);
+    }
+
+
+    .stat-label {
+      color: #6c7585;
+
+      font-size: 13px;
+
+      margin-bottom: 7px;
+    }
+
+
+    .stat-value {
+      font-family: "Montserrat", sans-serif;
+
+      font-size: 28px;
+
+      font-weight: 800;
+
+      color: #0B3B75;
+    }
+
+
+    /* =========================
+       FILTERS
+    ========================= */
+
+    .filters {
+      background: white;
+
+      padding: 18px;
+
+      border-radius: 12px;
+
+      border: 1px solid #e5e9f0;
+
+      margin-bottom: 20px;
+
+      display: grid;
+
+      grid-template-columns: 1fr 220px;
+
+      gap: 12px;
+    }
+
+
+    .filters input,
+    .filters select {
+      width: 100%;
+
+      padding: 11px 12px;
+
+      border: 1px solid #d8dee8;
+
+      border-radius: 7px;
+
+      outline: none;
+    }
+
+
+    /* =========================
+       TABLE
+    ========================= */
+
+    .table-container {
+      background: white;
+
+      border-radius: 12px;
+
+      border: 1px solid #e5e9f0;
+
+      overflow-x: auto;
+    }
+
+
+    table {
+      width: 100%;
+
+      border-collapse: collapse;
+
+      min-width: 950px;
+    }
+
+
+    th,
+    td {
+      padding: 13px 14px;
+
+      text-align: left;
+
+      border-bottom: 1px solid #edf0f4;
+
+      font-size: 13px;
+    }
+
+
+    th {
+      background: #f8fafc;
+
+      color: #455065;
+
+      font-weight: 700;
+    }
+
+
+    tr:hover td {
+      background: #fafbfd;
+    }
+
+
+    .message-name {
+      font-weight: 700;
+
+      color: #0B3B75;
+    }
+
+
+    .message-subject {
+      font-weight: 600;
+    }
+
+
+    .message-preview {
+      color: #697386;
+
+      max-width: 280px;
+    }
+
+
+    .status {
+      display: inline-block;
+
+      padding: 5px 9px;
+
+      border-radius: 20px;
+
+      font-size: 11px;
+
+      font-weight: 700;
+    }
+
+
+    .status-new {
+      background: #fff1cc;
+
+      color: #8a6100;
+    }
+
+
+    .status-read {
+      background: #e8eef7;
+
+      color: #31557e;
+    }
+
+
+    .status-replied {
+      background: #e4f5eb;
+
+      color: #207545;
+    }
+
+
+    .status-closed {
+      background: #f1f2f4;
+
+      color: #667080;
+    }
+
+
+    .action-buttons {
+      display: flex;
+
+      gap: 6px;
+    }
+
+
+    .btn-view,
+    .btn-delete {
+      border: none;
+
+      padding: 7px 10px;
+
+      border-radius: 6px;
+
+      cursor: pointer;
+
+      font-size: 12px;
+
+      font-weight: 600;
+    }
+
+
+    .btn-view {
+      background: #e6effa;
+
+      color: #0B3B75;
+    }
+
+
+    .btn-delete {
+      background: #fde8eb;
+
+      color: #b42333;
+    }
+
+
+    .empty,
+    .loading {
+      text-align: center;
+
+      padding: 40px;
+
+      color: #747d8d;
+    }
+
+
+    /* =========================
+       MODAL
+    ========================= */
+
+    .modal {
+      display: none;
+
+      position: fixed;
+
+      inset: 0;
+
+      background: rgba(10,25,45,.62);
+
+      z-index: 2000;
+
+      align-items: center;
+
+      justify-content: center;
+
+      padding: 20px;
+    }
+
+
+    .modal.show {
+      display: flex;
+    }
+
+
+    .modal-box {
+      background: white;
+
+      width: 100%;
+
+      max-width: 720px;
+
+      max-height: 92vh;
+
+      overflow-y: auto;
+
+      border-radius: 14px;
+
+      padding: 25px;
+    }
+
+
+    .modal-header {
+      display: flex;
+
+      justify-content: space-between;
+
+      align-items: center;
+
+      margin-bottom: 20px;
+    }
+
+
+    .modal-header h2 {
+      font-family: "Montserrat", sans-serif;
+
+      color: #0B3B75;
+
+      font-size: 21px;
+    }
+
+
+    .close-modal {
+      border: none;
+
+      background: #eef1f5;
+
+      width: 34px;
+
+      height: 34px;
+
+      border-radius: 50%;
+
+      cursor: pointer;
+
+      font-size: 18px;
+    }
+
+
+    .message-detail {
+      display: grid;
+
+      gap: 16px;
+    }
+
+
+    .detail-item {
+      border-bottom: 1px solid #edf0f4;
+
+      padding-bottom: 13px;
+    }
+
+
+    .detail-label {
+      font-size: 12px;
+
+      color: #747d8d;
+
+      font-weight: 700;
+
+      margin-bottom: 5px;
+
+      text-transform: uppercase;
+    }
+
+
+    .detail-value {
+      font-size: 14px;
+
+      color: #172033;
+
+      white-space: pre-wrap;
+
+      word-break: break-word;
+    }
+
+
+    .message-content {
+      background: #f8fafc;
+
+      border-radius: 9px;
+
+      padding: 16px;
+
+      line-height: 1.7;
+
+      white-space: pre-wrap;
+
+      min-height: 120px;
+    }
+
+
+    .status-actions {
+      display: flex;
+
+      flex-wrap: wrap;
+
+      gap: 8px;
+
+      margin-top: 10px;
+    }
+
+
+    .status-btn {
+      border: none;
+
+      padding: 9px 13px;
+
+      border-radius: 7px;
+
+      cursor: pointer;
+
+      font-weight: 600;
+
+      font-size: 12px;
+    }
+
+
+    .btn-mark-read {
+      background: #e8eef7;
+
+      color: #31557e;
+    }
+
+
+    .btn-mark-replied {
+      background: #e4f5eb;
+
+      color: #207545;
+    }
+
+
+    .btn-mark-closed {
+      background: #f1f2f4;
+
+      color: #667080;
+    }
+
+
+    @media (max-width: 1050px) {
+
+      .stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+    }
+
+
+    @media (max-width: 900px) {
+
+      .sidebar {
+        transform: translateX(-100%);
+
+        transition: .25s;
+      }
+
+
+      .sidebar.open {
+        transform: translateX(0);
+      }
+
+
+      .main {
+        margin-left: 0;
+
+        width: 100%;
+      }
+
+
+      .menu-toggle {
+        display: block;
+      }
+
+
+      .admin-name {
+        display: none;
+      }
+
+
+      .content {
+        padding: 18px;
+      }
+
+
+      .filters {
+        grid-template-columns: 1fr;
+      }
+
+    }
+
+
+    @media (max-width: 600px) {
+
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+
+      .page-heading {
+        flex-direction: column;
+
+        align-items: flex-start;
+      }
+
+
+      .page-heading h1 {
+        font-size: 22px;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+<div class="admin-layout">
+
+
+  <!-- SIDEBAR -->
+
+  <aside
+    class="sidebar"
+    id="sidebar"
+  >
+
+    <div class="logo-area">
+
+      <h1>LAJONÈ'M</h1>
+
+      <p>Pano Administrasyon</p>
+
+    </div>
+
+
+    <nav class="menu">
+
+      <div class="menu-title">
+        Jeneral
+      </div>
+
+
+      <a href="admin.html">
+        Dashboard
+      </a>
+
+
+      <div class="menu-title">
+        Jesyon
+      </div>
+
+
+      <a href="admin-aktivite.html">
+        Aktivite
+      </a>
+
+
+      <a href="admin-pwogram.html">
+        Pwogram
+      </a>
+
+
+      <a href="admin-benefisye.html">
+        Benefisyè
+      </a>
+
+
+      <a href="admin-volonte.html">
+        Volontè
+      </a>
+
+
+      <a href="admin-vizit.html">
+        Vizit
+      </a>
+
+
+      <a href="admin-don.html">
+        Don
+      </a>
+
+
+      <a href="admin-donatè.html">
+        Donatè
+      </a>
+
+
+      <a href="admin-nouvel.html">
+        Nouvèl
+      </a>
+
+
+      <a href="admin-patne.html">
+        Patnè
+      </a>
+
+
+      <a href="admin-galri.html">
+        Galri
+      </a>
+
+
+      <a href="admin-rapo.html">
+        Rapò
+      </a>
+
+
+      <a
+        href="admin-mesaj.html"
+        class="active"
+      >
+        Mesaj
+      </a>
+
+    </nav>
+
+  </aside>
+
+
+  <!-- MAIN -->
+
+  <main class="main">
+
+
+    <header class="topbar">
+
+      <div
+        style="
+          display:flex;
+          align-items:center;
+          gap:12px;
+        "
+      >
+
+        <button
+          class="menu-toggle"
+          id="menuToggle"
+          type="button"
+        >
+          ☰
+        </button>
+
+
+        <h2>
+          Mesaj Kontak
+        </h2>
+
+      </div>
+
+
+      <div class="topbar-right">
+
+        <span
+          class="admin-name"
+          id="adminName"
+        >
+          Administratè
+        </span>
+
+
+        <button
+          class="logout-btn"
+          id="logoutBtn"
+          type="button"
+        >
+          Dekonekte
+        </button>
+
+      </div>
+
+    </header>
+
+
+    <section class="content">
+
+
+      <!-- HEADER -->
+
+      <div class="page-heading">
+
+        <div>
+
+          <h1>
+            Mesaj Kontak
+          </h1>
+
+          <p>
+            Jere tout mesaj moun voye bay LAJONÈ'M.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <!-- STATS -->
+
+      <div class="stats">
+
+
+        <div class="stat-card">
+
+          <div class="stat-label">
+            Nouvo
+          </div>
+
+          <div
+            class="stat-value"
+            id="newCount"
+          >
+            0
+          </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+          <div class="stat-label">
+            Li
+          </div>
+
+          <div
+            class="stat-value"
+            id="readCount"
+          >
+            0
+          </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+          <div class="stat-label">
+            Reponn
+          </div>
+
+          <div
+            class="stat-value"
+            id="repliedCount"
+          >
+            0
+          </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+          <div class="stat-label">
+            Fèmen
+          </div>
+
+          <div
+            class="stat-value"
+            id="closedCount"
+          >
+            0
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- FILTERS -->
+
+      <div class="filters">
+
+
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Chèche non, email, sijè oswa mesaj..."
+        >
+
+
+        <select id="statusFilter">
+
+          <option value="">
+            Tout estati
+          </option>
+
+          <option value="nouvo">
+            Nouvo
+          </option>
+
+          <option value="li">
+            Li
+          </option>
+
+          <option value="reponn">
+            Reponn
+          </option>
+
+          <option value="fèmen">
+            Fèmen
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <!-- TABLE -->
+
+      <div class="table-container">
+
+
+        <div
+          class="loading"
+          id="loading"
+        >
+          Ap chaje mesaj yo...
+        </div>
+
+
+        <table
+          id="messagesTable"
+          style="display:none;"
+        >
+
+          <thead>
+
+            <tr>
+
+              <th>Non</th>
+
+              <th>Sijè</th>
+
+              <th>Kontak</th>
+
+              <th>Mesaj</th>
+
+              <th>Estati</th>
+
+              <th>Dat</th>
+
+              <th>Aksyon</th>
+
+            </tr>
+
+          </thead>
+
+
+          <tbody id="messagesBody"></tbody>
+
+        </table>
+
+      </div>
+
+    </section>
+
+  </main>
+
+</div>
+
+
+<!-- MODAL DETAY MESAJ -->
+
+<div
+  class="modal"
+  id="messageModal"
+>
+
+  <div class="modal-box">
+
+
+    <div class="modal-header">
+
+      <h2>
+        Detay mesaj
+      </h2>
+
+
+      <button
+        class="close-modal"
+        id="closeModal"
+        type="button"
+      >
+        ×
+      </button>
+
+    </div>
+
+
+    <div class="message-detail">
+
+
+      <div class="detail-item">
+
+        <div class="detail-label">
+          Non
+        </div>
+
+        <div
+          class="detail-value"
+          id="detailName"
+        >
+          —
+        </div>
+
+      </div>
+
+
+      <div class="detail-item">
+
+        <div class="detail-label">
+          Email
+        </div>
+
+        <div
+          class="detail-value"
+          id="detailEmail"
+        >
+          —
+        </div>
+
+      </div>
+
+
+      <div class="detail-item">
+
+        <div class="detail-label">
+          Telefòn
+        </div>
+
+        <div
+          class="detail-value"
+          id="detailPhone"
+        >
+          —
+        </div>
+
+      </div>
+
+
+      <div class="detail-item">
+
+        <div class="detail-label">
+          Sijè
+        </div>
+
+        <div
+          class="detail-value"
+          id="detailSubject"
+        >
+          —
+        </div>
+
+      </div>
+
+
+      <div class="detail-item">
+
+        <div class="detail-label">
+          Dat
+        </div>
+
+        <div
+          class="detail-value"
+          id="detailDate"
+        >
+          —
+        </div>
+
+      </div>
+
+
+      <div class="detail-item">
+
+        <div class="detail-label">
+          Mesaj
+        </div>
+
+        <div
+          class="message-content"
+          id="detailMessage"
+        >
+          —
+        </div>
+
+      </div>
+
+
+      <div class="detail-item">
+
+        <div class="detail-label">
+          Chanje estati
+        </div>
+
+
+        <div class="status-actions">
+
+          <button
+            class="status-btn btn-mark-read"
+            onclick="changeStatus('li')"
+          >
+            Make kòm li
+          </button>
+
+
+          <button
+            class="status-btn btn-mark-replied"
+            onclick="changeStatus('reponn')"
+          >
+            Make kòm reponn
+          </button>
+
+
+          <button
+            class="status-btn btn-mark-closed"
+            onclick="changeStatus('fèmen')"
+          >
+            Fèmen mesaj
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<script>
+
+
+  /* =========================
+     VARIABLES
+  ========================= */
+
+  let messagesData = [];
+
+  let selectedMessageId = null;
+
+
+  /* =========================
+     VERIFY ADMIN
+  ========================= */
+
+  async function verifyeAdministrateur() {
+
+
+    const {
+      data: { user },
+      error: userError
+    } =
+      await supabaseClient.auth.getUser();
+
+
+    if (userError || !user) {
+
+      window.location.href =
+        "login.html";
+
+      return null;
+
+    }
+
+
+    const {
+      data: admin,
+      error
+    } =
+      await supabaseClient
+
+        .from("itilizatè_admin")
+
+        .select(`
+          id,
+          user_id,
+          non,
+          siyati,
+          email,
+          wòl,
+          aktif
+        `)
+
+        .eq("user_id", user.id)
+
+        .eq("aktif", true)
+
+        .maybeSingle();
+
+
+    if (error) {
+
+      console.error(error);
+
+      alert(
+        "Nou pa kapab verifye aksè administratè a."
+      );
+
+      window.location.href =
+        "login.html";
+
+      return null;
+
+    }
+
+
+    if (
+      !admin ||
+      !["super_admin", "admin"]
+        .includes(admin.wòl)
+    ) {
+
+      alert(
+        "Ou pa gen otorizasyon pou antre nan paj sa a."
+      );
+
+      window.location.href =
+        "index.html";
+
+      return null;
+
+    }
+
+
+    document
+      .getElementById("adminName")
+      .textContent =
+      admin.non ||
+      "Administratè";
+
+
+    return admin;
+
+  }
+
+
+  /* =========================
+     LOAD MESSAGES
+  ========================= */
+
+  async function loadMessages() {
+
+
+    document
+      .getElementById("loading")
+      .style.display =
+      "block";
+
+
+    document
+      .getElementById("messagesTable")
+      .style.display =
+      "none";
+
+
+    const {
+      data,
+      error
+    } =
+      await supabaseClient
+
+        .from("mesaj_kontak")
+
+        .select(`
+          id,
+          non,
+          email,
+          telefòn,
+          sijè,
+          mesaj,
+          estati,
+          dat_mesaj,
+          nòt_admin
+        `)
+
+        .order(
+          "dat_mesaj",
+          {
+            ascending: false
+          }
+        );
+
+
+    if (error) {
+
+      console.error(
+        "Erè mesaj:",
+        error
+      );
+
+
+      document
+        .getElementById("loading")
+        .textContent =
+        "Gen yon erè pandan n ap chaje mesaj yo.";
+
+      return;
+
+    }
+
+
+    messagesData =
+      data || [];
+
+
+    updateStats();
+
+    renderMessages();
+
+  }
+
+
+  /* =========================
+     STATS
+  ========================= */
+
+  function updateStats() {
+
+
+    const newMessages =
+      messagesData.filter(
+        item =>
+          item.estati === "nouvo"
+      ).length;
+
+
+    const readMessages =
+      messagesData.filter(
+        item =>
+          item.estati === "li"
+      ).length;
+
+
+    const repliedMessages =
+      messagesData.filter(
+        item =>
+          item.estati === "reponn"
+      ).length;
+
+
+    const closedMessages =
+      messagesData.filter(
+        item =>
+          item.estati === "fèmen"
+      ).length;
+
+
+    document
+      .getElementById("newCount")
+      .textContent =
+      newMessages;
+
+
+    document
+      .getElementById("readCount")
+      .textContent =
+      readMessages;
+
+
+    document
+      .getElementById("repliedCount")
+      .textContent =
+      repliedMessages;
+
+
+    document
+      .getElementById("closedCount")
+      .textContent =
+      closedMessages;
+
+  }
+
+
+  /* =========================
+     STATUS LABEL
+  ========================= */
+
+  function getStatusLabel(status) {
+
+
+    const labels = {
+
+      "nouvo": "Nouvo",
+
+      "li": "Li",
+
+      "reponn": "Reponn",
+
+      "fèmen": "Fèmen"
+
+    };
+
+
+    return (
+      labels[status] ||
+      status ||
+      "—"
+    );
+
+  }
+
+
+  /* =========================
+     STATUS CLASS
+  ========================= */
+
+  function getStatusClass(status) {
+
+
+    const classes = {
+
+      "nouvo": "status-new",
+
+      "li": "status-read",
+
+      "reponn": "status-replied",
+
+      "fèmen": "status-closed"
+
+    };
+
+
+    return (
+      classes[status] ||
+      "status-read"
+    );
+
+  }
+
+
+  /* =========================
+     RENDER
+  ========================= */
+
+  function renderMessages() {
+
+
+    const search =
+      document
+        .getElementById("searchInput")
+        .value
+        .toLowerCase()
+        .trim();
+
+
+    const status =
+      document
+        .getElementById("statusFilter")
+        .value;
+
+
+    const filtered =
+      messagesData.filter(message => {
+
+
+        const matchSearch =
+          !search ||
+
+          (message.non || "")
+            .toLowerCase()
+            .includes(search) ||
+
+          (message.email || "")
+            .toLowerCase()
+            .includes(search) ||
+
+          (message.sijè || "")
+            .toLowerCase()
+            .includes(search) ||
+
+          (message.mesaj || "")
+            .toLowerCase()
+            .includes(search);
+
+
+        const matchStatus =
+          !status ||
+          message.estati === status;
+
+
+        return (
+          matchSearch &&
+          matchStatus
+        );
+
+      });
+
+
+    const body =
+      document
+        .getElementById("messagesBody");
+
+
+    body.innerHTML = "";
+
+
+    document
+      .getElementById("loading")
+      .style.display =
+      "none";
+
+
+    document
+      .getElementById("messagesTable")
+      .style.display =
+      "table";
+
+
+    if (!filtered.length) {
+
+      body.innerHTML = `
+
+        <tr>
+
+          <td
+            colspan="7"
+            class="empty"
+          >
+            Pa gen mesaj ki koresponn ak rechèch la.
+          </td>
+
+        </tr>
+
+      `;
+
+      return;
+
+    }
+
+
+    filtered.forEach(message => {
+
+
+      const preview =
+        truncate(
+          message.mesaj || "",
+          80
+        );
+
+
+      const date =
+        formatDate(
+          message.dat_mesaj
+        );
+
+
+      const statusClass =
+        getStatusClass(
+          message.estati
+        );
+
+
+      const statusLabel =
+        getStatusLabel(
+          message.estati
+        );
+
+
+      const row =
+        document.createElement("tr");
+
+
+      row.innerHTML = `
+
+        <td>
+
+          <div class="message-name">
+
+            ${escapeHTML(
+              message.non || "—"
+            )}
+
+          </div>
+
+        </td>
+
+
+        <td>
+
+          <div class="message-subject">
+
+            ${escapeHTML(
+              message.sijè || "San sijè"
+            )}
+
+          </div>
+
+        </td>
+
+
+        <td>
+
+          ${escapeHTML(
+            message.email || "—"
+          )}
+
+          <br>
+
+          ${escapeHTML(
+            message.telefòn || ""
+          )}
+
+        </td>
+
+
+        <td>
+
+          <div class="message-preview">
+
+            ${escapeHTML(preview)}
+
+          </div>
+
+        </td>
+
+
+        <td>
+
+          <span
+            class="status ${statusClass}"
+          >
+            ${statusLabel}
+          </span>
+
+        </td>
+
+
+        <td>
+          ${date}
+        </td>
+
+
+        <td>
+
+          <div class="action-buttons">
+
+            <button
+              class="btn-view"
+              onclick="viewMessage('${message.id}')"
+            >
+              Wè
+            </button>
+
+
+            <button
+              class="btn-delete"
+              onclick="deleteMessage('${message.id}')"
+            >
+              Efase
+            </button>
+
+          </div>
+
+        </td>
+
+      `;
+
+
+      body.appendChild(row);
+
+    });
+
+  }
+
+
+  /* =========================
+     VIEW MESSAGE
+  ========================= */
+
+  window.viewMessage =
+    async function(id) {
+
+
+      const message =
+        messagesData.find(
+          item =>
+            item.id === id
+        );
+
+
+      if (!message) {
+
+        alert(
+          "Mesaj la pa jwenn."
+        );
+
+        return;
+
+      }
+
+
+      selectedMessageId =
+        id;
+
+
+      document
+        .getElementById("detailName")
+        .textContent =
+        message.non || "—";
+
+
+      document
+        .getElementById("detailEmail")
+        .textContent =
+        message.email || "—";
+
+
+      document
+        .getElementById("detailPhone")
+        .textContent =
+        message.telefòn || "—";
+
+
+      document
+        .getElementById("detailSubject")
+        .textContent =
+        message.sijè || "San sijè";
+
+
+      document
+        .getElementById("detailDate")
+        .textContent =
+        formatDate(
+          message.dat_mesaj
+        );
+
+
+      document
+        .getElementById("detailMessage")
+        .textContent =
+        message.mesaj || "—";
+
+
+      document
+        .getElementById("messageModal")
+        .classList.add("show");
+
+
+      /*
+       * Si mesaj la nouvo,
+       * nou make li kòm "li"
+       */
+
+      if (
+        message.estati === "nouvo"
+      ) {
+
+        await updateMessageStatus(
+          id,
+          "li",
+          false
+        );
+
+      }
+
+    };
+
+
+  /* =========================
+     UPDATE STATUS
+  ========================= */
+
+  async function updateMessageStatus(
+    id,
+    status,
+    showAlert = true
+  ) {
+
+
+    const {
+      error
+    } =
+      await supabaseClient
+
+        .from("mesaj_kontak")
+
+        .update({
+          estati: status
+        })
+
+        .eq("id", id);
+
+
+    if (error) {
+
+      console.error(
+        "Erè status:",
+        error
+      );
+
+
+      if (showAlert) {
+
+        alert(
+          "Erè: " +
+          error.message
+        );
+
+      }
+
+      return false;
+
+    }
+
+
+    const message =
+      messagesData.find(
+        item =>
+          item.id === id
+      );
+
+
+    if (message) {
+
+      message.estati =
+        status;
+
+    }
+
+
+    updateStats();
+
+    renderMessages();
+
+
+    if (showAlert) {
+
+      alert(
+        "Estati mesaj la mete ajou."
+      );
+
+    }
+
+
+    return true;
+
+  }
+
+
+  /* =========================
+     CHANGE STATUS FROM MODAL
+  ========================= */
+
+  window.changeStatus =
+    async function(status) {
+
+
+      if (!selectedMessageId) {
+
+        return;
+
+      }
+
+
+      await updateMessageStatus(
+        selectedMessageId,
+        status,
+        true
+      );
+
+    };
+
+
+  /* =========================
+     DELETE MESSAGE
+  ========================= */
+
+  window.deleteMessage =
+    async function(id) {
+
+
+      const message =
+        messagesData.find(
+          item =>
+            item.id === id
+        );
+
+
+      if (!message) return;
+
+
+      const confirmed =
+        confirm(
+          `Èske ou sèten ou vle efase mesaj "${message.sijè || "San sijè"}"?`
+        );
+
+
+      if (!confirmed) {
+
+        return;
+
+      }
+
+
+      const {
+        error
+      } =
+        await supabaseClient
+
+          .from("mesaj_kontak")
+
+          .delete()
+
+          .eq("id", id);
+
+
+      if (error) {
+
+        console.error(error);
+
+
+        alert(
+          "Erè pandan efasman: " +
+          error.message
+        );
+
+        return;
+
+      }
+
+
+      if (
+        selectedMessageId === id
+      ) {
+
+        closeModal();
+
+      }
+
+
+      alert(
+        "Mesaj la efase avèk siksè."
+      );
+
+
+      await loadMessages();
+
+    };
+
+
+  /* =========================
+     FORMAT DATE
+  ========================= */
+
+  function formatDate(date) {
+
+
+    if (!date) {
+
+      return "—";
+
+    }
+
+
+    try {
+
+      return new Date(date)
+        .toLocaleString(
+          "ht-HT",
+          {
+            dateStyle: "short",
+            timeStyle: "short"
+          }
+        );
+
+    } catch {
+
+      return date;
+
+    }
+
+  }
+
+
+  /* =========================
+     TRUNCATE
+  ========================= */
+
+  function truncate(
+    text,
+    max
+  ) {
+
+
+    if (
+      text.length <= max
+    ) {
+
+      return text;
+
+    }
+
+
+    return (
+      text.substring(0, max) +
+      "..."
+    );
+
+  }
+
+
+  /* =========================
+     ESCAPE HTML
+  ========================= */
+
+  function escapeHTML(
+    value
+  ) {
+
+
+    return String(
+      value ?? ""
+    )
+
+      .replace(
+        /&/g,
+        "&amp;"
+      )
+
+      .replace(
+        /</g,
+        "&lt;"
+      )
+
+      .replace(
+        />/g,
+        "&gt;"
+      )
+
+      .replace(
+        /"/g,
+        "&quot;"
+      )
+
+      .replace(
+        /'/g,
+        "&#039;"
+      );
+
+  }
+
+
+  /* =========================
+     CLOSE MODAL
+  ========================= */
+
+  function closeModal() {
+
+
+    document
+      .getElementById("messageModal")
+      .classList.remove("show");
+
+
+    selectedMessageId =
+      null;
+
+  }
+
+
+  document
+    .getElementById("closeModal")
+    .addEventListener(
+      "click",
+      closeModal
+    );
+
+
+  document
+    .getElementById("messageModal")
+    .addEventListener(
+      "click",
+      function(event) {
+
+        if (
+          event.target === this
+        ) {
+
+          closeModal();
+
+        }
+
+      }
+    );
+
+
+  /* =========================
+     SEARCH
+  ========================= */
+
+  document
+    .getElementById("searchInput")
+    .addEventListener(
+      "input",
+      renderMessages
+    );
+
+
+  document
+    .getElementById("statusFilter")
+    .addEventListener(
+      "change",
+      renderMessages
+    );
+
+
+  /* =========================
+     MOBILE MENU
+  ========================= */
+
+  document
+    .getElementById("menuToggle")
+    .addEventListener(
+      "click",
+      function() {
+
+        document
+          .getElementById("sidebar")
+          .classList.toggle("open");
+
+      }
+    );
+
+
+  /* =========================
+     LOGOUT
+  ========================= */
+
+  document
+    .getElementById("logoutBtn")
+    .addEventListener(
+      "click",
+      async function() {
+
+
+        const {
+          error
+        } =
+          await supabaseClient
+            .auth
+            .signOut();
+
+
+        if (error) {
+
+          alert(
+            "Erè pandan dekoneksyon an."
+          );
+
+          return;
+
+        }
+
+
+        window.location.href =
+          "login.html";
+
+      }
+    );
+
+
+  /* =========================
+     INITIALISATION
+  ========================= */
+
+  async function init() {
+
+
+    const admin =
+      await verifyeAdministrateur();
+
+
+    if (!admin) {
+
+      return;
+
+    }
+
+
+    await loadMessages();
+
+  }
+
+
+  init();
+
+</script>
+
+
+</body>
+</html>

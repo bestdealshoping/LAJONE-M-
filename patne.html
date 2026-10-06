@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="ht">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Patnè nou yo | LAJONÈ'M</title>
+
+  <meta
+    name="description"
+    content="Dekouvri patnè ak òganizasyon k ap sipòte misyon LAJONÈ'M."
+  >
+
+  <link rel="stylesheet" href="css/style.css">
+
+  <style>
+    .partner-hero {
+      padding: 80px 20px;
+      text-align: center;
+      color: white;
+      background: linear-gradient(135deg, #0B3B75, #164f91);
+    }
+
+    .partner-hero h1 {
+      margin-bottom: 15px;
+      font-size: 42px;
+    }
+
+    .partner-hero p {
+      max-width: 750px;
+      margin: auto;
+      font-size: 18px;
+      line-height: 1.7;
+    }
+
+    .partner-section {
+      padding: 60px 20px;
+    }
+
+    .partner-intro {
+      max-width: 800px;
+      margin: 0 auto 45px;
+      text-align: center;
+      line-height: 1.8;
+    }
+
+    .partner-intro h2 {
+      color: #0B3B75;
+      margin-bottom: 15px;
+    }
+
+    .partner-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 25px;
+    }
+
+    .partner-card {
+      background: white;
+      border-radius: 14px;
+      padding: 28px;
+      text-align: center;
+      box-shadow: 0 7px 25px rgba(0,0,0,0.08);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 260px;
+    }
+
+    .partner-logo {
+      width: 100px;
+      height: 100px;
+      object-fit: contain;
+      margin-bottom: 20px;
+      border-radius: 10px;
+    }
+
+    .partner-logo-placeholder {
+      width: 100px;
+      height: 100px;
+      margin-bottom: 20px;
+      border-radius: 50%;
+      background: #0B3B75;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+      font-weight: 800;
+    }
+
+    .partner-type {
+      display: inline-block;
+      padding: 5px 12px;
+      background: #fff3c4;
+      color: #725700;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .partner-name {
+      color: #0B3B75;
+      font-size: 21px;
+      margin: 0 0 12px;
+    }
+
+    .partner-description {
+      color: #555;
+      line-height: 1.7;
+      margin-bottom: 18px;
+    }
+
+    .partner-link {
+      margin-top: auto;
+      display: inline-block;
+      color: #0B3B75;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .partner-link:hover {
+      color: #2E8B57;
+    }
+
+    .partner-empty,
+    .partner-loading,
+    .partner-error {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 45px 20px;
+    }
+
+    .partner-empty {
+      color: #666;
+    }
+
+    .partner-loading {
+      color: #0B3B75;
+      font-weight: 600;
+    }
+
+    .partner-error {
+      background: #fdecec;
+      color: #9b2020;
+      border-radius: 10px;
+    }
+
+    .partner-cta {
+      margin-top: 60px;
+      padding: 45px 25px;
+      text-align: center;
+      background: #f5f8fc;
+      border-radius: 16px;
+    }
+
+    .partner-cta h2 {
+      color: #0B3B75;
+      margin-bottom: 12px;
+    }
+
+    .partner-cta p {
+      max-width: 700px;
+      margin: 0 auto 25px;
+      line-height: 1.7;
+    }
+
+    .partner-btn {
+      display: inline-block;
+      padding: 13px 22px;
+      background: #0B3B75;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 700;
+    }
+
+    .partner-btn:hover {
+      background: #082d5a;
+    }
+
+    @media (max-width: 1000px) {
+      .partner-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 650px) {
+      .partner-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .partner-hero h1 {
+        font-size: 32px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="container">
+
+      <div class="logo">
+        <a href="index.html">LAJONÈ'M</a>
+      </div>
+
+      <nav class="main-nav">
+        <a href="index.html">Akèy</a>
+        <a href="sou-nou.html">Sou nou</a>
+        <a href="pwogram.html">Pwogram</a>
+        <a href="aktivite.html">Aktivite</a>
+        <a href="galri.html">Galri</a>
+        <a href="nouvel.html">Nouvèl</a>
+        <a href="volonte.html">Vin volontè</a>
+        <a href="don.html">Fè yon don</a>
+      </nav>
+
+    </div>
+  </header>
+
+
+  <!-- HERO -->
+  <section class="partner-hero">
+
+    <h1>Patnè nou yo</h1>
+
+    <p>
+      Ansanm, nou kapab konstwi yon kominote kote granmoun yo
+      jwenn plis respè, sipò, swen ak diyite.
+    </p>
+
+  </section>
+
+
+  <!-- PARTNERS -->
+  <section class="partner-section">
+
+    <div class="container">
+
+      <div class="partner-intro">
+
+        <h2>Fòs nou se nan tèt ansanm</h2>
+
+        <p>
+          LAJONÈ'M kwè kolaborasyon se youn nan pi bon fason
+          pou nou ogmante enpak aksyon nou yo. Nou travay avèk
+          patnè, òganizasyon, antrepriz ak lòt aktè ki pataje
+          menm angajman pou diyite moun aje yo.
+        </p>
+
+      </div>
+
+
+      <div
+        id="partnersContainer"
+        class="partner-grid"
+      >
+
+        <div class="partner-loading">
+          N ap chaje patnè yo...
+        </div>
+
+      </div>
+
+
+      <!-- CTA -->
+      <div class="partner-cta">
+
+        <h2>Èske ou ta renmen vin yon patnè?</h2>
+
+        <p>
+          Si òganizasyon ou oswa antrepriz ou ta renmen
+          kolabore avèk LAJONÈ'M, kontakte nou pou nou kapab
+          diskite sou posiblite patenarya yo.
+        </p>
+
+        <a
+          href="kontak.html"
+          class="partner-btn"
+        >
+          Kontakte nou
+        </a>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+
+    <div class="container footer-grid">
+
+      <div>
+        <h3>LAJONÈ'M</h3>
+
+        <p>Laj yo se onè nou.</p>
+
+        <p>Wè. Akonpaye. Valorizasyon.</p>
+      </div>
+
+
+      <div>
+        <h3>Kontak</h3>
+
+        <p>Cap-Haïtien, Haïti</p>
+
+        <p>+509 42824391\ +509 35274215</p>
+
+        <p>woldjyimpactlab@gmail.com</p>
+      </div>
+
+
+      <div>
+        <h3>Angajman</h3>
+
+        <p>
+          Respè • Solidarite • Imanite
+        </p>
+
+        <p>
+          <a href="volonte.html">
+            Vin volontè
+          </a>
+        </p>
+
+        <p>
+          <a href="don.html">
+            Fè yon don
+          </a>
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class="footer-bottom">
+
+      <p>
+        © LAJONÈ'M — Laj yo se onè nou.
+      </p>
+
+    </div>
+
+  </footer>
+
+
+  <!-- SUPABASE -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase.js"></script>
+
+
+  <script>
+
+    const partnersContainer =
+      document.getElementById("partnersContainer");
+
+
+    /*
+     * Pwoteje tèks kont HTML
+     */
+    function escapeHTML(value) {
+
+      if (value === null || value === undefined) {
+        return "";
+      }
+
+      return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+    }
+
+
+    /*
+     * Kreye inisyal patnè a
+     */
+    function getInitials(name) {
+
+      if (!name) {
+        return "L";
+      }
+
+      const words =
+        name
+          .trim()
+          .split(/\s+/)
+          .filter(Boolean);
+
+      if (words.length === 1) {
+        return words[0]
+          .substring(0, 2)
+          .toUpperCase();
+      }
+
+      return (
+        words[0][0] +
+        words[1][0]
+      ).toUpperCase();
+
+    }
+
+
+    /*
+     * Montre patnè yo
+     */
+    function afficherPatne(partners) {
+
+      if (!partners || partners.length === 0) {
+
+        partnersContainer.innerHTML = `
+          <div class="partner-empty">
+
+            <h3>
+              Nou ap prepare lis patnè nou yo.
+            </h3>
+
+            <p>
+              Nou pral prezante patnè ki kontribye
+              nan misyon LAJONÈ'M.
+            </p>
+
+          </div>
+        `;
+
+        return;
+      }
+
+
+      partnersContainer.innerHTML =
+        partners.map(partner => {
+
+          const logoHTML =
+            partner.logo_url
+              ? `
+                <img
+                  src="${escapeHTML(partner.logo_url)}"
+                  alt="Logo ${escapeHTML(partner.non)}"
+                  class="partner-logo"
+                  loading="lazy"
+                >
+              `
+              : `
+                <div class="partner-logo-placeholder">
+                  ${escapeHTML(
+                    getInitials(partner.non)
+                  )}
+                </div>
+              `;
+
+
+          const typeHTML =
+            partner.kalite
+              ? `
+                <span class="partner-type">
+                  ${escapeHTML(partner.kalite)}
+                </span>
+              `
+              : "";
+
+
+          const linkHTML =
+            partner.sit_web
+              ? `
+                <a
+                  href="${escapeHTML(partner.sit_web)}"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="partner-link"
+                >
+                  Vizite sit entènèt
+                </a>
+              `
+              : "";
+
+
+          return `
+            <article class="partner-card">
+
+              ${logoHTML}
+
+              ${typeHTML}
+
+              <h3 class="partner-name">
+                ${escapeHTML(partner.non)}
+              </h3>
+
+              ${
+                partner.deskripsyon
+                  ? `
+                    <p class="partner-description">
+                      ${escapeHTML(
+                        partner.deskripsyon
+                      )}
+                    </p>
+                  `
+                  : ""
+              }
+
+              ${linkHTML}
+
+            </article>
+          `;
+
+        }).join("");
+
+    }
+
+
+    /*
+     * Chaje patnè aktif yo
+     */
+    async function chargerPatne() {
+
+      try {
+
+        const {
+          data,
+          error
+        } = await supabaseClient
+
+          .from("patne")
+
+          .select(`
+            id,
+            non,
+            slug,
+            kalite,
+            deskripsyon,
+            logo_url,
+            sit_web
+          `)
+
+          .eq("aktif", true)
+
+          .order("non", {
+            ascending: true
+          });
+
+
+        if (error) {
+
+          console.error(
+            "Erè chaje patnè:",
+            error
+          );
+
+          partnersContainer.innerHTML = `
+            <div class="partner-error">
+              Nou pa kapab chaje patnè yo kounye a.
+              Tanpri eseye ankò pita.
+            </div>
+          `;
+
+          return;
+        }
+
+
+        afficherPatne(data || []);
+
+      } catch (error) {
+
+        console.error(error);
+
+        partnersContainer.innerHTML = `
+          <div class="partner-error">
+            Yon erè rive pandan n ap chaje patnè yo.
+          </div>
+        `;
+
+      }
+
+    }
+
+
+    /*
+     * Kòmanse
+     */
+    chargerPatne();
+
+  </script>
+
+</body>
+</html>

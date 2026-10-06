@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="ht">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Pwogram nou yo | LAJONÈ'M</title>
+
+  <meta
+    name="description"
+    content="Dekouvri pwogram LAJONÈ'M pou akonpaye, soutni ak valorize moun aje yo."
+  >
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Open+Sans:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <link rel="stylesheet" href="css/style.css">
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase.js"></script>
+
+  <style>
+
+    /* =========================
+       HERO
+    ========================= */
+
+    .program-hero {
+      background:
+        linear-gradient(
+          rgba(11, 59, 117, .93),
+          rgba(11, 59, 117, .93)
+        ),
+        url("assets/images/programmes.jpg") center/cover;
+
+      color: white;
+      text-align: center;
+      padding: 85px 20px;
+    }
+
+    .program-hero h1 {
+      font-family: "Montserrat", sans-serif;
+      font-size: clamp(34px, 6vw, 56px);
+      margin-bottom: 15px;
+    }
+
+    .program-hero p {
+      max-width: 750px;
+      margin: auto;
+      line-height: 1.8;
+      font-size: 17px;
+    }
+
+
+    /* =========================
+       INTRO
+    ========================= */
+
+    .program-intro {
+      padding: 65px 20px 35px;
+      text-align: center;
+    }
+
+    .program-container {
+      max-width: 1150px;
+      margin: auto;
+    }
+
+    .program-intro h2 {
+      font-family: "Montserrat", sans-serif;
+      color: #0B3B75;
+      font-size: 31px;
+      margin-bottom: 12px;
+    }
+
+    .program-intro p {
+      max-width: 760px;
+      margin: auto;
+      color: #667085;
+      line-height: 1.8;
+    }
+
+
+    /* =========================
+       PROGRAM GRID
+    ========================= */
+
+    .programs-section {
+      padding: 25px 20px 75px;
+    }
+
+    .program-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 25px;
+    }
+
+    .program-card {
+      background: white;
+      border: 1px solid #e4e7ec;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 7px 25px rgba(0,0,0,.05);
+      transition: .25s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .program-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 15px 35px rgba(0,0,0,.10);
+    }
+
+    .program-image {
+      height: 210px;
+      background: #e9eef5;
+      overflow: hidden;
+    }
+
+    .program-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .program-image.no-image {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #0B3B75;
+      font-size: 42px;
+      font-weight: 800;
+      font-family: "Montserrat", sans-serif;
+    }
+
+    .program-content {
+      padding: 25px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .program-content h3 {
+      font-family: "Montserrat", sans-serif;
+      color: #0B3B75;
+      font-size: 21px;
+      margin-bottom: 12px;
+    }
+
+    .program-content p {
+      color: #667085;
+      line-height: 1.75;
+      font-size: 14px;
+      margin-bottom: 15px;
+    }
+
+    .program-objective {
+      background: #f5f8fc;
+      border-left: 4px solid #F2B705;
+      padding: 13px;
+      margin-top: auto;
+      margin-bottom: 15px;
+      border-radius: 5px;
+    }
+
+    .program-objective strong {
+      display: block;
+      color: #0B3B75;
+      font-size: 12px;
+      margin-bottom: 5px;
+    }
+
+    .program-objective span {
+      color: #667085;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .program-button {
+      display: inline-block;
+      text-align: center;
+      text-decoration: none;
+      background: #0B3B75;
+      color: white;
+      padding: 11px 15px;
+      border-radius: 7px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .program-button:hover {
+      background: #082e5c;
+    }
+
+
+    /* =========================
+       LOADING
+    ========================= */
+
+    .loading {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 60px 20px;
+      color: #667085;
+    }
+
+    .loading-spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid #e4e7ec;
+      border-top-color: #0B3B75;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 15px;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+
+    /* =========================
+       EMPTY / ERROR
+    ========================= */
+
+    .empty-programs {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 60px 20px;
+      background: #f8fafc;
+      border-radius: 12px;
+    }
+
+    .empty-programs h3 {
+      color: #0B3B75;
+      font-family: "Montserrat", sans-serif;
+      margin-bottom: 10px;
+    }
+
+    .empty-programs p {
+      color: #667085;
+    }
+
+
+    /* =========================
+       CTA
+    ========================= */
+
+    .program-cta {
+      background: #f4f7fb;
+      padding: 70px 20px;
+      text-align: center;
+    }
+
+    .program-cta h2 {
+      font-family: "Montserrat", sans-serif;
+      color: #0B3B75;
+      margin-bottom: 15px;
+      font-size: 30px;
+    }
+
+    .program-cta p {
+      max-width: 700px;
+      margin: 0 auto 25px;
+      color: #667085;
+      line-height: 1.8;
+    }
+
+    .cta-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .cta-button {
+      display: inline-block;
+      padding: 13px 22px;
+      border-radius: 7px;
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    .cta-primary {
+      background: #0B3B75;
+      color: white;
+    }
+
+    .cta-secondary {
+      background: #F2B705;
+      color: #0B3B75;
+    }
+
+
+    /* =========================
+       RESPONSIVE
+    ========================= */
+
+    @media (max-width: 950px) {
+
+      .program-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+    }
+
+    @media (max-width: 600px) {
+
+      .program-hero {
+        padding: 65px 18px;
+      }
+
+      .program-intro {
+        padding: 50px 18px 25px;
+      }
+
+      .programs-section {
+        padding: 20px 18px 55px;
+      }
+
+      .program-grid {
+        grid-template-columns: 1fr;
+      }
+
+    }
+
+  </style>
+</head>
+
+
+<body>
+
+
+  <!-- =========================
+       HEADER
+  ========================== -->
+
+  <header class="site-header">
+
+    <div class="container">
+
+      <a href="index.html" class="logo">
+        LAJONÈ'M
+      </a>
+
+      <nav class="main-nav">
+
+        <a href="index.html">
+          Akèy
+        </a>
+
+        <a href="sou-nou.html">
+          Sou nou
+        </a>
+
+        <a href="pwogram.html" class="active">
+          Pwogram
+        </a>
+
+        <a href="aktivite.html">
+          Aktivite
+        </a>
+
+        <a href="galri.html">
+          Galri
+        </a>
+
+        <a href="nouvel.html">
+          Nouvèl
+        </a>
+
+        <a href="volonte.html">
+          Vin volontè
+        </a>
+
+        <a href="don.html" class="nav-don">
+          Fè yon don
+        </a>
+
+      </nav>
+
+    </div>
+
+  </header>
+
+
+  <!-- =========================
+       HERO
+  ========================== -->
+
+  <section class="program-hero">
+
+    <h1>Pwogram nou yo</h1>
+
+    <p>
+      Chak pwogram LAJONÈ'M fèt pou reponn ak
+      bezwen reyèl moun aje yo epi ede yo viv
+      avèk plis diyite, sekirite ak akonpayman.
+    </p>
+
+  </section>
+
+
+  <!-- =========================
+       INTRO
+  ========================== -->
+
+  <section class="program-intro">
+
+    <div class="program-container">
+
+      <h2>
+        Aksyon nou yo fèt pou moun
+      </h2>
+
+      <p>
+        Nou mete ansanm sipò materyèl, prezans imen,
+        oryantasyon sante, solidarite ak aktivite
+        kominotè pou nou ka akonpaye moun aje yo
+        yon fason ki pi konplè.
+      </p>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       PROGRAMS
+  ========================== -->
+
+  <section class="programs-section">
+
+    <div class="program-container">
+
+      <div
+        class="program-grid"
+        id="programsContainer"
+      >
+
+        <div class="loading">
+
+          <div class="loading-spinner"></div>
+
+          <p>
+            N ap chaje pwogram yo...
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       CTA
+  ========================== -->
+
+  <section class="program-cta">
+
+    <h2>
+      Ou vle patisipe nan youn nan aksyon nou yo?
+    </h2>
+
+    <p>
+      Ou kapab vin volontè, fè yon don oswa kontakte
+      nou pou chèche konnen kijan ou kapab kontribye
+      nan misyon LAJONÈ'M.
+    </p>
+
+    <div class="cta-buttons">
+
+      <a
+        href="volonte.html"
+        class="cta-button cta-primary"
+      >
+        Vin volontè
+      </a>
+
+      <a
+        href="don.html"
+        class="cta-button cta-secondary"
+      >
+        Fè yon don
+      </a>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       FOOTER
+  ========================== -->
+
+  <footer class="site-footer">
+
+    <div class="container">
+
+      <div class="footer-grid">
+
+        <div>
+
+          <h3>LAJONÈ'M</h3>
+
+          <p>
+            Laj yo se onè nou.
+          </p>
+
+          <p>
+            Wè. Akonpaye. Valorizasyon.
+          </p>
+
+        </div>
+
+
+        <div>
+
+          <h3>Kontak</h3>
+
+          <p>
+            Cap-Haïtien, Haïti
+          </p>
+
+          <p>
+            +509 42824391\ +509 35274215
+          </p>
+
+          <p>
+            woldjyimpactlab@gmail.com
+          </p>
+
+        </div>
+
+
+        <div>
+
+          <h3>Lyens rapid</h3>
+
+          <p>
+            <a href="sou-nou.html">
+              Sou nou
+            </a>
+          </p>
+
+          <p>
+            <a href="aktivite.html">
+              Aktivite
+            </a>
+          </p>
+
+          <p>
+            <a href="galri.html">
+              Galri
+            </a>
+          </p>
+
+          <p>
+            <a href="volonte.html">
+              Vin volontè
+            </a>
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="footer-bottom">
+
+        <p>
+          © 2026 LAJONÈ'M — Laj yo se onè nou.
+        </p>
+
+      </div>
+
+    </div>
+
+  </footer>
+
+
+  <!-- =========================
+       JAVASCRIPT
+  ========================== -->
+
+  <script>
+
+    const container =
+      document.getElementById("programsContainer");
+
+
+    /* =========================
+       ESCAPE HTML
+    ========================= */
+
+    function escapeHtml(value) {
+
+      if (
+        value === null ||
+        value === undefined
+      ) {
+        return "";
+      }
+
+      return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+
+    }
+
+
+    /* =========================
+       LOAD PROGRAMS
+    ========================= */
+
+    async function loadPrograms() {
+
+      try {
+
+        const { data, error } =
+          await supabaseClient
+            .from("pwogram")
+            .select(`
+              id,
+              non,
+              slug,
+              deskripsyon,
+              objektif,
+              imaj_url
+            `)
+            .eq("aktif", true)
+            .order(
+              "dat_kreyasyon",
+              {
+                ascending: true
+              }
+            );
+
+
+        if (error) {
+
+          console.error(
+            "Erè pwogram:",
+            error
+          );
+
+          showError();
+
+          return;
+        }
+
+
+        if (!data || data.length === 0) {
+
+          container.innerHTML = `
+
+            <div class="empty-programs">
+
+              <h3>
+                Pa gen pwogram disponib pou kounye a.
+              </h3>
+
+              <p>
+                Nou ap prepare nouvo aksyon
+                pou kominote a.
+              </p>
+
+            </div>
+
+          `;
+
+          return;
+        }
+
+
+        renderPrograms(data);
+
+      }
+
+      catch (error) {
+
+        console.error(error);
+
+        showError();
+
+      }
+
+    }
+
+
+    /* =========================
+       RENDER PROGRAMS
+    ========================= */
+
+    function renderPrograms(programs) {
+
+      container.innerHTML = "";
+
+
+      programs.forEach(program => {
+
+        const card =
+          document.createElement("article");
+
+        card.className =
+          "program-card";
+
+
+        let imageHTML = "";
+
+
+        if (program.imaj_url) {
+
+          imageHTML = `
+
+            <div class="program-image">
+
+              <img
+                src="${escapeHtml(program.imaj_url)}"
+                alt="${escapeHtml(program.non)}"
+                loading="lazy"
+                onerror="
+                  this.parentElement.classList.add('no-image');
+                  this.style.display='none';
+                "
+              >
+
+            </div>
+
+          `;
+
+        } else {
+
+          imageHTML = `
+
+            <div class="program-image no-image">
+              L
+            </div>
+
+          `;
+
+        }
+
+
+        card.innerHTML = `
+
+          ${imageHTML}
+
+          <div class="program-content">
+
+            <h3>
+              ${escapeHtml(program.non)}
+            </h3>
+
+            <p>
+              ${
+                escapeHtml(
+                  program.deskripsyon ||
+                  "Pwogram sa a fèt pou soutni misyon LAJONÈ'M."
+                )
+              }
+            </p>
+
+            ${
+              program.objektif
+                ? `
+
+                  <div class="program-objective">
+
+                    <strong>
+                      Objektif
+                    </strong>
+
+                    <span>
+                      ${escapeHtml(program.objektif)}
+                    </span>
+
+                  </div>
+
+                `
+                : ""
+            }
+
+            <a
+              href="aktivite.html"
+              class="program-button"
+            >
+              Gade aktivite yo
+            </a>
+
+          </div>
+
+        `;
+
+
+        container.appendChild(card);
+
+      });
+
+    }
+
+
+    /* =========================
+       ERROR
+    ========================= */
+
+    function showError() {
+
+      container.innerHTML = `
+
+        <div class="empty-programs">
+
+          <h3>
+            Nou pa kapab chaje pwogram yo.
+          </h3>
+
+          <p>
+            Tanpri eseye ankò pita.
+          </p>
+
+        </div>
+
+      `;
+
+    }
+
+
+    /* =========================
+       INIT
+    ========================= */
+
+    loadPrograms();
+
+  </script>
+
+</body>
+</html>

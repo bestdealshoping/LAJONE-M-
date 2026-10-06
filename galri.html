@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="ht">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Galri | LAJONÈ'M</title>
+
+  <meta
+    name="description"
+    content="Dekouvri foto ak moman aktivite LAJONÈ'M."
+  >
+
+  <link rel="stylesheet" href="css/style.css">
+
+  <style>
+    .gallery-hero {
+      padding: 80px 20px;
+      text-align: center;
+      color: white;
+      background: linear-gradient(135deg, #0B3B75, #164f91);
+    }
+
+    .gallery-hero h1 {
+      margin-bottom: 15px;
+      font-size: 42px;
+    }
+
+    .gallery-hero p {
+      max-width: 750px;
+      margin: auto;
+      font-size: 18px;
+      line-height: 1.7;
+    }
+
+    .gallery-section {
+      padding: 60px 20px;
+    }
+
+    .gallery-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 35px;
+    }
+
+    .gallery-toolbar h2 {
+      margin: 0;
+      color: #0B3B75;
+    }
+
+    .gallery-filter {
+      min-width: 210px;
+      padding: 11px 14px;
+      border: 1px solid #d8dee8;
+      border-radius: 8px;
+      background: white;
+      font-size: 15px;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .gallery-card {
+      background: white;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    .gallery-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .gallery-image {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .gallery-content {
+      padding: 18px;
+    }
+
+    .gallery-title {
+      margin: 0 0 8px;
+      color: #0B3B75;
+      font-size: 19px;
+    }
+
+    .gallery-description {
+      margin: 0 0 12px;
+      color: #555;
+      line-height: 1.6;
+    }
+
+    .gallery-category {
+      display: inline-block;
+      padding: 5px 10px;
+      background: #fff3c4;
+      color: #725700;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .gallery-activity {
+      margin-top: 10px;
+      font-size: 13px;
+      color: #777;
+    }
+
+    .gallery-loading,
+    .gallery-empty,
+    .gallery-error {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 50px 20px;
+    }
+
+    .gallery-loading {
+      color: #0B3B75;
+      font-weight: 600;
+    }
+
+    .gallery-empty {
+      color: #666;
+    }
+
+    .gallery-error {
+      background: #fdecec;
+      color: #9b2020;
+      border-radius: 10px;
+    }
+
+    /* LIGHTBOX */
+    .lightbox {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.88);
+      align-items: center;
+      justify-content: center;
+      padding: 25px;
+    }
+
+    .lightbox.show {
+      display: flex;
+    }
+
+    .lightbox-content {
+      max-width: 1000px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .lightbox-image {
+      max-width: 100%;
+      max-height: 75vh;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+
+    .lightbox-caption {
+      color: white;
+      margin-top: 15px;
+      line-height: 1.6;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 20px;
+      right: 25px;
+      border: none;
+      background: transparent;
+      color: white;
+      font-size: 40px;
+      cursor: pointer;
+      line-height: 1;
+    }
+
+    .gallery-cta {
+      margin-top: 60px;
+      padding: 45px 25px;
+      text-align: center;
+      background: #f5f8fc;
+      border-radius: 16px;
+    }
+
+    .gallery-cta h2 {
+      color: #0B3B75;
+      margin-bottom: 12px;
+    }
+
+    .gallery-cta p {
+      max-width: 700px;
+      margin: 0 auto 25px;
+      line-height: 1.7;
+    }
+
+    .gallery-btn {
+      display: inline-block;
+      padding: 13px 22px;
+      background: #0B3B75;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 700;
+    }
+
+    .gallery-btn:hover {
+      background: #082d5a;
+    }
+
+    @media (max-width: 1000px) {
+      .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 650px) {
+      .gallery-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .gallery-hero h1 {
+        font-size: 32px;
+      }
+
+      .gallery-toolbar {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .gallery-filter {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="container">
+
+      <div class="logo">
+        <a href="index.html">LAJONÈ'M</a>
+      </div>
+
+      <nav class="main-nav">
+        <a href="index.html">Akèy</a>
+        <a href="sou-nou.html">Sou nou</a>
+        <a href="pwogram.html">Pwogram</a>
+        <a href="aktivite.html">Aktivite</a>
+        <a href="galri.html" class="active">Galri</a>
+        <a href="nouvel.html">Nouvèl</a>
+        <a href="volonte.html">Vin volontè</a>
+        <a href="don.html">Fè yon don</a>
+      </nav>
+
+    </div>
+  </header>
+
+
+  <!-- HERO -->
+  <section class="gallery-hero">
+
+    <h1>Galri LAJONÈ'M</h1>
+
+    <p>
+      Dekouvri kèk nan moman, aktivite ak aksyon nou
+      ap reyalize ansanm ak kominote a.
+    </p>
+
+  </section>
+
+
+  <!-- GALLERY -->
+  <section class="gallery-section">
+
+    <div class="container">
+
+      <div class="gallery-toolbar">
+
+        <h2>Momant nou pataje yo</h2>
+
+        <select
+          id="categoryFilter"
+          class="gallery-filter"
+        >
+
+          <option value="">
+            Tout kategori
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <div
+        id="galleryContainer"
+        class="gallery-grid"
+      >
+
+        <div class="gallery-loading">
+          N ap chaje foto yo...
+        </div>
+
+      </div>
+
+
+      <div class="gallery-cta">
+
+        <h2>Ann konstwi plis bèl moman ansanm</h2>
+
+        <p>
+          Chak aktivite se yon opòtinite pou nou pote
+          plis prezans, respè ak diyite bay moun nou akonpaye yo.
+        </p>
+
+        <a
+          href="volonte.html"
+          class="gallery-btn"
+        >
+          Vin volontè
+        </a>
+
+        <a
+          href="don.html"
+          class="gallery-btn"
+          style="margin-left:10px;"
+        >
+          Fè yon don
+        </a>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- LIGHTBOX -->
+  <div
+    id="lightbox"
+    class="lightbox"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Foto"
+  >
+
+    <button
+      id="lightboxClose"
+      class="lightbox-close"
+      aria-label="Fèmen"
+    >
+      ×
+    </button>
+
+    <div class="lightbox-content">
+
+      <img
+        id="lightboxImage"
+        class="lightbox-image"
+        src=""
+        alt=""
+      >
+
+      <div
+        id="lightboxCaption"
+        class="lightbox-caption"
+      ></div>
+
+    </div>
+
+  </div>
+
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+
+    <div class="container footer-grid">
+
+      <div>
+        <h3>LAJONÈ'M</h3>
+
+        <p>Laj yo se onè nou.</p>
+
+        <p>Wè. Akonpaye. Valorizasyon.</p>
+      </div>
+
+
+      <div>
+        <h3>Kontak</h3>
+
+        <p>Cap-Haïtien, Haïti</p>
+
+        <p>+509 42824391\ +509 35274215</p>
+
+        <p>woldjyimpactlab@gmail.com</p>
+      </div>
+
+
+      <div>
+        <h3>Angajman</h3>
+
+        <p>
+          Respè • Solidarite • Imanite
+        </p>
+
+        <p>
+          <a href="volonte.html">
+            Vin volontè
+          </a>
+        </p>
+
+        <p>
+          <a href="don.html">
+            Fè yon don
+          </a>
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class="footer-bottom">
+
+      <p>
+        © LAJONÈ'M — Laj yo se onè nou.
+      </p>
+
+    </div>
+
+  </footer>
+
+
+  <!-- SUPABASE -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase.js"></script>
+
+
+  <script>
+
+    const galleryContainer =
+      document.getElementById("galleryContainer");
+
+    const categoryFilter =
+      document.getElementById("categoryFilter");
+
+    const lightbox =
+      document.getElementById("lightbox");
+
+    const lightboxImage =
+      document.getElementById("lightboxImage");
+
+    const lightboxCaption =
+      document.getElementById("lightboxCaption");
+
+    const lightboxClose =
+      document.getElementById("lightboxClose");
+
+    let allPhotos = [];
+
+
+    /*
+     * Pwoteje tèks HTML
+     */
+    function escapeHTML(value) {
+
+      if (value === null || value === undefined) {
+        return "";
+      }
+
+      return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+    }
+
+
+    /*
+     * Kreye lis kategori yo
+     */
+    function chargerCategories(photos) {
+
+      const categories = [
+        ...new Set(
+          photos
+            .map(photo => photo.kategori)
+            .filter(Boolean)
+        )
+      ];
+
+      categories.sort();
+
+      categories.forEach(category => {
+
+        const option =
+          document.createElement("option");
+
+        option.value = category;
+        option.textContent = category;
+
+        categoryFilter.appendChild(option);
+
+      });
+
+    }
+
+
+    /*
+     * Louvri lightbox
+     */
+    function ouvriLightbox(photo) {
+
+      lightboxImage.src =
+        photo.foto_url;
+
+      lightboxImage.alt =
+        photo.tit || "Foto LAJONÈ'M";
+
+      let caption = "";
+
+      if (photo.tit) {
+        caption += `<strong>${escapeHTML(photo.tit)}</strong>`;
+      }
+
+      if (photo.deskripsyon) {
+        caption += `
+          <br>
+          ${escapeHTML(photo.deskripsyon)}
+        `;
+      }
+
+      lightboxCaption.innerHTML = caption;
+
+      lightbox.classList.add("show");
+
+      document.body.style.overflow = "hidden";
+
+    }
+
+
+    /*
+     * Fèmen lightbox
+     */
+    function femenLightbox() {
+
+      lightbox.classList.remove("show");
+
+      lightboxImage.src = "";
+
+      document.body.style.overflow = "";
+
+    }
+
+
+    lightboxClose.addEventListener(
+      "click",
+      femenLightbox
+    );
+
+
+    lightbox.addEventListener(
+      "click",
+      event => {
+
+        if (event.target === lightbox) {
+          femenLightbox();
+        }
+
+      }
+    );
+
+
+    document.addEventListener(
+      "keydown",
+      event => {
+
+        if (event.key === "Escape") {
+          femenLightbox();
+        }
+
+      }
+    );
+
+
+    /*
+     * Montre foto yo
+     */
+    function afficherGalri(photos) {
+
+      if (!photos || photos.length === 0) {
+
+        galleryContainer.innerHTML = `
+          <div class="gallery-empty">
+
+            <h3>
+              Pa gen foto pou kounye a.
+            </h3>
+
+            <p>
+              Nou pral pataje plis moman avèk kominote a
+              pandan aktivite nou yo ap kontinye.
+            </p>
+
+          </div>
+        `;
+
+        return;
+      }
+
+
+      galleryContainer.innerHTML =
+        photos.map((photo, index) => {
+
+          return `
+            <article
+              class="gallery-card"
+              data-index="${index}"
+              tabindex="0"
+            >
+
+              <img
+                src="${escapeHTML(photo.foto_url)}"
+                alt="${escapeHTML(
+                  photo.tit || "Foto LAJONÈ'M"
+                )}"
+                class="gallery-image"
+                loading="lazy"
+              >
+
+              <div class="gallery-content">
+
+                ${
+                  photo.tit
+                    ? `
+                      <h3 class="gallery-title">
+                        ${escapeHTML(photo.tit)}
+                      </h3>
+                    `
+                    : ""
+                }
+
+                ${
+                  photo.deskripsyon
+                    ? `
+                      <p class="gallery-description">
+                        ${escapeHTML(
+                          photo.deskripsyon
+                        )}
+                      </p>
+                    `
+                    : ""
+                }
+
+                ${
+                  photo.kategori
+                    ? `
+                      <span class="gallery-category">
+                        ${escapeHTML(
+                          photo.kategori
+                        )}
+                      </span>
+                    `
+                    : ""
+                }
+
+                ${
+                  photo.aktivite
+                    ? `
+                      <div class="gallery-activity">
+                        Aktivite:
+                        ${escapeHTML(
+                          photo.aktivite.tit
+                        )}
+                      </div>
+                    `
+                    : ""
+                }
+
+              </div>
+
+            </article>
+          `;
+
+        }).join("");
+
+
+      /*
+       * Evite itilize index ki chanje
+       * lè itilizatè a filtre.
+       */
+      const cards =
+        galleryContainer.querySelectorAll(
+          ".gallery-card"
+        );
+
+
+      cards.forEach(card => {
+
+        const index =
+          Number(card.dataset.index);
+
+        card.addEventListener(
+          "click",
+          () => {
+
+            ouvriLightbox(photos[index]);
+
+          }
+        );
+
+
+        card.addEventListener(
+          "keydown",
+          event => {
+
+            if (
+              event.key === "Enter" ||
+              event.key === " "
+            ) {
+
+              event.preventDefault();
+
+              ouvriLightbox(photos[index]);
+
+            }
+
+          }
+        );
+
+      });
+
+    }
+
+
+    /*
+     * Chaje galri depi Supabase
+     */
+    async function chargerGalri() {
+
+      try {
+
+        const {
+          data,
+          error
+        } = await supabaseClient
+
+          .from("galri")
+
+          .select(`
+            id,
+            tit,
+            deskripsyon,
+            foto_url,
+            aktivite_id,
+            kategori,
+            dat_foto,
+            aktivite (
+              tit
+            )
+          `)
+
+          .eq("piblik", true)
+
+          .order(
+            "dat_foto",
+            {
+              ascending: false,
+              nullsFirst: false
+            }
+          );
+
+
+        if (error) {
+
+          console.error(
+            "Erè chaje galri:",
+            error
+          );
+
+          galleryContainer.innerHTML = `
+            <div class="gallery-error">
+              Nou pa kapab chaje foto yo kounye a.
+              Tanpri eseye ankò pita.
+            </div>
+          `;
+
+          return;
+        }
+
+
+        allPhotos = data || [];
+
+        chargerCategories(allPhotos);
+
+        afficherGalri(allPhotos);
+
+
+      } catch (error) {
+
+        console.error(error);
+
+        galleryContainer.innerHTML = `
+          <div class="gallery-error">
+            Yon erè rive pandan n ap chaje galri a.
+          </div>
+        `;
+
+      }
+
+    }
+
+
+    /*
+     * Filtre kategori
+     */
+    categoryFilter.addEventListener(
+      "change",
+      () => {
+
+        const category =
+          categoryFilter.value;
+
+
+        if (!category) {
+
+          afficherGalri(allPhotos);
+
+          return;
+
+        }
+
+
+        const filtered =
+          allPhotos.filter(
+            photo =>
+              photo.kategori === category
+          );
+
+
+        afficherGalri(filtered);
+
+      }
+    );
+
+
+    /*
+     * Kòmanse
+     */
+    chargerGalri();
+
+  </script>
+
+</body>
+</html>

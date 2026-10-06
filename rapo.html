@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="ht">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Rapò | LAJONÈ'M</title>
+
+  <meta
+    name="description"
+    content="Dekouvri rapò piblik ak rezilta aksyon LAJONÈ'M."
+  >
+
+  <link rel="stylesheet" href="css/style.css">
+
+  <style>
+    .report-hero {
+      padding: 80px 20px;
+      text-align: center;
+      color: white;
+      background: linear-gradient(135deg, #0B3B75, #164f91);
+    }
+
+    .report-hero h1 {
+      margin-bottom: 15px;
+      font-size: 42px;
+    }
+
+    .report-hero p {
+      max-width: 750px;
+      margin: auto;
+      font-size: 18px;
+      line-height: 1.7;
+    }
+
+    .report-section {
+      padding: 60px 20px;
+    }
+
+    .report-intro {
+      max-width: 800px;
+      margin: 0 auto 45px;
+      text-align: center;
+      line-height: 1.8;
+    }
+
+    .report-intro h2 {
+      color: #0B3B75;
+      margin-bottom: 15px;
+    }
+
+    .report-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 25px;
+    }
+
+    .report-card {
+      background: white;
+      border-radius: 14px;
+      padding: 28px;
+      box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .report-type {
+      display: inline-block;
+      width: fit-content;
+      padding: 5px 12px;
+      background: #fff3c4;
+      color: #725700;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 15px;
+    }
+
+    .report-title {
+      color: #0B3B75;
+      font-size: 21px;
+      line-height: 1.4;
+      margin: 0 0 15px;
+    }
+
+    .report-period {
+      color: #666;
+      font-size: 14px;
+      margin-bottom: 15px;
+    }
+
+    .report-summary {
+      color: #555;
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+
+    .report-content {
+      color: #444;
+      line-height: 1.8;
+      margin-bottom: 20px;
+      white-space: pre-line;
+    }
+
+    .report-file {
+      margin-top: auto;
+      display: inline-block;
+      padding: 11px 16px;
+      background: #0B3B75;
+      color: white;
+      text-decoration: none;
+      border-radius: 7px;
+      text-align: center;
+      font-weight: 700;
+    }
+
+    .report-file:hover {
+      background: #082d5a;
+    }
+
+    .report-loading,
+    .report-empty,
+    .report-error {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 50px 20px;
+    }
+
+    .report-loading {
+      color: #0B3B75;
+      font-weight: 600;
+    }
+
+    .report-empty {
+      color: #666;
+    }
+
+    .report-error {
+      background: #fdecec;
+      color: #9b2020;
+      border-radius: 10px;
+    }
+
+    .report-cta {
+      margin-top: 60px;
+      padding: 45px 25px;
+      text-align: center;
+      background: #f5f8fc;
+      border-radius: 16px;
+    }
+
+    .report-cta h2 {
+      color: #0B3B75;
+      margin-bottom: 12px;
+    }
+
+    .report-cta p {
+      max-width: 700px;
+      margin: 0 auto 25px;
+      line-height: 1.7;
+    }
+
+    .report-btn {
+      display: inline-block;
+      padding: 13px 22px;
+      background: #0B3B75;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 700;
+    }
+
+    .report-btn:hover {
+      background: #082d5a;
+    }
+
+    @media (max-width: 1000px) {
+      .report-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 650px) {
+      .report-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .report-hero h1 {
+        font-size: 32px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="container">
+
+      <div class="logo">
+        <a href="index.html">LAJONÈ'M</a>
+      </div>
+
+      <nav class="main-nav">
+        <a href="index.html">Akèy</a>
+        <a href="sou-nou.html">Sou nou</a>
+        <a href="pwogram.html">Pwogram</a>
+        <a href="aktivite.html">Aktivite</a>
+        <a href="galri.html">Galri</a>
+        <a href="nouvel.html">Nouvèl</a>
+        <a href="volonte.html">Vin volontè</a>
+        <a href="don.html">Fè yon don</a>
+      </nav>
+
+    </div>
+  </header>
+
+
+  <!-- HERO -->
+  <section class="report-hero">
+
+    <h1>Rapò LAJONÈ'M</h1>
+
+    <p>
+      Transparans ak responsabilite se yon pati enpòtan
+      nan fason nou sèvi kominote a.
+    </p>
+
+  </section>
+
+
+  <!-- REPORTS -->
+  <section class="report-section">
+
+    <div class="container">
+
+      <div class="report-intro">
+
+        <h2>Travay nou ak rezilta nou yo</h2>
+
+        <p>
+          Nan seksyon sa a, nou pataje rapò piblik ki prezante
+          travay, aktivite, rezilta ak pwogrè LAJONÈ'M.
+        </p>
+
+      </div>
+
+
+      <div
+        id="reportsContainer"
+        class="report-grid"
+      >
+
+        <div class="report-loading">
+          N ap chaje rapò yo...
+        </div>
+
+      </div>
+
+
+      <div class="report-cta">
+
+        <h2>Ou vle konnen plis sou travay nou?</h2>
+
+        <p>
+          Ou kapab kontakte ekip LAJONÈ'M pou jwenn plis
+          enfòmasyon sou misyon nou, pwogram nou yo ak fason
+          ou kapab patisipe.
+        </p>
+
+        <a
+          href="kontak.html"
+          class="report-btn"
+        >
+          Kontakte nou
+        </a>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+
+    <div class="container footer-grid">
+
+      <div>
+        <h3>LAJONÈ'M</h3>
+
+        <p>Laj yo se onè nou.</p>
+
+        <p>Wè. Akonpaye. Valorizasyon.</p>
+      </div>
+
+
+      <div>
+        <h3>Kontak</h3>
+
+        <p>Cap-Haïtien, Haïti</p>
+
+        <p>+509 42824391\ +509 35274215</p>
+
+        <p>woldjyimpactlab@gmail.com</p>
+      </div>
+
+
+      <div>
+        <h3>Angajman</h3>
+
+        <p>
+          Respè • Solidarite • Imanite
+        </p>
+
+        <p>
+          <a href="volonte.html">
+            Vin volontè
+          </a>
+        </p>
+
+        <p>
+          <a href="don.html">
+            Fè yon don
+          </a>
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class="footer-bottom">
+
+      <p>
+        © LAJONÈ'M — Laj yo se onè nou.
+      </p>
+    </div>
+
+  </footer>
+
+
+  <!-- SUPABASE -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase.js"></script>
+
+
+  <script>
+
+    const reportsContainer =
+      document.getElementById("reportsContainer");
+
+
+    /*
+     * Pwoteje tèks HTML
+     */
+    function escapeHTML(value) {
+
+      if (value === null || value === undefined) {
+        return "";
+      }
+
+      return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+    }
+
+
+    /*
+     * Fòma dat
+     */
+    function formatDate(dateValue) {
+
+      if (!dateValue) {
+        return "";
+      }
+
+      const date = new Date(dateValue);
+
+      if (isNaN(date.getTime())) {
+        return "";
+      }
+
+      return date.toLocaleDateString("fr-FR", {
+        day: "2-digit",
+        month: "long",
+        year: "numeric"
+      });
+
+    }
+
+
+    /*
+     * Fòma peryòd rapò a
+     */
+    function formatPeriod(start, end) {
+
+      if (!start && !end) {
+        return "";
+      }
+
+      if (start && end) {
+
+        return `
+          Peryòd:
+          ${escapeHTML(formatDate(start))}
+          —
+          ${escapeHTML(formatDate(end))}
+        `;
+
+      }
+
+      if (start) {
+
+        return `
+          Kòmanse:
+          ${escapeHTML(formatDate(start))}
+        `;
+
+      }
+
+      return `
+        Jiska:
+        ${escapeHTML(formatDate(end))}
+      `;
+
+    }
+
+
+    /*
+     * Montre rapò yo
+     */
+    function afficherRapò(reports) {
+
+      if (!reports || reports.length === 0) {
+
+        reportsContainer.innerHTML = `
+          <div class="report-empty">
+
+            <h3>
+              Pa gen rapò piblik pou kounye a.
+            </h3>
+
+            <p>
+              Nou pral pataje rapò yo avèk kominote a
+              depi yo disponib.
+            </p>
+
+          </div>
+        `;
+
+        return;
+      }
+
+
+      reportsContainer.innerHTML =
+        reports.map(report => {
+
+          const typeHTML =
+            report.kalite
+              ? `
+                <span class="report-type">
+                  ${escapeHTML(report.kalite)}
+                </span>
+              `
+              : "";
+
+
+          const periodHTML =
+            formatPeriod(
+              report.peryòd_kòmanse,
+              report.peryòd_fin
+            );
+
+
+          const fileHTML =
+            report.fichye_url
+              ? `
+                <a
+                  href="${escapeHTML(report.fichye_url)}"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="report-file"
+                >
+                  Gade / telechaje fichye a
+                </a>
+              `
+              : "";
+
+
+          return `
+            <article class="report-card">
+
+              ${typeHTML}
+
+              <h3 class="report-title">
+                ${escapeHTML(report.tit)}
+              </h3>
+
+              ${
+                periodHTML
+                  ? `
+                    <div class="report-period">
+                      ${periodHTML}
+                    </div>
+                  `
+                  : ""
+              }
+
+              ${
+                report.rezime
+                  ? `
+                    <p class="report-summary">
+                      ${escapeHTML(report.rezime)}
+                    </p>
+                  `
+                  : ""
+              }
+
+              ${
+                report.kontni
+                  ? `
+                    <div class="report-content">
+                      ${escapeHTML(report.kontni)}
+                    </div>
+                  `
+                  : ""
+              }
+
+              ${fileHTML}
+
+            </article>
+          `;
+
+        }).join("");
+
+    }
+
+
+    /*
+     * Chaje rapò piblik yo
+     */
+    async function chargerRapò() {
+
+      try {
+
+        const {
+          data,
+          error
+        } = await supabaseClient
+
+          .from("rapo")
+
+          .select(`
+            id,
+            tit,
+            kalite,
+            peryòd_kòmanse,
+            peryòd_fin,
+            rezime,
+            kontni,
+            fichye_url,
+            piblik
+          `)
+
+          .eq("piblik", true)
+
+          .order(
+            "peryòd_kòmanse",
+            {
+              ascending: false,
+              nullsFirst: false
+            }
+          );
+
+
+        if (error) {
+
+          console.error(
+            "Erè chaje rapò:",
+            error
+          );
+
+          reportsContainer.innerHTML = `
+            <div class="report-error">
+              Nou pa kapab chaje rapò yo kounye a.
+              Tanpri eseye ankò pita.
+            </div>
+          `;
+
+          return;
+        }
+
+
+        afficherRapò(data || []);
+
+
+      } catch (error) {
+
+        console.error(error);
+
+        reportsContainer.innerHTML = `
+          <div class="report-error">
+            Yon erè rive pandan n ap chaje rapò yo.
+          </div>
+        `;
+
+      }
+
+    }
+
+
+    /*
+     * Kòmanse
+     */
+    chargerRapò();
+
+  </script>
+
+</body>
+</html>

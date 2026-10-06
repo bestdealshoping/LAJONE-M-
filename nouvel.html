@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="ht">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Nouvèl | LAJONÈ'M</title>
+
+  <meta
+    name="description"
+    content="Dekouvri nouvèl, aktivite ak dènye enfòmasyon LAJONÈ'M."
+  >
+
+  <link rel="stylesheet" href="css/style.css">
+
+  <style>
+    .news-hero {
+      padding: 80px 20px;
+      text-align: center;
+      color: white;
+      background: linear-gradient(135deg, #0B3B75, #164f91);
+    }
+
+    .news-hero h1 {
+      margin-bottom: 15px;
+      font-size: 42px;
+    }
+
+    .news-hero p {
+      max-width: 750px;
+      margin: auto;
+      font-size: 18px;
+      line-height: 1.7;
+    }
+
+    .news-section {
+      padding: 60px 20px;
+    }
+
+    .news-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 35px;
+      flex-wrap: wrap;
+    }
+
+    .news-toolbar h2 {
+      color: #0B3B75;
+      margin: 0;
+    }
+
+    .news-filter {
+      padding: 11px 14px;
+      border: 1px solid #d8dee8;
+      border-radius: 8px;
+      background: white;
+      min-width: 200px;
+      font-size: 15px;
+    }
+
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 25px;
+    }
+
+    .news-card {
+      background: white;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .news-image {
+      width: 100%;
+      height: 210px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .news-image-placeholder {
+      width: 100%;
+      height: 210px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #e9eef5;
+      color: #0B3B75;
+      font-weight: 700;
+    }
+
+    .news-content {
+      padding: 22px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .news-category {
+      display: inline-block;
+      width: fit-content;
+      padding: 5px 10px;
+      background: #fff3c4;
+      color: #725700;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .news-title {
+      color: #0B3B75;
+      font-size: 21px;
+      line-height: 1.35;
+      margin: 0 0 12px;
+    }
+
+    .news-summary {
+      color: #555;
+      line-height: 1.7;
+      margin-bottom: 18px;
+    }
+
+    .news-meta {
+      font-size: 13px;
+      color: #777;
+      margin-top: auto;
+      padding-top: 15px;
+      border-top: 1px solid #eee;
+    }
+
+    .news-empty {
+      text-align: center;
+      padding: 50px 20px;
+      color: #666;
+      grid-column: 1 / -1;
+    }
+
+    .news-loading {
+      text-align: center;
+      padding: 50px 20px;
+      grid-column: 1 / -1;
+      color: #0B3B75;
+      font-weight: 600;
+    }
+
+    .news-error {
+      text-align: center;
+      padding: 30px;
+      background: #fdecec;
+      color: #9b2020;
+      border-radius: 10px;
+      grid-column: 1 / -1;
+    }
+
+    .news-cta {
+      margin-top: 60px;
+      padding: 45px 25px;
+      text-align: center;
+      background: #f5f8fc;
+      border-radius: 16px;
+    }
+
+    .news-cta h2 {
+      color: #0B3B75;
+      margin-bottom: 12px;
+    }
+
+    .news-cta p {
+      max-width: 650px;
+      margin: 0 auto 25px;
+      line-height: 1.7;
+    }
+
+    .news-btn {
+      display: inline-block;
+      padding: 13px 22px;
+      background: #0B3B75;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 700;
+    }
+
+    .news-btn:hover {
+      background: #082d5a;
+    }
+
+    @media (max-width: 1000px) {
+      .news-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 650px) {
+      .news-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .news-hero h1 {
+        font-size: 32px;
+      }
+
+      .news-toolbar {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .news-filter {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="container">
+
+      <div class="logo">
+        <a href="index.html">LAJONÈ'M</a>
+      </div>
+
+      <nav class="main-nav">
+        <a href="index.html">Akèy</a>
+        <a href="sou-nou.html">Sou nou</a>
+        <a href="pwogram.html">Pwogram</a>
+        <a href="aktivite.html">Aktivite</a>
+        <a href="galri.html">Galri</a>
+        <a href="nouvel.html" class="active">Nouvèl</a>
+        <a href="volonte.html">Vin volontè</a>
+        <a href="don.html">Fè yon don</a>
+      </nav>
+
+    </div>
+  </header>
+
+
+  <!-- HERO -->
+  <section class="news-hero">
+
+    <h1>Nouvèl LAJONÈ'M</h1>
+
+    <p>
+      Swiv dènye nouvèl yo, aktivite nou yo, aksyon nou yo
+      ak istwa kominote nou ap konstwi ansanm.
+    </p>
+
+  </section>
+
+
+  <!-- NEWS -->
+  <section class="news-section">
+
+    <div class="container">
+
+      <div class="news-toolbar">
+
+        <h2>Dènye piblikasyon yo</h2>
+
+        <select id="categoryFilter" class="news-filter">
+
+          <option value="">
+            Tout kategori
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <div id="newsContainer" class="news-grid">
+
+        <div class="news-loading">
+          N ap chaje nouvèl yo...
+        </div>
+
+      </div>
+
+
+      <!-- CTA -->
+      <div class="news-cta">
+
+        <h2>Vle patisipe nan misyon an?</h2>
+
+        <p>
+          Ou kapab vin volontè oswa kontribye nan aksyon
+          LAJONÈ'M pou ede nou akonpaye granmoun ki nan bezwen.
+        </p>
+
+        <a href="volonte.html" class="news-btn">
+          Vin volontè
+        </a>
+
+        <a
+          href="don.html"
+          class="news-btn"
+          style="margin-left:10px;"
+        >
+          Fè yon don
+        </a>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+
+    <div class="container footer-grid">
+
+      <div>
+        <h3>LAJONÈ'M</h3>
+
+        <p>Laj yo se onè nou.</p>
+
+        <p>Wè. Akonpaye. Valorizasyon.</p>
+      </div>
+
+
+      <div>
+        <h3>Kontak</h3>
+
+        <p>Cap-Haïtien, Haïti</p>
+
+        <p>+509 42824391\ +509 35274215</p>
+
+        <p>woldjyimpactlab@gmail.com</p>
+      </div>
+
+
+      <div>
+        <h3>Angajman</h3>
+
+        <p>
+          Respè • Solidarite • Imanite
+        </p>
+
+        <p>
+          <a href="volonte.html">
+            Vin volontè
+          </a>
+        </p>
+
+        <p>
+          <a href="don.html">
+            Fè yon don
+          </a>
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class="footer-bottom">
+
+      <p>
+        © LAJONÈ'M — Laj yo se onè nou.
+      </p>
+
+    </div>
+
+  </footer>
+
+
+  <!-- SUPABASE -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase.js"></script>
+
+
+  <script>
+
+    const newsContainer =
+      document.getElementById("newsContainer");
+
+    const categoryFilter =
+      document.getElementById("categoryFilter");
+
+    let allNews = [];
+
+
+    /*
+     * Pwoteje tèks HTML
+     */
+    function escapeHTML(value) {
+
+      if (value === null || value === undefined) {
+        return "";
+      }
+
+      return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+
+    /*
+     * Fòma dat
+     */
+    function formatDate(dateValue) {
+
+      if (!dateValue) {
+        return "";
+      }
+
+      const date = new Date(dateValue);
+
+      if (isNaN(date.getTime())) {
+        return "";
+      }
+
+      return date.toLocaleDateString("fr-FR", {
+        day: "2-digit",
+        month: "long",
+        year: "numeric"
+      });
+
+    }
+
+
+    /*
+     * Kreye lis kategori yo
+     */
+    function chargerCategories(news) {
+
+      const categories = [
+        ...new Set(
+          news
+            .map(item => item.kategori)
+            .filter(Boolean)
+        )
+      ];
+
+      categories.sort();
+
+      categories.forEach(category => {
+
+        const option =
+          document.createElement("option");
+
+        option.value = category;
+
+        option.textContent = category;
+
+        categoryFilter.appendChild(option);
+
+      });
+
+    }
+
+
+    /*
+     * Montre nouvèl yo
+     */
+    function afficherNews(news) {
+
+      if (!news || news.length === 0) {
+
+        newsContainer.innerHTML = `
+          <div class="news-empty">
+            <h3>Pa gen nouvèl pou kounye a.</h3>
+            <p>
+              Nou pral pataje nouvo enfòmasyon avèk kominote a
+              depi gen nouvo piblikasyon.
+            </p>
+          </div>
+        `;
+
+        return;
+      }
+
+
+      newsContainer.innerHTML = news.map(item => {
+
+        const imageHTML = item.imaj_url
+          ? `
+            <img
+              class="news-image"
+              src="${escapeHTML(item.imaj_url)}"
+              alt="${escapeHTML(item.tit)}"
+              loading="lazy"
+            >
+          `
+          : `
+            <div class="news-image-placeholder">
+              LAJONÈ'M
+            </div>
+          `;
+
+
+        const categoryHTML = item.kategori
+          ? `
+            <span class="news-category">
+              ${escapeHTML(item.kategori)}
+            </span>
+          `
+          : "";
+
+
+        const authorHTML = item.otè
+          ? ` • ${escapeHTML(item.otè)}`
+          : "";
+
+
+        return `
+          <article class="news-card">
+
+            ${imageHTML}
+
+            <div class="news-content">
+
+              ${categoryHTML}
+
+              <h3 class="news-title">
+                ${escapeHTML(item.tit)}
+              </h3>
+
+              ${
+                item.rezime
+                  ? `
+                    <p class="news-summary">
+                      ${escapeHTML(item.rezime)}
+                    </p>
+                  `
+                  : ""
+              }
+
+              <div class="news-meta">
+
+                ${
+                  item.dat_piblikasyon
+                    ? `
+                      <span>
+                        ${formatDate(item.dat_piblikasyon)}
+                      </span>
+                    `
+                    : ""
+                }
+
+                ${authorHTML}
+
+              </div>
+
+            </div>
+
+          </article>
+        `;
+
+      }).join("");
+
+    }
+
+
+    /*
+     * Chaje nouvèl depi Supabase
+     */
+    async function chargerNews() {
+
+      try {
+
+        const {
+          data,
+          error
+        } = await supabaseClient
+
+          .from("nouvel")
+
+          .select(`
+            id,
+            tit,
+            slug,
+            rezime,
+            kontni,
+            imaj_url,
+            kategori,
+            otè,
+            pibliye,
+            dat_piblikasyon
+          `)
+
+          .eq("pibliye", true)
+
+          .order(
+            "dat_piblikasyon",
+            {
+              ascending: false,
+              nullsFirst: false
+            }
+          );
+
+
+        if (error) {
+
+          console.error(
+            "Erè chaje nouvèl:",
+            error
+          );
+
+          newsContainer.innerHTML = `
+            <div class="news-error">
+              Nou pa kapab chaje nouvèl yo kounye a.
+              Tanpri eseye ankò pita.
+            </div>
+          `;
+
+          return;
+        }
+
+
+        allNews = data || [];
+
+        chargerCategories(allNews);
+
+        afficherNews(allNews);
+
+
+      } catch (error) {
+
+        console.error(error);
+
+        newsContainer.innerHTML = `
+          <div class="news-error">
+            Yon erè rive pandan n ap chaje nouvèl yo.
+          </div>
+        `;
+
+      }
+
+    }
+
+
+    /*
+     * Filtre kategori
+     */
+    categoryFilter.addEventListener(
+      "change",
+      () => {
+
+        const category =
+          categoryFilter.value;
+
+        if (!category) {
+
+          afficherNews(allNews);
+
+          return;
+
+        }
+
+
+        const filtered =
+          allNews.filter(
+            item =>
+              item.kategori === category
+          );
+
+        afficherNews(filtered);
+
+      }
+    );
+
+
+    /*
+     * Kòmanse
+     */
+    chargerNews();
+
+  </script>
+
+</body>
+</html>

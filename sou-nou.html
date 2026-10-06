@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="ht">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Sou Nou | LAJONÈ'M</title>
+
+  <meta
+    name="description"
+    content="Dekouvri LAJONÈ'M, yon òganizasyon ki la pou akonpaye moun aje ki depann de lòt moun, ki vilnerab oswa ki izole."
+  >
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Open+Sans:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <link rel="stylesheet" href="css/style.css">
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase.js"></script>
+
+  <style>
+
+    /* =========================
+       PAGE SOU NOU
+    ========================= */
+
+    .about-hero {
+      background:
+        linear-gradient(
+          rgba(11, 59, 117, .92),
+          rgba(11, 59, 117, .92)
+        ),
+        url("assets/images/sou-nou.jpg") center/cover;
+
+      color: white;
+      padding: 90px 20px;
+      text-align: center;
+    }
+
+    .about-hero h1 {
+      font-family: "Montserrat", sans-serif;
+      font-size: clamp(34px, 6vw, 58px);
+      margin-bottom: 18px;
+    }
+
+    .about-hero p {
+      max-width: 760px;
+      margin: auto;
+      font-size: 18px;
+      line-height: 1.8;
+    }
+
+    .about-section {
+      padding: 70px 20px;
+    }
+
+    .about-container {
+      max-width: 1150px;
+      margin: auto;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 45px;
+    }
+
+    .section-title h2 {
+      font-family: "Montserrat", sans-serif;
+      color: #0B3B75;
+      font-size: 32px;
+      margin-bottom: 12px;
+    }
+
+    .section-title p {
+      max-width: 750px;
+      margin: auto;
+      color: #667085;
+      line-height: 1.7;
+    }
+
+    /* MISSION */
+
+    .mission-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .mission-text h2 {
+      font-family: "Montserrat", sans-serif;
+      color: #0B3B75;
+      font-size: 31px;
+      margin-bottom: 20px;
+    }
+
+    .mission-text p {
+      color: #475467;
+      line-height: 1.9;
+      margin-bottom: 15px;
+    }
+
+    .mission-box {
+      background: #f4f7fb;
+      border-left: 5px solid #F2B705;
+      padding: 25px;
+      border-radius: 8px;
+      margin-top: 25px;
+    }
+
+    .mission-box strong {
+      display: block;
+      color: #0B3B75;
+      font-family: "Montserrat", sans-serif;
+      margin-bottom: 8px;
+    }
+
+    .mission-box p {
+      margin: 0;
+      font-style: italic;
+    }
+
+    .mission-visual {
+      min-height: 380px;
+      border-radius: 14px;
+      background:
+        linear-gradient(
+          rgba(11, 59, 117, .15),
+          rgba(11, 59, 117, .15)
+        ),
+        url("assets/images/lajonem-about.jpg") center/cover;
+
+      box-shadow: 0 15px 40px rgba(0,0,0,.12);
+    }
+
+    /* VISION */
+
+    .vision {
+      background: #f4f7fb;
+    }
+
+    .vision-card {
+      max-width: 900px;
+      margin: auto;
+      background: white;
+      padding: 40px;
+      border-radius: 14px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,.06);
+    }
+
+    .vision-card h2 {
+      color: #0B3B75;
+      font-family: "Montserrat", sans-serif;
+      margin-bottom: 15px;
+    }
+
+    .vision-card p {
+      color: #475467;
+      line-height: 1.9;
+    }
+
+    /* VALUES */
+
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+
+    .value-card {
+      background: white;
+      border: 1px solid #e4e7ec;
+      border-radius: 12px;
+      padding: 25px 18px;
+      text-align: center;
+      transition: .25s;
+    }
+
+    .value-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0,0,0,.08);
+    }
+
+    .value-icon {
+      width: 58px;
+      height: 58px;
+      margin: 0 auto 15px;
+      border-radius: 50%;
+      background: #fff5d6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #0B3B75;
+      font-size: 25px;
+    }
+
+    .value-card h3 {
+      color: #0B3B75;
+      font-family: "Montserrat", sans-serif;
+      font-size: 17px;
+      margin-bottom: 8px;
+    }
+
+    .value-card p {
+      color: #667085;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    /* PILLARS */
+
+    .pillars {
+      background: #f4f7fb;
+    }
+
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 22px;
+    }
+
+    .pillar {
+      background: white;
+      border-radius: 12px;
+      padding: 28px;
+      border: 1px solid #e4e7ec;
+    }
+
+    .pillar-number {
+      color: #F2B705;
+      font-family: "Montserrat", sans-serif;
+      font-size: 14px;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    .pillar h3 {
+      font-family: "Montserrat", sans-serif;
+      color: #0B3B75;
+      margin-bottom: 10px;
+    }
+
+    .pillar p {
+      color: #667085;
+      line-height: 1.7;
+      font-size: 14px;
+    }
+
+    /* APPROACH */
+
+    .approach-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 25px;
+    }
+
+    .approach-card {
+      padding: 30px;
+      border-radius: 12px;
+      text-align: center;
+      border: 1px solid #e4e7ec;
+      background: white;
+    }
+
+    .approach-card h3 {
+      color: #0B3B75;
+      font-family: "Montserrat", sans-serif;
+      margin-bottom: 10px;
+    }
+
+    .approach-card p {
+      color: #667085;
+      line-height: 1.7;
+      font-size: 14px;
+    }
+
+    .approach-card:nth-child(2) {
+      border-top: 4px solid #F2B705;
+    }
+
+    .approach-card:nth-child(3) {
+      border-top: 4px solid #2E8B57;
+    }
+
+    /* QUOTE */
+
+    .quote-section {
+      background: #0B3B75;
+      color: white;
+      text-align: center;
+      padding: 75px 20px;
+    }
+
+    .quote-section blockquote {
+      max-width: 900px;
+      margin: auto;
+      font-family: "Montserrat", sans-serif;
+      font-size: clamp(21px, 4vw, 32px);
+      line-height: 1.6;
+      font-weight: 600;
+    }
+
+    .quote-section cite {
+      display: block;
+      margin-top: 20px;
+      color: #F2B705;
+      font-style: normal;
+      font-weight: 700;
+    }
+
+    /* CTA */
+
+    .about-cta {
+      padding: 70px 20px;
+      text-align: center;
+    }
+
+    .about-cta h2 {
+      color: #0B3B75;
+      font-family: "Montserrat", sans-serif;
+      margin-bottom: 15px;
+      font-size: 30px;
+    }
+
+    .about-cta p {
+      max-width: 700px;
+      margin: 0 auto 25px;
+      color: #667085;
+      line-height: 1.8;
+    }
+
+    .cta-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .cta-button {
+      display: inline-block;
+      text-decoration: none;
+      padding: 13px 22px;
+      border-radius: 7px;
+      font-weight: 700;
+      transition: .2s;
+    }
+
+    .cta-primary {
+      background: #0B3B75;
+      color: white;
+    }
+
+    .cta-primary:hover {
+      background: #082e5c;
+    }
+
+    .cta-secondary {
+      background: #F2B705;
+      color: #0B3B75;
+    }
+
+    .cta-secondary:hover {
+      background: #dba400;
+    }
+
+    /* RESPONSIVE */
+
+    @media (max-width: 900px) {
+
+      .mission-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .values-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .pillars-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .approach-grid {
+        grid-template-columns: 1fr;
+      }
+
+    }
+
+    @media (max-width: 600px) {
+
+      .about-hero {
+        padding: 65px 18px;
+      }
+
+      .about-section {
+        padding: 50px 18px;
+      }
+
+      .values-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .mission-visual {
+        min-height: 260px;
+      }
+
+      .vision-card {
+        padding: 25px 20px;
+      }
+
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- =========================
+       HEADER
+  ========================== -->
+
+  <header class="site-header">
+
+    <div class="container">
+
+      <a href="index.html" class="logo">
+        LAJONÈ'M
+      </a>
+
+      <nav class="main-nav">
+
+        <a href="index.html">Akèy</a>
+
+        <a href="sou-nou.html" class="active">
+          Sou nou
+        </a>
+
+        <a href="pwogram.html">
+          Pwogram
+        </a>
+
+        <a href="aktivite.html">
+          Aktivite
+        </a>
+
+        <a href="galri.html">
+          Galri
+        </a>
+
+        <a href="nouvel.html">
+          Nouvèl
+        </a>
+
+        <a href="volonte.html">
+          Vin volontè
+        </a>
+
+        <a href="don.html" class="nav-don">
+          Fè yon don
+        </a>
+
+      </nav>
+
+    </div>
+
+  </header>
+
+
+  <!-- =========================
+       HERO
+  ========================== -->
+
+  <section class="about-hero">
+
+    <h1>Sou LAJONÈ'M</h1>
+
+    <p>
+      Nou kwè chak moun aje merite viv avèk respè,
+      diyite, afeksyon ak sipò, kèlkeswa sitiyasyon
+      li ap travèse.
+    </p>
+
+  </section>
+
+
+  <!-- =========================
+       MISSION
+  ========================== -->
+
+  <section class="about-section">
+
+    <div class="about-container">
+
+      <div class="mission-grid">
+
+        <div class="mission-text">
+
+          <h2>Ki moun nou ye?</h2>
+
+          <p>
+            <strong>LAJONÈ'M</strong> se yon òganizasyon
+            ki angaje l pou akonpaye moun aje ki depann
+            de lòt moun, ki vilnerab, ki izole oswa ki
+            ap viv nan sitiyasyon difisil.
+          </p>
+
+          <p>
+            Nou travay pou pote yon sipò ki ale pi lwen
+            pase bezwen materyèl yo. Nou vle bay moun
+            aje yo yon prezans imen, yon zòrèy ki koute,
+            yon men ki ede epi yon kominote ki rekonèt
+            valè yo.
+          </p>
+
+          <div class="mission-box">
+
+            <strong>
+              Misyon nou
+            </strong>
+
+            <p>
+              Akonpaye, pwoteje ak valorize moun aje
+              yo pandan n ap kontribye pou yo viv avèk
+              plis diyite, sekirite ak patisipasyon
+              nan kominote yo.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="mission-visual"></div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       VISION
+  ========================== -->
+
+  <section class="about-section vision">
+
+    <div class="about-container">
+
+      <div class="section-title">
+
+        <h2>Vizyon nou</h2>
+
+        <p>
+          Yon sosyete kote laj pa janm vin yon rezon
+          pou yon moun pèdi diyite li, izolasyon li
+          oswa dwa li pou resevwa sipò ak respè.
+        </p>
+
+      </div>
+
+      <div class="vision-card">
+
+        <h2>Yon kominote ki pa bliye moun aje li yo</h2>
+
+        <p>
+          LAJONÈ'M vle kontribye nan konstriksyon yon
+          kominote kote jenerasyon yo aprann youn nan
+          men lòt, kote eksperyans moun aje yo jwenn
+          valè epi kote solidarite vin yon responsablite
+          kolektif.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       VALUES
+  ========================== -->
+
+  <section class="about-section">
+
+    <div class="about-container">
+
+      <div class="section-title">
+
+        <h2>Valè nou</h2>
+
+        <p>
+          Se prensip sa yo ki gide fason LAJONÈ'M
+          sèvi moun li akonpaye yo ak fason nou
+          travay avèk kominote a.
+        </p>
+
+      </div>
+
+
+      <div class="values-grid">
+
+        <div class="value-card">
+
+          <div class="value-icon">♥</div>
+
+          <h3>Diyite</h3>
+
+          <p>
+            Nou rekonèt valè chak moun epi nou
+            respekte dwa li.
+          </p>
+
+        </div>
+
+
+        <div class="value-card">
+
+          <div class="value-icon">◉</div>
+
+          <h3>Respè</h3>
+
+          <p>
+            Nou aji avèk konsiderasyon, koute
+            epi respekte chwa moun yo.
+          </p>
+
+        </div>
+
+
+        <div class="value-card">
+
+          <div class="value-icon">+</div>
+
+          <h3>Solidarite</h3>
+
+          <p>
+            Nou kwè nan fòs kominote a pou soutni
+            moun ki plis bezwen sipò.
+          </p>
+
+        </div>
+
+
+        <div class="value-card">
+
+          <div class="value-icon">♡</div>
+
+          <h3>Imanite</h3>
+
+          <p>
+            Chak aksyon nou fèt avèk konpasyon,
+            konsiderasyon ak limanite.
+          </p>
+
+        </div>
+
+
+        <div class="value-card">
+
+          <div class="value-icon">◆</div>
+
+          <h3>Konpasyon</h3>
+
+          <p>
+            Nou pran tan pou konprann bezwen ak
+            reyalite chak moun.
+          </p>
+
+        </div>
+
+
+        <div class="value-card">
+
+          <div class="value-icon">◎</div>
+
+          <h3>Enklizyon</h3>
+
+          <p>
+            Nou ankouraje patisipasyon moun aje yo
+            nan lavi kominote a.
+          </p>
+
+        </div>
+
+
+        <div class="value-card">
+
+          <div class="value-icon">✓</div>
+
+          <h3>Entegrite</h3>
+
+          <p>
+            Nou travay avèk transparans,
+            responsablite ak etik.
+          </p>
+
+        </div>
+
+
+        <div class="value-card">
+
+          <div class="value-icon">∞</div>
+
+          <h3>Angajman</h3>
+
+          <p>
+            Nou rete angaje bò kote moun nou
+            akonpaye yo.
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       PILLARS
+  ========================== -->
+
+  <section class="about-section pillars">
+
+    <div class="about-container">
+
+      <div class="section-title">
+
+        <h2>4 gwo poto mitan aksyon nou</h2>
+
+        <p>
+          Travay LAJONÈ'M òganize sou kat gwo
+          domèn ki ede nou reponn ak bezwen
+          moun aje yo yon fason global.
+        </p>
+
+      </div>
+
+
+      <div class="pillars-grid">
+
+        <div class="pillar">
+
+          <div class="pillar-number">
+            POTO MITAN 01
+          </div>
+
+          <h3>Soutyen nan lavi chak jou</h3>
+
+          <p>
+            Nou ede avèk manje, ijyèn, rad, bezwen
+            esansyèl ak sipò ijans lè sa nesesè.
+          </p>
+
+        </div>
+
+
+        <div class="pillar">
+
+          <div class="pillar-number">
+            POTO MITAN 02
+          </div>
+
+          <h3>Akonpayman imen</h3>
+
+          <p>
+            Vizit, koute, sipò sosyal, aktivite
+            lwazi ak moman pataj ede diminye
+            solitid ak izolasyon.
+          </p>
+
+        </div>
+
+
+        <div class="pillar">
+
+          <div class="pillar-number">
+            POTO MITAN 03
+          </div>
+
+          <h3>Sante ak otonomi</h3>
+
+          <p>
+            Nou ede moun aje yo jwenn bon oryantasyon
+            pou sèvis sante ak sosyal, prevansyon,
+            ijyèn, nitrisyon ak mobilite.
+          </p>
+
+        </div>
+
+
+        <div class="pillar">
+
+          <div class="pillar-number">
+            POTO MITAN 04
+          </div>
+
+          <h3>Diyite ak enklizyon</h3>
+
+          <p>
+            Nou kreye espas pou aktivite kominotè,
+            selebrasyon, pataj istwa lavi ak
+            transmisyon eksperyans ant jenerasyon.
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       APPROACH
+  ========================== -->
+
+  <section class="about-section">
+
+    <div class="about-container">
+
+      <div class="section-title">
+
+        <h2>Fason nou aji</h2>
+
+        <p>
+          Nou rezime apwòch LAJONÈ'M nan twa mo.
+        </p>
+
+      </div>
+
+
+      <div class="approach-grid">
+
+        <div class="approach-card">
+
+          <h3>Wè</h3>
+
+          <p>
+            Nou pran tan pou wè moun nan, konprann
+            reyalite li epi idantifye bezwen li yo.
+          </p>
+
+        </div>
+
+
+        <div class="approach-card">
+
+          <h3>Akonpaye</h3>
+
+          <p>
+            Nou pa sèlman bay yon èd yon sèl fwa.
+            Nou chèche konstwi yon akonpayman ki
+            adapte ak sitiyasyon chak moun.
+          </p>
+
+        </div>
+
+
+        <div class="approach-card">
+
+          <h3>Valorizasyon</h3>
+
+          <p>
+            Nou mete eksperyans, istwa, kapasite
+            ak kontribisyon moun aje yo an valè.
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       CAMPAIGN
+  ========================== -->
+
+  <section class="quote-section">
+
+    <blockquote>
+      “YO TE LA POU NOU.
+      KOUNYE A, SE TOU PA NOU.”
+    </blockquote>
+
+    <cite>
+      — Mesaj solidarite LAJONÈ'M
+    </cite>
+
+  </section>
+
+
+  <!-- =========================
+       FOUNDING MESSAGE
+  ========================== -->
+
+  <section class="about-section">
+
+    <div class="about-container">
+
+      <div class="section-title">
+
+        <h2>Poukisa LAJONÈ'M?</h2>
+
+      </div>
+
+      <div class="vision-card">
+
+        <p>
+          Nou pa chwazi laj nou rive ladan.
+          Men nou kapab chwazi fason nou akonpaye
+          moun ki rive ladan.
+        </p>
+
+        <br>
+
+        <p>
+          Chak vizit, chak repa, chak pawòl ankourajman,
+          chak men nou lonje kapab fè yon diferans
+          nan lavi yon moun.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       CTA
+  ========================== -->
+
+  <section class="about-cta">
+
+    <h2>Ann fè plis ansanm</h2>
+
+    <p>
+      Ou kapab patisipe nan misyon LAJONÈ'M kòm
+      volontè, donatè oswa patnè.
+    </p>
+
+    <div class="cta-buttons">
+
+      <a
+        href="volonte.html"
+        class="cta-button cta-primary"
+      >
+        Vin volontè
+      </a>
+
+      <a
+        href="don.html"
+        class="cta-button cta-secondary"
+      >
+        Fè yon don
+      </a>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       FOOTER
+  ========================== -->
+
+  <footer class="site-footer">
+
+    <div class="container">
+
+      <div class="footer-grid">
+
+        <div>
+
+          <h3>LAJONÈ'M</h3>
+
+          <p>
+            Laj yo se onè nou.
+          </p>
+
+          <p>
+            Wè. Akonpaye. Valorizasyon.
+          </p>
+
+        </div>
+
+
+        <div>
+
+          <h3>Kontak</h3>
+
+          <p>
+            Cap-Haïtien, Haïti
+          </p>
+
+          <p>
+            +509 42824391\ +509 35274215
+          </p>
+
+          <p>
+            woldjyimpactlab@gmail.com
+          </p>
+
+        </div>
+
+
+        <div>
+
+          <h3>Lyens rapid</h3>
+
+          <p>
+            <a href="pwogram.html">
+              Pwogram
+            </a>
+          </p>
+
+          <p>
+            <a href="aktivite.html">
+              Aktivite
+            </a>
+          </p>
+
+          <p>
+            <a href="volonte.html">
+              Vin volontè
+            </a>
+          </p>
+
+          <p>
+            <a href="don.html">
+              Fè yon don
+            </a>
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="footer-bottom">
+
+        <p>
+          © 2026 LAJONÈ'M — Laj yo se onè nou.
+        </p>
+
+      </div>
+
+    </div>
+
+  </footer>
+
+
+</body>
+</html>

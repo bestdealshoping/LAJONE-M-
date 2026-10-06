@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="ht">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Kontakte nou | LAJONÈ'M</title>
+
+  <meta
+    name="description"
+    content="Kontakte LAJONÈ'M pou jwenn enfòmasyon, mande akonpayman oswa kolabore avèk nou."
+  >
+
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase.js"></script>
+</head>
+
+<body>
+
+  <!-- ================= HEADER ================= -->
+  <header class="site-header">
+
+    <div class="container nav-container">
+
+      <a href="index.html" class="logo">
+        <span>LAJONÈ'M</span>
+        <small>Laj yo se onè nou.</small>
+      </a>
+
+      <button
+        class="menu-toggle"
+        id="menuToggle"
+        aria-label="Louvri meni"
+      >
+        ☰
+      </button>
+
+      <nav class="main-nav" id="mainNav">
+
+        <a href="index.html">Akèy</a>
+
+        <a href="sou-nou.html">Sou nou</a>
+
+        <a href="pwogram.html">Pwogram</a>
+
+        <a href="aktivite.html">Aktivite</a>
+
+        <a href="galri.html">Galri</a>
+
+        <a href="nouvel.html">Nouvèl</a>
+
+        <a href="volonte.html">Vin volontè</a>
+
+        <a href="don.html">Fè yon don</a>
+
+        <a href="kontak.html" class="active">
+          Kontakte nou
+        </a>
+
+      </nav>
+
+    </div>
+
+  </header>
+
+
+  <!-- ================= HERO ================= -->
+  <section class="page-hero">
+
+    <div class="container">
+
+      <h1>Kontakte nou</h1>
+
+      <p>
+        Nou la pou koute w, resevwa mesaj ou epi konstwi
+        yon pi bon sipò pou moun aje ki nan bezwen.
+      </p>
+
+    </div>
+
+  </section>
+
+
+  <!-- ================= CONTACT SECTION ================= -->
+  <main>
+
+    <section class="section">
+
+      <div class="container">
+
+        <div class="section-header">
+
+          <span class="section-label">
+            KONTAK
+          </span>
+
+          <h2>
+            Pale avèk ekip LAJONÈ'M
+          </h2>
+
+          <p>
+            Si ou bezwen plis enfòmasyon, ou vle pwopoze
+            yon patenarya, ofri èd oswa pataje yon sitiyasyon,
+            ou kapab kontakte nou atravè fòm ki anba a.
+          </p>
+
+        </div>
+
+
+        <div class="contact-grid">
+
+
+          <!-- ================= INFORMATIONS ================= -->
+          <div class="contact-info">
+
+            <div class="info-card">
+
+              <div class="info-icon">
+                📍
+              </div>
+
+              <div>
+
+                <h3>Adrès</h3>
+
+                <p>
+                  Cap-Haïtien, Haïti
+                </p>
+
+              </div>
+
+            </div>
+
+
+            <div class="info-card">
+
+              <div class="info-icon">
+                📞
+              </div>
+
+              <div>
+
+                <h3>Telefòn</h3>
+
+                <p>
+                  <a href="tel:+50934981561">
+                    509 42824391\ +509 35274215
+                  </a>
+                </p>
+
+              </div>
+
+            </div>
+
+
+            <div class="info-card">
+
+              <div class="info-icon">
+                ✉️
+              </div>
+
+              <div>
+
+                <h3>Imèl</h3>
+
+                <p>
+                  <a href="mailto:woldjyimpactlab@gmail.com">
+                    woldjyimpactlab@gmail.com
+                  </a>
+                </p>
+
+              </div>
+
+            </div>
+
+
+            <div class="info-card">
+
+              <div class="info-icon">
+                🤝
+              </div>
+
+              <div>
+
+                <h3>Nou disponib pou</h3>
+
+                <p>
+                  Kesyon, volontarya, don, patenarya,
+                  oryantasyon ak lòt demann sosyal.
+                </p>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <!-- ================= FORM ================= -->
+          <div class="contact-form-wrapper">
+
+            <div class="form-header">
+
+              <h2>
+                Voye yon mesaj
+              </h2>
+
+              <p>
+                Ranpli fòm nan epi ekip nou an ap resevwa mesaj ou.
+              </p>
+
+            </div>
+
+
+            <form id="contactForm">
+
+              <!-- NON -->
+              <div class="form-group">
+
+                <label for="non">
+                  Non konplè *
+                </label>
+
+                <input
+                  type="text"
+                  id="non"
+                  name="non"
+                  placeholder="Antre non ou"
+                  required
+                >
+
+              </div>
+
+
+              <!-- EMAIL -->
+              <div class="form-group">
+
+                <label for="email">
+                  Imèl *
+                </label>
+
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  placeholder="egzanp@email.com"
+                  required
+                >
+
+              </div>
+
+
+              <!-- TELEFON -->
+              <div class="form-group">
+
+                <label for="telefòn">
+                  Telefòn
+                </label>
+
+                <input
+                  type="tel"
+                  id="telefòn"
+                  name="telefòn"
+                  placeholder="+509..."
+                >
+
+              </div>
+
+
+              <!-- SUJET -->
+              <div class="form-group">
+
+                <label for="sijè">
+                  Sijè mesaj la *
+                </label>
+
+                <select
+                  id="sijè"
+                  name="sijè"
+                  required
+                >
+
+                  <option value="">
+                    Chwazi yon sijè
+                  </option>
+
+                  <option value="Enfòmasyon jeneral">
+                    Enfòmasyon jeneral
+                  </option>
+
+                  <option value="Volontarya">
+                    Volontarya
+                  </option>
+
+                  <option value="Don">
+                    Don
+                  </option>
+
+                  <option value="Patenarya">
+                    Patenarya
+                  </option>
+
+                  <option value="Akonpayman">
+                    Akonpayman
+                  </option>
+
+                  <option value="Sijesyon">
+                    Sijesyon
+                  </option>
+
+                  <option value="Lòt">
+                    Lòt
+                  </option>
+
+                </select>
+
+              </div>
+
+
+              <!-- MESSAGE -->
+              <div class="form-group">
+
+                <label for="mesaj">
+                  Mesaj *
+                </label>
+
+                <textarea
+                  id="mesaj"
+                  name="mesaj"
+                  rows="7"
+                  placeholder="Ekri mesaj ou la..."
+                  required
+                ></textarea>
+
+              </div>
+
+
+              <!-- MESSAGE STATUS -->
+              <div
+                id="contactStatus"
+                class="form-status"
+                style="display:none;"
+              ></div>
+
+
+              <!-- BUTTON -->
+              <button
+                type="submit"
+                class="btn btn-primary"
+                id="contactSubmit"
+              >
+                Voye mesaj la
+              </button>
+
+            </form>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= CTA ================= -->
+    <section class="section section-light">
+
+      <div class="container">
+
+        <div class="cta-box">
+
+          <h2>
+            Ansanm, nou kapab fè yon diferans
+          </h2>
+
+          <p>
+            Chak aksyon konte. Yon vizit, yon don,
+            yon èdtan kòm volontè oswa yon mesaj kapab
+            pote plis diyite ak espwa nan lavi yon moun aje.
+          </p>
+
+          <div class="cta-actions">
+
+            <a
+              href="volonte.html"
+              class="btn btn-primary"
+            >
+              Vin volontè
+            </a>
+
+            <a
+              href="don.html"
+              class="btn btn-secondary"
+            >
+              Fè yon don
+            </a>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="site-footer">
+
+    <div class="container footer-grid">
+
+
+      <div class="footer-brand">
+
+        <h2>LAJONÈ'M</h2>
+
+        <p>
+          Laj yo se onè nou.
+        </p>
+
+        <p>
+          Wè. Akonpaye. Valorizasyon.
+        </p>
+
+      </div>
+
+
+      <div>
+
+        <h3>Lyen rapid</h3>
+
+        <a href="sou-nou.html">Sou nou</a>
+
+        <a href="pwogram.html">Pwogram</a>
+
+        <a href="aktivite.html">Aktivite</a>
+
+        <a href="galri.html">Galri</a>
+
+        <a href="nouvel.html">Nouvèl</a>
+
+      </div>
+
+
+      <div>
+
+        <h3>Patisipe</h3>
+
+        <a href="volonte.html">
+          Vin volontè
+        </a>
+
+        <a href="don.html">
+          Fè yon don
+        </a>
+
+        <a href="patne.html">
+          Vin patnè
+        </a>
+
+        <a href="kontak.html">
+          Kontakte nou
+        </a>
+
+      </div>
+
+
+      <div>
+
+        <h3>Kontak</h3>
+
+        <p>
+          Cap-Haïtien, Haïti
+        </p>
+
+        <p>
+          +509 42824391\ +509 35274215
+        </p>
+
+        <p>
+          woldjyimpactlab@gmail.com
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class="footer-bottom">
+
+      <div class="container">
+
+        <p>
+          © <span id="currentYear"></span>
+          LAJONÈ'M — Laj yo se onè nou.
+        </p>
+
+        <p>
+          Respè • Solidarite • Imanite
+        </p>
+
+      </div>
+
+    </div>
+
+  </footer>
+
+
+  <!-- ================= JAVASCRIPT ================= -->
+  <script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+      const form = document.getElementById("contactForm");
+      const status = document.getElementById("contactStatus");
+      const submitButton = document.getElementById("contactSubmit");
+
+      const menuToggle = document.getElementById("menuToggle");
+      const mainNav = document.getElementById("mainNav");
+
+
+      /* ================= MENU MOBILE ================= */
+
+      if (menuToggle && mainNav) {
+
+        menuToggle.addEventListener("click", function () {
+
+          mainNav.classList.toggle("active");
+
+        });
+
+      }
+
+
+      /* ================= ANNÉE ================= */
+
+      const yearElement = document.getElementById("currentYear");
+
+      if (yearElement) {
+
+        yearElement.textContent =
+          new Date().getFullYear();
+
+      }
+
+
+      /* ================= FORM CONTACT ================= */
+
+      form.addEventListener("submit", async function (event) {
+
+        event.preventDefault();
+
+
+        submitButton.disabled = true;
+
+        submitButton.textContent =
+          "Mesaj la ap voye...";
+
+
+        status.style.display = "none";
+
+
+        const non =
+          document.getElementById("non").value.trim();
+
+        const email =
+          document.getElementById("email").value.trim();
+
+        const telefòn =
+          document.getElementById("telefòn").value.trim();
+
+        const sijè =
+          document.getElementById("sijè").value.trim();
+
+        const mesaj =
+          document.getElementById("mesaj").value.trim();
+
+
+        try {
+
+          const { data, error } =
+            await supabaseClient
+              .from("mesaj_kontak")
+              .insert([
+                {
+                  non: non,
+                  email: email,
+                  telefòn: telefòn || null,
+                  sijè: sijè,
+                  mesaj: mesaj,
+                  estati: "nouvo",
+                  dat_mesaj: new Date().toISOString()
+                }
+              ])
+              .select()
+              .single();
+
+
+          if (error) {
+
+            console.error(
+              "Erè voye mesaj:",
+              error
+            );
+
+            throw error;
+
+          }
+
+
+          console.log(
+            "Mesaj LAJONÈ'M:",
+            data
+          );
+
+
+          status.textContent =
+            "Mesaj ou a voye avèk siksè. Mèsi paske ou kontakte LAJONÈ'M.";
+
+          status.className =
+            "form-status success";
+
+          status.style.display =
+            "block";
+
+
+          form.reset();
+
+
+        } catch (error) {
+
+          console.error(error);
+
+
+          status.textContent =
+            "Nou pa rive voye mesaj la. Tanpri verifye koneksyon ou epi eseye ankò.";
+
+          status.className =
+            "form-status error";
+
+          status.style.display =
+            "block";
+
+
+        } finally {
+
+          submitButton.disabled = false;
+
+          submitButton.textContent =
+            "Voye mesaj la";
+
+        }
+
+      });
+
+    });
+
+  </script>
+
+</body>
+</html>

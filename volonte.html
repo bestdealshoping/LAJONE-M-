@@ -1,0 +1,1774 @@
+<!DOCTYPE html>
+<html lang="ht">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Vin Volontè | LAJONÈ'M</title>
+
+  <meta
+    name="description"
+    content="Enskri kòm volontè nan LAJONÈ'M epi ede nou akonpaye moun aje yo."
+  >
+
+  <link rel="stylesheet" href="css/style.css">
+
+  <style>
+    /* =====================================
+       VOLONTE PAGE
+    ====================================== */
+
+    .page-hero {
+      padding: 80px 20px;
+      text-align: center;
+      background: linear-gradient(
+        135deg,
+        #0B3B75,
+        #07284f
+      );
+      color: #ffffff;
+    }
+
+    .page-hero h1 {
+      margin: 15px 0;
+      font-size: clamp(2rem, 5vw, 3.1rem);
+    }
+
+    .page-hero p {
+      max-width: 760px;
+      margin: auto;
+      line-height: 1.8;
+      font-size: 1.05rem;
+    }
+
+    .volunteer-section {
+      padding: 70px 20px;
+      background: #f5f7fa;
+    }
+
+    .volunteer-layout {
+      display: grid;
+      grid-template-columns: 0.8fr 1.4fr;
+      gap: 45px;
+      align-items: start;
+    }
+
+    .volunteer-info {
+      background: #0B3B75;
+      color: #ffffff;
+      padding: 35px;
+      border-radius: 18px;
+      position: sticky;
+      top: 100px;
+    }
+
+    .volunteer-info h2 {
+      margin-top: 0;
+      font-size: 1.8rem;
+    }
+
+    .volunteer-info p {
+      line-height: 1.8;
+    }
+
+    .volunteer-info ul {
+      padding-left: 20px;
+      line-height: 2;
+    }
+
+    .volunteer-form-container {
+      background: #ffffff;
+      padding: 40px;
+      border-radius: 18px;
+      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
+    }
+
+    .form-title {
+      margin-top: 0;
+      color: #0B3B75;
+      font-size: 1.9rem;
+    }
+
+    .form-intro {
+      color: #667085;
+      line-height: 1.7;
+      margin-bottom: 30px;
+    }
+
+    .form-section {
+      margin-top: 35px;
+      padding-top: 25px;
+      border-top: 1px solid #e5e9ef;
+    }
+
+    .form-section h3 {
+      color: #0B3B75;
+      margin-bottom: 20px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      color: #263238;
+      font-weight: 700;
+    }
+
+    .required {
+      color: #c62828;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 13px 14px;
+      border: 1px solid #d0d5dd;
+      border-radius: 9px;
+      font: inherit;
+      color: #263238;
+      background: #ffffff;
+      box-sizing: border-box;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: #0B3B75;
+      box-shadow: 0 0 0 3px rgba(11, 59, 117, 0.1);
+    }
+
+    .form-group textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .checkbox-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .checkbox-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 9px;
+      padding: 10px;
+      border: 1px solid #e5e9ef;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .checkbox-item:hover {
+      background: #f8fafc;
+    }
+
+    .checkbox-item input {
+      margin-top: 4px;
+    }
+
+    .checkbox-item span {
+      color: #475467;
+      line-height: 1.5;
+    }
+
+    .consent-box {
+      background: #f5f7fa;
+      padding: 18px;
+      border-radius: 10px;
+      margin-top: 20px;
+    }
+
+    .consent-box label {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      color: #475467;
+      line-height: 1.6;
+    }
+
+    .consent-box input {
+      margin-top: 5px;
+    }
+
+    .form-submit {
+      margin-top: 30px;
+    }
+
+    .submit-btn {
+      width: 100%;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    .submit-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .form-message {
+      display: none;
+      margin-top: 20px;
+      padding: 18px;
+      border-radius: 10px;
+      line-height: 1.6;
+    }
+
+    .form-message.success {
+      display: block;
+      background: #e8f5e9;
+      color: #1b5e20;
+      border: 1px solid #a5d6a7;
+    }
+
+    .form-message.error {
+      display: block;
+      background: #ffebee;
+      color: #b71c1c;
+      border: 1px solid #ef9a9a;
+    }
+
+    .privacy-note {
+      color: #667085;
+      font-size: 0.88rem;
+      line-height: 1.6;
+      margin-top: 20px;
+    }
+
+    .success-icon {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #2E8B57;
+    }
+
+    .error-details {
+      margin-top: 12px;
+      padding: 10px;
+      background: rgba(183, 28, 28, 0.06);
+      border-radius: 7px;
+      font-size: 0.85rem;
+      word-break: break-word;
+    }
+
+    @media (max-width: 900px) {
+
+      .volunteer-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .volunteer-info {
+        position: static;
+      }
+
+    }
+
+    @media (max-width: 600px) {
+
+      .volunteer-section {
+        padding: 45px 15px;
+      }
+
+      .volunteer-form-container {
+        padding: 25px 18px;
+      }
+
+      .form-row,
+      .checkbox-grid {
+        grid-template-columns: 1fr;
+      }
+
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- =====================================
+       HEADER
+  ====================================== -->
+
+  <header class="site-header">
+
+    <div class="container nav-container">
+
+      <a href="index.html" class="logo">
+
+        <span class="logo-main">
+          LAJONÈ'M
+        </span>
+
+        <span class="logo-sub">
+          Laj yo se onè nou.
+        </span>
+
+      </a>
+
+      <nav class="main-nav">
+
+        <a href="index.html">
+          Akèy
+        </a>
+
+        <a href="sou-nou.html">
+          Sou nou
+        </a>
+
+        <a href="pwogram.html">
+          Pwogram
+        </a>
+
+        <a href="aktivite.html">
+          Aktivite
+        </a>
+
+        <a href="don.html">
+          Fè yon don
+        </a>
+
+        <a href="volonte.html" class="active">
+          Vin volontè
+        </a>
+
+        <a href="kontak.html">
+          Kontakte nou
+        </a>
+
+      </nav>
+
+    </div>
+
+  </header>
+
+
+  <!-- =====================================
+       HERO
+  ====================================== -->
+
+  <main>
+
+    <section class="page-hero">
+
+      <div class="container">
+
+        <span class="section-tag">
+          LAJONÈ'M
+        </span>
+
+        <h1>
+          Vin yon volontè
+        </h1>
+
+        <p>
+          Mete tan, konpetans ak kè ou nan sèvis
+          moun aje yo. Ranpli fòm nan pou kòmanse
+          pwosesis enskripsyon ou kòm volontè.
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================
+         FORM SECTION
+    ====================================== -->
+
+    <section class="volunteer-section">
+
+      <div class="container">
+
+        <div class="volunteer-layout">
+
+
+          <!-- INFO -->
+
+          <aside class="volunteer-info">
+
+            <h2>
+              Poukisa vin volontè?
+            </h2>
+
+            <p>
+              Nan LAJONÈ'M, nou kwè chak moun kapab
+              pote yon bagay nan lavi yon moun aje.
+            </p>
+
+            <ul>
+
+              <li>Pote prezans ak konpayi</li>
+
+              <li>Patisipe nan vizit lakay</li>
+
+              <li>Sipòte aktivite kominotè</li>
+
+              <li>Ede nan distribisyon manje</li>
+
+              <li>Patisipe nan aktivite sosyal</li>
+
+              <li>Ede ak oryantasyon sosyal</li>
+
+              <li>Pataje konpetans ou</li>
+
+            </ul>
+
+            <p>
+              <strong>
+                Wè. Akonpaye. Valorizasyon.
+              </strong>
+            </p>
+
+          </aside>
+
+
+          <!-- FORM -->
+
+          <div class="volunteer-form-container">
+
+            <h2 class="form-title">
+              Fòm enskripsyon volontè
+            </h2>
+
+            <p class="form-intro">
+              Tanpri ranpli enfòmasyon yo avèk
+              presizyon. Apre ou fin soumèt fòm nan,
+              ekip LAJONÈ'M ap revize demann ou an.
+            </p>
+
+
+            <form
+              id="volunteerForm"
+              novalidate
+            >
+
+              <!-- 1 -->
+
+              <div class="form-section">
+
+                <h3>
+                  1. Enfòmasyon pèsonèl
+                </h3>
+
+                <div class="form-row">
+
+                  <div class="form-group">
+
+                    <label for="non">
+                      Non <span class="required">*</span>
+                    </label>
+
+                    <input
+                      type="text"
+                      id="non"
+                      name="non"
+                      required
+                      maxlength="100"
+                      autocomplete="given-name"
+                    >
+
+                  </div>
+
+                  <div class="form-group">
+
+                    <label for="siyati">
+                      Siyati <span class="required">*</span>
+                    </label>
+
+                    <input
+                      type="text"
+                      id="siyati"
+                      name="siyati"
+                      required
+                      maxlength="100"
+                      autocomplete="family-name"
+                    >
+
+                  </div>
+
+                </div>
+
+
+                <div class="form-row">
+
+                  <div class="form-group">
+
+                    <label for="dat_nesans">
+                      Dat nesans
+                    </label>
+
+                    <input
+                      type="date"
+                      id="dat_nesans"
+                      name="dat_nesans"
+                    >
+
+                  </div>
+
+                  <div class="form-group">
+
+                    <label for="sèks">
+                      Sèks
+                    </label>
+
+                    <select id="sèks" name="sèks">
+
+                      <option value="">
+                        Chwazi
+                      </option>
+
+                      <option value="Fi">
+                        Fi
+                      </option>
+
+                      <option value="Gason">
+                        Gason
+                      </option>
+
+                      <option value="Lòt">
+                        Lòt
+                      </option>
+
+                      <option value="Pa vle di">
+                        Pa vle di
+                      </option>
+
+                    </select>
+
+                  </div>
+
+                </div>
+
+
+                <div class="form-row">
+
+                  <div class="form-group">
+
+                    <label for="telefòn">
+                      Telefòn <span class="required">*</span>
+                    </label>
+
+                    <input
+                      type="tel"
+                      id="telefòn"
+                      name="telefòn"
+                      required
+                      maxlength="30"
+                      autocomplete="tel"
+                      placeholder="+509..."
+                    >
+
+                  </div>
+
+                  <div class="form-group">
+
+                    <label for="email">
+                      Imèl
+                    </label>
+
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      maxlength="150"
+                      autocomplete="email"
+                      placeholder="egzanp@email.com"
+                    >
+
+                  </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                  <label for="adrès">
+                    Adrès
+                  </label>
+
+                  <textarea
+                    id="adrès"
+                    name="adrès"
+                    maxlength="500"
+                    autocomplete="street-address"
+                  ></textarea>
+
+                </div>
+
+              </div>
+
+
+              <!-- 2 -->
+
+              <div class="form-section">
+
+                <h3>
+                  2. Kontak pou ijans
+                </h3>
+
+                <div class="form-row">
+
+                  <div class="form-group">
+
+                    <label for="non_kontak_ijans">
+                      Non kontak ijans
+                    </label>
+
+                    <input
+                      type="text"
+                      id="non_kontak_ijans"
+                      maxlength="150"
+                    >
+
+                  </div>
+
+                  <div class="form-group">
+
+                    <label for="telefòn_kontak_ijans">
+                      Telefòn kontak ijans
+                    </label>
+
+                    <input
+                      type="tel"
+                      id="telefòn_kontak_ijans"
+                      maxlength="30"
+                    >
+
+                  </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                  <label for="relasyon_kontak_ijans">
+                    Relasyon ak moun nan
+                  </label>
+
+                  <input
+                    type="text"
+                    id="relasyon_kontak_ijans"
+                    maxlength="100"
+                    placeholder="Egzanp: manman, papa, frè, sè..."
+                  >
+
+                </div>
+
+              </div>
+
+
+              <!-- 3 -->
+
+              <div class="form-section">
+
+                <h3>
+                  3. Motivasyon
+                </h3>
+
+                <div class="form-group">
+
+                  <label for="motivasyon">
+                    Poukisa ou vle vin volontè
+                    nan LAJONÈ'M?
+                    <span class="required">*</span>
+                  </label>
+
+                  <textarea
+                    id="motivasyon"
+                    name="motivasyon"
+                    required
+                    maxlength="2000"
+                    placeholder="Rakonte nou motivasyon ou..."
+                  ></textarea>
+
+                </div>
+
+              </div>
+
+
+              <!-- 4 -->
+
+              <div class="form-section">
+
+                <h3>
+                  4. Nan ki domèn ou ta renmen ede?
+                </h3>
+
+                <div class="checkbox-grid">
+
+                  <label class="checkbox-item">
+                    <input type="checkbox" name="domèn_entere" value="Vizit lakay">
+                    <span>Vizit lakay</span>
+                  </label>
+
+                  <label class="checkbox-item">
+                    <input type="checkbox" name="domèn_entere" value="Akonpayman sosyal">
+                    <span>Akonpayman sosyal</span>
+                  </label>
+
+                  <label class="checkbox-item">
+                    <input type="checkbox" name="domèn_entere" value="Distribisyon manje">
+                    <span>Distribisyon manje</span>
+                  </label>
+
+                  <label class="checkbox-item">
+                    <input type="checkbox" name="domèn_entere" value="Twous ijyèn">
+                    <span>Twous ijyèn</span>
+                  </label>
+
+                  <label class="checkbox-item">
+                    <input type="checkbox" name="domèn_entere" value="Aktivite sosyal">
+                    <span>Aktivite sosyal ak lwazi</span>
+                  </label>
+
+                  <label class="checkbox-item">
+                    <input type="checkbox" name="domèn_entere" value="Sante ak sèvis sosyal">
+                    <span>Oryantasyon sante ak sèvis sosyal</span>
+                  </label>
+
+                  <label class="checkbox-item">
+                    <input type="checkbox" name="domèn_entere" value="Administrasyon">
+                    <span>Sipò administratif</span>
+                  </label>
+
+                  <label class="checkbox-item">
+                    <input type="checkbox" name="domèn_entere" value="Lojistik">
+                    <span>Lojistik</span>
+                  </label>
+
+                  <label class="checkbox-item">
+                    <input type="checkbox" name="domèn_entere" value="Kominikasyon">
+                    <span>Kominikasyon</span>
+                  </label>
+
+                  <label class="checkbox-item">
+                    <input type="checkbox" name="domèn_entere" value="Kapasite pou ranmase fon">
+                    <span>Ranmase fon</span>
+                  </label>
+
+                  <label class="checkbox-item">
+                    <input type="checkbox" name="domèn_entere" value="Teknoloji">
+                    <span>Teknoloji / dijital</span>
+                  </label>
+
+                  <label class="checkbox-item">
+                    <input type="checkbox" name="domèn_entere" value="Fòmasyon">
+                    <span>Fòmasyon</span>
+                  </label>
+
+                  <label class="checkbox-item">
+                    <input type="checkbox" name="domèn_entere" value="Aktivite kominotè">
+                    <span>Aktivite kominotè</span>
+                  </label>
+
+                  <label class="checkbox-item">
+                    <input type="checkbox" name="domèn_entere" value="Lòt">
+                    <span>Lòt</span>
+                  </label>
+
+                </div>
+
+              </div>
+
+
+              <!-- 5 -->
+
+              <div class="form-section">
+
+                <h3>
+                  5. Disponibilite
+                </h3>
+
+                <div class="form-group">
+
+                  <label>
+                    Ki jou ou disponib?
+                  </label>
+
+                  <div class="checkbox-grid">
+
+                    <label class="checkbox-item">
+                      <input type="checkbox" name="jou_disponib" value="Lendi">
+                      <span>Lendi</span>
+                    </label>
+
+                    <label class="checkbox-item">
+                      <input type="checkbox" name="jou_disponib" value="Madi">
+                      <span>Madi</span>
+                    </label>
+
+                    <label class="checkbox-item">
+                      <input type="checkbox" name="jou_disponib" value="Mèkredi">
+                      <span>Mèkredi</span>
+                    </label>
+
+                    <label class="checkbox-item">
+                      <input type="checkbox" name="jou_disponib" value="Jedi">
+                      <span>Jedi</span>
+                    </label>
+
+                    <label class="checkbox-item">
+                      <input type="checkbox" name="jou_disponib" value="Vandredi">
+                      <span>Vandredi</span>
+                    </label>
+
+                    <label class="checkbox-item">
+                      <input type="checkbox" name="jou_disponib" value="Samdi">
+                      <span>Samdi</span>
+                    </label>
+
+                    <label class="checkbox-item">
+                      <input type="checkbox" name="jou_disponib" value="Dimanch">
+                      <span>Dimanch</span>
+                    </label>
+
+                  </div>
+
+                </div>
+
+
+                <div class="form-row">
+
+                  <div class="form-group">
+
+                    <label for="lè_disponib">
+                      Lè ou disponib
+                    </label>
+
+                    <input
+                      type="text"
+                      id="lè_disponib"
+                      placeholder="Egzanp: 9:00 AM - 1:00 PM"
+                    >
+
+                  </div>
+
+                  <div class="form-group">
+
+                    <label for="frekans_disponibilite">
+                      Frekans
+                    </label>
+
+                    <select id="frekans_disponibilite">
+
+                      <option value="">
+                        Chwazi
+                      </option>
+
+                      <option value="Yon fwa">
+                        Yon fwa
+                      </option>
+
+                      <option value="Chak semèn">
+                        Chak semèn
+                      </option>
+
+                      <option value="Chak 2 semèn">
+                        Chak 2 semèn
+                      </option>
+
+                      <option value="Chak mwa">
+                        Chak mwa
+                      </option>
+
+                      <option value="Selon bezwen">
+                        Selon bezwen
+                      </option>
+
+                    </select>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+
+              <!-- 6 -->
+
+              <div class="form-section">
+
+                <h3>
+                  6. Edikasyon ak eksperyans
+                </h3>
+
+                <div class="form-row">
+
+                  <div class="form-group">
+
+                    <label for="edikasyon">
+                      Nivo edikasyon
+                    </label>
+
+                    <input
+                      type="text"
+                      id="edikasyon"
+                      placeholder="Egzanp: Inivèsite"
+                    >
+
+                  </div>
+
+                  <div class="form-group">
+
+                    <label for="pwofesyon">
+                      Pwofesyon
+                    </label>
+
+                    <input
+                      type="text"
+                      id="pwofesyon"
+                      placeholder="Egzanp: Enfimyè"
+                    >
+
+                  </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                  <label for="konpetans">
+                    Konpetans ou
+                  </label>
+
+                  <textarea
+                    id="konpetans"
+                    maxlength="1500"
+                    placeholder="Ki konpetans ou ka mete nan sèvis LAJONÈ'M?"
+                  ></textarea>
+
+                </div>
+
+
+                <div class="form-group">
+
+                  <label for="eksperyans">
+                    Eksperyans
+                  </label>
+
+                  <textarea
+                    id="eksperyans"
+                    maxlength="2000"
+                    placeholder="Pale nou sou eksperyans ou..."
+                  ></textarea>
+
+                </div>
+
+              </div>
+
+
+              <!-- 7 -->
+
+              <div class="form-section">
+
+                <h3>
+                  7. Lang ou pale
+                </h3>
+
+                <div class="checkbox-grid">
+
+                  <label class="checkbox-item">
+                    <input type="checkbox" name="lang_pale" value="Kreyòl">
+                    <span>Kreyòl</span>
+                  </label>
+
+                  <label class="checkbox-item">
+                    <input type="checkbox" name="lang_pale" value="Français">
+                    <span>Français</span>
+                  </label>
+
+                  <label class="checkbox-item">
+                    <input type="checkbox" name="lang_pale" value="English">
+                    <span>English</span>
+                  </label>
+
+                  <label class="checkbox-item">
+                    <input type="checkbox" name="lang_pale" value="Español">
+                    <span>Español</span>
+                  </label>
+
+                </div>
+
+              </div>
+
+
+              <!-- 8 -->
+
+              <div class="form-section">
+
+                <h3>
+                  8. Referans
+                </h3>
+
+                <div class="form-row">
+
+                  <div class="form-group">
+
+                    <label for="referans_1">
+                      Referans 1
+                    </label>
+
+                    <input
+                      type="text"
+                      id="referans_1"
+                      placeholder="Non ak telefòn"
+                      maxlength="250"
+                    >
+
+                  </div>
+
+                  <div class="form-group">
+
+                    <label for="referans_2">
+                      Referans 2
+                    </label>
+
+                    <input
+                      type="text"
+                      id="referans_2"
+                      placeholder="Non ak telefòn"
+                      maxlength="250"
+                    >
+
+                  </div>
+
+                </div>
+
+              </div>
+
+
+              <!-- 9 -->
+
+              <div class="form-section">
+
+                <h3>
+                  9. Angajman
+                </h3>
+
+                <div class="consent-box">
+
+                  <label>
+
+                    <input
+                      type="checkbox"
+                      id="angajman"
+                      required
+                    >
+
+                    <span>
+                      Mwen dakò respekte diyite moun aje yo,
+                      konfidansyalite enfòmasyon yo, règ
+                      LAJONÈ'M yo epi rapòte nenpòt sitiyasyon
+                      ki kapab mete yon benefisyè an danje.
+                      <span class="required">*</span>
+                    </span>
+
+                  </label>
+
+                </div>
+
+
+                <div class="consent-box">
+
+                  <label>
+
+                    <input
+                      type="checkbox"
+                      id="done_konsantman"
+                      required
+                    >
+
+                    <span>
+                      Mwen dakò pou LAJONÈ'M konsève
+                      enfòmasyon mwen bay yo pou trete
+                      demann enskripsyon volontè mwen an.
+                      <span class="required">*</span>
+                    </span>
+
+                  </label>
+
+                </div>
+
+              </div>
+
+
+              <!-- SUBMIT -->
+
+              <div class="form-submit">
+
+                <button
+                  type="submit"
+                  id="submitButton"
+                  class="btn btn-primary submit-btn"
+                >
+                  Soumèt demann mwen
+                </button>
+
+              </div>
+
+
+              <div
+                id="formMessage"
+                class="form-message"
+                role="alert"
+              ></div>
+
+
+              <p class="privacy-note">
+                Enfòmasyon ou bay nan fòm sa a dwe itilize
+                sèlman pou pwosesis enskripsyon ak jesyon
+                volontè LAJONÈ'M.
+              </p>
+
+            </form>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- =====================================
+       FOOTER
+  ====================================== -->
+
+  <footer class="site-footer">
+
+    <div class="container footer-grid">
+
+      <div>
+
+        <h3>
+          LAJONÈ'M
+        </h3>
+
+        <p>
+          Laj yo se onè nou.
+        </p>
+
+        <p>
+          Wè. Akonpaye. Valorizasyon.
+        </p>
+
+      </div>
+
+
+      <div>
+
+        <h3>
+          Kontakte nou
+        </h3>
+
+        <p>
+          Cap-Haïtien, Ayiti
+        </p>
+
+        <p>
+          +509 42824391 / +509 35274215
+        </p>
+
+        <p>
+          woldjyimpactlab@gmail.com
+        </p>
+
+      </div>
+
+
+      <div>
+
+        <h3>
+          Lyen rapid
+        </h3>
+
+        <p>
+          <a href="index.html">
+            Akèy
+          </a>
+        </p>
+
+        <p>
+          <a href="pwogram.html">
+            Pwogram
+          </a>
+        </p>
+
+        <p>
+          <a href="aktivite.html">
+            Aktivite
+          </a>
+        </p>
+
+        <p>
+          <a href="don.html">
+            Fè yon don
+          </a>
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class="footer-bottom">
+
+      <div class="container">
+
+        <p>
+          ©
+          <span id="annee"></span>
+          LAJONÈ'M —
+          Laj yo se onè nou.
+        </p>
+
+      </div>
+
+    </div>
+
+  </footer>
+
+
+  <!-- =====================================
+       SUPABASE
+  ====================================== -->
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script src="js/supabase.js"></script>
+
+
+  <!-- =====================================
+       FORM JAVASCRIPT
+  ====================================== -->
+
+  <script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+      const annee = document.getElementById("annee");
+
+      if (annee) {
+        annee.textContent = new Date().getFullYear();
+      }
+
+      const form = document.getElementById("volunteerForm");
+
+      if (form) {
+        form.addEventListener("submit", soumetFom);
+      }
+
+    });
+
+
+    /* =====================================
+       SOUMISSION DU FORMULAIRE
+    ====================================== */
+
+    async function soumetFom(event) {
+
+      event.preventDefault();
+
+      const form =
+        document.getElementById("volunteerForm");
+
+      const button =
+        document.getElementById("submitButton");
+
+      const message =
+        document.getElementById("formMessage");
+
+
+      message.className = "form-message";
+      message.innerHTML = "";
+
+
+      /* Vérification des champs obligatoires */
+
+      const non =
+        jwennValè("non");
+
+      const siyati =
+        jwennValè("siyati");
+
+      const telefòn =
+        jwennValè("telefòn");
+
+      const motivasyon =
+        jwennValè("motivasyon");
+
+
+      if (
+        !non ||
+        !siyati ||
+        !telefòn ||
+        !motivasyon
+      ) {
+
+        montreMesaj(
+          "Tanpri ranpli tout chan ki obligatwa yo.",
+          "error"
+        );
+
+        return;
+      }
+
+
+      /* Vérification du consentement */
+
+      const angajman =
+        document.getElementById("angajman");
+
+      const doneKonsantman =
+        document.getElementById("done_konsantman");
+
+
+      if (
+        !angajman.checked ||
+        !doneKonsantman.checked
+      ) {
+
+        montreMesaj(
+          "Ou dwe aksepte angajman ak kondisyon sou done yo pou kontinye.",
+          "error"
+        );
+
+        return;
+      }
+
+
+      /* Récupération des listes */
+
+      const domèn =
+        jwennCheckboxes("domèn_entere");
+
+      const jou =
+        jwennCheckboxes("jou_disponib");
+
+      const lang =
+        jwennCheckboxes("lang_pale");
+
+
+      /* Numéro de demande */
+
+      const nimewoVolonte =
+        kreyeNimewoVolonte();
+
+
+      button.disabled = true;
+
+      button.textContent =
+        "Nap voye demann lan...";
+
+
+      try {
+
+        /*
+         * Nou prepare done yo anvan INSERT.
+         */
+
+        const doneVolonte = {
+
+          nimewo_volonte:
+            nimewoVolonte,
+
+          non:
+            non,
+
+          siyati:
+            siyati,
+
+          dat_nesans:
+            jwennValè("dat_nesans") || null,
+
+          sèks:
+            jwennValè("sèks") || null,
+
+          telefòn:
+            telefòn,
+
+          email:
+            jwennValè("email") || null,
+
+          adrès:
+            jwennValè("adrès") || null,
+
+          non_kontak_ijans:
+            jwennValè("non_kontak_ijans") || null,
+
+          telefòn_kontak_ijans:
+            jwennValè("telefòn_kontak_ijans") || null,
+
+          relasyon_kontak_ijans:
+            jwennValè("relasyon_kontak_ijans") || null,
+
+          motivasyon:
+            motivasyon,
+
+          domèn_entere:
+            domèn,
+
+          jou_disponib:
+            jou,
+
+          lè_disponib:
+            jwennValè("lè_disponib") || null,
+
+          frekans_disponibilite:
+            jwennValè("frekans_disponibilite") || null,
+
+          edikasyon:
+            jwennValè("edikasyon") || null,
+
+          pwofesyon:
+            jwennValè("pwofesyon") || null,
+
+          konpetans:
+            jwennValè("konpetans") || null,
+
+          eksperyans:
+            jwennValè("eksperyans") || null,
+
+          lang_pale:
+            lang,
+
+          estati:
+            "an_atant"
+
+        };
+
+
+        console.log(
+          "Done k ap voye nan Supabase:",
+          doneVolonte
+        );
+
+
+        /*
+         * INSERT SUPABASE
+         *
+         * Pa gen .select()
+         * Pa gen .single()
+         *
+         * Sa evite kèk pwoblèm RLS/SELECT.
+         */
+
+        const rezilta =
+          await supabaseClient
+            .from("volonte")
+            .insert(doneVolonte);
+
+
+        const error =
+          rezilta.error;
+
+
+        if (error) {
+
+          console.error(
+            "ERÈ SUPABASE VOLONTE:",
+            error
+          );
+
+          /*
+           * Nou voye vrè enfòmasyon erè a
+           * nan console pou [object Object]
+           * pa parèt ankò.
+           */
+
+          let detay =
+            "Erè Supabase.";
+
+          if (error.message) {
+            detay = error.message;
+          }
+
+          if (error.details) {
+            detay +=
+              " | Detay: " +
+              error.details;
+          }
+
+          if (error.hint) {
+            detay +=
+              " | Konsèy: " +
+              error.hint;
+          }
+
+          if (error.code) {
+            detay +=
+              " | Kòd: " +
+              error.code;
+          }
+
+
+          throw {
+            message: detay,
+            code: error.code || ""
+          };
+
+        }
+
+
+        /* =================================
+           SUCCÈS
+        ================================= */
+
+        form.reset();
+
+
+        montreMesaj(
+          `
+            <div class="success-icon">
+              ✓
+            </div>
+
+            <strong>
+              Demann ou an voye avèk siksè!
+            </strong>
+
+            <br><br>
+
+            Nimewo demann ou an se:
+
+            <strong>
+              ${nimewoVolonte}
+            </strong>
+
+            <br><br>
+
+            Ekip LAJONÈ'M ap revize enfòmasyon
+            ou yo. Tanpri konsève nimewo sa a.
+          `,
+          "success"
+        );
+
+
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth"
+        });
+
+
+      } catch (error) {
+
+        console.error(
+          "Erè final enskripsyon volontè:",
+          error
+        );
+
+
+        let erè =
+          "Nou pa kapab voye demann lan pou kounye a. Tanpri eseye ankò.";
+
+
+        const code =
+          error?.code || "";
+
+        const errorMessage =
+          error?.message || "";
+
+
+        /* RLS / Permission */
+
+        if (
+          code === "42501" ||
+          errorMessage.toLowerCase().includes("row-level security") ||
+          errorMessage.toLowerCase().includes("permission denied")
+        ) {
+
+          erè =
+            "Supabase ap bloke enskripsyon an. Tanpri verifye policy INSERT pou tab volonte a.";
+
+        }
+
+
+        /* Duplicate */
+
+        else if (
+          code === "23505"
+        ) {
+
+          erè =
+            "Nimewo demann lan deja egziste. Tanpri eseye soumèt fòm nan ankò.";
+
+        }
+
+
+        /* Not-null */
+
+        else if (
+          code === "23502"
+        ) {
+
+          erè =
+            "Gen yon enfòmasyon obligatwa nan baz done a ki manke. Verifye kolòn tab volonte a.";
+
+        }
+
+
+        /* Invalid date */
+
+        else if (
+          code === "22007"
+        ) {
+
+          erè =
+            "Dat nesans lan pa nan yon fòma akseptab.";
+
+        }
+
+
+        /*
+         * Nou mete detay teknik yo nan Console,
+         * men nou pa montre yo bay vizitè a.
+         */
+
+        console.error(
+          "Kòd erè:",
+          code
+        );
+
+        console.error(
+          "Mesaj erè:",
+          errorMessage
+        );
+
+
+        montreMesaj(
+          erè,
+          "error"
+        );
+
+
+      } finally {
+
+        button.disabled = false;
+
+        button.textContent =
+          "Soumèt demann mwen";
+
+      }
+
+    }
+
+
+    /* =====================================
+       JWENN VALE INPUT
+    ====================================== */
+
+    function jwennValè(id) {
+
+      const element =
+        document.getElementById(id);
+
+      if (!element) {
+        return "";
+      }
+
+      return (
+        element.value || ""
+      ).trim();
+
+    }
+
+
+    /* =====================================
+       JWENN CHECKBOXES
+    ====================================== */
+
+    function jwennCheckboxes(name) {
+
+      return Array
+        .from(
+          document.querySelectorAll(
+            `input[name="${name}"]:checked`
+          )
+        )
+        .map(
+          checkbox =>
+            checkbox.value
+        );
+
+    }
+
+
+    /* =====================================
+       KREYE NUMERO VOLONTE
+    ====================================== */
+
+    function kreyeNimewoVolonte() {
+
+      const now =
+        new Date();
+
+
+      const ane =
+        now.getFullYear();
+
+
+      const mwa =
+        String(
+          now.getMonth() + 1
+        ).padStart(2, "0");
+
+
+      const jou =
+        String(
+          now.getDate()
+        ).padStart(2, "0");
+
+
+      const tan =
+        String(
+          now.getTime()
+        ).slice(-6);
+
+
+      return (
+        `LAJ-BEN-${ane}${mwa}${jou}-${tan}`
+      );
+
+    }
+
+
+    /* =====================================
+       MESAJ
+    ====================================== */
+
+    function montreMesaj(
+      contenu,
+      type
+    ) {
+
+      const message =
+        document.getElementById(
+          "formMessage"
+        );
+
+
+      message.innerHTML =
+        contenu;
+
+
+      message.className =
+        `form-message ${type}`;
+
+    }
+
+  </script>
+
+</body>
+</html>

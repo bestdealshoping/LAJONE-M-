@@ -1,0 +1,2781 @@
+<!DOCTYPE html>
+<html lang="ht">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Itilizatè & Aksè | LAJONÈ'M</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@400;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <style>
+    :root {
+      --ble: #0B3B75;
+      --ble-fonse: #082d59;
+      --or: #F2B705;
+      --vèt: #2E8B57;
+      --wouj: #c62828;
+      --blan: #ffffff;
+      --gri: #f4f6f8;
+      --border: #e1e5ea;
+      --tèks: #263238;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Open Sans", sans-serif;
+      background: var(--gri);
+      color: var(--tèks);
+    }
+
+    .topbar {
+      min-height: 70px;
+      background: var(--ble);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 25px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-logo {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: var(--or);
+      color: var(--ble);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "Montserrat", sans-serif;
+      font-weight: 800;
+    }
+
+    .brand strong {
+      display: block;
+      font-family: "Montserrat", sans-serif;
+      font-size: 18px;
+    }
+
+    .brand span {
+      font-size: 12px;
+      opacity: .85;
+    }
+
+    .btn-deconnexion {
+      background: transparent;
+      border: 1px solid rgba(255,255,255,.4);
+      color: white;
+      padding: 9px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .btn-deconnexion:hover {
+      background: rgba(255,255,255,.1);
+    }
+
+    .layout {
+      display: flex;
+      min-height: calc(100vh - 70px);
+    }
+
+    .sidebar {
+      width: 245px;
+      flex-shrink: 0;
+      background: white;
+      border-right: 1px solid var(--border);
+      padding: 20px 12px;
+    }
+
+    .sidebar-title {
+      color: #777;
+      font-family: "Montserrat", sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 0 12px 10px;
+    }
+
+    .sidebar a {
+      display: block;
+      text-decoration: none;
+      color: #37474f;
+      padding: 11px 12px;
+      border-radius: 6px;
+      margin-bottom: 4px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .sidebar a:hover,
+    .sidebar a.active {
+      color: var(--ble);
+      background: #eef4fa;
+    }
+
+    .content {
+      flex: 1;
+      min-width: 0;
+      padding: 30px;
+    }
+
+    .page-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 25px;
+    }
+
+    .page-header h1 {
+      color: var(--ble);
+      font-family: "Montserrat", sans-serif;
+      font-size: 27px;
+      margin-bottom: 5px;
+    }
+
+    .page-header p {
+      color: #68747c;
+      font-size: 14px;
+    }
+
+    .btn-primary {
+      border: none;
+      background: var(--ble);
+      color: white;
+      padding: 11px 17px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    .btn-primary:hover {
+      background: var(--ble-fonse);
+    }
+
+    .btn-primary:disabled {
+      opacity: .65;
+      cursor: not-allowed;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+
+    .stat-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 18px;
+    }
+
+    .stat-card span {
+      display: block;
+      color: #707b82;
+      font-size: 13px;
+      margin-bottom: 6px;
+    }
+
+    .stat-card strong {
+      color: var(--ble);
+      font-family: "Montserrat", sans-serif;
+      font-size: 27px;
+    }
+
+    .message {
+      display: none;
+      padding: 12px 15px;
+      border-radius: 6px;
+      margin-bottom: 18px;
+      font-size: 14px;
+    }
+
+    .message.success {
+      background: #e7f5ed;
+      color: #236b45;
+      border: 1px solid #bce3cc;
+    }
+
+    .message.error {
+      background: #fdecec;
+      color: #9c2424;
+      border: 1px solid #efbcbc;
+    }
+
+    .panel {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 25px;
+    }
+
+    .panel-header {
+      padding: 17px 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .panel-header h2 {
+      color: var(--ble);
+      font-family: "Montserrat", sans-serif;
+      font-size: 17px;
+    }
+
+    .panel-body {
+      padding: 20px;
+    }
+
+    .table-wrapper {
+      width: 100%;
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 750px;
+    }
+
+    th,
+    td {
+      text-align: left;
+      padding: 13px 12px;
+      border-bottom: 1px solid #edf0f2;
+      font-size: 13px;
+    }
+
+    th {
+      background: #f8f9fa;
+      color: #4d5a62;
+      font-weight: 700;
+    }
+
+    td strong {
+      color: var(--ble);
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 5px 9px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .badge-super {
+      background: #fff1c7;
+      color: #765600;
+    }
+
+    .badge-admin {
+      background: #e8f0fa;
+      color: var(--ble);
+    }
+
+    .badge-editè {
+      background: #e8f5ed;
+      color: #237348;
+    }
+
+    .badge-volonte {
+      background: #f0f1f2;
+      color: #5f6b72;
+    }
+
+    .badge-active {
+      background: #e5f5ec;
+      color: #237348;
+    }
+
+    .badge-inactive {
+      background: #fdecec;
+      color: #a12626;
+    }
+
+    .actions {
+      display: flex;
+      gap: 7px;
+      flex-wrap: wrap;
+    }
+
+    .btn-small {
+      border: 1px solid #cbd2d7;
+      background: white;
+      color: var(--ble);
+      padding: 7px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .btn-small:hover {
+      background: #f2f6fa;
+    }
+
+    .btn-danger {
+      border: none;
+      background: var(--wouj);
+      color: white;
+      padding: 7px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .btn-danger:hover {
+      background: #a91f1f;
+    }
+
+    .loading,
+    .empty {
+      text-align: center;
+      padding: 35px 20px;
+      color: #68747c;
+    }
+
+    .permissions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: 10px;
+    }
+
+    .permission {
+      background: #eef4fa;
+      color: var(--ble);
+      padding: 5px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .role-card {
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      padding: 16px;
+      margin-bottom: 12px;
+    }
+
+    .role-card:last-child {
+      margin-bottom: 0;
+    }
+
+    .role-card h3 {
+      color: var(--ble);
+      font-family: "Montserrat", sans-serif;
+      font-size: 15px;
+      margin-bottom: 5px;
+    }
+
+    .role-card p {
+      color: #68747c;
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.55);
+      z-index: 2000;
+      padding: 20px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal.show {
+      display: flex;
+    }
+
+    .modal-content {
+      width: 100%;
+      max-width: 650px;
+      max-height: 90vh;
+      overflow-y: auto;
+      background: white;
+      border-radius: 8px;
+    }
+
+    .modal-header {
+      padding: 17px 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-header h2 {
+      color: var(--ble);
+      font-family: "Montserrat", sans-serif;
+      font-size: 18px;
+    }
+
+    .close {
+      border: none;
+      background: transparent;
+      font-size: 25px;
+      cursor: pointer;
+      color: #555;
+    }
+
+    .modal-body {
+      padding: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 17px;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 7px;
+    }
+
+    select,
+    input {
+      width: 100%;
+      border: 1px solid #ccd3d8;
+      border-radius: 6px;
+      padding: 11px;
+      background: white;
+      font-family: "Open Sans", sans-serif;
+      font-size: 14px;
+    }
+
+    select:focus,
+    input:focus {
+      outline: none;
+      border-color: var(--ble);
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .btn-secondary {
+      border: 1px solid #cbd2d7;
+      background: white;
+      color: #455a64;
+      padding: 10px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .btn-secondary:hover {
+      background: #f5f6f7;
+    }
+
+    .info-box {
+      background: #f1f6fb;
+      border-left: 4px solid var(--ble);
+      padding: 12px 14px;
+      margin-bottom: 18px;
+      border-radius: 4px;
+      font-size: 13px;
+      color: #455a64;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 1050px) {
+      .stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 760px) {
+
+      .sidebar {
+        display: none;
+      }
+
+      .content {
+        padding: 20px 15px;
+      }
+
+      .page-header {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      .topbar {
+        padding: 0 15px;
+      }
+
+      .brand span {
+        display: none;
+      }
+
+      .modal {
+        padding: 10px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header class="topbar">
+
+  <div class="brand">
+
+    <div class="brand-logo">
+      L
+    </div>
+
+    <div>
+      <strong>LAJONÈ'M</strong>
+      <span>Panno administrasyon</span>
+    </div>
+
+  </div>
+
+  <button
+    class="btn-deconnexion"
+    onclick="dekonèkte()"
+  >
+    Dekonekte
+  </button>
+
+</header>
+
+
+<div class="layout">
+
+  <!-- =====================================================
+       SIDEBAR
+  ====================================================== -->
+
+  <aside class="sidebar">
+
+    <div class="sidebar-title">
+      Administrasyon
+    </div>
+
+    <a href="admin.html">
+      Dashboard
+    </a>
+
+    <a href="admin-aktivite.html">
+      Aktivite
+    </a>
+
+    <a href="admin-pwogram.html">
+      Pwogram
+    </a>
+
+    <a href="admin-volonte.html">
+      Volontè
+    </a>
+
+    <a href="admin-benefisye.html">
+      Benefisyè
+    </a>
+
+    <a href="admin-vizit.html">
+      Vizit
+    </a>
+
+    <a href="admin-don.html">
+      Don
+    </a>
+
+    <a href="admin-donatè.html">
+      Donatè
+    </a>
+
+    <a href="admin-nouvel.html">
+      Nouvèl
+    </a>
+
+    <a href="admin-patne.html">
+      Patnè
+    </a>
+
+    <a href="admin-galri.html">
+      Galri
+    </a>
+
+    <a href="admin-rapo.html">
+      Rapò
+    </a>
+
+    <a href="admin-mesaj.html">
+      Mesaj
+    </a>
+
+    <a
+      href="admin-itilizatè.html"
+      class="active"
+    >
+      Itilizatè & Aksè
+    </a>
+
+  </aside>
+
+
+  <!-- =====================================================
+       CONTENT
+  ====================================================== -->
+
+  <main class="content">
+
+    <div class="page-header">
+
+      <div>
+
+        <h1>Itilizatè & Aksè</h1>
+
+        <p>
+          Jere itilizatè administrasyon yo,
+          wòl yo ak aksè yo.
+        </p>
+
+      </div>
+
+      <button
+        class="btn-primary"
+        onclick="ouvriAjouteAdmin()"
+      >
+        + Ajoute administratè
+      </button>
+
+    </div>
+
+
+    <!-- MESAJ -->
+
+    <div
+      id="messageSuccess"
+      class="message success"
+    ></div>
+
+    <div
+      id="messageError"
+      class="message error"
+    ></div>
+
+
+    <!-- =====================================================
+         STATISTIK
+    ====================================================== -->
+
+    <section class="stats">
+
+      <div class="stat-card">
+
+        <span>
+          Itilizatè total
+        </span>
+
+        <strong id="statTotal">
+          0
+        </strong>
+
+      </div>
+
+
+      <div class="stat-card">
+
+        <span>
+          Super Admin
+        </span>
+
+        <strong id="statSuperAdmin">
+          0
+        </strong>
+
+      </div>
+
+
+      <div class="stat-card">
+
+        <span>
+          Admin
+        </span>
+
+        <strong id="statAdmin">
+          0
+        </strong>
+
+      </div>
+
+
+      <div class="stat-card">
+
+        <span>
+          Editè
+        </span>
+
+        <strong id="statEdite">
+          0
+        </strong>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         ITILIZATÈ
+    ====================================================== -->
+
+    <section class="panel">
+
+      <div class="panel-header">
+
+        <h2>
+          Itilizatè administrasyon yo
+        </h2>
+
+      </div>
+
+      <div class="panel-body">
+
+        <div class="table-wrapper">
+
+          <table>
+
+            <thead>
+
+              <tr>
+
+                <th>
+                  Non
+                </th>
+
+                <th>
+                  Email
+                </th>
+
+                <th>
+                  Wòl
+                </th>
+
+                <th>
+                  Estati
+                </th>
+
+                <th>
+                  Aksyon
+                </th>
+
+              </tr>
+
+            </thead>
+
+            <tbody id="usersTable">
+
+              <tr>
+
+                <td
+                  colspan="5"
+                  class="loading"
+                >
+                  Ap chaje itilizatè yo...
+                </td>
+
+              </tr>
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         WÒL AK PÈMISYON
+    ====================================================== -->
+
+    <section class="panel">
+
+      <div class="panel-header">
+
+        <h2>
+          Wòl ak pèmisyon
+        </h2>
+
+      </div>
+
+      <div class="panel-body">
+
+        <div id="rolesContainer">
+
+          <div class="loading">
+            Ap chaje wòl yo...
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+</div>
+
+
+<!-- =====================================================
+     MODAL MODIFYE WÒL
+====================================================== -->
+
+<div
+  class="modal"
+  id="roleModal"
+>
+
+  <div class="modal-content">
+
+    <div class="modal-header">
+
+      <h2>
+        Modifye wòl itilizatè
+      </h2>
+
+      <button
+        class="close"
+        onclick="femenModal()"
+      >
+        ×
+      </button>
+
+    </div>
+
+    <div class="modal-body">
+
+      <p
+        id="userToModify"
+        style="
+          margin-bottom:18px;
+          color:#68747c;
+        "
+      ></p>
+
+
+      <div class="form-group">
+
+        <label for="newRole">
+          Nouvo wòl
+        </label>
+
+        <select id="newRole">
+
+          <option value="admin">
+            Admin
+          </option>
+
+          <option value="editè">
+            Editè
+          </option>
+
+          <option value="volonte">
+            Volontè
+          </option>
+
+          <option value="super_admin">
+            Super Admin
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <div class="modal-actions">
+
+        <button
+          class="btn-primary"
+          id="saveRoleBtn"
+        >
+          Anrejistre chanjman
+        </button>
+
+        <button
+          class="btn-secondary"
+          onclick="femenModal()"
+        >
+          Anile
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- =====================================================
+     MODAL AJOUTE ADMINISTRATÈ
+====================================================== -->
+
+<div
+  class="modal"
+  id="addAdminModal"
+>
+
+  <div class="modal-content">
+
+    <div class="modal-header">
+
+      <h2>
+        Ajoute administratè
+      </h2>
+
+      <button
+        class="close"
+        onclick="femenAjouteAdmin()"
+      >
+        ×
+      </button>
+
+    </div>
+
+
+    <div class="modal-body">
+
+      <div class="info-box">
+
+        Mete enfòmasyon moun ou vle envite a.
+        Li pral resevwa yon imel pou aktive kont li.
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label for="adminNon">
+          Non *
+        </label>
+
+        <input
+          type="text"
+          id="adminNon"
+          placeholder="Non administratè a"
+        >
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label for="adminSiyati">
+          Siyati
+        </label>
+
+        <input
+          type="text"
+          id="adminSiyati"
+          placeholder="Siyati administratè a"
+        >
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label for="adminEmail">
+          Email *
+        </label>
+
+        <input
+          type="email"
+          id="adminEmail"
+          placeholder="email@exemple.com"
+        >
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label for="adminRole">
+          Wòl *
+        </label>
+
+        <select id="adminRole">
+
+          <option value="admin">
+            Admin
+          </option>
+
+          <option value="editè">
+            Editè
+          </option>
+
+          <option value="volonte">
+            Volontè
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <div class="modal-actions">
+
+        <button
+          class="btn-primary"
+          id="sendInviteBtn"
+          onclick="enviteAdministrate()"
+        >
+          Voye envitasyon
+        </button>
+
+        <button
+          class="btn-secondary"
+          onclick="femenAjouteAdmin()"
+        >
+          Anile
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- =====================================================
+     SUPABASE
+====================================================== -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="js/supabase.js"></script>
+
+
+<script>
+
+  let adminKouran = null;
+
+  let itilizateYo = [];
+
+  let wòlYo = [];
+
+  let itilizatePouModifye = null;
+
+
+  /* =====================================================
+     VERIFYE SUPER ADMIN
+  ===================================================== */
+
+  async function verifyeSuperAdmin() {
+
+    try {
+
+      const {
+        data: {
+          user
+        },
+        error: userError
+      } =
+        await supabaseClient.auth.getUser();
+
+
+      if (
+        userError ||
+        !user
+      ) {
+
+        window.location.href =
+          "login.html";
+
+        return false;
+
+      }
+
+
+      const {
+        data,
+        error
+      } =
+        await supabaseClient
+          .from("itilizatè_admin")
+          .select(`
+            id,
+            user_id,
+            non,
+            siyati,
+            email,
+            wòl,
+            aktif
+          `)
+          .eq(
+            "user_id",
+            user.id
+          )
+          .eq(
+            "aktif",
+            true
+          )
+          .maybeSingle();
+
+
+      if (error) {
+
+        console.error(
+          error
+        );
+
+        montreErreur(
+          "Nou pa kapab verifye administratè a."
+        );
+
+        return false;
+
+      }
+
+
+      if (
+        !data ||
+        data.wòl !== "super_admin"
+      ) {
+
+        alert(
+          "Ou pa gen otorizasyon pou jwenn aksè nan paj sa a."
+        );
+
+        window.location.href =
+          "admin.html";
+
+        return false;
+
+      }
+
+
+      adminKouran =
+        data;
+
+
+      return true;
+
+    }
+
+    catch (error) {
+
+      console.error(
+        error
+      );
+
+      window.location.href =
+        "login.html";
+
+      return false;
+
+    }
+
+  }
+
+
+  /* =====================================================
+     CHARGE ITILIZATÈ YO
+  ===================================================== */
+
+  async function chajeItilizate() {
+
+    const tbody =
+      document.getElementById(
+        "usersTable"
+      );
+
+
+    const {
+      data,
+      error
+    } =
+      await supabaseClient
+        .from("itilizatè_admin")
+        .select(`
+          id,
+          user_id,
+          non,
+          siyati,
+          email,
+          wòl,
+          aktif
+        `)
+        .order(
+          "non",
+          {
+            ascending: true
+          }
+        );
+
+
+    if (error) {
+
+      console.error(
+        error
+      );
+
+
+      tbody.innerHTML = `
+        <tr>
+
+          <td colspan="5">
+
+            <div class="empty">
+
+              Nou pa kapab chaje itilizatè yo.
+
+              <br><br>
+
+              ${escapeHTML(
+                error.message
+              )}
+
+            </div>
+
+          </td>
+
+        </tr>
+      `;
+
+      return;
+
+    }
+
+
+    itilizateYo =
+      data || [];
+
+
+    meteStatistik(
+      itilizateYo
+    );
+
+
+    if (
+      itilizateYo.length === 0
+    ) {
+
+      tbody.innerHTML = `
+        <tr>
+
+          <td colspan="5">
+
+            <div class="empty">
+              Pa gen itilizatè administrasyon.
+            </div>
+
+          </td>
+
+        </tr>
+      `;
+
+      return;
+
+    }
+
+
+    tbody.innerHTML = "";
+
+
+    itilizateYo.forEach(
+      itilizate => {
+
+        const tr =
+          document.createElement(
+            "tr"
+          );
+
+
+        const roleClass =
+          getRoleClass(
+            itilizate.wòl
+          );
+
+
+        const roleName =
+          getRoleName(
+            itilizate.wòl
+          );
+
+
+        const statusClass =
+          itilizate.aktif
+            ? "badge-active"
+            : "badge-inactive";
+
+
+        const statusText =
+          itilizate.aktif
+            ? "Aktif"
+            : "Inaktif";
+
+
+        const seMwen =
+          adminKouran &&
+          itilizate.user_id ===
+          adminKouran.user_id;
+
+
+        tr.innerHTML = `
+
+          <td>
+
+            <strong>
+
+              ${escapeHTML(
+                (itilizate.non || "") +
+                " " +
+                (itilizate.siyati || "")
+              )}
+
+            </strong>
+
+          </td>
+
+
+          <td>
+
+            ${escapeHTML(
+              itilizate.email || ""
+            )}
+
+          </td>
+
+
+          <td>
+
+            <span class="badge ${roleClass}">
+
+              ${roleName}
+
+            </span>
+
+          </td>
+
+
+          <td>
+
+            <span class="badge ${statusClass}">
+
+              ${statusText}
+
+            </span>
+
+          </td>
+
+
+          <td>
+
+            <div class="actions">
+
+              ${
+                seMwen
+                  ? `
+                    <button
+                      class="btn-small"
+                      disabled
+                      title="Ou pa kapab modifye pwòp wòl ou."
+                    >
+                      Kont mwen
+                    </button>
+                  `
+                  : `
+                    <button
+                      class="btn-small"
+                      onclick="ouvriRoleModal('${itilizate.id}')"
+                    >
+                      Chanje wòl
+                    </button>
+
+                    <button
+                      class="${
+                        itilizate.aktif
+                          ? "btn-danger"
+                          : "btn-small"
+                      }"
+                      onclick="chanjeEstati(
+                        '${itilizate.id}',
+                        ${!itilizate.aktif}
+                      )"
+                    >
+                      ${
+                        itilizate.aktif
+                          ? "Dezaktive"
+                          : "Aktive"
+                      }
+                    </button>
+                  `
+              }
+
+            </div>
+
+          </td>
+
+        `;
+
+
+        tbody.appendChild(
+          tr
+        );
+
+      }
+    );
+
+  }
+
+
+  /* =====================================================
+     STATISTIK
+  ===================================================== */
+
+  function meteStatistik(
+    users
+  ) {
+
+    document.getElementById(
+      "statTotal"
+    ).textContent =
+      users.length;
+
+
+    document.getElementById(
+      "statSuperAdmin"
+    ).textContent =
+      users.filter(
+        u =>
+          u.wòl ===
+          "super_admin"
+      ).length;
+
+
+    document.getElementById(
+      "statAdmin"
+    ).textContent =
+      users.filter(
+        u =>
+          u.wòl ===
+          "admin"
+      ).length;
+
+
+    document.getElementById(
+      "statEdite"
+    ).textContent =
+      users.filter(
+        u =>
+          u.wòl ===
+          "editè"
+      ).length;
+
+  }
+
+
+  /* =====================================================
+     CHARGE WÒL AK PÈMISYON
+  ===================================================== */
+
+  async function chajeWol() {
+
+    const container =
+      document.getElementById(
+        "rolesContainer"
+      );
+
+
+    const {
+      data: roles,
+      error: roleError
+    } =
+      await supabaseClient
+        .from("wol_admin")
+        .select(`
+          id,
+          non,
+          deskripsyon,
+          aktif
+        `)
+        .eq(
+          "aktif",
+          true
+        )
+        .order(
+          "non",
+          {
+            ascending: true
+          }
+        );
+
+
+    if (roleError) {
+
+      console.error(
+        roleError
+      );
+
+
+      container.innerHTML = `
+        <div class="empty">
+
+          Nou pa kapab chaje wòl yo.
+
+          <br><br>
+
+          ${escapeHTML(
+            roleError.message
+          )}
+
+        </div>
+      `;
+
+      return;
+
+    }
+
+
+    wòlYo =
+      roles || [];
+
+
+    if (
+      wòlYo.length === 0
+    ) {
+
+      container.innerHTML = `
+        <div class="empty">
+          Pa gen wòl ki disponib.
+        </div>
+      `;
+
+      return;
+
+    }
+
+
+    const {
+      data: permissions,
+      error: permissionError
+    } =
+      await supabaseClient
+        .from("pèmisyon_admin")
+        .select(`
+          id,
+          non,
+          deskripsyon
+        `)
+        .eq(
+          "aktif",
+          true
+        )
+        .order(
+          "non",
+          {
+            ascending: true
+          }
+        );
+
+
+    if (permissionError) {
+
+      console.error(
+        permissionError
+      );
+
+
+      container.innerHTML = `
+        <div class="empty">
+
+          Nou pa kapab chaje pèmisyon yo.
+
+          <br><br>
+
+          ${escapeHTML(
+            permissionError.message
+          )}
+
+        </div>
+      `;
+
+      return;
+
+    }
+
+
+    const {
+      data: links,
+      error: linkError
+    } =
+      await supabaseClient
+        .from("wol_pèmisyon")
+        .select(`
+          wol_id,
+          pèmisyon_id
+        `);
+
+
+    if (linkError) {
+
+      console.error(
+        linkError
+      );
+
+
+      container.innerHTML = `
+        <div class="empty">
+
+          Nou pa kapab chaje relasyon
+          wòl/pèmisyon yo.
+
+          <br><br>
+
+          ${escapeHTML(
+            linkError.message
+          )}
+
+        </div>
+      `;
+
+      return;
+
+    }
+
+
+    container.innerHTML = "";
+
+
+    wòlYo.forEach(
+      role => {
+
+        const rolePermissions =
+          (links || [])
+            .filter(
+              link =>
+                link.wol_id ===
+                role.id
+            )
+            .map(
+              link =>
+                (permissions || [])
+                  .find(
+                    p =>
+                      p.id ===
+                      link.pèmisyon_id
+                  )
+            )
+            .filter(Boolean);
+
+
+        const card =
+          document.createElement(
+            "div"
+          );
+
+
+        card.className =
+          "role-card";
+
+
+        card.innerHTML = `
+
+          <h3>
+            ${getRoleName(
+              role.non
+            )}
+          </h3>
+
+
+          <p>
+            ${escapeHTML(
+              role.deskripsyon || ""
+            )}
+          </p>
+
+
+          <div class="permissions">
+
+            ${
+              rolePermissions.length
+                ? rolePermissions
+                    .map(
+                      p =>
+                        `
+                        <span class="permission">
+                          ${escapeHTML(
+                            p.non
+                          )}
+                        </span>
+                        `
+                    )
+                    .join("")
+                : `
+                  <span class="permission">
+                    Pa gen pèmisyon.
+                  </span>
+                `
+            }
+
+          </div>
+
+        `;
+
+
+        container.appendChild(
+          card
+        );
+
+      }
+    );
+
+  }
+
+
+  /* =====================================================
+     OUVRI MODAL WÒL
+  ===================================================== */
+
+  function ouvriRoleModal(
+    id
+  ) {
+
+    const itilizate =
+      itilizateYo.find(
+        u =>
+          u.id === id
+      );
+
+
+    if (!itilizate) {
+      return;
+    }
+
+
+    if (
+      itilizate.user_id ===
+      adminKouran.user_id
+    ) {
+
+      montreErreur(
+        "Ou pa kapab chanje pwòp wòl ou."
+      );
+
+      return;
+
+    }
+
+
+    itilizatePouModifye =
+      itilizate;
+
+
+    document.getElementById(
+      "userToModify"
+    ).textContent =
+      "Itilizatè: " +
+      (itilizate.non || "") +
+      " " +
+      (itilizate.siyati || "") +
+      " — " +
+      (itilizate.email || "");
+
+
+    document.getElementById(
+      "newRole"
+    ).value =
+      itilizate.wòl ||
+      "admin";
+
+
+    document
+      .getElementById(
+        "roleModal"
+      )
+      .classList.add(
+        "show"
+      );
+
+  }
+
+
+  /* =====================================================
+     ANREJISTRE NOUVO WÒL
+  ===================================================== */
+
+  document
+    .getElementById(
+      "saveRoleBtn"
+    )
+    .addEventListener(
+      "click",
+      async function() {
+
+        if (
+          !itilizatePouModifye
+        ) {
+          return;
+        }
+
+
+        const nouvoWol =
+          document.getElementById(
+            "newRole"
+          ).value;
+
+
+        if (
+          itilizatePouModifye.wòl ===
+          nouvoWol
+        ) {
+
+          femenModal();
+
+          return;
+
+        }
+
+
+        /*
+          Pwoteksyon:
+          Pa retire dènye Super Admin lan.
+        */
+
+        if (
+          itilizatePouModifye.wòl ===
+          "super_admin" &&
+          nouvoWol !==
+          "super_admin"
+        ) {
+
+          const {
+            count,
+            error: countError
+          } =
+            await supabaseClient
+              .from("itilizatè_admin")
+              .select(
+                "id",
+                {
+                  count: "exact",
+                  head: true
+                }
+              )
+              .eq(
+                "wòl",
+                "super_admin"
+              )
+              .eq(
+                "aktif",
+                true
+              );
+
+
+          if (countError) {
+
+            montreErreur(
+              "Nou pa kapab verifye kantite Super Admin yo."
+            );
+
+            return;
+
+          }
+
+
+          if (
+            count !== null &&
+            count <= 1
+          ) {
+
+            montreErreur(
+              "Ou pa kapab retire dènye Super Admin aktif la."
+            );
+
+            return;
+
+          }
+
+        }
+
+
+        const konfime =
+          confirm(
+            "Èske ou konfime chanjman wòl sa a?"
+          );
+
+
+        if (!konfime) {
+          return;
+        }
+
+
+        this.disabled =
+          true;
+
+
+        this.textContent =
+          "Ap anrejistre...";
+
+
+        try {
+
+          const {
+            data: roleData,
+            error: roleError
+          } =
+            await supabaseClient
+              .from("wol_admin")
+              .select(
+                "id, non"
+              )
+              .eq(
+                "non",
+                nouvoWol
+              )
+              .eq(
+                "aktif",
+                true
+              )
+              .maybeSingle();
+
+
+          if (roleError) {
+            throw roleError;
+          }
+
+
+          if (!roleData) {
+
+            throw new Error(
+              "Wòl sa a pa egziste."
+            );
+
+          }
+
+
+          const {
+            error
+          } =
+            await supabaseClient
+              .from(
+                "itilizatè_admin"
+              )
+              .update({
+                wòl:
+                  nouvoWol
+              })
+              .eq(
+                "id",
+                itilizatePouModifye.id
+              );
+
+
+          if (error) {
+            throw error;
+          }
+
+
+          femenModal();
+
+
+          montreSucces(
+            "Wòl itilizatè a chanje avèk siksè."
+          );
+
+
+          await chajeItilizate();
+
+        }
+        catch (error) {
+
+          console.error(
+            error
+          );
+
+
+          montreErreur(
+            "Nou pa kapab chanje wòl la: " +
+            error.message
+          );
+
+        }
+        finally {
+
+          this.disabled =
+            false;
+
+
+          this.textContent =
+            "Anrejistre chanjman";
+
+        }
+
+      }
+    );
+
+
+  /* =====================================================
+     AKTIVE / DEZAKTIVE
+  ===================================================== */
+
+  async function chanjeEstati(
+    id,
+    nouvoEta
+  ) {
+
+    const itilizate =
+      itilizateYo.find(
+        u =>
+          u.id === id
+      );
+
+
+    if (!itilizate) {
+      return;
+    }
+
+
+    if (
+      itilizate.user_id ===
+      adminKouran.user_id
+    ) {
+
+      montreErreur(
+        "Ou pa kapab dezaktive pwòp kont ou."
+      );
+
+      return;
+
+    }
+
+
+    /*
+      Pwoteksyon kont dènye
+      Super Admin lan.
+    */
+
+    if (
+      itilizate.wòl ===
+      "super_admin" &&
+      nouvoEta === false
+    ) {
+
+      const {
+        count,
+        error: countError
+      } =
+        await supabaseClient
+          .from("itilizatè_admin")
+          .select(
+            "id",
+            {
+              count: "exact",
+              head: true
+            }
+          )
+          .eq(
+            "wòl",
+            "super_admin"
+          )
+          .eq(
+            "aktif",
+            true
+          );
+
+
+      if (countError) {
+
+        montreErreur(
+          "Nou pa kapab verifye kantite Super Admin yo."
+        );
+
+        return;
+
+      }
+
+
+      if (
+        count !== null &&
+        count <= 1
+      ) {
+
+        montreErreur(
+          "Ou pa kapab dezaktive dènye Super Admin aktif la."
+        );
+
+        return;
+
+      }
+
+    }
+
+
+    const action =
+      nouvoEta
+        ? "aktive"
+        : "dezaktive";
+
+
+    const konfime =
+      confirm(
+        `Èske ou konfime ou vle ${action} itilizatè sa a?`
+      );
+
+
+    if (!konfime) {
+      return;
+    }
+
+
+    const {
+      error
+    } =
+      await supabaseClient
+        .from(
+          "itilizatè_admin"
+        )
+        .update({
+          aktif:
+            nouvoEta
+        })
+        .eq(
+          "id",
+          id
+        );
+
+
+    if (error) {
+
+      console.error(
+        error
+      );
+
+
+      montreErreur(
+        "Nou pa kapab modifye estati itilizatè a: " +
+        error.message
+      );
+
+      return;
+
+    }
+
+
+    montreSucces(
+      nouvoEta
+        ? "Itilizatè a aktive."
+        : "Itilizatè a dezaktive."
+    );
+
+
+    await chajeItilizate();
+
+  }
+
+
+  /* =====================================================
+     MODAL WÒL
+  ===================================================== */
+
+  function femenModal() {
+
+    document
+      .getElementById(
+        "roleModal"
+      )
+      .classList.remove(
+        "show"
+      );
+
+
+    itilizatePouModifye =
+      null;
+
+  }
+
+
+  /* =====================================================
+     MODAL AJOUTE ADMIN
+  ===================================================== */
+
+  function ouvriAjouteAdmin() {
+
+    document
+      .getElementById(
+        "addAdminModal"
+      )
+      .classList.add(
+        "show"
+      );
+
+  }
+
+
+  function femenAjouteAdmin() {
+
+    document
+      .getElementById(
+        "addAdminModal"
+      )
+      .classList.remove(
+        "show"
+      );
+
+
+    document.getElementById(
+      "adminNon"
+    ).value = "";
+
+
+    document.getElementById(
+      "adminSiyati"
+    ).value = "";
+
+
+    document.getElementById(
+      "adminEmail"
+    ).value = "";
+
+
+    document.getElementById(
+      "adminRole"
+    ).value =
+      "admin";
+
+  }
+
+
+  /* =====================================================
+     VOYE ENVITASYON
+  ===================================================== */
+
+  async function enviteAdministrate() {
+
+    const non =
+      document.getElementById(
+        "adminNon"
+      ).value.trim();
+
+
+    const siyati =
+      document.getElementById(
+        "adminSiyati"
+      ).value.trim();
+
+
+    const email =
+      document.getElementById(
+        "adminEmail"
+      ).value
+        .trim()
+        .toLowerCase();
+
+
+    const wòl =
+      document.getElementById(
+        "adminRole"
+      ).value;
+
+
+    if (!non) {
+
+      montreErreur(
+        "Tanpri antre non administratè a."
+      );
+
+      return;
+
+    }
+
+
+    if (!email) {
+
+      montreErreur(
+        "Tanpri antre email administratè a."
+      );
+
+      return;
+
+    }
+
+
+    const emailRegex =
+      /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+
+    if (
+      !emailRegex.test(
+        email
+      )
+    ) {
+
+      montreErreur(
+        "Email la pa sanble ak yon email ki valab."
+      );
+
+      return;
+
+    }
+
+
+    const confirme =
+      confirm(
+        `Èske ou konfime envitasyon sa a?\n\n` +
+        `Non: ${non} ${siyati}\n` +
+        `Email: ${email}\n` +
+        `Wòl: ${getRoleName(wòl)}`
+      );
+
+
+    if (!confirme) {
+      return;
+    }
+
+
+    const button =
+      document.getElementById(
+        "sendInviteBtn"
+      );
+
+
+    button.disabled =
+      true;
+
+
+    button.textContent =
+      "Ap voye envitasyon...";
+
+
+    try {
+
+      const {
+        data: sessionData,
+        error: sessionError
+      } =
+        await supabaseClient.auth
+          .getSession();
+
+
+      if (sessionError) {
+        throw sessionError;
+      }
+
+
+      const session =
+        sessionData?.session;
+
+
+      if (!session) {
+
+        throw new Error(
+          "Sesyon administratè a pa aktif."
+        );
+
+      }
+
+
+      const {
+        data,
+        error
+      } =
+        await supabaseClient.functions.invoke(
+          "envite-administratè",
+          {
+            body: {
+              email:
+                email,
+
+              non:
+                non,
+
+              siyati:
+                siyati,
+
+              wòl:
+                wòl
+            }
+          }
+        );
+
+
+      if (error) {
+
+        console.error(
+          "EDGE FUNCTION ERROR:",
+          error
+        );
+
+        throw error;
+
+      }
+
+
+      if (
+        !data ||
+        data.ok !== true
+      ) {
+
+        throw new Error(
+          data?.message ||
+          "Envitasyon an pa t kapab voye."
+        );
+
+      }
+
+
+      femenAjouteAdmin();
+
+
+      montreSucces(
+        "Envitasyon administratè a voye avèk siksè."
+      );
+
+
+      await chajeItilizate();
+
+    }
+    catch (error) {
+
+      console.error(
+        "ENVITASYON ERROR:",
+        error
+      );
+
+
+      montreErreur(
+        error.message ||
+        "Nou pa kapab voye envitasyon an."
+      );
+
+    }
+    finally {
+
+      button.disabled =
+        false;
+
+
+      button.textContent =
+        "Voye envitasyon";
+
+    }
+
+  }
+
+
+  /* =====================================================
+     DEKONEKTE
+  ===================================================== */
+
+  async function dekonèkte() {
+
+    await supabaseClient
+      .auth
+      .signOut();
+
+
+    window.location.href =
+      "login.html";
+
+  }
+
+
+  /* =====================================================
+     MESSAGES
+  ===================================================== */
+
+  function montreSucces(
+    message
+  ) {
+
+    const success =
+      document.getElementById(
+        "messageSuccess"
+      );
+
+    const error =
+      document.getElementById(
+        "messageError"
+      );
+
+
+    error.style.display =
+      "none";
+
+
+    success.textContent =
+      message;
+
+
+    success.style.display =
+      "block";
+
+
+    setTimeout(
+      () => {
+
+        success.style.display =
+          "none";
+
+      },
+      5000
+    );
+
+  }
+
+
+  function montreErreur(
+    message
+  ) {
+
+    const success =
+      document.getElementById(
+        "messageSuccess"
+      );
+
+    const error =
+      document.getElementById(
+        "messageError"
+      );
+
+
+    success.style.display =
+      "none";
+
+
+    error.textContent =
+      message;
+
+
+    error.style.display =
+      "block";
+
+  }
+
+
+  /* =====================================================
+     NON WÒL
+  ===================================================== */
+
+  function getRoleName(
+    role
+  ) {
+
+    const noms = {
+
+      super_admin:
+        "Super Admin",
+
+      admin:
+        "Admin",
+
+      "editè":
+        "Editè",
+
+      volonte:
+        "Volontè"
+
+    };
+
+
+    return (
+      noms[role] ||
+      role ||
+      "San wòl"
+    );
+
+  }
+
+
+  function getRoleClass(
+    role
+  ) {
+
+    const classes = {
+
+      super_admin:
+        "badge-super",
+
+      admin:
+        "badge-admin",
+
+      "editè":
+        "badge-editè",
+
+      volonte:
+        "badge-volonte"
+
+    };
+
+
+    return (
+      classes[role] ||
+      "badge-volonte"
+    );
+
+  }
+
+
+  /* =====================================================
+     SECURITY / ESCAPE HTML
+  ===================================================== */
+
+  function escapeHTML(
+    value
+  ) {
+
+    if (
+      value === null ||
+      value === undefined
+    ) {
+
+      return "";
+
+    }
+
+
+    return String(value)
+
+      .replace(
+        /&/g,
+        "&amp;"
+      )
+
+      .replace(
+        /</g,
+        "&lt;"
+      )
+
+      .replace(
+        />/g,
+        "&gt;"
+      )
+
+      .replace(
+        /"/g,
+        "&quot;"
+      )
+
+      .replace(
+        /'/g,
+        "&#039;"
+      );
+
+  }
+
+
+  /* =====================================================
+     KLIK DEYÒ MODAL WÒL
+  ===================================================== */
+
+  document
+    .getElementById(
+      "roleModal"
+    )
+    .addEventListener(
+      "click",
+      function(event) {
+
+        if (
+          event.target ===
+          this
+        ) {
+
+          femenModal();
+
+        }
+
+      }
+    );
+
+
+  /* =====================================================
+     KLIK DEYÒ MODAL ADMIN
+  ===================================================== */
+
+  document
+    .getElementById(
+      "addAdminModal"
+    )
+    .addEventListener(
+      "click",
+      function(event) {
+
+        if (
+          event.target ===
+          this
+        ) {
+
+          femenAjouteAdmin();
+
+        }
+
+      }
+    );
+
+
+  /* =====================================================
+     DEMARAJ
+  ===================================================== */
+
+  async function demare() {
+
+    const ok =
+      await verifyeSuperAdmin();
+
+
+    if (!ok) {
+      return;
+    }
+
+
+    await chajeItilizate();
+
+
+    await chajeWol();
+
+  }
+
+
+  demare();
+
+</script>
+
+</body>
+</html>

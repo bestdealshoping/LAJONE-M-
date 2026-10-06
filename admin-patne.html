@@ -1,0 +1,2289 @@
+<!DOCTYPE html>
+<html lang="ht">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Admin — Patnè | LAJONÈ'M</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Open+Sans:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    :root {
+      --ble: #0B3B75;
+      --ble-fonse: #082d59;
+      --lò: #F2B705;
+      --vèt: #2E8B57;
+      --blan: #fff;
+      --gri: #f4f6f8;
+      --gri2: #e5e7eb;
+      --tèks: #1f2937;
+      --wouj: #dc2626;
+      --zoranj: #f59e0b;
+      --lonbraj: 0 8px 25px rgba(0,0,0,.08);
+      --rayon: 14px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Open Sans", sans-serif;
+      background: var(--gri);
+      color: var(--tèks);
+    }
+
+    button,
+    input,
+    textarea,
+    select {
+      font-family: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .topbar {
+      height: 70px;
+      background: var(--ble);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 25px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .logo {
+      font-family: "Montserrat", sans-serif;
+      font-size: 21px;
+      font-weight: 800;
+    }
+
+    .logo span {
+      color: var(--lò);
+    }
+
+    .top-actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .top-btn {
+      border: none;
+      border-radius: 8px;
+      padding: 9px 14px;
+      font-weight: 700;
+      background: rgba(255,255,255,.12);
+      color: white;
+    }
+
+    .top-btn:hover {
+      background: rgba(255,255,255,.2);
+    }
+
+    .menu-btn {
+      display: none;
+      border: none;
+      background: transparent;
+      color: white;
+      font-size: 25px;
+    }
+
+    .layout {
+      display: flex;
+      min-height: calc(100vh - 70px);
+    }
+
+    .sidebar {
+      width: 250px;
+      background: #fff;
+      border-right: 1px solid var(--gri2);
+      padding: 20px 12px;
+      flex-shrink: 0;
+    }
+
+    .sidebar-title {
+      font-size: 11px;
+      text-transform: uppercase;
+      color: #777;
+      font-weight: 800;
+      padding: 8px 12px;
+      margin-bottom: 6px;
+    }
+
+    .side-link {
+      width: 100%;
+      display: block;
+      text-decoration: none;
+      color: #374151;
+      padding: 11px 13px;
+      border-radius: 9px;
+      margin-bottom: 4px;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .side-link:hover {
+      background: #f1f5f9;
+      color: var(--ble);
+    }
+
+    .side-link.active {
+      background: var(--ble);
+      color: white;
+    }
+
+    .content {
+      flex: 1;
+      padding: 28px;
+      min-width: 0;
+    }
+
+    .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+
+    .page-header h1 {
+      font-family: "Montserrat", sans-serif;
+      color: var(--ble);
+      font-size: 27px;
+      margin-bottom: 5px;
+    }
+
+    .page-header p {
+      color: #6b7280;
+      font-size: 14px;
+    }
+
+    .primary-btn {
+      border: none;
+      background: var(--ble);
+      color: white;
+      padding: 11px 18px;
+      border-radius: 9px;
+      font-weight: 700;
+    }
+
+    .primary-btn:hover {
+      background: var(--ble-fonse);
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 22px;
+    }
+
+    .stat-card {
+      background: white;
+      border-radius: var(--rayon);
+      padding: 20px;
+      box-shadow: var(--lonbraj);
+    }
+
+    .stat-label {
+      color: #6b7280;
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
+
+    .stat-value {
+      font-family: "Montserrat", sans-serif;
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--ble);
+    }
+
+    .stat-active .stat-value {
+      color: var(--vèt);
+    }
+
+    .stat-inactive .stat-value {
+      color: var(--zoranj);
+    }
+
+    .toolbar {
+      background: white;
+      padding: 16px;
+      border-radius: var(--rayon);
+      box-shadow: var(--lonbraj);
+      margin-bottom: 18px;
+
+      display: grid;
+      grid-template-columns: 1fr 220px;
+      gap: 12px;
+    }
+
+    .toolbar input,
+    .toolbar select {
+      width: 100%;
+      padding: 11px 13px;
+      border: 1px solid var(--gri2);
+      border-radius: 8px;
+      outline: none;
+      background: white;
+    }
+
+    .toolbar input:focus,
+    .toolbar select:focus {
+      border-color: var(--ble);
+    }
+
+    .table-box {
+      background: white;
+      border-radius: var(--rayon);
+      box-shadow: var(--lonbraj);
+      overflow: hidden;
+    }
+
+    .table-scroll {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 950px;
+    }
+
+    th,
+    td {
+      padding: 14px 15px;
+      border-bottom: 1px solid #edf0f2;
+      text-align: left;
+      font-size: 13px;
+    }
+
+    th {
+      background: #f8fafc;
+      color: #4b5563;
+      font-size: 12px;
+      text-transform: uppercase;
+    }
+
+    td strong {
+      color: var(--ble);
+    }
+
+    .partner-name {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .partner-logo {
+      width: 42px;
+      height: 42px;
+      border-radius: 9px;
+      object-fit: cover;
+      border: 1px solid var(--gri2);
+      background: #f8fafc;
+    }
+
+    .logo-placeholder {
+      width: 42px;
+      height: 42px;
+      border-radius: 9px;
+      background: #eef3f8;
+      color: var(--ble);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+    }
+
+    .status {
+      display: inline-block;
+      padding: 5px 9px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .status-active {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .status-inactive {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .actions {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .action-btn {
+      border: none;
+      border-radius: 7px;
+      padding: 7px 9px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .edit-btn {
+      background: #e0ecff;
+      color: var(--ble);
+    }
+
+    .activate-btn {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .deactivate-btn {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .delete-btn {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .empty,
+    .loading {
+      text-align: center;
+      padding: 45px 20px;
+      color: #6b7280;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.55);
+      z-index: 2000;
+      padding: 20px;
+      overflow-y: auto;
+    }
+
+    .modal.show {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+    }
+
+    .modal-box {
+      width: min(850px, 100%);
+      background: white;
+      border-radius: 16px;
+      margin: 30px auto;
+      box-shadow: 0 20px 60px rgba(0,0,0,.2);
+      overflow: hidden;
+    }
+
+    .modal-header {
+      background: var(--ble);
+      color: white;
+      padding: 18px 22px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-header h2 {
+      font-family: "Montserrat", sans-serif;
+      font-size: 19px;
+    }
+
+    .close-btn {
+      background: transparent;
+      color: white;
+      border: none;
+      font-size: 25px;
+    }
+
+    .modal-body {
+      padding: 22px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-group.full {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      font-size: 13px;
+      font-weight: 700;
+      color: #374151;
+    }
+
+    input,
+    textarea,
+    select {
+      border: 1px solid var(--gri2);
+      border-radius: 8px;
+      padding: 11px 12px;
+      outline: none;
+      background: white;
+    }
+
+    textarea {
+      min-height: 110px;
+      resize: vertical;
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+      border-color: var(--ble);
+    }
+
+    .checkbox-line {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+    }
+
+    .checkbox-line input {
+      width: 18px;
+      height: 18px;
+    }
+
+    .modal-footer {
+      padding: 16px 22px;
+      border-top: 1px solid #edf0f2;
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    .cancel-btn {
+      border: 1px solid var(--gri2);
+      background: white;
+      color: #374151;
+      padding: 10px 17px;
+      border-radius: 8px;
+      font-weight: 700;
+    }
+
+    .save-btn {
+      border: none;
+      background: var(--vèt);
+      color: white;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-weight: 700;
+    }
+
+    .message {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      z-index: 3000;
+      min-width: 280px;
+      max-width: 420px;
+      background: #111827;
+      color: white;
+      padding: 14px 17px;
+      border-radius: 10px;
+      box-shadow: 0 12px 30px rgba(0,0,0,.2);
+      display: none;
+      font-size: 13px;
+    }
+
+    .message.show {
+      display: block;
+    }
+
+    .message.success {
+      background: var(--vèt);
+    }
+
+    .message.error {
+      background: var(--wouj);
+    }
+
+    @media (max-width: 900px) {
+      .sidebar {
+        position: fixed;
+        top: 70px;
+        bottom: 0;
+        left: -270px;
+        z-index: 1500;
+        transition: .25s;
+        box-shadow: 10px 0 30px rgba(0,0,0,.12);
+      }
+
+      .sidebar.open {
+        left: 0;
+      }
+
+      .menu-btn {
+        display: block;
+      }
+
+      .content {
+        padding: 20px 15px;
+      }
+
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      .toolbar {
+        grid-template-columns: 1fr;
+      }
+
+      .page-header {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 650px) {
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .form-group.full {
+        grid-column: auto;
+      }
+
+      .site-btn {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header class="topbar">
+
+  <div style="display:flex;align-items:center;gap:12px;">
+
+    <button class="menu-btn" id="menuBtn">
+      ☰
+    </button>
+
+    <div class="logo">
+      LAJONÈ<span>'M</span>
+    </div>
+
+  </div>
+
+  <div class="top-actions">
+
+    <button
+      class="top-btn site-btn"
+      onclick="window.location.href='patne.html'"
+    >
+      Wè sit la
+    </button>
+
+    <button
+      class="top-btn"
+      id="logoutBtn"
+    >
+      Dekonekte
+    </button>
+
+  </div>
+
+</header>
+
+
+<div class="layout">
+
+  <!-- SIDEBAR -->
+
+  <aside class="sidebar" id="sidebar">
+
+    <div class="sidebar-title">
+      Administrasyon
+    </div>
+
+    <a href="admin.html" class="side-link">
+      Dashboard
+    </a>
+
+    <a href="admin-aktivite.html" class="side-link">
+      Aktivite
+    </a>
+
+    <a href="admin-pwogram.html" class="side-link">
+      Pwogram
+    </a>
+
+    <a href="admin-volonte.html" class="side-link">
+      Volontè
+    </a>
+
+    <a href="admin-benefisye.html" class="side-link">
+      Benefisyè
+    </a>
+
+    <a href="admin-don.html" class="side-link">
+      Don
+    </a>
+
+    <a href="admin-donatè.html" class="side-link">
+      Donatè
+    </a>
+
+    <a href="admin-nouvel.html" class="side-link">
+      Nouvèl
+    </a>
+
+    <a href="admin-patne.html" class="side-link active">
+      Patnè
+    </a>
+
+    <a href="admin-galri.html" class="side-link">
+      Galri
+    </a>
+
+    <a href="admin-rapo.html" class="side-link">
+      Rapò
+    </a>
+
+    <a href="admin-mesaj.html" class="side-link">
+      Mesaj
+    </a>
+
+  </aside>
+
+
+  <!-- CONTENT -->
+
+  <main class="content">
+
+    <div class="page-header">
+
+      <div>
+
+        <h1>Patnè</h1>
+
+        <p>
+          Jere òganizasyon, antrepriz ak lòt patnè LAJONÈ'M.
+        </p>
+
+      </div>
+
+      <button
+        class="primary-btn"
+        id="addBtn"
+      >
+        + Ajoute yon patnè
+      </button>
+
+    </div>
+
+
+    <!-- STATS -->
+
+    <section class="stats">
+
+      <div class="stat-card">
+
+        <div class="stat-label">
+          Total patnè
+        </div>
+
+        <div
+          class="stat-value"
+          id="statTotal"
+        >
+          0
+        </div>
+
+      </div>
+
+
+      <div class="stat-card stat-active">
+
+        <div class="stat-label">
+          Patnè aktif
+        </div>
+
+        <div
+          class="stat-value"
+          id="statActive"
+        >
+          0
+        </div>
+
+      </div>
+
+
+      <div class="stat-card stat-inactive">
+
+        <div class="stat-label">
+          Patnè inaktif
+        </div>
+
+        <div
+          class="stat-value"
+          id="statInactive"
+        >
+          0
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- RECHÈCH -->
+
+    <section class="toolbar">
+
+      <input
+        type="search"
+        id="searchInput"
+        placeholder="Chèche yon patnè..."
+      >
+
+      <select id="typeFilter">
+
+        <option value="">
+          Tout kalite
+        </option>
+
+        <option value="òganizasyon">
+          Òganizasyon
+        </option>
+
+        <option value="antrepriz">
+          Antrepriz
+        </option>
+
+        <option value="enstitisyon">
+          Enstitisyon
+        </option>
+
+        <option value="ONG">
+          ONG
+        </option>
+
+        <option value="fondasyon">
+          Fondasyon
+        </option>
+
+        <option value="lòt">
+          Lòt
+        </option>
+
+      </select>
+
+    </section>
+
+
+    <!-- TABLE -->
+
+    <section class="table-box">
+
+      <div class="table-scroll">
+
+        <table>
+
+          <thead>
+
+            <tr>
+
+              <th>Patnè</th>
+              <th>Kalite</th>
+              <th>Kontak</th>
+              <th>Dat kòmansman</th>
+              <th>Estati</th>
+              <th>Aksyon</th>
+
+            </tr>
+
+          </thead>
+
+          <tbody id="partnerTable">
+
+            <tr>
+
+              <td
+                colspan="6"
+                class="loading"
+              >
+                Ap chaje patnè yo...
+              </td>
+
+            </tr>
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </section>
+
+  </main>
+
+</div>
+
+
+<!-- MODAL -->
+
+<div
+  class="modal"
+  id="partnerModal"
+>
+
+  <div class="modal-box">
+
+    <div class="modal-header">
+
+      <h2 id="modalTitle">
+        Ajoute yon patnè
+      </h2>
+
+      <button
+        class="close-btn"
+        id="closeModal"
+      >
+        ×
+      </button>
+
+    </div>
+
+
+    <form id="partnerForm">
+
+      <div class="modal-body">
+
+        <input
+          type="hidden"
+          id="partnerId"
+        >
+
+
+        <div class="form-grid">
+
+          <!-- NON -->
+
+          <div class="form-group">
+
+            <label for="non">
+              Non patnè a *
+            </label>
+
+            <input
+              type="text"
+              id="non"
+              required
+              placeholder="Non òganizasyon oswa antrepriz la"
+            >
+
+          </div>
+
+
+          <!-- SLUG -->
+
+          <div class="form-group">
+
+            <label for="slug">
+              Slug
+            </label>
+
+            <input
+              type="text"
+              id="slug"
+              placeholder="non-patne"
+            >
+
+          </div>
+
+
+          <!-- KALITE -->
+
+          <div class="form-group">
+
+            <label for="kalite">
+              Kalite patnè
+            </label>
+
+            <select id="kalite">
+
+              <option value="òganizasyon">
+                Òganizasyon
+              </option>
+
+              <option value="antrepriz">
+                Antrepriz
+              </option>
+
+              <option value="enstitisyon">
+                Enstitisyon
+              </option>
+
+              <option value="ONG">
+                ONG
+              </option>
+
+              <option value="fondasyon">
+                Fondasyon
+              </option>
+
+              <option value="lòt">
+                Lòt
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <!-- KONTAK -->
+
+          <div class="form-group">
+
+            <label for="kontak_prensipal">
+              Kontak prensipal
+            </label>
+
+            <input
+              type="text"
+              id="kontak_prensipal"
+              placeholder="Non moun kontak la"
+            >
+
+          </div>
+
+
+          <!-- LOGO -->
+
+          <div class="form-group full">
+
+            <label for="logo_url">
+              URL logo
+            </label>
+
+            <input
+              type="url"
+              id="logo_url"
+              placeholder="https://..."
+            >
+
+          </div>
+
+
+          <!-- SIT WEB -->
+
+          <div class="form-group">
+
+            <label for="sit_web">
+              Sit entènèt
+            </label>
+
+            <input
+              type="url"
+              id="sit_web"
+              placeholder="https://..."
+            >
+
+          </div>
+
+
+          <!-- TELEFÒN -->
+
+          <div class="form-group">
+
+            <label for="telefòn">
+              Telefòn
+            </label>
+
+            <input
+              type="tel"
+              id="telefòn"
+              placeholder="+509..."
+            >
+
+          </div>
+
+
+          <!-- EMAIL -->
+
+          <div class="form-group">
+
+            <label for="email">
+              Imèl
+            </label>
+
+            <input
+              type="email"
+              id="email"
+              placeholder="contact@exemple.com"
+            >
+
+          </div>
+
+
+          <!-- ADRES -->
+
+          <div class="form-group">
+
+            <label for="adrès">
+              Adrès
+            </label>
+
+            <input
+              type="text"
+              id="adrès"
+              placeholder="Adrès patnè a"
+            >
+
+          </div>
+
+
+          <!-- KONTRIBISYON -->
+
+          <div class="form-group">
+
+            <label for="dat_kòmanse">
+              Dat kòmansman
+            </label>
+
+            <input
+              type="date"
+              id="dat_kòmanse"
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="dat_fin">
+              Dat fen
+            </label>
+
+            <input
+              type="date"
+              id="dat_fin"
+            >
+
+          </div>
+
+
+          <!-- DESCRIPTION -->
+
+          <div class="form-group full">
+
+            <label for="deskripsyon">
+              Deskripsyon
+            </label>
+
+            <textarea
+              id="deskripsyon"
+              placeholder="Dekri relasyon oswa kontribisyon patnè sa a..."
+            ></textarea>
+
+          </div>
+
+
+          <!-- ACTIVE -->
+
+          <div class="form-group full">
+
+            <label class="checkbox-line">
+
+              <input
+                type="checkbox"
+                id="aktif"
+                checked
+              >
+
+              <span>
+                Patnè sa a aktif
+              </span>
+
+            </label>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="modal-footer">
+
+        <button
+          type="button"
+          class="cancel-btn"
+          id="cancelBtn"
+        >
+          Anile
+        </button>
+
+        <button
+          type="submit"
+          class="save-btn"
+        >
+          Anrejistre patnè a
+        </button>
+
+      </div>
+
+    </form>
+
+  </div>
+
+</div>
+
+
+<div
+  class="message"
+  id="message"
+></div>
+
+
+<script src="js/supabase.js"></script>
+
+<script>
+
+  let toutPatne = [];
+  let modeEdition = false;
+
+
+  /* =========================
+     MESAJ
+  ========================= */
+
+  function montreMesaj(texte, type = "") {
+
+    const box =
+      document.getElementById("message");
+
+    box.textContent = texte;
+
+    box.className =
+      "message show " + type;
+
+    setTimeout(() => {
+
+      box.className = "message";
+
+    }, 3500);
+
+  }
+
+
+  /* =========================
+     AUTH
+  ========================= */
+
+  async function verifyeAdministrateur() {
+
+    const {
+      data: { user },
+      error
+    } = await supabaseClient.auth.getUser();
+
+
+    if (error || !user) {
+
+      window.location.href =
+        "login.html";
+
+      return null;
+
+    }
+
+
+    const result =
+      await supabaseClient
+
+        .from("itilizatè_admin")
+
+        .select(`
+          id,
+          user_id,
+          non,
+          siyati,
+          email,
+          wòl,
+          aktif
+        `)
+
+        .eq("user_id", user.id)
+
+        .eq("aktif", true)
+
+        .maybeSingle();
+
+
+    if (result.error) {
+
+      console.error(result.error);
+
+      montreMesaj(
+        "Nou pa kapab verifye aksè administratè a.",
+        "error"
+      );
+
+      return null;
+
+    }
+
+
+    if (!result.data) {
+
+      await supabaseClient.auth.signOut();
+
+      window.location.href =
+        "login.html";
+
+      return null;
+
+    }
+
+
+    if (
+      result.data.wòl !== "super_admin" &&
+      result.data.wòl !== "admin"
+    ) {
+
+      montreMesaj(
+        "Ou pa gen pèmisyon pou jere patnè yo.",
+        "error"
+      );
+
+      return null;
+
+    }
+
+
+    return result.data;
+
+  }
+
+
+  /* =========================
+     SLUG
+  ========================= */
+
+  function kreyeSlug(texte) {
+
+    return texte
+      .toString()
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/[’']/g, "")
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "");
+
+  }
+
+
+  /* =========================
+     ESCAPE
+  ========================= */
+
+  function escapeHTML(value) {
+
+    return String(value ?? "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+
+  }
+
+
+  /* =========================
+     DATE
+  ========================= */
+
+  function formatDate(date) {
+
+    if (!date) return "—";
+
+    return new Date(date)
+      .toLocaleDateString(
+        "fr-FR",
+        {
+          day: "2-digit",
+          month: "2-digit",
+          year: "numeric"
+        }
+      );
+
+  }
+
+
+  /* =========================
+     CHAJE PATNE
+  ========================= */
+
+  async function chajePatne() {
+
+    const tbody =
+      document.getElementById("partnerTable");
+
+
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="6" class="loading">
+          Ap chaje patnè yo...
+        </td>
+      </tr>
+    `;
+
+
+    const { data, error } =
+      await supabaseClient
+
+        .from("patne")
+
+        .select(`
+          id,
+          non,
+          slug,
+          kalite,
+          deskripsyon,
+          logo_url,
+          sit_web,
+          telefòn,
+          email,
+          adrès,
+          kontak_prensipal,
+          aktif,
+          dat_kòmanse,
+          dat_fin
+        `)
+
+        .order(
+          "non",
+          { ascending: true }
+        );
+
+
+    if (error) {
+
+      console.error(
+        "Erè patnè:",
+        error
+      );
+
+      tbody.innerHTML = `
+        <tr>
+          <td colspan="6" class="empty">
+            Nou pa kapab chaje patnè yo.
+          </td>
+        </tr>
+      `;
+
+      montreMesaj(
+        "Erè pandan chajman patnè yo.",
+        "error"
+      );
+
+      return;
+
+    }
+
+
+    toutPatne = data || [];
+
+    meteStatistik();
+
+    montrePatne();
+
+  }
+
+
+  /* =========================
+     STATS
+  ========================= */
+
+  function meteStatistik() {
+
+    const total =
+      toutPatne.length;
+
+    const aktif =
+      toutPatne.filter(
+        p => p.aktif === true
+      ).length;
+
+    const inaktif =
+      total - aktif;
+
+
+    document.getElementById(
+      "statTotal"
+    ).textContent = total;
+
+
+    document.getElementById(
+      "statActive"
+    ).textContent = aktif;
+
+
+    document.getElementById(
+      "statInactive"
+    ).textContent = inaktif;
+
+  }
+
+
+  /* =========================
+     AFFICHE
+  ========================= */
+
+  function montrePatne() {
+
+    const tbody =
+      document.getElementById(
+        "partnerTable"
+      );
+
+
+    const recherche =
+      document.getElementById(
+        "searchInput"
+      ).value
+       .toLowerCase()
+       .trim();
+
+
+    const kalite =
+      document.getElementById(
+        "typeFilter"
+      ).value;
+
+
+    const filtre =
+      toutPatne.filter(p => {
+
+        const texte =
+          `${p.non || ""}
+           ${p.kontak_prensipal || ""}
+           ${p.email || ""}
+           ${p.telefòn || ""}`
+            .toLowerCase();
+
+
+        const okRecherche =
+          !recherche ||
+          texte.includes(recherche);
+
+
+        const okKalite =
+          !kalite ||
+          p.kalite === kalite;
+
+
+        return (
+          okRecherche &&
+          okKalite
+        );
+
+      });
+
+
+    if (!filtre.length) {
+
+      tbody.innerHTML = `
+        <tr>
+          <td colspan="6" class="empty">
+            Pa gen patnè ki koresponn ak rechèch la.
+          </td>
+        </tr>
+      `;
+
+      return;
+
+    }
+
+
+    tbody.innerHTML =
+      filtre.map(p => {
+
+        const logo =
+          p.logo_url
+
+          ? `
+            <img
+              src="${escapeHTML(p.logo_url)}"
+              class="partner-logo"
+              alt="Logo"
+            >
+          `
+
+          : `
+            <div class="logo-placeholder">
+              ${escapeHTML(
+                (p.non || "?")
+                  .charAt(0)
+                  .toUpperCase()
+              )}
+            </div>
+          `;
+
+
+        const status =
+          p.aktif
+
+          ? `
+            <span class="status status-active">
+              Aktif
+            </span>
+          `
+
+          : `
+            <span class="status status-inactive">
+              Inaktif
+            </span>
+          `;
+
+
+        const action =
+          p.aktif
+
+          ? `
+            <button
+              class="action-btn deactivate-btn"
+              onclick="chanjeAktif('${p.id}', false)"
+            >
+              Dezaktive
+            </button>
+          `
+
+          : `
+            <button
+              class="action-btn activate-btn"
+              onclick="chanjeAktif('${p.id}', true)"
+            >
+              Aktive
+            </button>
+          `;
+
+
+        return `
+          <tr>
+
+            <td>
+
+              <div class="partner-name">
+
+                ${logo}
+
+                <div>
+
+                  <strong>
+                    ${escapeHTML(p.non)}
+                  </strong>
+
+                  ${
+                    p.sit_web
+                    ? `
+                      <div style="font-size:11px;color:#777;">
+                        Sit entènèt disponib
+                      </div>
+                    `
+                    : ""
+                  }
+
+                </div>
+
+              </div>
+
+            </td>
+
+
+            <td>
+              ${escapeHTML(p.kalite || "—")}
+            </td>
+
+
+            <td>
+
+              ${
+                p.kontak_prensipal
+                ? escapeHTML(
+                    p.kontak_prensipal
+                  )
+                : "—"
+              }
+
+              ${
+                p.telefòn
+                ? `
+                  <div style="font-size:11px;color:#777;">
+                    ${escapeHTML(p.telefòn)}
+                  </div>
+                `
+                : ""
+              }
+
+            </td>
+
+
+            <td>
+              ${formatDate(p.dat_kòmanse)}
+            </td>
+
+
+            <td>
+              ${status}
+            </td>
+
+
+            <td>
+
+              <div class="actions">
+
+                <button
+                  class="action-btn edit-btn"
+                  onclick="editePatne('${p.id}')"
+                >
+                  Modifye
+                </button>
+
+                ${action}
+
+                <button
+                  class="action-btn delete-btn"
+                  onclick="efasePatne('${p.id}')"
+                >
+                  Efase
+                </button>
+
+              </div>
+
+            </td>
+
+          </tr>
+        `;
+
+      }).join("");
+
+  }
+
+
+  /* =========================
+     MODAL
+  ========================= */
+
+  function ouvriModal() {
+
+    document
+      .getElementById("partnerModal")
+      .classList.add("show");
+
+  }
+
+
+  function femenModal() {
+
+    document
+      .getElementById("partnerModal")
+      .classList.remove("show");
+
+  }
+
+
+  function resetForm() {
+
+    document
+      .getElementById("partnerForm")
+      .reset();
+
+
+    document.getElementById(
+      "partnerId"
+    ).value = "";
+
+
+    document.getElementById(
+      "aktif"
+    ).checked = true;
+
+
+    document.getElementById(
+      "modalTitle"
+    ).textContent =
+      "Ajoute yon patnè";
+
+
+    modeEdition = false;
+
+  }
+
+
+  /* =========================
+     ADD
+  ========================= */
+
+  document
+    .getElementById("addBtn")
+    .addEventListener(
+      "click",
+      () => {
+
+        resetForm();
+
+        ouvriModal();
+
+      }
+    );
+
+
+  document
+    .getElementById("closeModal")
+    .addEventListener(
+      "click",
+      femenModal
+    );
+
+
+  document
+    .getElementById("cancelBtn")
+    .addEventListener(
+      "click",
+      femenModal
+    );
+
+
+  /* =========================
+     AUTO SLUG
+  ========================= */
+
+  document
+    .getElementById("non")
+    .addEventListener(
+      "input",
+      function() {
+
+        if (!modeEdition) {
+
+          document.getElementById(
+            "slug"
+          ).value =
+            kreyeSlug(this.value);
+
+        }
+
+      }
+    );
+
+
+  /* =========================
+     SAVE
+  ========================= */
+
+  document
+    .getElementById("partnerForm")
+    .addEventListener(
+      "submit",
+      async function(e) {
+
+        e.preventDefault();
+
+
+        const id =
+          document.getElementById(
+            "partnerId"
+          ).value;
+
+
+        const non =
+          document.getElementById(
+            "non"
+          ).value.trim();
+
+
+        const slug =
+          document.getElementById(
+            "slug"
+          ).value.trim()
+          || kreyeSlug(non);
+
+
+        const kalite =
+          document.getElementById(
+            "kalite"
+          ).value;
+
+
+        const deskripsyon =
+          document.getElementById(
+            "deskripsyon"
+          ).value.trim()
+          || null;
+
+
+        const logo_url =
+          document.getElementById(
+            "logo_url"
+          ).value.trim()
+          || null;
+
+
+        const sit_web =
+          document.getElementById(
+            "sit_web"
+          ).value.trim()
+          || null;
+
+
+        const telefòn =
+          document.getElementById(
+            "telefòn"
+          ).value.trim()
+          || null;
+
+
+        const email =
+          document.getElementById(
+            "email"
+          ).value.trim()
+          || null;
+
+
+        const adrès =
+          document.getElementById(
+            "adrès"
+          ).value.trim()
+          || null;
+
+
+        const kontak_prensipal =
+          document.getElementById(
+            "kontak_prensipal"
+          ).value.trim()
+          || null;
+
+
+        const dat_kòmanse =
+          document.getElementById(
+            "dat_kòmanse"
+          ).value
+          || null;
+
+
+        const dat_fin =
+          document.getElementById(
+            "dat_fin"
+          ).value
+          || null;
+
+
+        const aktif =
+          document.getElementById(
+            "aktif"
+          ).checked;
+
+
+        const payload = {
+
+          non,
+          slug,
+          kalite,
+          deskripsyon,
+          logo_url,
+          sit_web,
+          telefòn,
+          email,
+          adrès,
+          kontak_prensipal,
+          aktif,
+          dat_kòmanse,
+          dat_fin
+
+        };
+
+
+        let result;
+
+
+        if (id) {
+
+          result =
+            await supabaseClient
+              .from("patne")
+              .update(payload)
+              .eq("id", id);
+
+        } else {
+
+          result =
+            await supabaseClient
+              .from("patne")
+              .insert(payload);
+
+        }
+
+
+        if (result.error) {
+
+          console.error(
+            result.error
+          );
+
+          montreMesaj(
+            "Erè: " +
+            result.error.message,
+            "error"
+          );
+
+          return;
+
+        }
+
+
+        montreMesaj(
+          id
+            ? "Patnè a modifye avèk siksè."
+            : "Patnè a ajoute avèk siksè.",
+          "success"
+        );
+
+
+        femenModal();
+
+        resetForm();
+
+        await chajePatne();
+
+      }
+    );
+
+
+  /* =========================
+     EDIT
+  ========================= */
+
+  function editePatne(id) {
+
+    const p =
+      toutPatne.find(
+        item => item.id === id
+      );
+
+
+    if (!p) return;
+
+
+    modeEdition = true;
+
+
+    document.getElementById(
+      "partnerId"
+    ).value = p.id;
+
+
+    document.getElementById(
+      "non"
+    ).value = p.non || "";
+
+
+    document.getElementById(
+      "slug"
+    ).value = p.slug || "";
+
+
+    document.getElementById(
+      "kalite"
+    ).value =
+      p.kalite || "òganizasyon";
+
+
+    document.getElementById(
+      "deskripsyon"
+    ).value =
+      p.deskripsyon || "";
+
+
+    document.getElementById(
+      "logo_url"
+    ).value =
+      p.logo_url || "";
+
+
+    document.getElementById(
+      "sit_web"
+    ).value =
+      p.sit_web || "";
+
+
+    document.getElementById(
+      "telefòn"
+    ).value =
+      p.telefòn || "";
+
+
+    document.getElementById(
+      "email"
+    ).value =
+      p.email || "";
+
+
+    document.getElementById(
+      "adrès"
+    ).value =
+      p.adrès || "";
+
+
+    document.getElementById(
+      "kontak_prensipal"
+    ).value =
+      p.kontak_prensipal || "";
+
+
+    document.getElementById(
+      "dat_kòmanse"
+    ).value =
+      p.dat_kòmanse || "";
+
+
+    document.getElementById(
+      "dat_fin"
+    ).value =
+      p.dat_fin || "";
+
+
+    document.getElementById(
+      "aktif"
+    ).checked =
+      p.aktif === true;
+
+
+    document.getElementById(
+      "modalTitle"
+    ).textContent =
+      "Modifye patnè";
+
+
+    ouvriModal();
+
+  }
+
+
+  /* =========================
+     ACTIVE / INACTIVE
+  ========================= */
+
+  async function chanjeAktif(
+    id,
+    value
+  ) {
+
+    const { error } =
+      await supabaseClient
+
+        .from("patne")
+
+        .update({
+          aktif: value
+        })
+
+        .eq("id", id);
+
+
+    if (error) {
+
+      console.error(error);
+
+      montreMesaj(
+        "Nou pa kapab chanje estati patnè a.",
+        "error"
+      );
+
+      return;
+
+    }
+
+
+    montreMesaj(
+      value
+        ? "Patnè a aktive."
+        : "Patnè a dezaktive.",
+      "success"
+    );
+
+
+    await chajePatne();
+
+  }
+
+
+  /* =========================
+     DELETE
+  ========================= */
+
+  async function efasePatne(id) {
+
+    const p =
+      toutPatne.find(
+        item => item.id === id
+      );
+
+
+    if (!p) return;
+
+
+    const konfime =
+      confirm(
+        `Èske ou sèten ou vle efase patnè sa a?\n\n"${p.non}"`
+      );
+
+
+    if (!konfime) return;
+
+
+    const { error } =
+      await supabaseClient
+
+        .from("patne")
+
+        .delete()
+
+        .eq("id", id);
+
+
+    if (error) {
+
+      console.error(error);
+
+      montreMesaj(
+        "Nou pa kapab efase patnè a.",
+        "error"
+      );
+
+      return;
+
+    }
+
+
+    montreMesaj(
+      "Patnè a efase avèk siksè.",
+      "success"
+    );
+
+
+    await chajePatne();
+
+  }
+
+
+  /* =========================
+     SEARCH
+  ========================= */
+
+  document
+    .getElementById("searchInput")
+    .addEventListener(
+      "input",
+      montrePatne
+    );
+
+
+  document
+    .getElementById("typeFilter")
+    .addEventListener(
+      "change",
+      montrePatne
+    );
+
+
+  /* =========================
+     MOBILE MENU
+  ========================= */
+
+  document
+    .getElementById("menuBtn")
+    .addEventListener(
+      "click",
+      () => {
+
+        document
+          .getElementById("sidebar")
+          .classList.toggle("open");
+
+      }
+    );
+
+
+  /* =========================
+     LOGOUT
+  ========================= */
+
+  document
+    .getElementById("logoutBtn")
+    .addEventListener(
+      "click",
+      async () => {
+
+        await supabaseClient
+          .auth
+          .signOut();
+
+        window.location.href =
+          "login.html";
+
+      }
+    );
+
+
+  /* =========================
+     INIT
+  ========================= */
+
+  async function init() {
+
+    const admin =
+      await verifyeAdministrateur();
+
+
+    if (!admin) return;
+
+
+    await chajePatne();
+
+  }
+
+
+  init();
+
+</script>
+
+</body>
+</html>

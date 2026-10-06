@@ -1,0 +1,2327 @@
+<!DOCTYPE html>
+<html lang="ht">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
+
+<title>Vizit | LAJONÈ'M Admin</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link
+  rel="preconnect"
+  href="https://fonts.gstatic.com"
+  crossorigin
+>
+
+<link
+  href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Open+Sans:wght@400;500;600;700&display=swap"
+  rel="stylesheet"
+>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="js/supabase.js"></script>
+
+
+<style>
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Open Sans", sans-serif;
+  background: #f4f7fb;
+  color: #1d2939;
+}
+
+h1,
+h2,
+h3 {
+  font-family: "Montserrat", sans-serif;
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+}
+
+
+/* SIDEBAR */
+
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 260px;
+  background: #0B3B75;
+  color: white;
+  overflow-y: auto;
+  z-index: 1000;
+  transition: .25s;
+}
+
+.logo {
+  padding: 25px 20px;
+  border-bottom: 1px solid rgba(255,255,255,.15);
+}
+
+.logo h2 {
+  font-size: 22px;
+}
+
+.logo p {
+  font-size: 12px;
+  opacity: .8;
+  margin-top: 5px;
+}
+
+.menu {
+  padding: 15px 10px;
+}
+
+.menu-title {
+  font-size: 11px;
+  text-transform: uppercase;
+  opacity: .55;
+  padding: 15px;
+}
+
+.menu a {
+  display: block;
+  color: white;
+  text-decoration: none;
+  padding: 12px 15px;
+  border-radius: 8px;
+  margin-bottom: 4px;
+  font-size: 14px;
+}
+
+.menu a:hover,
+.menu a.active {
+  background: rgba(255,255,255,.16);
+}
+
+
+/* MAIN */
+
+.main {
+  margin-left: 260px;
+  min-height: 100vh;
+}
+
+.topbar {
+  height: 70px;
+  background: white;
+  border-bottom: 1px solid #e5e7eb;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 25px;
+  position: sticky;
+  top: 0;
+  z-index: 900;
+}
+
+.topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.topbar h1 {
+  color: #0B3B75;
+  font-size: 21px;
+}
+
+.menu-toggle {
+  display: none;
+  background: #0B3B75;
+  color: white;
+  border: none;
+  padding: 9px 12px;
+  border-radius: 7px;
+  font-size: 18px;
+}
+
+.logout {
+  background: #dc3545;
+  color: white;
+  border: none;
+  padding: 9px 15px;
+  border-radius: 7px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.content {
+  padding: 25px;
+}
+
+
+/* MESSAGE */
+
+.message {
+  display: none;
+  padding: 13px 15px;
+  border-radius: 8px;
+  margin-bottom: 18px;
+  font-size: 14px;
+}
+
+.message.success {
+  display: block;
+  background: #dcfce7;
+  color: #166534;
+}
+
+.message.error {
+  display: block;
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+
+/* STATS */
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+  margin-bottom: 22px;
+}
+
+.stat {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.05);
+}
+
+.stat p {
+  color: #667085;
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+
+.stat h2 {
+  color: #0B3B75;
+  font-size: 27px;
+}
+
+
+/* TOOLBAR */
+
+.toolbar {
+  background: white;
+  padding: 18px;
+  border-radius: 12px;
+  margin-bottom: 18px;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  box-shadow: 0 2px 8px rgba(0,0,0,.05);
+}
+
+.toolbar-left {
+  display: flex;
+  gap: 10px;
+  flex: 1;
+  flex-wrap: wrap;
+}
+
+.search {
+  flex: 1;
+  min-width: 250px;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  border: 1px solid #d0d5dd;
+  border-radius: 7px;
+  padding: 10px 12px;
+  background: white;
+  outline: none;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: #0B3B75;
+}
+
+textarea {
+  min-height: 105px;
+  resize: vertical;
+}
+
+.btn {
+  border: none;
+  padding: 10px 15px;
+  border-radius: 7px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.btn-primary {
+  background: #0B3B75;
+  color: white;
+}
+
+.btn-secondary {
+  background: #667085;
+  color: white;
+}
+
+.btn-warning {
+  background: #F2B705;
+  color: #111;
+}
+
+.btn-danger {
+  background: #dc3545;
+  color: white;
+}
+
+
+/* TABLE */
+
+.table-box {
+  background: white;
+  border-radius: 12px;
+  overflow-x: auto;
+  box-shadow: 0 2px 8px rgba(0,0,0,.05);
+}
+
+table {
+  width: 100%;
+  min-width: 1000px;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 13px 15px;
+  border-bottom: 1px solid #eaecf0;
+  text-align: left;
+  font-size: 13px;
+}
+
+th {
+  background: #f8fafc;
+  color: #475467;
+}
+
+tr:hover td {
+  background: #fafcff;
+}
+
+
+/* BADGE */
+
+.badge {
+  display: inline-block;
+  padding: 5px 9px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.badge-woutin {
+  background: #dbeafe;
+  color: #1e40af;
+}
+
+.badge-sive {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.badge-ijans {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.badge-default {
+  background: #e5e7eb;
+  color: #374151;
+}
+
+
+/* ACTIONS */
+
+.actions {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.actions button {
+  border: none;
+  border-radius: 6px;
+  padding: 7px 10px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+
+/* LOADING */
+
+.loading,
+.empty {
+  text-align: center;
+  padding: 35px;
+  color: #667085;
+}
+
+
+/* MODAL */
+
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.55);
+  z-index: 2000;
+  overflow-y: auto;
+  padding: 20px;
+}
+
+.modal.show {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.modal-box {
+  width: 100%;
+  max-width: 900px;
+  background: white;
+  border-radius: 14px;
+  margin: 20px auto;
+  overflow: hidden;
+}
+
+.modal-header {
+  background: #0B3B75;
+  color: white;
+  padding: 18px 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.modal-header h2 {
+  font-size: 19px;
+}
+
+.close {
+  border: none;
+  background: transparent;
+  color: white;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+.modal-body {
+  padding: 22px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #344054;
+}
+
+.full {
+  grid-column: 1 / -1;
+}
+
+.modal-footer {
+  border-top: 1px solid #eaecf0;
+  padding: 18px 22px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+
+/* RESPONSIVE */
+
+@media(max-width:1000px) {
+
+  .stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+}
+
+@media(max-width:768px) {
+
+  .sidebar {
+    transform: translateX(-100%);
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  .main {
+    margin-left: 0;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+
+  .content {
+    padding: 15px;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .full {
+    grid-column: auto;
+  }
+
+}
+
+@media(max-width:500px) {
+
+  .stats {
+    grid-template-columns: 1fr;
+  }
+
+  .topbar {
+    padding: 0 15px;
+  }
+
+  .content {
+    padding: 10px;
+  }
+
+  .search {
+    min-width: 100%;
+  }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- SIDEBAR -->
+
+<aside
+  class="sidebar"
+  id="sidebar"
+>
+
+  <div class="logo">
+
+    <h2>LAJONÈ'M</h2>
+
+    <p>
+      Laj yo se onè nou.
+    </p>
+
+  </div>
+
+
+  <nav class="menu">
+
+    <div class="menu-title">
+      Prensipal
+    </div>
+
+    <a href="admin.html">
+      Dashboard
+    </a>
+
+
+    <div class="menu-title">
+      Jesyon
+    </div>
+
+    <a href="admin-aktivite.html">
+      Aktivite
+    </a>
+
+    <a href="admin-pwogram.html">
+      Pwogram
+    </a>
+
+    <a href="admin-benefisye.html">
+      Benefisyè
+    </a>
+
+    <a href="admin-volonte.html">
+      Volontè
+    </a>
+
+    <a
+      href="admin-vizit.html"
+      class="active"
+    >
+      Vizit
+    </a>
+
+
+    <div class="menu-title">
+      Resous
+    </div>
+
+    <a
+      href="#"
+      onclick="paDisponib();return false;"
+    >
+      Don
+    </a>
+
+    <a
+      href="#"
+      onclick="paDisponib();return false;"
+    >
+      Donatè
+    </a>
+
+    <a
+      href="#"
+      onclick="paDisponib();return false;"
+    >
+      Nouvèl
+    </a>
+
+    <a
+      href="#"
+      onclick="paDisponib();return false;"
+    >
+      Patnè
+    </a>
+
+    <a
+      href="#"
+      onclick="paDisponib();return false;"
+    >
+      Galri
+    </a>
+
+    <a
+      href="#"
+      onclick="paDisponib();return false;"
+    >
+      Rapò
+    </a>
+
+    <a
+      href="#"
+      onclick="paDisponib();return false;"
+    >
+      Mesaj
+    </a>
+
+  </nav>
+
+</aside>
+
+
+
+<!-- MAIN -->
+
+<main class="main">
+
+
+  <header class="topbar">
+
+    <div class="topbar-left">
+
+      <button
+        class="menu-toggle"
+        onclick="toggleSidebar()"
+      >
+        ☰
+      </button>
+
+      <h1>
+        Jesyon Vizit
+      </h1>
+
+    </div>
+
+
+    <button
+      class="logout"
+      onclick="dekonèkte()"
+    >
+      Dekonekte
+    </button>
+
+  </header>
+
+
+
+  <section class="content">
+
+
+    <div
+      id="message"
+      class="message"
+    ></div>
+
+
+
+    <!-- STATS -->
+
+    <div class="stats">
+
+      <div class="stat">
+
+        <p>
+          Total vizit
+        </p>
+
+        <h2 id="total">
+          0
+        </h2>
+
+      </div>
+
+
+      <div class="stat">
+
+        <p>
+          Vizit jodi a
+        </p>
+
+        <h2 id="jodi">
+          0
+        </h2>
+
+      </div>
+
+
+      <div class="stat">
+
+        <p>
+          Swivi nesesè
+        </p>
+
+        <h2 id="swivi">
+          0
+        </h2>
+
+      </div>
+
+
+      <div class="stat">
+
+        <p>
+          Vizit ijans
+        </p>
+
+        <h2 id="ijans">
+          0
+        </h2>
+
+      </div>
+
+    </div>
+
+
+
+    <!-- TOOLBAR -->
+
+    <div class="toolbar">
+
+      <div class="toolbar-left">
+
+
+        <input
+          type="search"
+          id="search"
+          class="search"
+          placeholder="Chèche benefisyè, volontè..."
+          oninput="filtre()"
+        >
+
+
+        <select
+          id="filtreKalite"
+          onchange="filtre()"
+        >
+
+          <option value="">
+            Tout kalite vizit
+          </option>
+
+          <option value="woutin">
+            Woutin
+          </option>
+
+          <option value="swivi">
+            Swivi
+          </option>
+
+          <option value="ijans">
+            Ijans
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <button
+        class="btn btn-primary"
+        onclick="nouvoVizit()"
+      >
+        + Anrejistre vizit
+      </button>
+
+    </div>
+
+
+
+    <!-- TABLE -->
+
+    <div class="table-box">
+
+      <div
+        id="loading"
+        class="loading"
+      >
+        Chaje vizit yo...
+      </div>
+
+
+      <table
+        id="table"
+        style="display:none;"
+      >
+
+        <thead>
+
+          <tr>
+
+            <th>
+              Dat
+            </th>
+
+            <th>
+              Benefisyè
+            </th>
+
+            <th>
+              Volontè
+            </th>
+
+            <th>
+              Kalite
+            </th>
+
+            <th>
+              Swivi
+            </th>
+
+            <th>
+              Pwochen vizit
+            </th>
+
+            <th>
+              Aksyon
+            </th>
+
+          </tr>
+
+        </thead>
+
+
+        <tbody id="tbody"></tbody>
+
+      </table>
+
+
+      <div
+        id="empty"
+        class="empty"
+        style="display:none;"
+      >
+        Pa gen vizit pou montre.
+      </div>
+
+    </div>
+
+
+  </section>
+
+</main>
+
+
+
+<!-- MODAL -->
+
+<div
+  class="modal"
+  id="modal"
+>
+
+  <div class="modal-box">
+
+
+    <div class="modal-header">
+
+      <h2 id="modalTitle">
+        Anrejistre yon vizit
+      </h2>
+
+      <button
+        class="close"
+        onclick="femenModal()"
+      >
+        ×
+      </button>
+
+    </div>
+
+
+
+    <form id="form">
+
+
+      <div class="modal-body">
+
+
+        <div class="form-grid">
+
+
+          <!-- BENEFISYE -->
+
+          <div class="form-group">
+
+            <label>
+              Benefisyè *
+            </label>
+
+            <select
+              id="benefisye"
+              required
+            >
+
+              <option value="">
+                Chwazi benefisyè
+              </option>
+
+            </select>
+
+          </div>
+
+
+
+          <!-- VOLONTE -->
+
+          <div class="form-group">
+
+            <label>
+              Volontè
+            </label>
+
+            <select id="volonte">
+
+              <option value="">
+                Chwazi volontè
+              </option>
+
+            </select>
+
+          </div>
+
+
+
+          <!-- AKTIVITE -->
+
+          <div class="form-group">
+
+            <label>
+              Aktivite
+            </label>
+
+            <select id="aktivite">
+
+              <option value="">
+                Pa asosye ak aktivite
+              </option>
+
+            </select>
+
+          </div>
+
+
+
+          <!-- DAT -->
+
+          <div class="form-group">
+
+            <label>
+              Dat vizit *
+            </label>
+
+            <input
+              type="datetime-local"
+              id="dat_vizit"
+              required
+            >
+
+          </div>
+
+
+
+          <!-- KALITE -->
+
+          <div class="form-group">
+
+            <label>
+              Kalite vizit *
+            </label>
+
+            <select
+              id="kalite_vizit"
+              required
+            >
+
+              <option value="woutin">
+                Vizit woutin
+              </option>
+
+              <option value="swivi">
+                Vizit swivi
+              </option>
+
+              <option value="ijans">
+                Vizit ijans
+              </option>
+
+            </select>
+
+          </div>
+
+
+
+          <!-- SWIVI -->
+
+          <div class="form-group">
+
+            <label>
+              Swivi nesesè?
+            </label>
+
+            <select id="swivi_nesesè">
+
+              <option value="false">
+                Non
+              </option>
+
+              <option value="true">
+                Wi
+              </option>
+
+            </select>
+
+          </div>
+
+
+
+          <!-- PWOCHEN VIZIT -->
+
+          <div class="form-group">
+
+            <label>
+              Pwochen vizit
+            </label>
+
+            <input
+              type="date"
+              id="pwochen_vizit"
+            >
+
+          </div>
+
+
+
+          <!-- REZIME -->
+
+          <div class="form-group full">
+
+            <label>
+              Rezime vizit la
+            </label>
+
+            <textarea
+              id="rezime"
+              placeholder="Dekri kijan vizit la te pase..."
+            ></textarea>
+
+          </div>
+
+
+
+          <!-- BEZWEN -->
+
+          <div class="form-group full">
+
+            <label>
+              Bezwen yo idantifye
+            </label>
+
+            <textarea
+              id="bezwen"
+              placeholder="Egzanp: manje, medikaman, akonpayman sosyal..."
+            ></textarea>
+
+          </div>
+
+
+
+          <!-- AKSYON -->
+
+          <div class="form-group full">
+
+            <label>
+              Aksyon ki pran
+            </label>
+
+            <textarea
+              id="aksyon"
+              placeholder="Ki aksyon ekip la pran apre vizit la?"
+            ></textarea>
+
+          </div>
+
+
+        </div>
+
+      </div>
+
+
+
+      <div class="modal-footer">
+
+        <button
+          type="button"
+          class="btn btn-secondary"
+          onclick="femenModal()"
+        >
+          Anile
+        </button>
+
+
+        <button
+          type="submit"
+          class="btn btn-primary"
+          id="saveBtn"
+        >
+          Anrejistre
+        </button>
+
+      </div>
+
+
+    </form>
+
+  </div>
+
+</div>
+
+
+
+<script>
+
+
+/* =========================
+   VARIABLES
+========================= */
+
+let toutVizit = [];
+
+let vizitPouModifye = null;
+
+
+/* =========================
+   VERIFY ADMIN
+========================= */
+
+async function verifyeAdmin() {
+
+  const {
+    data: { user },
+    error
+  } =
+    await supabaseClient.auth.getUser();
+
+
+  if (error || !user) {
+
+    window.location.href =
+      "login.html";
+
+    return false;
+  }
+
+
+  const {
+    data,
+    error: adminError
+  } =
+    await supabaseClient
+      .from("itilizatè_admin")
+      .select(`
+        id,
+        user_id,
+        non,
+        siyati,
+        email,
+        wòl,
+        aktif
+      `)
+      .eq("user_id", user.id)
+      .eq("aktif", true)
+      .maybeSingle();
+
+
+  if (adminError) {
+
+    montreErreur(adminError);
+
+    return false;
+  }
+
+
+  if (
+    !data ||
+    !["super_admin", "admin"]
+      .includes(data.wòl)
+  ) {
+
+    alert(
+      "Ou pa gen otorizasyon pou jwenn aksè nan paj sa a."
+    );
+
+    await supabaseClient.auth.signOut();
+
+    window.location.href =
+      "login.html";
+
+    return false;
+  }
+
+
+  return true;
+}
+
+
+/* =========================
+   CHAJE LISTE
+========================= */
+
+async function chajeListes() {
+
+  const [
+    benefResult,
+    volonteResult,
+    aktiviteResult
+  ] = await Promise.all([
+
+    supabaseClient
+      .from("benefisye")
+      .select("id, kòd_benefisye, non, siyati")
+      .eq("estati", "aktif")
+      .order("non"),
+
+    supabaseClient
+      .from("volonte")
+      .select("id, nimewo_volonte, non, siyati")
+      .in("estati", ["aksepte", "aktif"])
+      .order("non"),
+
+    supabaseClient
+      .from("aktivite")
+      .select("id, tit, dat_aktivite")
+      .order(
+        "dat_aktivite",
+        { ascending: false }
+      )
+  ]);
+
+
+  if (benefResult.error) {
+
+    montreErreur(benefResult.error);
+
+    return false;
+  }
+
+
+  if (volonteResult.error) {
+
+    montreErreur(volonteResult.error);
+
+    return false;
+  }
+
+
+  if (aktiviteResult.error) {
+
+    montreErreur(aktiviteResult.error);
+
+    return false;
+  }
+
+
+  const benefSelect =
+    document.getElementById(
+      "benefisye"
+    );
+
+
+  benefResult.data.forEach(b => {
+
+    const option =
+      document.createElement("option");
+
+    option.value = b.id;
+
+    option.textContent =
+      `${b.kòd_benefisye || ""} — ${b.non || ""} ${b.siyati || ""}`.trim();
+
+    benefSelect.appendChild(option);
+
+  });
+
+
+  const volonteSelect =
+    document.getElementById(
+      "volonte"
+    );
+
+
+  volonteResult.data.forEach(v => {
+
+    const option =
+      document.createElement("option");
+
+    option.value = v.id;
+
+    option.textContent =
+      `${v.non || ""} ${v.siyati || ""}`.trim();
+
+    volonteSelect.appendChild(option);
+
+  });
+
+
+  const aktiviteSelect =
+    document.getElementById(
+      "aktivite"
+    );
+
+
+  aktiviteResult.data.forEach(a => {
+
+    const option =
+      document.createElement("option");
+
+    option.value = a.id;
+
+    option.textContent =
+      a.tit || "Aktivite san tit";
+
+    aktiviteSelect.appendChild(option);
+
+  });
+
+
+  return true;
+}
+
+
+/* =========================
+   CHAJE VIZIT
+========================= */
+
+async function chajeVizit() {
+
+  document.getElementById("loading")
+    .style.display = "block";
+
+
+  const {
+    data,
+    error
+  } =
+    await supabaseClient
+      .from("vizit")
+      .select(`
+        id,
+        benefisye_id,
+        volonte_id,
+        aktivite_id,
+        dat_vizit,
+        kalite_vizit,
+        rezime,
+        bezwen_idantifye,
+        aksyon_pran,
+        swivi_nesesè,
+        pwochen_vizit,
+        created_at,
+        benefisye (
+          id,
+          kòd_benefisye,
+          non,
+          siyati
+        ),
+        volonte (
+          id,
+          non,
+          siyati
+        ),
+        aktivite (
+          id,
+          tit
+        )
+      `)
+      .order(
+        "dat_vizit",
+        { ascending: false }
+      );
+
+
+  document.getElementById("loading")
+    .style.display = "none";
+
+
+  if (error) {
+
+    console.error(
+      "VIZIT ERROR:",
+      error
+    );
+
+    montreErreur(error);
+
+    return;
+  }
+
+
+  toutVizit = data || [];
+
+  meteStatistik();
+
+  filtre();
+}
+
+
+/* =========================
+   STATISTIK
+========================= */
+
+function meteStatistik() {
+
+  document.getElementById("total")
+    .textContent =
+    toutVizit.length;
+
+
+  const jodi =
+    new Date()
+      .toISOString()
+      .slice(0, 10);
+
+
+  document.getElementById("jodi")
+    .textContent =
+    toutVizit.filter(v => {
+
+      if (!v.dat_vizit) return false;
+
+      return v.dat_vizit
+        .slice(0, 10) === jodi;
+
+    }).length;
+
+
+  document.getElementById("swivi")
+    .textContent =
+    toutVizit.filter(
+      v => v.swivi_nesesè === true
+    ).length;
+
+
+  document.getElementById("ijans")
+    .textContent =
+    toutVizit.filter(
+      v => v.kalite_vizit === "ijans"
+    ).length;
+}
+
+
+/* =========================
+   FILTRE
+========================= */
+
+function filtre() {
+
+  const recherche =
+    document.getElementById("search")
+      .value
+      .toLowerCase()
+      .trim();
+
+
+  const kalite =
+    document.getElementById(
+      "filtreKalite"
+    ).value;
+
+
+  const rezilta =
+    toutVizit.filter(v => {
+
+      const benef =
+        v.benefisye || {};
+
+
+      const volonte =
+        v.volonte || {};
+
+
+      const texte = `
+
+        ${benef.kòd_benefisye || ""}
+
+        ${benef.non || ""}
+
+        ${benef.siyati || ""}
+
+        ${volonte.non || ""}
+
+        ${volonte.siyati || ""}
+
+        ${v.rezime || ""}
+
+        ${v.bezwen_idantifye || ""}
+
+      `.toLowerCase();
+
+
+      return (
+
+        (!recherche ||
+          texte.includes(recherche))
+
+        &&
+
+        (!kalite ||
+          v.kalite_vizit === kalite)
+
+      );
+
+    });
+
+
+  afiche(rezilta);
+}
+
+
+/* =========================
+   AFFICHE TABLE
+========================= */
+
+function afiche(lis) {
+
+  const table =
+    document.getElementById("table");
+
+  const tbody =
+    document.getElementById("tbody");
+
+  const empty =
+    document.getElementById("empty");
+
+
+  tbody.innerHTML = "";
+
+
+  if (!lis.length) {
+
+    table.style.display = "none";
+
+    empty.style.display = "block";
+
+    return;
+  }
+
+
+  table.style.display = "table";
+
+  empty.style.display = "none";
+
+
+  lis.forEach(v => {
+
+    const tr =
+      document.createElement("tr");
+
+
+    const benef =
+      v.benefisye || {};
+
+
+    const volonte =
+      v.volonte || {};
+
+
+    tr.innerHTML = `
+
+      <td>
+        ${safe(
+          fòmateDat(v.dat_vizit)
+        )}
+      </td>
+
+      <td>
+        <strong>
+          ${safe(
+            `${benef.non || ""} ${benef.siyati || ""}`.trim() || "-"
+          )}
+        </strong>
+
+        <br>
+
+        <small>
+          ${safe(
+            benef.kòd_benefisye || ""
+          )}
+        </small>
+      </td>
+
+      <td>
+        ${safe(
+          `${volonte.non || ""} ${volonte.siyati || ""}`.trim() || "-"
+        )}
+      </td>
+
+      <td>
+        ${badgeKalite(
+          v.kalite_vizit
+        )}
+      </td>
+
+      <td>
+        ${
+          v.swivi_nesesè
+            ? '<span class="badge badge-sive">Wi</span>'
+            : '<span class="badge badge-default">Non</span>'
+        }
+      </td>
+
+      <td>
+        ${safe(
+          v.pwochen_vizit
+            ? fòmateDat(v.pwochen_vizit)
+            : "-"
+        )}
+      </td>
+
+      <td>
+
+        <div class="actions">
+
+          <button
+            class="btn-warning"
+            onclick="modifye('${v.id}')"
+          >
+            Modifye
+          </button>
+
+          <button
+            class="btn-danger"
+            onclick="efase('${v.id}')"
+          >
+            Efase
+          </button>
+
+        </div>
+
+      </td>
+
+    `;
+
+
+    tbody.appendChild(tr);
+
+  });
+}
+
+
+/* =========================
+   BADGE KALITE
+========================= */
+
+function badgeKalite(kalite) {
+
+  if (kalite === "ijans") {
+
+    return `
+      <span class="badge badge-ijans">
+        Ijans
+      </span>
+    `;
+  }
+
+
+  if (kalite === "swivi") {
+
+    return `
+      <span class="badge badge-sive">
+        Swivi
+      </span>
+    `;
+  }
+
+
+  return `
+    <span class="badge badge-woutin">
+      Woutin
+    </span>
+  `;
+}
+
+
+/* =========================
+   NOUVO VIZIT
+========================= */
+
+function nouvoVizit() {
+
+  vizitPouModifye = null;
+
+
+  document.getElementById("form")
+    .reset();
+
+
+  document.getElementById(
+    "modalTitle"
+  ).textContent =
+    "Anrejistre yon vizit";
+
+
+  document.getElementById(
+    "swivi_nesesè"
+  ).value = "false";
+
+
+  const kounyea =
+    new Date();
+
+
+  kounyea.setMinutes(
+    kounyea.getMinutes()
+    -
+    kounyea.getTimezoneOffset()
+  );
+
+
+  document.getElementById(
+    "dat_vizit"
+  ).value =
+    kounyea
+      .toISOString()
+      .slice(0, 16);
+
+
+  document.getElementById(
+    "modal"
+  ).classList.add("show");
+}
+
+
+/* =========================
+   MODIFYE
+========================= */
+
+function modifye(id) {
+
+  const v =
+    toutVizit.find(
+      item => item.id === id
+    );
+
+
+  if (!v) return;
+
+
+  vizitPouModifye = v;
+
+
+  document.getElementById(
+    "modalTitle"
+  ).textContent =
+    "Modifye vizit";
+
+
+  document.getElementById(
+    "benefisye"
+  ).value =
+    v.benefisye_id || "";
+
+
+  document.getElementById(
+    "volonte"
+  ).value =
+    v.volonte_id || "";
+
+
+  document.getElementById(
+    "aktivite"
+  ).value =
+    v.aktivite_id || "";
+
+
+  document.getElementById(
+    "dat_vizit"
+  ).value =
+    datPouInput(v.dat_vizit);
+
+
+  document.getElementById(
+    "kalite_vizit"
+  ).value =
+    v.kalite_vizit || "woutin";
+
+
+  document.getElementById(
+    "swivi_nesesè"
+  ).value =
+    v.swivi_nesesè
+      ? "true"
+      : "false";
+
+
+  document.getElementById(
+    "pwochen_vizit"
+  ).value =
+    v.pwochen_vizit || "";
+
+
+  document.getElementById(
+    "rezime"
+  ).value =
+    v.rezime || "";
+
+
+  document.getElementById(
+    "bezwen"
+  ).value =
+    v.bezwen_idantifye || "";
+
+
+  document.getElementById(
+    "aksyon"
+  ).value =
+    v.aksiyon_pran || "";
+
+
+  document.getElementById(
+    "modal"
+  ).classList.add("show");
+}
+
+
+/* =========================
+   FÈMEN MODAL
+========================= */
+
+function femenModal() {
+
+  document.getElementById(
+    "modal"
+  ).classList.remove("show");
+
+  vizitPouModifye = null;
+}
+
+
+/* =========================
+   SAVE
+========================= */
+
+document.getElementById("form")
+  .addEventListener(
+    "submit",
+    async function(e) {
+
+      e.preventDefault();
+
+
+      const bouton =
+        document.getElementById(
+          "saveBtn"
+        );
+
+
+      bouton.disabled = true;
+
+      bouton.textContent =
+        "Anrejistreman...";
+
+
+      const donne = {
+
+        benefisye_id:
+          document.getElementById(
+            "benefisye"
+          ).value,
+
+        volonte_id:
+          document.getElementById(
+            "volonte"
+          ).value || null,
+
+        aktivite_id:
+          document.getElementById(
+            "aktivite"
+          ).value || null,
+
+        dat_vizit:
+          document.getElementById(
+            "dat_vizit"
+          ).value
+          || null,
+
+        kalite_vizit:
+          document.getElementById(
+            "kalite_vizit"
+          ).value,
+
+        rezime:
+          document.getElementById(
+            "rezime"
+          ).value.trim()
+          || null,
+
+        bezwen_idantifye:
+          document.getElementById(
+            "bezwen"
+          ).value.trim()
+          || null,
+
+        aksyon_pran:
+          document.getElementById(
+            "aksyon"
+          ).value.trim()
+          || null,
+
+        swivi_nesesè:
+          document.getElementById(
+            "swivi_nesesè"
+          ).value === "true",
+
+        pwochen_vizit:
+          document.getElementById(
+            "pwochen_vizit"
+          ).value
+          || null
+
+      };
+
+
+      let result;
+
+
+      if (vizitPouModifye) {
+
+        result =
+          await supabaseClient
+            .from("vizit")
+            .update(donne)
+            .eq(
+              "id",
+              vizitPouModifye.id
+            );
+
+      } else {
+
+        result =
+          await supabaseClient
+            .from("vizit")
+            .insert([donne]);
+
+      }
+
+
+      bouton.disabled = false;
+
+      bouton.textContent =
+        "Anrejistre";
+
+
+      if (result.error) {
+
+        console.error(
+          "SUPABASE VIZIT ERROR:",
+          result.error
+        );
+
+        montreErreur(
+          result.error
+        );
+
+        return;
+      }
+
+
+      const modifye =
+        !!vizitPouModifye;
+
+
+      femenModal();
+
+
+      montreSucces(
+        modifye
+          ? "Vizit la modifye avèk siksè."
+          : "Vizit la anrejistre avèk siksè."
+      );
+
+
+      await chajeVizit();
+
+    }
+  );
+
+
+/* =========================
+   EFASE
+========================= */
+
+async function efase(id) {
+
+  const v =
+    toutVizit.find(
+      item => item.id === id
+    );
+
+
+  if (!v) return;
+
+
+  const benef =
+    v.benefisye || {};
+
+
+  const non =
+    `${benef.non || ""} ${benef.siyati || ""}`
+      .trim();
+
+
+  const konfime =
+    confirm(
+      `Èske ou sèten ou vle efase vizit ${non || "sa a"} ?`
+    );
+
+
+  if (!konfime) return;
+
+
+  const {
+    error
+  } =
+    await supabaseClient
+      .from("vizit")
+      .delete()
+      .eq("id", id);
+
+
+  if (error) {
+
+    console.error(
+      "DELETE VIZIT ERROR:",
+      error
+    );
+
+    montreErreur(error);
+
+    return;
+  }
+
+
+  montreSucces(
+    "Vizit la efase avèk siksè."
+  );
+
+
+  await chajeVizit();
+}
+
+
+/* =========================
+   DAT INPUT
+========================= */
+
+function datPouInput(value) {
+
+  if (!value) return "";
+
+
+  return value
+    .slice(0, 16);
+}
+
+
+/* =========================
+   FÒMA DAT
+========================= */
+
+function fòmateDat(value) {
+
+  if (!value) return "-";
+
+
+  try {
+
+    return new Date(value)
+      .toLocaleString(
+        "fr-FR",
+        {
+          day: "2-digit",
+          month: "2-digit",
+          year: "numeric",
+          hour: "2-digit",
+          minute: "2-digit"
+        }
+      );
+
+  } catch {
+
+    return value;
+  }
+}
+
+
+/* =========================
+   SECURITY
+========================= */
+
+function safe(value) {
+
+  return String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
+
+/* =========================
+   ERROR
+========================= */
+
+function montreErreur(error) {
+
+  let mesaj =
+    "Yon erè rive.";
+
+
+  if (error) {
+
+    if (error.message) {
+
+      mesaj =
+        error.message;
+
+    } else if (error.details) {
+
+      mesaj =
+        error.details;
+
+    } else if (error.hint) {
+
+      mesaj =
+        error.hint;
+
+    } else {
+
+      try {
+
+        mesaj =
+          JSON.stringify(error);
+
+      } catch {
+
+        mesaj =
+          String(error);
+
+      }
+
+    }
+
+  }
+
+
+  const box =
+    document.getElementById(
+      "message"
+    );
+
+
+  box.className =
+    "message error";
+
+
+  box.textContent =
+    "❌ " + mesaj;
+
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+}
+
+
+/* =========================
+   SUCCESS
+========================= */
+
+function montreSucces(mesaj) {
+
+  const box =
+    document.getElementById(
+      "message"
+    );
+
+
+  box.className =
+    "message success";
+
+
+  box.textContent =
+    "✓ " + mesaj;
+
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+
+
+  setTimeout(() => {
+
+    box.className =
+      "message";
+
+    box.textContent =
+      "";
+
+  }, 5000);
+}
+
+
+/* =========================
+   SIDEBAR
+========================= */
+
+function toggleSidebar() {
+
+  document.getElementById(
+    "sidebar"
+  ).classList.toggle("open");
+}
+
+
+/* =========================
+   LOGOUT
+========================= */
+
+async function dekonèkte() {
+
+  await supabaseClient.auth.signOut();
+
+  window.location.href =
+    "login.html";
+}
+
+
+/* =========================
+   PLACEHOLDER
+========================= */
+
+function paDisponib() {
+
+  montreSucces(
+    "Modil sa a ap vini nan pwochen etap la."
+  );
+}
+
+
+/* =========================
+   DEMARAJ
+========================= */
+
+async function demare() {
+
+  const ok =
+    await verifyeAdmin();
+
+
+  if (!ok) return;
+
+
+  const listes =
+    await chajeListes();
+
+
+  if (!listes) return;
+
+
+  await chajeVizit();
+}
+
+
+demare();
+
+</script>
+
+</body>
+</html>
