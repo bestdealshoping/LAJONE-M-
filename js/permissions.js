@@ -1,11 +1,48 @@
 /* =========================================================
-   LAJONÈ'M — SYSTÈM RBAC
-   Kontwòl wòl ak pèmisyon
+   LAJONÈ'M — RBAC / PERMISSIONS SYSTEM
+   ========================================================= */
+
+/*
+   Wòl:
+   - super_admin
+   - admin
+   - editè
+   - volonte
+
+   Pèmisyon administrasyon:
+   - jere_itilizatè
+   - jere_pwogram
+   - jere_aktivite
+   - jere_volonte
+   - jere_benefisye
+   - jere_vizit
+   - jere_don
+   - jere_donatè
+   - jere_patne
+   - jere_galri
+   - jere_nouvel
+   - jere_rapo
+   - jere_mesaj
+   - jere_paramet
+
+   Pèmisyon volontè:
+   - wè_pwogram
+   - wè_aktivite
+   - wè_galri
+   - wè_vizit
+*/
+
+
+/* =========================================================
+   VARIABLES GLOBALES
    ========================================================= */
 
 let profilAdmin = null;
+
 let pèmisyonAdmin = [];
+
 let rbacPare = false;
+
 let rbacPromise = null;
 
 
@@ -15,29 +52,47 @@ let rbacPromise = null;
 
 const toutPèmisyon = [
 
-    // ADMINISTRATION
-    "jere_itilizatè",
-    "jere_paramet",
+    /* ADMINISTRATION */
 
-    // OPERASYON
+    "jere_itilizatè",
+
     "jere_pwogram",
+
     "jere_aktivite",
+
     "jere_volonte",
+
     "jere_benefisye",
+
     "jere_vizit",
+
     "jere_don",
+
     "jere_donatè",
+
     "jere_patne",
+
     "jere_galri",
+
     "jere_nouvel",
+
     "jere_rapo",
+
     "jere_mesaj",
 
-    // AKSÈ LECTURE POU VOLONTE
+    "jere_paramet",
+
+
+    /* VOLONTÈ — LECTURE SEULE */
+
     "wè_pwogram",
+
     "wè_aktivite",
+
     "wè_galri",
+
     "wè_vizit"
+
 ];
 
 
@@ -47,42 +102,133 @@ const toutPèmisyon = [
 
 async function chajeRBAC() {
 
+    /*
+       Si RBAC deja pare,
+       pa bezwen rechaje l.
+    */
+
     if (rbacPare) {
+
         return {
+
             profil: profilAdmin,
+
             pèmisyon: pèmisyonAdmin
+
         };
+
     }
+
+
+    /*
+       Si yon lòt chajman deja ap fèt,
+       tann li.
+    */
 
     if (rbacPromise) {
-        return rbacPromise;
+
+        return await rbacPromise;
+
     }
 
-    rbacPromise = (async () => {
+
+    rbacPromise = (async function() {
 
         try {
 
-            /* -----------------------------------------
-               1. VERIFYE UTILIZATÈ CONNECTE
-               ----------------------------------------- */
+            console.log(
+                "RBAC: Kòmanse chajman..."
+            );
 
-            const {
-                data: { user },
-                error: userError
-            } = await supabaseClient.auth.getUser();
 
-            if (userError || !user) {
-                throw new Error("Itilizatè a pa konekte.");
+            /* =================================================
+               1. VERIFYE SUPABASE
+            ================================================== */
+
+            if (
+                typeof supabaseClient ===
+                "undefined"
+            ) {
+
+                throw new Error(
+                    "supabaseClient pa disponib."
+                );
+
             }
 
 
-            /* -----------------------------------------
-               2. CHÈCHE PROFIL ADMIN
-               ----------------------------------------- */
+            /* =================================================
+               2. JWENN ITILIZATÈ KI KONEKTE A
+            ================================================== */
 
-            const { data: profil, error: profilError } =
+            const {
+
+                data:
+                    userData,
+
+                error:
+                    userError
+
+            } =
+
                 await supabaseClient
-                    .from("itilizatè_admin")
+
+                    .auth
+
+                    .getUser();
+
+
+            if (userError) {
+
+                console.error(
+                    "RBAC: Erè getUser:",
+                    userError
+                );
+
+                throw userError;
+
+            }
+
+
+            const user =
+                userData?.user;
+
+
+            if (!user) {
+
+                throw new Error(
+                    "Pa gen itilizatè ki konekte."
+                );
+
+            }
+
+
+            console.log(
+                "RBAC: Itilizatè konekte:",
+                user.email
+            );
+
+
+            /* =================================================
+               3. JWENN PWOFIL ADMIN
+            ================================================== */
+
+            const {
+
+                data:
+                    profil,
+
+                error:
+                    profilError
+
+            } =
+
+                await supabaseClient
+
+                    .from(
+                        "itilizatè_admin"
+                    )
+
                     .select(`
                         id,
                         user_id,
@@ -92,180 +238,311 @@ async function chajeRBAC() {
                         wòl,
                         aktif
                     `)
-                    .eq("user_id", user.id)
-                    .eq("aktif", true)
+
+                    .eq(
+                        "user_id",
+                        user.id
+                    )
+
+                    .eq(
+                        "aktif",
+                        true
+                    )
+
                     .maybeSingle();
 
 
             if (profilError) {
+
                 console.error(
-                    "❌ Erè profil administratè:",
+                    "RBAC: Erè profil:",
                     profilError
                 );
 
-                throw new Error(
-                    profilError.message ||
-                    "Nou pa kapab verifye profil administratè a."
-                );
+                throw profilError;
+
             }
 
 
             if (!profil) {
+
                 throw new Error(
-                    "Profil administratè a pa jwenn oswa li pa aktif."
+                    "Pwofil itilizatè a pa jwenn oswa kont lan pa aktif."
                 );
+
             }
 
 
-            profilAdmin = profil;
+            profilAdmin =
+                profil;
 
 
-            /* -----------------------------------------
-               3. SUPER ADMIN
-               ----------------------------------------- */
+            const wol =
 
-            if (profil.wòl === "super_admin") {
+                String(
+                    profil.wòl || ""
+                )
 
-                pèmisyonAdmin = [...toutPèmisyon];
+                .trim()
 
-                rbacPare = true;
+                .toLowerCase();
+
+
+            console.log(
+                "RBAC: Wòl itilizatè:",
+                wol
+            );
+
+
+            /* =================================================
+               4. SUPER ADMIN
+               
+               Super Admin gen tout pèmisyon.
+            ================================================== */
+
+            if (
+                wol === "super_admin"
+            ) {
+
+                pèmisyonAdmin =
+                    [...toutPèmisyon];
+
+
+                rbacPare =
+                    true;
+
 
                 console.log(
-                    "✅ RBAC: Super Admin — tout pèmisyon aktive."
+                    "RBAC: Super Admin — tout pèmisyon aktive."
                 );
 
+
+                console.log(
+                    "RBAC: Pèmisyon yo:",
+                    pèmisyonAdmin
+                );
+
+
+                console.log(
+                    "RBAC: Chajman fini avèk siksè."
+                );
+
+
                 return {
-                    profil: profilAdmin,
-                    pèmisyon: pèmisyonAdmin
+
+                    profil:
+                        profilAdmin,
+
+                    pèmisyon:
+                        pèmisyonAdmin
+
                 };
+
             }
 
 
-            /* -----------------------------------------
-               4. CHÈCHE PÈMISYON WÒL LA
-               ----------------------------------------- */
+            /* =================================================
+               5. CHACHE PÈMISYON POU LÒT WÒL YO
+               
+               Nou itilize RPC security-definer la:
+               
+               itilizatè_gen_pèmisyon()
+            ================================================== */
 
-            const permissionsAkòde = [];
+            const pèmisyonJwenn = [];
 
-            for (const nonPèmisyon of toutPèmisyon) {
+
+            for (
+                const nonPèmisyon
+                of toutPèmisyon
+            ) {
 
                 try {
 
                     const {
+
                         data,
                         error
-                    } = await supabaseClient.rpc(
-                        "itilizatè_gen_pèmisyon",
-                        {
-                            non_pèmisyon: nonPèmisyon
-                        }
-                    );
+
+                    } =
+
+                        await supabaseClient
+
+                            .rpc(
+                                "itilizatè_gen_pèmisyon",
+                                {
+                                    non_pèmisyon:
+                                        nonPèmisyon
+                                }
+                            );
 
 
                     if (error) {
 
                         console.warn(
-                            `⚠️ Pèmisyon ${nonPèmisyon}:`,
-                            error.message
+                            "RBAC: Erè pèmisyon",
+                            nonPèmisyon,
+                            error
                         );
 
                         continue;
+
                     }
 
 
-                    if (data === true) {
-                        permissionsAkòde.push(
+                    if (
+                        data === true
+                    ) {
+
+                        pèmisyonJwenn.push(
                             nonPèmisyon
                         );
+
                     }
 
                 } catch (error) {
 
                     console.warn(
-                        `⚠️ Erè verifye ${nonPèmisyon}:`,
+                        "RBAC: Erè RPC pou",
+                        nonPèmisyon,
                         error
                     );
+
                 }
+
             }
 
 
-            pèmisyonAdmin = permissionsAkòde;
+            /* =================================================
+               6. SOVE PÈMISYON YO
+            ================================================== */
 
-            rbacPare = true;
+            pèmisyonAdmin =
+                pèmisyonJwenn;
 
 
             console.log(
-                "✅ RBAC chaje:",
-                {
-                    wòl: profil.wòl,
-                    pèmisyon: pèmisyonAdmin
-                }
+                "RBAC: Pèmisyon yo:",
+                pèmisyonAdmin
+            );
+
+
+            /* =================================================
+               7. VERIFYE SI GEN OMEN YON PÈMISYON
+            ================================================== */
+
+            if (
+                pèmisyonAdmin.length === 0
+            ) {
+
+                console.warn(
+                    "RBAC: Itilizatè a pa gen okenn pèmisyon."
+                );
+
+            }
+
+
+            /* =================================================
+               8. RBAC PARE
+            ================================================== */
+
+            rbacPare =
+                true;
+
+
+            console.log(
+                "RBAC: Chajman fini avèk siksè."
             );
 
 
             return {
-                profil: profilAdmin,
-                pèmisyon: pèmisyonAdmin
+
+                profil:
+                    profilAdmin,
+
+                pèmisyon:
+                    pèmisyonAdmin
+
             };
+
 
         } catch (error) {
 
             console.error(
-                "❌ Erè RBAC:",
+                "RBAC: Erè jeneral:",
                 error
             );
 
-            rbacPare = false;
+
+            rbacPare =
+                false;
+
 
             throw error;
+
+        } finally {
+
+            rbacPromise =
+                null;
+
         }
 
     })();
 
-    return rbacPromise;
+
+    return await rbacPromise;
+
 }
 
 
 /* =========================================================
-   VERIFYE SI ITILIZATÈ GEN YON PÈMISYON
+   VERIFYE YON PÈMISYON
    ========================================================= */
 
-function genPèmisyon(nonPèmisyon) {
+function genPèmisyon(
+    nonPèmisyon
+) {
 
-    if (!rbacPare || !profilAdmin) {
+    if (!nonPèmisyon) {
+
         return false;
+
     }
 
 
-    /* Super Admin toujou gen tout dwa */
+    /*
+       Super Admin toujou gen tout aksè.
+    */
 
-    if (profilAdmin.wòl === "super_admin") {
+    if (
+        profilAdmin?.wòl ===
+        "super_admin"
+    ) {
+
         return true;
+
     }
 
 
     return pèmisyonAdmin.includes(
         nonPèmisyon
     );
+
 }
 
 
 /* =========================================================
-   EGZIJE YON PÈMISYON
+   VERIFYE AKSÈ
    ========================================================= */
 
-function egzijePèmisyon(nonPèmisyon) {
+function egzijePèmisyon(
+    nonPèmisyon
+) {
 
-    if (!genPèmisyon(nonPèmisyon)) {
+    return genPèmisyon(
+        nonPèmisyon
+    );
 
-        console.warn(
-            `⛔ Aksè refize: ${nonPèmisyon}`
-        );
-
-        return false;
-    }
-
-    return true;
 }
 
 
@@ -275,11 +552,11 @@ function egzijePèmisyon(nonPèmisyon) {
 
 function jwennWolAdmin() {
 
-    if (!profilAdmin) {
-        return null;
-    }
+    return (
+        profilAdmin?.wòl ||
+        null
+    );
 
-    return profilAdmin.wòl || null;
 }
 
 
@@ -289,74 +566,89 @@ function jwennWolAdmin() {
 
 function jwennNonWolAdmin() {
 
-    const wol = jwennWolAdmin();
-
-    if (!wol) {
-        return "";
-    }
+    const wol =
+        profilAdmin?.wòl;
 
 
     const nonWol = {
 
-        super_admin: "Super Admin",
+        "super_admin":
+            "Super Administratè",
 
-        admin: "Administratè",
+        "admin":
+            "Administratè",
 
-        editè: "Editè",
+        "editè":
+            "Editè",
 
-        volonte: "Volontè"
+        "volonte":
+            "Volontè"
 
     };
 
 
-    return nonWol[wol] || wol;
+    return (
+        nonWol[wol] ||
+        wol ||
+        "Itilizatè"
+    );
+
 }
 
 
 /* =========================================================
-   JWENN PROFIL ADMIN
+   JWENN PROFIL
    ========================================================= */
 
 function jwennProfilAdmin() {
 
     return profilAdmin;
+
 }
 
 
 /* =========================================================
-   PWOTEJE YON ELEMAN
+   PWOTEJE YON ELEMENT
    ========================================================= */
 
 function pwotejeElement(
-    selector,
+    element,
     nonPèmisyon
 ) {
 
-    const elements =
-        document.querySelectorAll(selector);
+    if (!element) {
+
+        return;
+
+    }
 
 
-    elements.forEach(element => {
+    if (
+        genPèmisyon(
+            nonPèmisyon
+        )
+    ) {
 
-        if (!genPèmisyon(nonPèmisyon)) {
+        element.style.display =
+            "";
 
-            element.style.display = "none";
+        element.removeAttribute(
+            "aria-hidden"
+        );
 
-            element.setAttribute(
-                "aria-hidden",
-                "true"
-            );
+        return;
 
-        } else {
+    }
 
-            element.style.display = "";
 
-            element.removeAttribute(
-                "aria-hidden"
-            );
-        }
+    element.style.display =
+        "none";
 
-    });
+    element.setAttribute(
+        "aria-hidden",
+        "true"
+    );
+
 }
 
 
@@ -372,36 +664,30 @@ function pwotejeMeniAdmin() {
         );
 
 
-    elements.forEach(element => {
+    elements.forEach(
+        function(element) {
 
-        const permission =
-            element.dataset.permission;
-
-
-        if (!permission) {
-            return;
-        }
+            const permission =
+                element.getAttribute(
+                    "data-permission"
+                );
 
 
-        if (!genPèmisyon(permission)) {
+            if (!permission) {
 
-            element.style.display = "none";
+                return;
 
-            element.setAttribute(
-                "aria-hidden",
-                "true"
+            }
+
+
+            pwotejeElement(
+                element,
+                permission
             );
 
-        } else {
-
-            element.style.display = "";
-
-            element.removeAttribute(
-                "aria-hidden"
-            );
         }
+    );
 
-    });
 }
 
 
@@ -409,66 +695,105 @@ function pwotejeMeniAdmin() {
    DEMARE RBAC
    ========================================================= */
 
-async function demareRBAC() {
+async function demareRBAC(
+    options = {}
+) {
 
     try {
 
         await chajeRBAC();
 
+
+        /*
+           Apre RBAC fin chaje,
+           pwoteje eleman yo.
+        */
+
         pwotejeMeniAdmin();
 
-        return true;
+
+        /*
+           Callback opsyonèl.
+        */
+
+        if (
+            typeof options.onReady ===
+            "function"
+        ) {
+
+            options.onReady({
+
+                profil:
+                    profilAdmin,
+
+                pèmisyon:
+                    pèmisyonAdmin
+
+            });
+
+        }
+
+
+        return {
+
+            profil:
+                profilAdmin,
+
+            pèmisyon:
+                pèmisyonAdmin
+
+        };
+
 
     } catch (error) {
 
         console.error(
-            "❌ RBAC pa kapab demare:",
+            "RBAC: Pa kapab demare:",
             error
         );
 
-        return false;
+
+        if (
+            typeof options.onError ===
+            "function"
+        ) {
+
+            options.onError(
+                error
+            );
+
+        }
+
+
+        throw error;
+
     }
+
 }
 
 
 /* =========================================================
-   UTILITÈ — TÈSTE WÒL
+   EXPORT / DEBUG
    ========================================================= */
 
-function seSuperAdmin() {
+window.LAJONEM_RBAC = {
 
-    return (
-        profilAdmin &&
-        profilAdmin.wòl === "super_admin"
-    );
-}
+    chajeRBAC,
 
+    genPèmisyon,
 
-function seAdmin() {
+    egzijePèmisyon,
 
-    return (
-        profilAdmin &&
-        (
-            profilAdmin.wòl === "admin" ||
-            profilAdmin.wòl === "super_admin"
-        )
-    );
-}
+    jwennWolAdmin,
 
+    jwennNonWolAdmin,
 
-function seEdite() {
+    jwennProfilAdmin,
 
-    return (
-        profilAdmin &&
-        profilAdmin.wòl === "editè"
-    );
-}
+    pwotejeElement,
 
+    pwotejeMeniAdmin,
 
-function seVolonte() {
+    demareRBAC
 
-    return (
-        profilAdmin &&
-        profilAdmin.wòl === "volonte"
-    );
-}
+};
