@@ -1,1579 +1,2077 @@
 <!DOCTYPE html>
 <html lang="ht">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Espas Volontè | LAJONÈ'M</title>
-
-    <meta
-        name="description"
-        content="Espas pèsonèl volontè LAJONÈ'M."
-    >
-
-    <!-- =====================================================
-         FONT
-    ====================================================== -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-
-    <link
-        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet"
-    >
-
-    <!-- =====================================================
-         SUPABASE
-    ====================================================== -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-    <style>
-
-        :root {
-            --ble: #0B3B75;
-            --ble-fonse: #082d59;
-            --or: #F2B705;
-            --vet: #2E8B57;
-            --blan: #FFFFFF;
-            --gri: #f4f7fa;
-            --gri-fonse: #667085;
-            --nwa: #172033;
-            --bord: #e5eaf0;
-            --wouj: #d92d20;
-            --lonbraj: 0 10px 30px rgba(11, 59, 117, 0.08);
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: "Montserrat", sans-serif;
-            background: var(--gri);
-            color: var(--nwa);
-            min-height: 100vh;
-        }
-
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
-
-        button {
-            font-family: inherit;
-            cursor: pointer;
-        }
-
-        /* =================================================
-           HEADER
-        ================================================= */
-
-        header {
-            background: var(--ble);
-            color: var(--blan);
-            min-height: 72px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 28px;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 4px 18px rgba(0,0,0,0.12);
-        }
-
-        .logo-zone {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .logo-symbol {
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            background: var(--or);
-            color: var(--ble);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 800;
-            font-size: 18px;
-        }
-
-        .logo-text h1 {
-            font-size: 20px;
-            font-weight: 800;
-        }
-
-        .logo-text p {
-            font-size: 10px;
-            opacity: 0.85;
-            margin-top: 2px;
-        }
-
-        .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .btn-header {
-            border: none;
-            border-radius: 8px;
-            padding: 10px 15px;
-            font-weight: 700;
-            font-size: 13px;
-        }
-
-        .btn-site {
-            background: rgba(255,255,255,0.12);
-            color: white;
-        }
-
-        .btn-logout {
-            background: var(--or);
-            color: var(--ble);
-        }
-
-        /* =================================================
-           LOADING
-        ================================================= */
-
-        #loading {
-            position: fixed;
-            inset: 0;
-            background: rgba(255,255,255,0.97);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-        }
-
-        .loader {
-            width: 48px;
-            height: 48px;
-            border: 5px solid #e5eaf0;
-            border-top-color: var(--ble);
-            border-right-color: var(--or);
-            border-radius: 50%;
-            animation: vire 0.8s linear infinite;
-        }
-
-        @keyframes vire {
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
-        #loading p {
-            margin-top: 15px;
-            color: var(--gri-fonse);
-            font-weight: 600;
-        }
-
-        /* =================================================
-           ACCESS DENIED
-        ================================================= */
-
-        #accesRefize {
-            display: none;
-            min-height: 100vh;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-
-        .denied-card {
-            max-width: 520px;
-            background: white;
-            padding: 40px;
-            border-radius: 18px;
-            box-shadow: var(--lonbraj);
-            text-align: center;
-        }
-
-        .denied-icon {
-            width: 70px;
-            height: 70px;
-            margin: 0 auto 20px;
-            border-radius: 50%;
-            background: #fff0ef;
-            color: var(--wouj);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 30px;
-            font-weight: 800;
-        }
-
-        .denied-card h2 {
-            color: var(--ble);
-            margin-bottom: 12px;
-        }
-
-        .denied-card p {
-            color: var(--gri-fonse);
-            line-height: 1.7;
-            margin-bottom: 22px;
-        }
-
-        /* =================================================
-           MAIN
-        ================================================= */
-
-        #app {
-            display: none;
-        }
-
-        main {
-            max-width: 1250px;
-            margin: 0 auto;
-            padding: 35px 22px 60px;
-        }
-
-        /* =================================================
-           WELCOME
-        ================================================= */
-
-        .welcome {
-            background: linear-gradient(
-                135deg,
-                var(--ble),
-                #145ca8
-            );
-            color: white;
-            border-radius: 18px;
-            padding: 32px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 25px;
-            margin-bottom: 28px;
-            box-shadow: var(--lonbraj);
-        }
-
-        .welcome h2 {
-            font-size: 27px;
-            margin-bottom: 9px;
-        }
-
-        .welcome p {
-            line-height: 1.7;
-            opacity: 0.92;
-        }
-
-        .role-badge {
-            display: inline-block;
-            margin-top: 14px;
-            padding: 8px 13px;
-            border-radius: 30px;
-            background: rgba(255,255,255,0.15);
-            border: 1px solid rgba(255,255,255,0.25);
-            font-size: 12px;
-            font-weight: 700;
-        }
-
-        .welcome-symbol {
-            width: 100px;
-            height: 100px;
-            min-width: 100px;
-            border-radius: 50%;
-            background: var(--or);
-            color: var(--ble);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 42px;
-            font-weight: 800;
-        }
-
-        /* =================================================
-           SECTION TITLE
-        ================================================= */
-
-        .section-title {
-            margin: 35px 0 17px;
-        }
-
-        .section-title h3 {
-            color: var(--ble);
-            font-size: 20px;
-        }
-
-        .section-title p {
-            margin-top: 5px;
-            color: var(--gri-fonse);
-            font-size: 13px;
-        }
-
-        /* =================================================
-           CARDS
-        ================================================= */
-
-        .cards {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 18px;
-        }
-
-        .card {
-            background: white;
-            border: 1px solid var(--bord);
-            border-radius: 15px;
-            padding: 22px;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.035);
-            transition: 0.2s;
-        }
-
-        .card:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--lonbraj);
-        }
-
-        .card-icon {
-            width: 46px;
-            height: 46px;
-            border-radius: 12px;
-            background: #eef5fc;
-            color: var(--ble);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 21px;
-            font-weight: 800;
-            margin-bottom: 15px;
-        }
-
-        .card h4 {
-            color: var(--ble);
-            margin-bottom: 8px;
-            font-size: 16px;
-        }
-
-        .card p {
-            color: var(--gri-fonse);
-            font-size: 13px;
-            line-height: 1.6;
-        }
-
-        .card-link {
-            display: inline-block;
-            margin-top: 15px;
-            color: var(--ble);
-            font-size: 12px;
-            font-weight: 800;
-        }
-
-        /* =================================================
-           PROGRAMMES
-        ================================================= */
-
-        .programmes {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 18px;
-        }
-
-        .programme-card {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            border: 1px solid var(--bord);
-        }
-
-        .programme-image {
-            height: 150px;
-            background: linear-gradient(
-                135deg,
-                #0B3B75,
-                #2E8B57
-            );
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 35px;
-            font-weight: 800;
-        }
-
-        .programme-body {
-            padding: 18px;
-        }
-
-        .programme-body h4 {
-            color: var(--ble);
-            margin-bottom: 8px;
-        }
-
-        .programme-body p {
-            color: var(--gri-fonse);
-            font-size: 13px;
-            line-height: 1.6;
-        }
-
-        /* =================================================
-           ACTIVITE
-        ================================================= */
-
-        .activity-list {
-            display: grid;
-            gap: 12px;
-        }
-
-        .activity-item {
-            background: white;
-            border: 1px solid var(--bord);
-            border-radius: 12px;
-            padding: 17px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 20px;
-        }
-
-        .activity-info h4 {
-            color: var(--ble);
-            margin-bottom: 6px;
-        }
-
-        .activity-info p {
-            color: var(--gri-fonse);
-            font-size: 12px;
-        }
-
-        .status {
-            padding: 7px 11px;
-            border-radius: 20px;
-            background: #edf8f1;
-            color: var(--vet);
-            font-size: 11px;
-            font-weight: 800;
-            white-space: nowrap;
-        }
-
-        /* =================================================
-           INFO
-        ================================================= */
-
-        .info-box {
-            margin-top: 30px;
-            background: #fffdf4;
-            border-left: 5px solid var(--or);
-            padding: 20px;
-            border-radius: 10px;
-        }
-
-        .info-box h4 {
-            color: var(--ble);
-            margin-bottom: 7px;
-        }
-
-        .info-box p {
-            color: #5f6470;
-            font-size: 13px;
-            line-height: 1.7;
-        }
-
-        /* =================================================
-           FOOTER
-        ================================================= */
-
-        footer {
-            background: var(--ble-fonse);
-            color: white;
-            padding: 25px;
-            text-align: center;
-        }
-
-        footer p {
-            font-size: 12px;
-            opacity: 0.85;
-            line-height: 1.7;
-        }
-
-        /* =================================================
-           RESPONSIVE
-        ================================================= */
-
-        @media (max-width: 950px) {
-
-            .cards {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .programmes {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-        }
-
-        @media (max-width: 650px) {
-
-            header {
-                padding: 0 15px;
-            }
-
-            .logo-text p {
-                display: none;
-            }
-
-            .btn-site {
-                display: none;
-            }
-
-            main {
-                padding: 22px 14px 45px;
-            }
-
-            .welcome {
-                padding: 25px;
-            }
-
-            .welcome h2 {
-                font-size: 22px;
-            }
-
-            .welcome-symbol {
-                width: 70px;
-                height: 70px;
-                min-width: 70px;
-                font-size: 28px;
-            }
-
-            .cards,
-            .programmes {
-                grid-template-columns: 1fr;
-            }
-
-            .activity-item {
-                align-items: flex-start;
-                flex-direction: column;
-            }
-
-        }
-
-    </style>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>Espas Volontè | LAJONÈ'M</title>
+
+<link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+>
+
+<link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+>
+
+<style>
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+
+    --ble: #0B3B75;
+    --ble-fonse: #082d59;
+    --or: #F2B705;
+    --vet: #2E8B57;
+    --blan: #FFFFFF;
+    --gri: #667085;
+    --gri-le: #f5f7fa;
+    --bord: #e4e7ec;
+    --wouj: #b42318;
+
+}
+
+body {
+
+    font-family: "Montserrat", sans-serif;
+
+    background: #f5f7fa;
+
+    color: #172033;
+
+    min-height: 100vh;
+
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.header {
+
+    background: var(--ble);
+
+    color: white;
+
+    padding: 15px 20px;
+
+    position: sticky;
+
+    top: 0;
+
+    z-index: 100;
+
+    box-shadow:
+        0 3px 15px
+        rgba(0,0,0,0.12);
+
+}
+
+
+.header-inner {
+
+    max-width: 1200px;
+
+    margin: auto;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+}
+
+
+.brand {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+}
+
+
+.logo {
+
+    width: 48px;
+
+    height: 48px;
+
+    border-radius: 50%;
+
+    background: var(--or);
+
+    color: var(--ble);
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 22px;
+
+    font-weight: 800;
+
+}
+
+
+.brand-text strong {
+
+    display: block;
+
+    font-size: 17px;
+
+}
+
+
+.brand-text span {
+
+    font-size: 11px;
+
+    opacity: 0.85;
+
+}
+
+
+.btn-logout {
+
+    border: 1px solid
+        rgba(255,255,255,0.3);
+
+    background: transparent;
+
+    color: white;
+
+    padding: 10px 15px;
+
+    border-radius: 8px;
+
+    font-family: inherit;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+}
+
+
+/* =====================================================
+   CONTAINER
+===================================================== */
+
+.container {
+
+    max-width: 1200px;
+
+    margin: auto;
+
+    padding: 30px 20px 50px;
+
+}
+
+
+/* =====================================================
+   WELCOME
+===================================================== */
+
+.welcome {
+
+    background: white;
+
+    border-radius: 18px;
+
+    padding: 25px;
+
+    margin-bottom: 25px;
+
+    border-left: 5px solid var(--or);
+
+    box-shadow:
+        0 4px 15px
+        rgba(16,24,40,0.05);
+
+}
+
+
+.welcome h1 {
+
+    color: var(--ble);
+
+    font-size: 25px;
+
+    margin-bottom: 8px;
+
+}
+
+
+.welcome p {
+
+    color: var(--gri);
+
+    font-size: 14px;
+
+    line-height: 1.6;
+
+}
+
+
+.role {
+
+    display: inline-block;
+
+    margin-top: 12px;
+
+    background: #eef4fb;
+
+    color: var(--ble);
+
+    padding: 7px 12px;
+
+    border-radius: 20px;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+}
+
+
+/* =====================================================
+   STATS
+===================================================== */
+
+.stats {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 18px;
+
+    margin-bottom: 30px;
+
+}
+
+
+.stat {
+
+    background: white;
+
+    border-radius: 15px;
+
+    padding: 20px;
+
+    box-shadow:
+        0 4px 15px
+        rgba(16,24,40,0.05);
+
+}
+
+
+.stat-number {
+
+    color: var(--ble);
+
+    font-size: 30px;
+
+    font-weight: 800;
+
+    margin-bottom: 5px;
+
+}
+
+
+.stat-label {
+
+    color: var(--gri);
+
+    font-size: 12px;
+
+}
+
+
+/* =====================================================
+   SECTION
+===================================================== */
+
+.section {
+
+    margin-bottom: 30px;
+
+}
+
+
+.section-title {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 15px;
+
+}
+
+
+.section-title h2 {
+
+    color: var(--ble);
+
+    font-size: 20px;
+
+}
+
+
+.section-title span {
+
+    color: var(--gri);
+
+    font-size: 12px;
+
+}
+
+
+/* =====================================================
+   CARDS
+===================================================== */
+
+.cards {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 18px;
+
+}
+
+
+.card {
+
+    background: white;
+
+    border-radius: 15px;
+
+    padding: 20px;
+
+    border:
+        1px solid var(--bord);
+
+    box-shadow:
+        0 4px 15px
+        rgba(16,24,40,0.04);
+
+}
+
+
+.card h3 {
+
+    color: var(--ble);
+
+    font-size: 16px;
+
+    margin-bottom: 9px;
+
+}
+
+
+.card p {
+
+    color: var(--gri);
+
+    font-size: 13px;
+
+    line-height: 1.6;
+
+}
+
+
+.card-link {
+
+    display: inline-block;
+
+    margin-top: 15px;
+
+    text-decoration: none;
+
+    color: white;
+
+    background: var(--ble);
+
+    padding: 9px 13px;
+
+    border-radius: 8px;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+}
+
+
+/* =====================================================
+   PROGRAMMES
+===================================================== */
+
+.programme {
+
+    border-left: 4px solid var(--vet);
+
+}
+
+
+.programme-list {
+
+    display: grid;
+
+    gap: 12px;
+
+}
+
+
+.programme-item {
+
+    background: white;
+
+    border:
+        1px solid var(--bord);
+
+    border-radius: 12px;
+
+    padding: 16px;
+
+}
+
+
+.programme-item h3 {
+
+    color: var(--ble);
+
+    font-size: 15px;
+
+    margin-bottom: 6px;
+
+}
+
+
+.programme-item p {
+
+    color: var(--gri);
+
+    font-size: 12px;
+
+    line-height: 1.6;
+
+}
+
+
+/* =====================================================
+   ACTIVITES
+===================================================== */
+
+.activity-list {
+
+    display: grid;
+
+    gap: 12px;
+
+}
+
+
+.activity-item {
+
+    background: white;
+
+    border:
+        1px solid var(--bord);
+
+    border-radius: 12px;
+
+    padding: 16px;
+
+}
+
+
+.activity-item h3 {
+
+    color: var(--ble);
+
+    font-size: 15px;
+
+    margin-bottom: 8px;
+
+}
+
+
+.activity-meta {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 8px;
+
+}
+
+
+.badge {
+
+    display: inline-block;
+
+    background: #f2f4f7;
+
+    color: #344054;
+
+    border-radius: 20px;
+
+    padding: 6px 9px;
+
+    font-size: 11px;
+
+}
+
+
+/* =====================================================
+   VIZIT
+===================================================== */
+
+.visit-list {
+
+    display: grid;
+
+    gap: 15px;
+
+}
+
+
+.visit {
+
+    background: white;
+
+    border-radius: 15px;
+
+    border:
+        1px solid var(--bord);
+
+    padding: 18px;
+
+}
+
+
+.visit h3 {
+
+    color: var(--ble);
+
+    font-size: 16px;
+
+    margin-bottom: 10px;
+
+}
+
+
+.visit-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 10px;
+
+}
+
+
+.visit-info {
+
+    background: var(--gri-le);
+
+    padding: 10px;
+
+    border-radius: 8px;
+
+}
+
+
+.visit-info small {
+
+    display: block;
+
+    color: var(--gri);
+
+    font-size: 10px;
+
+    margin-bottom: 4px;
+
+}
+
+
+.visit-info strong {
+
+    color: #172033;
+
+    font-size: 12px;
+
+}
+
+
+.empty {
+
+    background: white;
+
+    border-radius: 14px;
+
+    padding: 25px;
+
+    text-align: center;
+
+    color: var(--gri);
+
+    font-size: 13px;
+
+    border:
+        1px solid var(--bord);
+
+}
+
+
+/* =====================================================
+   LOADING
+===================================================== */
+
+.loading {
+
+    color: var(--gri);
+
+    font-size: 13px;
+
+    padding: 15px 0;
+
+}
+
+
+/* =====================================================
+   ERROR
+===================================================== */
+
+.error-box {
+
+    background: #fff1f0;
+
+    color: var(--wouj);
+
+    border:
+        1px solid #fecdca;
+
+    border-radius: 10px;
+
+    padding: 14px;
+
+    font-size: 13px;
+
+    line-height: 1.5;
+
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+.footer {
+
+    text-align: center;
+
+    padding: 25px;
+
+    color: var(--gri);
+
+    font-size: 11px;
+
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 800px) {
+
+    .stats {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+    .cards {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .container {
+
+        padding:
+            20px 15px 40px;
+
+    }
+
+
+    .header {
+
+        padding:
+            12px 15px;
+
+    }
+
+
+    .brand-text strong {
+
+        font-size: 15px;
+
+    }
+
+
+    .btn-logout {
+
+        padding:
+            8px 10px;
+
+        font-size: 11px;
+
+    }
+
+
+    .welcome h1 {
+
+        font-size: 21px;
+
+    }
+
+
+    .visit-grid {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+}
+
+</style>
+
 </head>
+
 
 <body>
 
-    <!-- =====================================================
-         LOADING
-    ====================================================== -->
 
-    <div id="loading">
+<!-- =====================================================
+     HEADER
+===================================================== -->
 
-        <div class="loader"></div>
+<header class="header">
 
-        <p>
-            N ap verifye aksè ou...
-        </p>
+    <div class="header-inner">
+
+        <div class="brand">
+
+            <div class="logo">
+                L
+            </div>
+
+            <div class="brand-text">
+
+                <strong>
+                    LAJONÈ'M
+                </strong>
+
+                <span>
+                    Espas Volontè
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <button
+            id="btnLogout"
+            class="btn-logout"
+        >
+            Dekonekte
+        </button>
 
     </div>
 
+</header>
 
-    <!-- =====================================================
-         ACCÈS REFIZE
-    ====================================================== -->
 
-    <section id="accesRefize">
 
-        <div class="denied-card">
+<!-- =====================================================
+     MAIN
+===================================================== -->
 
-            <div class="denied-icon">
-                !
+<main class="container">
+
+
+    <!-- =================================================
+         WELCOME
+    ================================================== -->
+
+    <section class="welcome">
+
+        <h1 id="welcomeTitle">
+            Byenveni
+        </h1>
+
+        <p id="welcomeText">
+            N ap chaje espas volontè ou...
+        </p>
+
+        <span
+            id="roleBadge"
+            class="role"
+        >
+            Volontè
+        </span>
+
+    </section>
+
+
+
+    <!-- =================================================
+         STATS
+    ================================================== -->
+
+    <section class="stats">
+
+
+        <div class="stat">
+
+            <div
+                id="statPrograms"
+                class="stat-number"
+            >
+                0
             </div>
 
+            <div class="stat-label">
+                Pwogram disponib
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div
+                id="statActivities"
+                class="stat-number"
+            >
+                0
+            </div>
+
+            <div class="stat-label">
+                Aktivite piblik
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div
+                id="statVisits"
+                class="stat-number"
+            >
+                0
+            </div>
+
+            <div class="stat-label">
+                Vizit mwen
+            </div>
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =================================================
+         AKSÈ
+    ================================================== -->
+
+    <section class="section">
+
+        <div class="section-title">
+
             <h2>
-                Aksè pa otorize
+                Aksè rapid
             </h2>
 
-            <p>
-                Paj sa a rezève pou volontè ki gen yon kont
-                aktif nan LAJONÈ'M.
-            </p>
+            <span>
+                Dapre pèmisyon ou
+            </span>
 
-            <a
-                href="index.html"
-                class="btn-header btn-logout"
+        </div>
+
+
+        <div class="cards">
+
+
+            <!-- PROGRAM -->
+
+            <div
+                class="card"
+                data-permission="wè_pwogram"
             >
-                Retounen sou sit la
-            </a>
+
+                <h3>
+                    Pwogram LAJONÈ'M
+                </h3>
+
+                <p>
+                    Gade pwogram ak aksyon
+                    òganizasyon an ap devlope
+                    pou moun aje yo.
+                </p>
+
+                <a
+                    href="pwogram.html"
+                    class="card-link"
+                >
+                    Gade pwogram
+                </a>
+
+            </div>
+
+
+
+            <!-- ACTIVITE -->
+
+            <div
+                class="card"
+                data-permission="wè_aktivite"
+            >
+
+                <h3>
+                    Aktivite
+                </h3>
+
+                <p>
+                    Gade aktivite LAJONÈ'M
+                    yo ak enfòmasyon piblik
+                    ki disponib.
+                </p>
+
+                <a
+                    href="aktivite.html"
+                    class="card-link"
+                >
+                    Gade aktivite
+                </a>
+
+            </div>
+
+
+
+            <!-- GALERI -->
+
+            <div
+                class="card"
+                data-permission="wè_galri"
+            >
+
+                <h3>
+                    Galri
+                </h3>
+
+                <p>
+                    Dekouvri foto ak moman
+                    òganizasyon an pataje
+                    piblikman.
+                </p>
+
+                <a
+                    href="galri.html"
+                    class="card-link"
+                >
+                    Gade galri
+                </a>
+
+            </div>
+
 
         </div>
 
     </section>
 
 
-    <!-- =====================================================
-         APPLICATION
-    ====================================================== -->
 
-    <div id="app">
+    <!-- =================================================
+         PWOGRAM
+    ================================================== -->
 
-        <!-- HEADER -->
+    <section
+        class="section"
+        data-permission="wè_pwogram"
+    >
 
-        <header>
+        <div class="section-title">
 
-            <div class="logo-zone">
+            <h2>
+                Pwogram yo
+            </h2>
 
-                <div class="logo-symbol">
-                    L
-                </div>
+            <span>
+                Pwogram aktif
+            </span>
 
-                <div class="logo-text">
+        </div>
 
-                    <h1>
-                        LAJONÈ'M
-                    </h1>
 
-                    <p>
-                        Laj yo se onè nou.
-                    </p>
+        <div
+            id="programList"
+            class="programme-list"
+        >
 
-                </div>
-
+            <div class="loading">
+                N ap chaje pwogram yo...
             </div>
 
+        </div>
 
-            <div class="header-actions">
+    </section>
 
-                <a
-                    href="index.html"
-                    class="btn-header btn-site"
-                >
-                    Sit piblik
-                </a>
 
-                <button
-                    id="btnLogout"
-                    class="btn-header btn-logout"
-                >
-                    Dekonekte
-                </button>
 
+    <!-- =================================================
+         AKTIVITE
+    ================================================== -->
+
+    <section
+        class="section"
+        data-permission="wè_aktivite"
+    >
+
+        <div class="section-title">
+
+            <h2>
+                Aktivite
+            </h2>
+
+            <span>
+                Aktivite piblik
+            </span>
+
+        </div>
+
+
+        <div
+            id="activityList"
+            class="activity-list"
+        >
+
+            <div class="loading">
+                N ap chaje aktivite yo...
             </div>
 
-        </header>
+        </div>
+
+    </section>
 
 
-        <!-- MAIN -->
 
-        <main>
+    <!-- =================================================
+         VIZIT
+    ================================================== -->
 
-            <!-- =============================================
-                 WELCOME
-            ============================================== -->
+    <section
+        class="section"
+        data-permission="wè_vizit"
+    >
 
-            <section class="welcome">
+        <div class="section-title">
 
-                <div>
+            <h2>
+                Vizit mwen yo
+            </h2>
 
-                    <h2 id="welcomeName">
-                        Byenveni
-                    </h2>
+            <span>
+                Enfòmasyon ki otorize pou ou
+            </span>
 
-                    <p>
-                        Men espas pèsonèl ou kòm volontè
-                        nan LAJONÈ'M.
-                    </p>
-
-                    <div
-                        class="role-badge"
-                        id="roleBadge"
-                    >
-                        Volontè
-                    </div>
-
-                </div>
+        </div>
 
 
-                <div class="welcome-symbol">
-                    ♥
-                </div>
+        <div
+            id="visitList"
+            class="visit-list"
+        >
 
-            </section>
-
-
-            <!-- =============================================
-                 AKSÈ RAPID
-            ============================================== -->
-
-            <div class="section-title">
-
-                <h3>
-                    Aksè rapid
-                </h3>
-
-                <p>
-                    Enfòmasyon ou gen otorizasyon pou konsilte.
-                </p>
-
+            <div class="loading">
+                N ap verifye vizit ou yo...
             </div>
 
+        </div>
 
-            <section class="cards">
+    </section>
 
 
-                <!-- PWOGRAM -->
+</main>
 
-                <div
-                    class="card"
-                    id="cardPwogram"
-                >
 
-                    <div class="card-icon">
-                        P
-                    </div>
 
-                    <h4>
-                        Pwogram LAJONÈ'M
-                    </h4>
+<!-- =====================================================
+     FOOTER
+===================================================== -->
 
-                    <p>
-                        Konsilte pwogram ak sèvis
-                        òganizasyon an ap devlope.
-                    </p>
+<footer class="footer">
 
-                    <a
-                        href="pwogram.html"
-                        class="card-link"
-                    >
-                        Wè pwogram yo →
-                    </a>
+    LAJONÈ'M —
+    Wè. Akonpaye. Valorizasyon.
 
-                </div>
+</footer>
 
 
-                <!-- AKTIVITE -->
 
-                <div
-                    class="card"
-                    id="cardAktivite"
-                >
+<!-- =====================================================
+     SUPABASE
+===================================================== -->
 
-                    <div class="card-icon">
-                        A
-                    </div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-                    <h4>
-                        Aktivite
-                    </h4>
+<script src="js/supabase.js"></script>
 
-                    <p>
-                        Gade aktivite piblik LAJONÈ'M
-                        yo ak enfòmasyon ki disponib.
-                    </p>
+<script src="js/permissions.js"></script>
 
-                    <a
-                        href="aktivite.html"
-                        class="card-link"
-                    >
-                        Wè aktivite yo →
-                    </a>
+<script src="js/paramet.js"></script>
 
-                </div>
 
 
-                <!-- GALRI -->
+<script>
 
-                <div
-                    class="card"
-                    id="cardGalri"
-                >
+/* =========================================================
+   ELEMENTS
+========================================================= */
 
-                    <div class="card-icon">
-                        G
-                    </div>
+const welcomeTitle =
+    document.getElementById(
+        "welcomeTitle"
+    );
 
-                    <h4>
-                        Galri
-                    </h4>
+const welcomeText =
+    document.getElementById(
+        "welcomeText"
+    );
 
-                    <p>
-                        Gade foto ak moman piblik
-                        aktivite LAJONÈ'M yo.
-                    </p>
+const programList =
+    document.getElementById(
+        "programList"
+    );
 
-                    <a
-                        href="galri.html"
-                        class="card-link"
-                    >
-                        Wè galri a →
-                    </a>
+const activityList =
+    document.getElementById(
+        "activityList"
+    );
 
-                </div>
+const visitList =
+    document.getElementById(
+        "visitList"
+    );
 
+const statPrograms =
+    document.getElementById(
+        "statPrograms"
+    );
 
-                <!-- VIZIT -->
+const statActivities =
+    document.getElementById(
+        "statActivities"
+    );
 
-                <div
-                    class="card"
-                    id="cardVizit"
-                >
+const statVisits =
+    document.getElementById(
+        "statVisits"
+    );
 
-                    <div class="card-icon">
-                        V
-                    </div>
+const btnLogout =
+    document.getElementById(
+        "btnLogout"
+    );
 
-                    <h4>
-                        Vizit
-                    </h4>
 
-                    <p>
-                        Espas sa a ap sèvi pou enfòmasyon
-                        sou vizit volontè yo otorize.
-                    </p>
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
 
-                    <span
-                        class="card-link"
-                        style="color:#667085;"
-                    >
-                        Ap prepare →
-                    </span>
+function escapeHTML(value) {
 
-                </div>
+    if (
+        value === null ||
+        value === undefined
+    ) {
 
-            </section>
+        return "";
 
+    }
 
-            <!-- =============================================
-                 PWOGRAM
-            ============================================== -->
 
-            <div class="section-title">
+    return String(value)
 
-                <h3>
-                    Pwogram aktif
-                </h3>
+        .replace(
+            /&/g,
+            "&amp;"
+        )
 
-                <p>
-                    Pwogram LAJONÈ'M ki disponib pou konsiltasyon.
-                </p>
+        .replace(
+            /</g,
+            "&lt;"
+        )
 
-            </div>
+        .replace(
+            />/g,
+            "&gt;"
+        )
 
+        .replace(
+            /"/g,
+            "&quot;"
+        )
 
-            <section
-                id="programmes"
-                class="programmes"
-            >
+        .replace(
+            /'/g,
+            "&#039;"
+        );
 
-                <div class="card">
+}
 
-                    <p>
-                        N ap chaje pwogram yo...
-                    </p>
 
-                </div>
+/* =========================================================
+   DAT
+========================================================= */
 
-            </section>
+function formatDate(date) {
 
+    if (!date) {
 
-            <!-- =============================================
-                 AKTIVITE
-            ============================================== -->
+        return "Pa presize";
 
-            <div class="section-title">
+    }
 
-                <h3>
-                    Dènye aktivite yo
-                </h3>
 
-                <p>
-                    Aktivite piblik ki disponib sou platfòm nan.
-                </p>
+    try {
 
-            </div>
-
-
-            <section
-                id="activities"
-                class="activity-list"
-            >
-
-                <div class="activity-item">
-
-                    <div class="activity-info">
-
-                        <h4>
-                            N ap chaje aktivite yo...
-                        </h4>
-
-                        <p>
-                            Tanpri tann yon ti moman.
-                        </p>
-
-                    </div>
-
-                </div>
-
-            </section>
-
-
-            <!-- =============================================
-                 RESPONSABLITE
-            ============================================== -->
-
-            <div class="info-box">
-
-                <h4>
-                    Responsablite volontè
-                </h4>
-
-                <p>
-                    Antanke volontè LAJONÈ'M, ou dwe respekte
-                    diyite, vi prive, sekirite ak enfòmasyon
-                    moun òganizasyon an akonpaye yo. Pa pataje
-                    enfòmasyon pèsonèl yon benefisyè san
-                    otorizasyon òganizasyon an.
-                </p>
-
-            </div>
-
-
-            <!-- =============================================
-                 MISYON
-            ============================================== -->
-
-            <div class="info-box">
-
-                <h4>
-                    Laj yo se onè nou.
-                </h4>
-
-                <p>
-                    Nou kwè chak moun ki rive nan yon laj
-                    avanse merite respè, prezans, solidarite
-                    ak diyite.
-                </p>
-
-            </div>
-
-        </main>
-
-
-        <!-- FOOTER -->
-
-        <footer>
-
-            <p>
-                LAJONÈ'M — Laj yo se onè nou.
-            </p>
-
-            <p>
-                Wè. Akonpaye. Valorizasyon.
-            </p>
-
-        </footer>
-
-    </div>
-
-
-    <!-- =====================================================
-         JAVASCRIPT
-    ====================================================== -->
-
-    <script src="js/supabase.js"></script>
-
-    <script src="js/permissions.js"></script>
-
-
-    <script>
-
-        /* =================================================
-           ELEMENTS
-        ================================================= */
-
-        const loading =
-            document.getElementById("loading");
-
-        const app =
-            document.getElementById("app");
-
-        const accesRefize =
-            document.getElementById("accesRefize");
-
-
-        /* =================================================
-           ESCAPE HTML
-        ================================================= */
-
-        function echapeHTML(value) {
-
-            if (value === null || value === undefined) {
-                return "";
+        return new Date(
+            date
+        ).toLocaleDateString(
+            "ht-HT",
+            {
+                day: "2-digit",
+                month: "long",
+                year: "numeric"
             }
+        );
 
-            return String(value)
-                .replace(/&/g, "&amp;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;")
-                .replace(/"/g, "&quot;")
-                .replace(/'/g, "&#039;");
-        }
+    } catch {
+
+        return date;
+
+    }
+
+}
 
 
-        /* =================================================
-           MONTRE ERÈ
-        ================================================= */
+/* =========================================================
+   CHACHE PWOGRAM
+========================================================= */
 
-        function montreErreur(message) {
+async function chajePwogram() {
 
-            console.error(
-                "❌",
-                message
+    if (
+        !genPèmisyon(
+            "wè_pwogram"
+        )
+    ) {
+
+        programList.innerHTML = "";
+
+        return;
+
+    }
+
+
+    const {
+
+        data,
+        error
+
+    } =
+
+        await supabaseClient
+
+            .from("pwogram")
+
+            .select(`
+                id,
+                non,
+                slug,
+                deskripsyon,
+                objektif,
+                imaj_url
+            `)
+
+            .eq(
+                "aktif",
+                true
+            )
+
+            .order(
+                "dat_kreyasyon",
+                {
+                    ascending: true
+                }
             );
-        }
 
 
-        /* =================================================
-           PWOGRÈM
-        ================================================= */
+    if (error) {
 
-        async function chajePwogram() {
+        console.error(
+            "❌ Erè pwogram:",
+            error
+        );
 
-            if (!genPèmisyon("wè_pwogram")) {
 
-                document.getElementById(
-                    "programmes"
-                ).innerHTML = `
-                    <div class="card">
+        programList.innerHTML = `
+
+            <div class="error-box">
+
+                Nou pa kapab chaje
+                pwogram yo pou kounye a.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    statPrograms.textContent =
+        data?.length || 0;
+
+
+    if (
+        !data ||
+        data.length === 0
+    ) {
+
+        programList.innerHTML = `
+
+            <div class="empty">
+
+                Pa gen pwogram aktif
+                pou moman an.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    programList.innerHTML =
+        data.map(
+            function(program) {
+
+                return `
+
+                    <div class="programme-item">
+
+                        <h3>
+                            ${escapeHTML(
+                                program.non
+                            )}
+                        </h3>
+
                         <p>
-                            Ou pa gen pèmisyon pou wè
-                            pwogram yo.
+                            ${escapeHTML(
+                                program.deskripsyon ||
+                                program.objektif ||
+                                "Pwogram LAJONÈ'M."
+                            )}
                         </p>
+
                     </div>
+
                 `;
 
-                return;
             }
+        ).join("");
+
+}
 
 
-            const {
-                data,
-                error
-            } = await supabaseClient
-                .from("pwogram")
-                .select(`
-                    id,
-                    non,
-                    slug,
-                    deskripsyon,
-                    objektif,
-                    imaj_url
-                `)
-                .eq("aktif", true)
-                .order(
-                    "dat_kreyasyon",
-                    {
-                        ascending: true
-                    }
-                );
+/* =========================================================
+   CHACHE AKTIVITE
+========================================================= */
+
+async function chajeAktivite() {
+
+    if (
+        !genPèmisyon(
+            "wè_aktivite"
+        )
+    ) {
+
+        activityList.innerHTML = "";
+
+        return;
+
+    }
 
 
-            if (error) {
+    const {
 
-                montreErreur(
-                    "Erè chaje pwogram:",
-                    error
-                );
+        data,
+        error
 
-                document.getElementById(
-                    "programmes"
-                ).innerHTML = `
-                    <div class="card">
-                        <p>
-                            Nou pa kapab chaje pwogram yo
-                            pou kounye a.
-                        </p>
-                    </div>
-                `;
+    } =
 
-                return;
-            }
+        await supabaseClient
 
+            .from("aktivite")
 
-            const container =
-                document.getElementById(
-                    "programmes"
-                );
+            .select(`
+                id,
+                tit,
+                deskripsyon,
+                tip,
+                estati,
+                dat_aktivite,
+                kote,
+                kantite_benefisye,
+                kantite_volonte
+            `)
 
+            .eq(
+                "piblik",
+                true
+            )
 
-            if (!data || data.length === 0) {
+            .neq(
+                "estati",
+                "anile"
+            )
 
-                container.innerHTML = `
-                    <div class="card">
-                        <p>
-                            Pa gen pwogram aktif
-                            pou kounye a.
-                        </p>
-                    </div>
-                `;
+            .order(
+                "dat_aktivite",
+                {
+                    ascending: false
+                }
+            )
 
-                return;
-            }
-
-
-            container.innerHTML =
-                data.map(program => {
-
-                    const description =
-                        program.deskripsyon ||
-                        program.objektif ||
-                        "Pwogram LAJONÈ'M.";
-
-                    return `
-
-                        <article class="programme-card">
-
-                            <div class="programme-image">
-
-                                ${
-                                    program.imaj_url
-                                    ? `
-                                        <img
-                                            src="${echapeHTML(program.imaj_url)}"
-                                            alt="${echapeHTML(program.non)}"
-                                            style="
-                                                width:100%;
-                                                height:100%;
-                                                object-fit:cover;
-                                            "
-                                        >
-                                    `
-                                    : "L"
-                                }
-
-                            </div>
-
-                            <div class="programme-body">
-
-                                <h4>
-                                    ${echapeHTML(program.non)}
-                                </h4>
-
-                                <p>
-                                    ${echapeHTML(description)}
-                                </p>
-
-                            </div>
-
-                        </article>
-
-                    `;
-
-                }).join("");
-
-        }
+            .limit(20);
 
 
-        /* =================================================
-           AKTIVITE
-        ================================================= */
+    if (error) {
 
-        async function chajeAktivite() {
+        console.error(
+            "❌ Erè aktivite:",
+            error
+        );
 
-            if (!genPèmisyon("wè_aktivite")) {
 
-                document.getElementById(
-                    "activities"
-                ).innerHTML = `
+        activityList.innerHTML = `
+
+            <div class="error-box">
+
+                Nou pa kapab chaje
+                aktivite yo pou kounye a.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    statActivities.textContent =
+        data?.length || 0;
+
+
+    if (
+        !data ||
+        data.length === 0
+    ) {
+
+        activityList.innerHTML = `
+
+            <div class="empty">
+
+                Pa gen aktivite piblik
+                pou moman an.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    activityList.innerHTML =
+        data.map(
+            function(activity) {
+
+                return `
+
                     <div class="activity-item">
-                        <div class="activity-info">
-                            <h4>
-                                Aksè limite
-                            </h4>
-                            <p>
-                                Ou pa gen pèmisyon pou wè
-                                aktivite yo.
-                            </p>
-                        </div>
-                    </div>
-                `;
 
-                return;
-            }
+                        <h3>
+                            ${escapeHTML(
+                                activity.tit
+                            )}
+                        </h3>
 
+                        <div class="activity-meta">
 
-            const {
-                data,
-                error
-            } = await supabaseClient
-                .from("aktivite")
-                .select(`
-                    id,
-                    tit,
-                    deskripsyon,
-                    tip,
-                    estati,
-                    dat_aktivite,
-                    kote,
-                    piblik,
-                    pwogram:pwogram_id (
-                        non
-                    )
-                `)
-                .eq("piblik", true)
-                .neq("estati", "anile")
-                .order(
-                    "dat_aktivite",
-                    {
-                        ascending: false
-                    }
-                )
-                .limit(8);
-
-
-            if (error) {
-
-                montreErreur(
-                    "Erè chaje aktivite:",
-                    error
-                );
-
-                document.getElementById(
-                    "activities"
-                ).innerHTML = `
-                    <div class="activity-item">
-                        <div class="activity-info">
-                            <h4>
-                                Aktivite yo pa disponib.
-                            </h4>
-                        </div>
-                    </div>
-                `;
-
-                return;
-            }
-
-
-            const container =
-                document.getElementById(
-                    "activities"
-                );
-
-
-            if (!data || data.length === 0) {
-
-                container.innerHTML = `
-                    <div class="activity-item">
-                        <div class="activity-info">
-                            <h4>
-                                Pa gen aktivite piblik.
-                            </h4>
-                            <p>
-                                Nou ap mete enfòmasyon yo
-                                ajou.
-                            </p>
-                        </div>
-                    </div>
-                `;
-
-                return;
-            }
-
-
-            container.innerHTML =
-                data.map(activity => {
-
-                    let dat = "";
-
-                    if (activity.dat_aktivite) {
-
-                        const d =
-                            new Date(
-                                activity.dat_aktivite
-                            );
-
-                        if (!isNaN(d)) {
-
-                            dat =
-                                d.toLocaleDateString(
-                                    "fr-FR"
-                                );
-                        }
-                    }
-
-
-                    return `
-
-                        <article class="activity-item">
-
-                            <div class="activity-info">
-
-                                <h4>
-                                    ${echapeHTML(activity.tit)}
-                                </h4>
-
-                                <p>
-
-                                    ${
-                                        activity.pwogram?.non
-                                        ? echapeHTML(
-                                            activity.pwogram.non
-                                          ) + " • "
-                                        : ""
-                                    }
-
-                                    ${
-                                        dat
-                                        ? "Dat: " + dat + " • "
-                                        : ""
-                                    }
-
-                                    ${
-                                        activity.kote
-                                        ? "Kote: " +
-                                          echapeHTML(
-                                              activity.kote
-                                          )
-                                        : ""
-                                    }
-
-                                </p>
-
-                            </div>
-
-                            <span class="status">
-
-                                ${echapeHTML(
-                                    activity.estati || "aktif"
+                            <span class="badge">
+                                ${escapeHTML(
+                                    activity.estati ||
+                                    "aktivite"
                                 )}
-
                             </span>
 
-                        </article>
+                            <span class="badge">
+                                ${formatDate(
+                                    activity.dat_aktivite
+                                )}
+                            </span>
 
-                    `;
+                            <span class="badge">
+                                ${escapeHTML(
+                                    activity.kote ||
+                                    "Kote pa presize"
+                                )}
+                            </span>
 
-                }).join("");
+                        </div>
 
-        }
+                    </div>
 
+                `;
 
-        /* =================================================
-           PWOTEJE KAT YO
-        ================================================= */
-
-        function aplikePèmisyonVizib() {
-
-            const cardPwogram =
-                document.getElementById(
-                    "cardPwogram"
-                );
-
-            const cardAktivite =
-                document.getElementById(
-                    "cardAktivite"
-                );
-
-            const cardGalri =
-                document.getElementById(
-                    "cardGalri"
-                );
-
-            const cardVizit =
-                document.getElementById(
-                    "cardVizit"
-                );
-
-
-            if (!genPèmisyon("wè_pwogram")) {
-                cardPwogram.style.display = "none";
             }
+        ).join("");
+
+}
 
 
-            if (!genPèmisyon("wè_aktivite")) {
-                cardAktivite.style.display = "none";
-            }
+/* =========================================================
+   CHACHE VIZIT VOLONTÈ A
+========================================================= */
+
+async function chajeVizit() {
+
+    if (
+        !genPèmisyon(
+            "wè_vizit"
+        )
+    ) {
+
+        visitList.innerHTML = `
+
+            <div class="empty">
+
+                Ou pa gen pèmisyon pou
+                wè vizit yo.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
 
 
-            if (!genPèmisyon("wè_galri")) {
-                cardGalri.style.display = "none";
-            }
+    const {
 
+        data,
+        error
 
-            if (!genPèmisyon("wè_vizit")) {
-                cardVizit.style.display = "none";
-            }
+    } =
 
-        }
+        await supabaseClient
 
-
-        /* =================================================
-           DEKONEKTE
-        ================================================= */
-
-        document
-            .getElementById("btnLogout")
-            .addEventListener(
-                "click",
-                async () => {
-
-                    await supabaseClient.auth.signOut();
-
-                    window.location.href =
-                        "login.html";
-                }
+            .rpc(
+                "jwenn_vizit_volonte"
             );
 
 
-        /* =================================================
-           DEMARAJ
-        ================================================= */
+    if (error) {
 
-        async function demareEspasVolonte() {
-
-            try {
-
-                /* -----------------------------------------
-                   VERIFYE SESSION
-                   ----------------------------------------- */
-
-                const {
-                    data: sessionData
-                } =
-                    await supabaseClient.auth.getSession();
+        console.error(
+            "❌ Erè vizit volontè:",
+            error
+        );
 
 
-                if (
-                    !sessionData ||
-                    !sessionData.session
-                ) {
+        visitList.innerHTML = `
 
-                    window.location.href =
-                        "login.html";
+            <div class="error-box">
 
-                    return;
-                }
+                Nou pa kapab chaje vizit
+                ou yo pou kounye a.
 
+                <br><br>
 
-                /* -----------------------------------------
-                   CHAJE RBAC
-                   ----------------------------------------- */
+                Sistèm nan ap pwoteje
+                enfòmasyon benefisyè yo.
 
-                await chajeRBAC();
+            </div>
 
+        `;
 
-                /* -----------------------------------------
-                   VERIFYE WÒL
-                   ----------------------------------------- */
+        statVisits.textContent =
+            "0";
 
-                if (
-                    !profilAdmin ||
-                    profilAdmin.wòl !== "volonte" ||
-                    !profilAdmin.aktif
-                ) {
+        return;
 
-                    loading.style.display = "none";
-
-                    accesRefize.style.display =
-                        "flex";
-
-                    return;
-                }
+    }
 
 
-                /* -----------------------------------------
-                   PWOTEJE AKSÈ
-                   ----------------------------------------- */
-
-                if (
-                    !genPèmisyon("wè_pwogram") &&
-                    !genPèmisyon("wè_aktivite") &&
-                    !genPèmisyon("wè_galri") &&
-                    !genPèmisyon("wè_vizit")
-                ) {
-
-                    loading.style.display = "none";
-
-                    accesRefize.style.display =
-                        "flex";
-
-                    return;
-                }
+    statVisits.textContent =
+        data?.length || 0;
 
 
-                /* -----------------------------------------
-                   MONTRE NON
-                   ----------------------------------------- */
+    if (
+        !data ||
+        data.length === 0
+    ) {
 
-                const nonKonplè =
+        visitList.innerHTML = `
+
+            <div class="empty">
+
+                Ou pa gen okenn vizit
+                ki asosye ak kont ou
+                pou moman an.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    visitList.innerHTML =
+        data.map(
+            function(visit) {
+
+                const benefisye =
+
                     [
-                        profilAdmin.non,
-                        profilAdmin.siyati
+                        visit.benefisye_non,
+                        visit.benefisye_siyati
                     ]
+
                     .filter(Boolean)
+
                     .join(" ");
 
 
-                document.getElementById(
-                    "welcomeName"
-                ).textContent =
-                    `Byenveni, ${nonKonplè || "Volontè"}!`;
+                return `
+
+                    <div class="visit">
+
+                        <h3>
+
+                            Vizit —
+                            ${formatDate(
+                                visit.dat_vizit
+                            )}
+
+                        </h3>
 
 
-                document.getElementById(
-                    "roleBadge"
-                ).textContent =
-                    jwennNonWolAdmin();
+                        <div class="visit-grid">
 
 
-                /* -----------------------------------------
-                   PWOTEKSYON KAT
-                   ----------------------------------------- */
+                            <div class="visit-info">
 
-                aplikePèmisyonVizib();
+                                <small>
+                                    Benefisyè
+                                </small>
 
+                                <strong>
+                                    ${escapeHTML(
+                                        benefisye ||
+                                        "Enfòmasyon limite"
+                                    )}
+                                </strong>
 
-                /* -----------------------------------------
-                   CHAJE DONE OTORIZE
-                   ----------------------------------------- */
-
-                await Promise.all([
-                    chajePwogram(),
-                    chajeAktivite()
-                ]);
-
-
-                /* -----------------------------------------
-                   AFFICHE APPLICATION
-                   ----------------------------------------- */
-
-                loading.style.display =
-                    "none";
-
-                app.style.display =
-                    "block";
+                            </div>
 
 
-            } catch (error) {
+                            <div class="visit-info">
 
-                console.error(
-                    "❌ Erè espas volontè:",
-                    error
-                );
+                                <small>
+                                    Kalite vizit
+                                </small>
 
-                loading.style.display =
-                    "none";
+                                <strong>
+                                    ${escapeHTML(
+                                        visit.kalite_vizit ||
+                                        "Pa presize"
+                                    )}
+                                </strong>
 
-                accesRefize.style.display =
-                    "flex";
+                            </div>
+
+
+                            <div class="visit-info">
+
+                                <small>
+                                    Rezime
+                                </small>
+
+                                <strong>
+                                    ${escapeHTML(
+                                        visit.rezime ||
+                                        "Pa gen rezime."
+                                    )}
+                                </strong>
+
+                            </div>
+
+
+                            <div class="visit-info">
+
+                                <small>
+                                    Pwochen vizit
+                                </small>
+
+                                <strong>
+                                    ${formatDate(
+                                        visit.pwochen_vizit
+                                    )}
+                                </strong>
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+                `;
+
             }
+        ).join("");
+
+}
+
+
+/* =========================================================
+   VERIFYE AKSÈ
+========================================================= */
+
+async function demareEspasVolonte() {
+
+    try {
+
+
+        /* ================================================
+           RBAC
+        ================================================= */
+
+        await chajeRBAC();
+
+
+        const profil =
+            jwennProfilAdmin();
+
+
+        if (!profil) {
+
+            throw new Error(
+                "Pwofil volontè a pa jwenn."
+            );
+
         }
 
 
-        /* =================================================
-           LANSE
+        const wol =
+
+            String(
+                profil.wòl || ""
+            )
+
+            .trim()
+
+            .toLowerCase();
+
+
+        console.log(
+            "Espas Volontè — wòl:",
+            wol
+        );
+
+
+        /* ================================================
+           SE VOLONTE SÈLMAN
         ================================================= */
 
-        demareEspasVolonte();
+        if (
+            wol !== "volonte"
+        ) {
 
-    </script>
+            console.warn(
+                "Wòl sa a pa fèt pou espas volontè:",
+                wol
+            );
+
+
+            if (
+                wol ===
+                    "super_admin" ||
+
+                wol ===
+                    "admin" ||
+
+                wol ===
+                    "editè"
+            ) {
+
+                window.location.replace(
+                    "admin.html"
+                );
+
+                return;
+
+            }
+
+
+            await supabaseClient
+                .auth
+                .signOut();
+
+
+            window.location.replace(
+                "login.html"
+            );
+
+            return;
+
+        }
+
+
+        /* ================================================
+           NON VOLONTÈ
+        ================================================= */
+
+        const non =
+            profil.non || "Volontè";
+
+
+        welcomeTitle.textContent =
+            "Byenveni, " + non;
+
+
+        welcomeText.textContent =
+            "Men espas pèsonèl ou nan LAJONÈ'M. "
+            +
+            "La a ou ka suiv pwogram, aktivite "
+            +
+            "ak vizit ki otorize pou ou.";
+
+
+        /* ================================================
+           PWOTEJE ELEMAN YO
+        ================================================= */
+
+        pwotejeMeniAdmin();
+
+
+        /* ================================================
+           CHAJE DONE YO
+        ================================================= */
+
+        await Promise.all([
+
+            chajePwogram(),
+
+            chajeAktivite(),
+
+            chajeVizit()
+
+        ]);
+
+
+    } catch (error) {
+
+        console.error(
+            "❌ Erè espas volontè:",
+            error
+        );
+
+
+        document.body.innerHTML = `
+
+            <div style="
+                min-height:100vh;
+                display:flex;
+                align-items:center;
+                justify-content:center;
+                padding:25px;
+                background:#f5f7fa;
+                font-family:Montserrat,sans-serif;
+            ">
+
+                <div style="
+                    width:100%;
+                    max-width:600px;
+                    background:white;
+                    padding:35px;
+                    border-radius:18px;
+                    text-align:center;
+                    box-shadow:0 10px 30px
+                    rgba(0,0,0,0.08);
+                ">
+
+                    <h2 style="
+                        color:#0B3B75;
+                        margin-bottom:12px;
+                    ">
+                        Aksè pa otorize
+                    </h2>
+
+                    <p style="
+                        color:#667085;
+                        line-height:1.6;
+                        font-size:14px;
+                    ">
+                        Paj sa a rezève pou volontè
+                        LAJONÈ'M ki gen yon kont
+                        aktif ak pèmisyon apwopriye.
+                    </p>
+
+                    <button
+                        onclick="
+                            window.location.href='index.html'
+                        "
+                        style="
+                            margin-top:20px;
+                            border:none;
+                            background:#0B3B75;
+                            color:white;
+                            padding:12px 20px;
+                            border-radius:9px;
+                            font-family:Montserrat,sans-serif;
+                            font-weight:700;
+                            cursor:pointer;
+                        "
+                    >
+                        Retounen sou sit la
+                    </button>
+
+                </div>
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+/* =========================================================
+   LOGOUT
+========================================================= */
+
+btnLogout.addEventListener(
+    "click",
+    async function() {
+
+        btnLogout.disabled =
+            true;
+
+
+        try {
+
+            await supabaseClient
+                .auth
+                .signOut();
+
+        } catch (error) {
+
+            console.error(
+                "❌ Erè logout:",
+                error
+            );
+
+        }
+
+
+        window.location.replace(
+            "login.html"
+        );
+
+    }
+);
+
+
+/* =========================================================
+   DEMARE
+========================================================= */
+
+demareEspasVolonte();
+
+</script>
+
 
 </body>
+
 </html>

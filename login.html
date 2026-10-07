@@ -1,995 +1,1497 @@
 <!DOCTYPE html>
 <html lang="ht">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>Koneksyon Administratè — LAJONÈ'M</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <meta charset="UTF-8">
 
-  <link
-    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Open+Sans:wght@400;600;700&display=swap"
-    rel="stylesheet"
-  >
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-  <style>
+    <title>Koneksyon — LAJONÈ'M</title>
 
-    :root {
-      --ble: #0B3B75;
-      --ble-fonse: #07284f;
-      --lò: #F2B705;
-      --vèt: #2E8B57;
-      --wouj: #c62828;
-      --blan: #ffffff;
-      --gri: #f5f7fa;
-      --gri-2: #e5e9ef;
-      --tèks: #263238;
-      --tèks-leje: #667085;
-    }
+    <meta
+        name="description"
+        content="Koneksyon sou platfòm LAJONÈ'M."
+    >
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    <!-- =====================================================
+         GOOGLE FONT
+    ====================================================== -->
 
-    body {
-      min-height: 100vh;
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
 
-      font-family: "Open Sans", sans-serif;
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
 
-      background:
-        linear-gradient(
-          135deg,
-          var(--ble-fonse),
-          var(--ble)
-        );
 
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    <!-- =====================================================
+         STYLE
+    ====================================================== -->
 
-      padding: 20px;
+    <style>
 
-      color: var(--tèks);
-    }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-    .login-wrapper {
-      width: 100%;
-      max-width: 440px;
-    }
 
-    .brand {
-      text-align: center;
-      color: white;
-      margin-bottom: 25px;
-    }
+        :root {
 
-    .logo {
-      width: 75px;
-      height: 75px;
+            --ble: #0B3B75;
 
-      margin: 0 auto 15px;
+            --ble-fonse: #082d59;
 
-      border-radius: 50%;
+            --or: #F2B705;
 
-      background: var(--lò);
-      color: var(--ble);
+            --vet: #2E8B57;
 
-      display: flex;
-      align-items: center;
-      justify-content: center;
+            --blan: #FFFFFF;
 
-      font-family: Montserrat, sans-serif;
-      font-size: 34px;
-      font-weight: 800;
+            --gri: #667085;
 
-      box-shadow:
-        0 8px 25px rgba(0,0,0,.25);
-    }
+            --gri-le: #f5f7fa;
 
-    .brand h1 {
-      font-family: Montserrat, sans-serif;
+            --bord: #d0d5dd;
 
-      font-size: 28px;
-      font-weight: 800;
+            --wouj: #b42318;
 
-      margin-bottom: 5px;
-    }
+        }
 
-    .brand p {
-      font-size: 14px;
-      opacity: .9;
-    }
 
-    .card {
-      background: var(--blan);
+        body {
 
-      border-radius: 20px;
+            min-height: 100vh;
 
-      padding: 32px;
+            font-family:
+                "Montserrat",
+                sans-serif;
 
-      box-shadow:
-        0 20px 60px rgba(0,0,0,.25);
-    }
+            background:
+                linear-gradient(
+                    135deg,
+                    #082d59 0%,
+                    #0B3B75 50%,
+                    #145ca8 100%
+                );
 
-    .card h2 {
-      font-family: Montserrat, sans-serif;
+            display: flex;
 
-      color: var(--ble);
+            align-items: center;
 
-      text-align: center;
+            justify-content: center;
 
-      font-size: 22px;
+            padding: 25px;
 
-      margin-bottom: 8px;
-    }
+        }
 
-    .intro {
-      text-align: center;
 
-      color: var(--tèks-leje);
+        .container {
 
-      font-size: 14px;
+            width: 100%;
 
-      line-height: 1.6;
+            max-width: 480px;
 
-      margin-bottom: 25px;
-    }
+        }
 
-    .field {
-      margin-bottom: 18px;
-    }
 
-    .field label {
-      display: block;
+        /* =================================================
+           BRAND
+        ================================================== */
 
-      font-weight: 700;
+        .brand {
 
-      font-size: 14px;
+            text-align: center;
 
-      margin-bottom: 7px;
-    }
+            color: white;
 
-    .field input {
-      width: 100%;
+            margin-bottom: 30px;
 
-      padding: 13px 14px;
+        }
 
-      border: 1px solid var(--gri-2);
 
-      border-radius: 10px;
+        .logo {
 
-      font-family: inherit;
+            width: 92px;
 
-      font-size: 15px;
+            height: 92px;
 
-      outline: none;
+            margin:
+                0 auto 18px;
 
-      transition: .2s;
-    }
+            border-radius: 50%;
 
-    .field input:focus {
-      border-color: var(--ble);
+            background: var(--or);
 
-      box-shadow:
-        0 0 0 3px rgba(11,59,117,.10);
-    }
+            color: var(--ble);
 
-    .btn-login {
-      width: 100%;
+            display: flex;
 
-      border: none;
+            align-items: center;
 
-      border-radius: 10px;
+            justify-content: center;
 
-      padding: 14px;
+            font-size: 40px;
 
-      background: var(--ble);
+            font-weight: 800;
 
-      color: white;
+            box-shadow:
+                0 10px 25px
+                rgba(0,0,0,0.18);
 
-      font-family: Montserrat, sans-serif;
+        }
 
-      font-size: 15px;
 
-      font-weight: 700;
+        .brand h1 {
 
-      cursor: pointer;
+            font-size: 34px;
 
-      transition: .2s;
-    }
+            font-weight: 800;
 
-    .btn-login:hover {
-      background: var(--ble-fonse);
+            letter-spacing: -0.5px;
 
-      transform: translateY(-1px);
-    }
+            margin-bottom: 7px;
 
-    .btn-login:disabled {
-      opacity: .65;
+        }
 
-      cursor: not-allowed;
 
-      transform: none;
-    }
+        .brand p {
 
-    .message {
-      display: none;
+            font-size: 15px;
 
-      margin-bottom: 18px;
+            opacity: 0.9;
 
-      padding: 12px 14px;
+        }
 
-      border-radius: 9px;
 
-      font-size: 13px;
+        /* =================================================
+           LOGIN CARD
+        ================================================== */
 
-      line-height: 1.5;
-    }
+        .login-card {
 
-    .message.error {
-      display: block;
+            background: white;
 
-      background: #fde3e3;
+            border-radius: 22px;
 
-      color: #991b1b;
+            padding: 34px 30px;
 
-      border: 1px solid #f6bcbc;
-    }
+            box-shadow:
+                0 20px 60px
+                rgba(0,0,0,0.20);
 
-    .message.success {
-      display: block;
+        }
 
-      background: #dcf5e7;
 
-      color: #176b3b;
+        .login-card h2 {
 
-      border: 1px solid #b7e5c9;
-    }
+            text-align: center;
 
-    .back {
-      text-align: center;
+            color: var(--ble);
 
-      margin-top: 20px;
-    }
+            font-size: 25px;
 
-    .back a {
-      color: var(--ble);
+            font-weight: 800;
 
-      text-decoration: none;
+            margin-bottom: 9px;
 
-      font-size: 13px;
+        }
 
-      font-weight: 700;
-    }
 
-    .back a:hover {
-      text-decoration: underline;
-    }
+        .subtitle {
 
-    .footer {
-      text-align: center;
+            text-align: center;
 
-      color: rgba(255,255,255,.75);
+            color: var(--gri);
 
-      font-size: 12px;
+            font-size: 13px;
 
-      margin-top: 20px;
-    }
+            line-height: 1.65;
 
-    @media (max-width: 480px) {
+            margin-bottom: 25px;
 
-      body {
-        padding: 15px;
-      }
+        }
 
-      .card {
-        padding: 25px 20px;
-      }
 
-      .brand h1 {
-        font-size: 24px;
-      }
+        /* =================================================
+           MESSAGE
+        ================================================== */
 
-      .logo {
-        width: 65px;
-        height: 65px;
+        .message {
 
-        font-size: 28px;
-      }
+            display: none;
 
-    }
+            padding: 13px 14px;
 
-  </style>
+            border-radius: 10px;
+
+            margin-bottom: 18px;
+
+            font-size: 13px;
+
+            line-height: 1.55;
+
+        }
+
+
+        .message.error {
+
+            display: block;
+
+            background: #fff1f0;
+
+            color: var(--wouj);
+
+            border:
+                1px solid #fecdca;
+
+        }
+
+
+        .message.success {
+
+            display: block;
+
+            background: #ecfdf3;
+
+            color: #027a48;
+
+            border:
+                1px solid #abefc6;
+
+        }
+
+
+        .message.info {
+
+            display: block;
+
+            background: #eff8ff;
+
+            color: #175cd3;
+
+            border:
+                1px solid #b2ddff;
+
+        }
+
+
+        /* =================================================
+           FORM
+        ================================================== */
+
+        .form-group {
+
+            margin-bottom: 18px;
+
+        }
+
+
+        label {
+
+            display: block;
+
+            color: #172033;
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+            margin-bottom: 8px;
+
+        }
+
+
+        input {
+
+            width: 100%;
+
+            height: 53px;
+
+            border:
+                1px solid var(--bord);
+
+            border-radius: 10px;
+
+            padding:
+                0 15px;
+
+            font-family: inherit;
+
+            font-size: 14px;
+
+            color: #172033;
+
+            outline: none;
+
+            background: white;
+
+            transition: 0.2s;
+
+        }
+
+
+        input:focus {
+
+            border-color: var(--ble);
+
+            box-shadow:
+                0 0 0 3px
+                rgba(11,59,117,0.10);
+
+        }
+
+
+        /* =================================================
+           LOGIN BUTTON
+        ================================================== */
+
+        .btn-login {
+
+            width: 100%;
+
+            height: 54px;
+
+            border: none;
+
+            border-radius: 10px;
+
+            background: var(--ble);
+
+            color: white;
+
+            font-family: inherit;
+
+            font-size: 15px;
+
+            font-weight: 800;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+
+        }
+
+
+        .btn-login:hover {
+
+            background: var(--ble-fonse);
+
+        }
+
+
+        .btn-login:disabled {
+
+            opacity: 0.65;
+
+            cursor: not-allowed;
+
+        }
+
+
+        /* =================================================
+           LOADER
+        ================================================== */
+
+        .loader {
+
+            display: inline-block;
+
+            width: 17px;
+
+            height: 17px;
+
+            border:
+                2px solid
+                rgba(255,255,255,0.35);
+
+            border-top-color: white;
+
+            border-radius: 50%;
+
+            animation:
+                spin 0.7s linear infinite;
+
+            vertical-align: middle;
+
+            margin-right: 7px;
+
+        }
+
+
+        @keyframes spin {
+
+            to {
+
+                transform:
+                    rotate(360deg);
+
+            }
+
+        }
+
+
+        /* =================================================
+           BACK LINK
+        ================================================== */
+
+        .back {
+
+            display: block;
+
+            text-align: center;
+
+            margin-top: 24px;
+
+            color: var(--ble);
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+            text-decoration: none;
+
+        }
+
+
+        .back:hover {
+
+            text-decoration: underline;
+
+        }
+
+
+        /* =================================================
+           FOOTER
+        ================================================== */
+
+        .footer {
+
+            text-align: center;
+
+            color: white;
+
+            margin-top: 25px;
+
+            font-size: 12px;
+
+            opacity: 0.85;
+
+            line-height: 1.7;
+
+        }
+
+
+        /* =================================================
+           MOBILE
+        ================================================== */
+
+        @media (max-width: 500px) {
+
+            body {
+
+                padding: 18px;
+
+            }
+
+
+            .brand h1 {
+
+                font-size: 29px;
+
+            }
+
+
+            .logo {
+
+                width: 82px;
+
+                height: 82px;
+
+                font-size: 35px;
+
+            }
+
+
+            .login-card {
+
+                padding:
+                    28px 20px;
+
+            }
+
+        }
+
+    </style>
+
 </head>
 
 
 <body>
 
-  <div class="login-wrapper">
+
+    <div class="container">
 
 
-    <!-- =========================
-         BRAND LAJONÈ'M
-    ========================== -->
+        <!-- =================================================
+             BRAND
+        ================================================== -->
 
-    <div class="brand">
+        <div class="brand">
 
-      <div class="logo">
-        L
-      </div>
+            <div class="logo">
+                L
+            </div>
 
-      <h1>
-        LAJONÈ'M
-      </h1>
+            <h1>
+                LAJONÈ'M
+            </h1>
 
-      <p>
-        Laj yo se onè nou.
-      </p>
-
-    </div>
-
-
-    <!-- =========================
-         KAT KONEKSYON
-    ========================== -->
-
-    <div class="card">
-
-      <h2>
-        Koneksyon administratè
-      </h2>
-
-      <p class="intro">
-        Antre ak kont administratè ou pou jwenn aksè
-        nan espas administrasyon LAJONÈ'M.
-      </p>
-
-
-      <!-- MESAJ -->
-
-      <div
-        id="message"
-        class="message"
-      ></div>
-
-
-      <!-- FORM -->
-
-      <form id="loginForm">
-
-
-        <!-- EMAIL -->
-
-        <div class="field">
-
-          <label for="email">
-            Adrès email
-          </label>
-
-          <input
-            type="email"
-            id="email"
-            placeholder="Antre email ou"
-            autocomplete="email"
-            required
-          >
+            <p>
+                Laj yo se onè nou.
+            </p>
 
         </div>
 
 
-        <!-- MODPAS -->
 
-        <div class="field">
+        <!-- =================================================
+             LOGIN CARD
+        ================================================== -->
 
-          <label for="password">
-            Modpas
-          </label>
+        <div class="login-card">
 
-          <input
-            type="password"
-            id="password"
-            placeholder="Antre modpas ou"
-            autocomplete="current-password"
-            required
-          >
+            <h2>
+                Koneksyon
+            </h2>
+
+
+            <p class="subtitle">
+
+                Antre ak kont ou pou jwenn aksè
+                nan espas LAJONÈ'M ki koresponn
+                ak wòl ou.
+
+            </p>
+
+
+
+            <!-- =================================================
+                 MESSAGE
+            ================================================== -->
+
+            <div
+                id="message"
+                class="message"
+            ></div>
+
+
+
+            <!-- =================================================
+                 FORM
+            ================================================== -->
+
+            <form id="loginForm">
+
+
+                <!-- EMAIL -->
+
+                <div class="form-group">
+
+                    <label for="email">
+
+                        Adrès email
+
+                    </label>
+
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="egzanp@email.com"
+                        autocomplete="email"
+                        required
+                    >
+
+                </div>
+
+
+
+                <!-- PASSWORD -->
+
+                <div class="form-group">
+
+                    <label for="password">
+
+                        Modpas
+
+                    </label>
+
+
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Antre modpas ou"
+                        autocomplete="current-password"
+                        required
+                    >
+
+                </div>
+
+
+
+                <!-- BUTTON -->
+
+                <button
+                    type="submit"
+                    id="btnLogin"
+                    class="btn-login"
+                >
+
+                    Konekte
+
+                </button>
+
+
+            </form>
+
+
+
+            <!-- BACK -->
+
+            <a
+                href="index.html"
+                class="back"
+            >
+
+                ← Retounen sou sit LAJONÈ'M
+
+            </a>
+
 
         </div>
 
 
-        <!-- BOUTON -->
 
-        <button
-          type="submit"
-          class="btn-login"
-          id="btnLogin"
-        >
-          Konekte
-        </button>
+        <!-- =================================================
+             FOOTER
+        ================================================== -->
 
-      </form>
+        <div class="footer">
 
+            LAJONÈ'M —
+            Wè. Akonpaye. Valorizasyon.
 
-      <!-- RETOUNEN -->
+        </div>
 
-      <div class="back">
-
-        <a href="index.html">
-          ← Retounen sou sit LAJONÈ'M
-        </a>
-
-      </div>
 
     </div>
 
 
-    <div class="footer">
-      LAJONÈ'M — Wè. Akonpaye. Valorizasyon.
-    </div>
 
-  </div>
+    <!-- =====================================================
+         SUPABASE CDN
+         
+         Li dwe vini ANVAN js/supabase.js
+    ====================================================== -->
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 
-  <!-- =========================
-       SUPABASE
-  ========================== -->
+    <!-- =====================================================
+         SUPABASE CLIENT
+    ====================================================== -->
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase.js"></script>
+    
+    <script src="js/paramet.js"></script>
 
-  <script src="js/supabase.js"></script>
 
 
-  <script>
 
-    /* =========================
-       ELEMENT HTML
-    ========================== */
+    <!-- =====================================================
+         LOGIN SYSTEM
+    ====================================================== -->
 
-    const form =
-      document.getElementById("loginForm");
+    <script>
 
-    const emailInput =
-      document.getElementById("email");
+        /* =====================================================
+           ELEMENTS
+        ====================================================== */
 
-    const passwordInput =
-      document.getElementById("password");
-
-    const btnLogin =
-      document.getElementById("btnLogin");
-
-    const message =
-      document.getElementById("message");
-
-
-
-    /* =========================
-       MESAJ
-    ========================== */
-
-    function montreMessage(
-      texte,
-      type = "error"
-    ) {
-
-      message.className =
-        "message " + type;
-
-      message.textContent =
-        texte;
-
-    }
-
-
-    function netwayeMessage() {
-
-      message.className =
-        "message";
-
-      message.textContent =
-        "";
-
-    }
-
-
-
-    /* =========================
-       VERIFYE ADMINISTRATÈ
-    ========================== */
-
-    async function verifyeAdministrateur(user) {
-
-      try {
-
-        const {
-          data: admin,
-          error
-        } = await supabaseClient
-
-          .from("itilizatè_admin")
-
-          .select(`
-            id,
-            user_id,
-            non,
-            siyati,
-            email,
-            wòl,
-            aktif
-          `)
-
-          .eq(
-            "user_id",
-            user.id
-          )
-
-          .eq(
-            "aktif",
-            true
-          )
-
-          .maybeSingle();
-
-
-        /* =========================
-           ERÈ SUPABASE
-        ========================== */
-
-        if (error) {
-
-          console.error(
-            "Erè verifikasyon admin:",
-            error
-          );
-
-          console.error(
-            "Code:",
-            error.code
-          );
-
-          console.error(
-            "Message:",
-            error.message
-          );
-
-          console.error(
-            "Details:",
-            error.details
-          );
-
-          console.error(
-            "Hint:",
-            error.hint
-          );
-
-
-          return {
-
-            ok: false,
-
-            message:
-              "Erè baz done: " +
-              (
-                error.message ||
-                "Erè enkoni"
-              )
-
-          };
-
-        }
-
-
-        /* =========================
-           PA GEN ADMIN
-        ========================== */
-
-        if (!admin) {
-
-          return {
-
-            ok: false,
-
-            message:
-              "Kont sa a pa gen otorizasyon administratè LAJONÈ'M."
-
-          };
-
-        }
-
-
-        /* =========================
-           VERIFYE WÒL
-        ========================== */
-
-        if (
-          admin.wòl !== "super_admin" &&
-          admin.wòl !== "admin"
-        ) {
-
-          return {
-
-            ok: false,
-
-            message:
-              "Wòl kont sa a pa gen aksè nan administrasyon an."
-
-          };
-
-        }
-
-
-        return {
-
-          ok: true,
-
-          admin: admin
-
-        };
-
-
-      } catch (error) {
-
-        console.error(
-          "Erè verifyeAdministrateur:",
-          error
-        );
-
-
-        return {
-
-          ok: false,
-
-          message:
-            "Yon erè rive pandan verifikasyon administratè a."
-
-        };
-
-      }
-
-    }
-
-
-
-    /* =========================
-       KONEKSYON
-    ========================== */
-
-    form.addEventListener(
-      "submit",
-      async function(event) {
-
-        event.preventDefault();
-
-
-        netwayeMessage();
-
-
-        const email =
-          emailInput.value.trim();
-
-
-        const password =
-          passwordInput.value;
-
-
-        /* =========================
-           VALIDASYON
-        ========================== */
-
-        if (
-          !email ||
-          !password
-        ) {
-
-          montreMessage(
-            "Tanpri ranpli email ak modpas ou."
-          );
-
-          return;
-
-        }
-
-
-        /* =========================
-           BLOKE BOUTON
-        ========================== */
-
-        btnLogin.disabled =
-          true;
-
-        btnLogin.textContent =
-          "Ap konekte...";
-
-
-        try {
-
-
-          /* =========================
-             SUPABASE AUTH
-          ========================== */
-
-          const {
-            data,
-            error
-          } =
-            await supabaseClient.auth
-              .signInWithPassword({
-
-                email: email,
-
-                password: password
-
-              });
-
-
-          /* =========================
-             ERÈ KONEKSYON
-          ========================== */
-
-          if (error) {
-
-            console.error(
-              "Erè koneksyon:",
-              error
+        const loginForm =
+            document.getElementById(
+                "loginForm"
             );
 
-            console.error(
-              "Code:",
-              error.code
+
+        const emailInput =
+            document.getElementById(
+                "email"
             );
 
-            console.error(
-              "Message:",
-              error.message
+
+        const passwordInput =
+            document.getElementById(
+                "password"
+            );
+
+
+        const btnLogin =
+            document.getElementById(
+                "btnLogin"
+            );
+
+
+        const message =
+            document.getElementById(
+                "message"
+            );
+
+
+
+        /* =====================================================
+           MESSAGE
+        ====================================================== */
+
+        function montreMesaj(
+            texte,
+            kalite = "error"
+        ) {
+
+            message.textContent =
+                texte;
+
+            message.className =
+                "message " + kalite;
+
+        }
+
+
+        function efaseMesaj() {
+
+            message.textContent =
+                "";
+
+            message.className =
+                "message";
+
+        }
+
+
+
+        /* =====================================================
+           NON WÒL
+        ====================================================== */
+
+        function jwennNonWol(
+            wol
+        ) {
+
+            const nonWol = {
+
+                "super_admin":
+                    "Super Administratè",
+
+                "admin":
+                    "Administratè",
+
+                "editè":
+                    "Editè",
+
+                "volonte":
+                    "Volontè"
+
+            };
+
+
+            return (
+                nonWol[wol] ||
+                "Itilizatè"
+            );
+
+        }
+
+
+
+        /* =====================================================
+           REDIRECTION SELON WÒL
+        ====================================================== */
+
+        function redirijeSelonWol(
+            wol
+        ) {
+
+            console.log(
+                "🔐 Wòl detekte:",
+                wol
             );
 
 
             /*
-             * Mesaj ki pi klè
+             * VOLONTÈ
+             *
+             * Li pa ale nan admin.html.
              */
-
-            let mesaj =
-              "Koneksyon echwe.";
-
 
             if (
-              error.message &&
-              error.message
-                .toLowerCase()
-                .includes("email not confirmed")
+                wol ===
+                "volonte"
             ) {
 
-              mesaj =
-                "Email kont lan poko konfime nan Supabase.";
+                console.log(
+                    "➡️ Redirection volontè..."
+                );
+
+
+                window.location.replace(
+                    "espas-volonte.html"
+                );
+
+
+                return true;
 
             }
 
-            else if (
-              error.message &&
-              error.message
-                .toLowerCase()
-                .includes("invalid login credentials")
-            ) {
-
-              mesaj =
-                "Email oswa modpas la pa kòrèk.";
-
-            }
-
-            else {
-
-              mesaj =
-                error.message ||
-                "Koneksyon echwe.";
-
-            }
-
-
-            montreMessage(mesaj);
-
-            return;
-
-          }
-
-
-          /* =========================
-             VERIFYE USER
-          ========================== */
-
-          if (!data || !data.user) {
-
-            montreMessage(
-              "Supabase pa retounen itilizatè a."
-            );
-
-            return;
-
-          }
-
-
-          /* =========================
-             VERIFYE ADMIN
-          ========================== */
-
-          const verifikasyon =
-            await verifyeAdministrateur(
-              data.user
-            );
-
-
-          /* =========================
-             PA ADMIN
-          ========================== */
-
-          if (!verifikasyon.ok) {
 
 
             /*
-             * Fèmen sesyon an
+             * ADMINISTRASYON
              */
 
-            await supabaseClient.auth.signOut();
+            if (
+
+                wol ===
+                    "super_admin"
+
+                ||
+
+                wol ===
+                    "admin"
+
+                ||
+
+                wol ===
+                    "editè"
+
+            ) {
+
+                console.log(
+                    "➡️ Redirection administrasyon..."
+                );
 
 
-            montreMessage(
-              verifikasyon.message
-            );
+                window.location.replace(
+                    "admin.html"
+                );
 
 
-            return;
+                return true;
 
-          }
-
-
-          /* =========================
-             KONEKSYON REYISI
-          ========================== */
-
-          montreMessage(
-
-            "Koneksyon reyisi. " +
-            "Ap mennen ou nan administrasyon an...",
-
-            "success"
-
-          );
+            }
 
 
-          /* =========================
-             ALE ADMIN
-          ========================== */
-
-          setTimeout(
-            () => {
-
-              window.location.href =
-                "admin.html";
-
-            },
-            700
-          );
-
-
-        }
-
-        catch (error) {
-
-          console.error(
-            "Erè inatandi:",
-            error
-          );
-
-
-          montreMessage(
-            "Yon erè inatandi rive. " +
-            "Tanpri verifye koneksyon entènèt la epi eseye ankò."
-          );
+            return false;
 
         }
 
 
-        finally {
 
-          btnLogin.disabled =
-            false;
+        /* =====================================================
+           CHACHE PROFIL AKTIF
+        ====================================================== */
 
-          btnLogin.textContent =
-            "Konekte";
-
-        }
-
-      }
-    );
-
-
-
-    /* =========================
-       VERIFYE SI SESYON
-       DEJA OUVÈ
-    ========================== */
-
-    async function verifyeSesyon() {
-
-      try {
-
-        const {
-          data: {
-            user
-          }
-        } =
-          await supabaseClient.auth
-            .getUser();
-
-
-        /*
-         * Pa gen itilizatè
-         */
-
-        if (!user) {
-
-          return;
-
-        }
-
-
-        /*
-         * Gen itilizatè:
-         * verifye si se admin
-         */
-
-        const verifikasyon =
-          await verifyeAdministrateur(
-            user
-          );
-
-
-        /*
-         * Si li deja admin,
-         * pa bezwen konekte ankò.
-         */
-
-        if (
-          verifikasyon.ok
+        async function chacheProfil(
+            userId
         ) {
 
-          window.location.href =
-            "admin.html";
+            const {
+
+                data,
+
+                error
+
+            } =
+
+                await supabaseClient
+
+                    .from(
+                        "itilizatè_admin"
+                    )
+
+                    .select(`
+                        id,
+                        user_id,
+                        non,
+                        siyati,
+                        email,
+                        wòl,
+                        aktif
+                    `)
+
+                    .eq(
+                        "user_id",
+                        userId
+                    )
+
+                    .eq(
+                        "aktif",
+                        true
+                    )
+
+                    .maybeSingle();
+
+
+            if (error) {
+
+                console.error(
+                    "❌ Erè chajman profil:",
+                    error
+                );
+
+
+                throw new Error(
+                    "Nou pa kapab verifye otorizasyon kont ou."
+                );
+
+            }
+
+
+            return data;
 
         }
 
 
-      }
 
-      catch (error) {
+        /* =====================================================
+           LOGIN
+        ====================================================== */
 
-        console.error(
-          "Erè sesyon:",
-          error
+        loginForm.addEventListener(
+            "submit",
+            async function(event) {
+
+                event.preventDefault();
+
+
+                efaseMesaj();
+
+
+                const email =
+                    emailInput.value
+                        .trim()
+                        .toLowerCase();
+
+
+                const password =
+                    passwordInput.value;
+
+
+                if (
+                    !email ||
+                    !password
+                ) {
+
+                    montreMesaj(
+                        "Tanpri antre email ak modpas ou."
+                    );
+
+                    return;
+
+                }
+
+
+                btnLogin.disabled =
+                    true;
+
+
+                btnLogin.innerHTML = `
+
+                    <span class="loader"></span>
+
+                    Koneksyon...
+
+                `;
+
+
+                try {
+
+
+                    /* =========================================
+                       1. VERIFYE CLIENT SUPABASE
+                    ========================================== */
+
+                    if (
+                        typeof supabaseClient ===
+                        "undefined"
+                    ) {
+
+                        throw new Error(
+                            "Sistèm Supabase la pa disponib. Verifye js/supabase.js."
+                        );
+
+                    }
+
+
+
+                    /* =========================================
+                       2. LOGIN AUTH
+                    ========================================== */
+
+                    const {
+
+                        data:
+                            authData,
+
+                        error:
+                            authError
+
+                    } =
+
+                        await supabaseClient
+
+                            .auth
+
+                            .signInWithPassword({
+
+                                email:
+                                    email,
+
+                                password:
+                                    password
+
+                            });
+
+
+                    if (authError) {
+
+                        console.error(
+                            "❌ Auth error:",
+                            authError
+                        );
+
+
+                        throw new Error(
+                            "Email oswa modpas la pa kòrèk."
+                        );
+
+                    }
+
+
+                    if (
+                        !authData ||
+                        !authData.user
+                    ) {
+
+                        throw new Error(
+                            "Nou pa kapab jwenn kont itilizatè a."
+                        );
+
+                    }
+
+
+                    const user =
+                        authData.user;
+
+
+                    console.log(
+                        "✅ Auth reyisi:",
+                        user.email
+                    );
+
+
+
+                    /* =========================================
+                       3. CHACHE PWOFIL LA
+                    ========================================== */
+
+                    const profil =
+                        await chacheProfil(
+                            user.id
+                        );
+
+
+                    /* =========================================
+                       4. PA GEN PROFIL
+                    ========================================== */
+
+                    if (!profil) {
+
+
+                        await supabaseClient
+
+                            .auth
+
+                            .signOut();
+
+
+                        throw new Error(
+                            "Kont sa a poko gen yon pwofil otorize nan LAJONÈ'M."
+                        );
+
+                    }
+
+
+
+                    /* =========================================
+                       5. VERIFYE AKTIF
+                       
+                       Nou deja itilize:
+                       .eq("aktif", true)
+
+                       Men nou verifye l ankò.
+                    ========================================== */
+
+                    if (
+                        profil.aktif !== true
+                    ) {
+
+                        await supabaseClient
+
+                            .auth
+
+                            .signOut();
+
+
+                        throw new Error(
+                            "Kont sa a pa aktive pou itilize platfòm LAJONÈ'M."
+                        );
+
+                    }
+
+
+
+                    /* =========================================
+                       6. NORMALIZE WÒL
+                    ========================================== */
+
+                    const wol =
+
+                        String(
+                            profil.wòl ||
+                            ""
+                        )
+
+                        .trim()
+
+                        .toLowerCase();
+
+
+                    console.log(
+                        "👤 Non:",
+                        profil.non,
+                        profil.siyati
+                    );
+
+
+                    console.log(
+                        "🔐 Wòl:",
+                        wol
+                    );
+
+
+
+                    /* =========================================
+                       7. VERIFYE WÒL LA
+                    ========================================== */
+
+                    const wolOtorize = [
+
+                        "super_admin",
+
+                        "admin",
+
+                        "editè",
+
+                        "volonte"
+
+                    ];
+
+
+                    if (
+                        !wolOtorize.includes(
+                            wol
+                        )
+                    ) {
+
+                        await supabaseClient
+
+                            .auth
+
+                            .signOut();
+
+
+                        throw new Error(
+                            "Wòl kont sa a pa rekonèt nan sistèm LAJONÈ'M."
+                        );
+
+                    }
+
+
+
+                    /* =========================================
+                       8. MESAJ SIKSÈ
+                    ========================================== */
+
+                    montreMesaj(
+
+                        "Koneksyon reyisi. " +
+
+                        "Wòl ou: " +
+
+                        jwennNonWol(
+                            wol
+                        ) +
+
+                        ". N ap ouvri espas ou...",
+
+                        "success"
+
+                    );
+
+
+
+                    /* =========================================
+                       9. REDIRECTION
+                    ========================================== */
+
+                    setTimeout(
+                        function() {
+
+                            const ale =
+                                redirijeSelonWol(
+                                    wol
+                                );
+
+
+                            if (!ale) {
+
+                                console.error(
+                                    "❌ Pa gen redirection pou wòl:",
+                                    wol
+                                );
+
+                            }
+
+                        },
+                        500
+                    );
+
+
+                } catch (error) {
+
+
+                    console.error(
+                        "❌ Erè koneksyon:",
+                        error
+                    );
+
+
+                    montreMesaj(
+
+                        error.message ||
+
+                        "Nou pa kapab konekte kont sa a."
+
+                    );
+
+
+                    btnLogin.disabled =
+                        false;
+
+
+                    btnLogin.textContent =
+                        "Konekte";
+
+                }
+
+            }
         );
 
-      }
-
-    }
 
 
+        /* =====================================================
+           VERIFYE SI GEN SESSION DEJA
+           
+           Sa itil lè itilizatè a retounen sou login.html
+           pandan li deja konekte.
+        ====================================================== */
 
-    /* =========================
-       DEMARAJ
-    ========================== */
+        async function verifyeSession() {
 
-    document.addEventListener(
-      "DOMContentLoaded",
-      function() {
+            try {
 
-        verifyeSesyon();
 
-      }
-    );
+                if (
+                    typeof supabaseClient ===
+                    "undefined"
+                ) {
 
-  </script>
+                    console.error(
+                        "❌ supabaseClient pa disponib."
+                    );
+
+                    return;
+
+                }
+
+
+                const {
+
+                    data,
+
+                    error
+
+                } =
+
+                    await supabaseClient
+
+                        .auth
+
+                        .getSession();
+
+
+                if (error) {
+
+                    console.error(
+                        "❌ Erè session:",
+                        error
+                    );
+
+                    return;
+
+                }
+
+
+                const session =
+                    data?.session;
+
+
+                if (!session) {
+
+                    return;
+
+                }
+
+
+                console.log(
+                    "🔎 Session deja egziste."
+                );
+
+
+                const profil =
+                    await chacheProfil(
+                        session.user.id
+                    );
+
+
+                if (!profil) {
+
+                    await supabaseClient
+
+                        .auth
+
+                        .signOut();
+
+                    return;
+
+                }
+
+
+                if (
+                    profil.aktif !== true
+                ) {
+
+                    await supabaseClient
+
+                        .auth
+
+                        .signOut();
+
+                    return;
+
+                }
+
+
+                const wol =
+
+                    String(
+                        profil.wòl ||
+                        ""
+                    )
+
+                    .trim()
+
+                    .toLowerCase();
+
+
+                const wolOtorize = [
+
+                    "super_admin",
+
+                    "admin",
+
+                    "editè",
+
+                    "volonte"
+
+                ];
+
+
+                if (
+                    !wolOtorize.includes(
+                        wol
+                    )
+                ) {
+
+                    await supabaseClient
+
+                        .auth
+
+                        .signOut();
+
+                    return;
+
+                }
+
+
+                redirijeSelonWol(
+                    wol
+                );
+
+
+            } catch (error) {
+
+                console.error(
+                    "❌ Erè verifye session:",
+                    error
+                );
+
+            }
+
+        }
+
+
+
+        /* =====================================================
+           LANSE SESSION CHECK
+        ====================================================== */
+
+        verifyeSession();
+
+    </script>
 
 </body>
+
 </html>

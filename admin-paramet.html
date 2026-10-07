@@ -1,0 +1,2212 @@
+<!DOCTYPE html>
+<html lang="ht">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Paramèt | LAJONÈ'M</title>
+
+  <meta
+    name="description"
+    content="Jere paramèt jeneral ak idantite LAJONÈ'M."
+  >
+
+  <!-- Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <!-- Style prensipal -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <style>
+    :root {
+      --ble: #0B3B75;
+      --or: #F2B705;
+      --vet: #2E8B57;
+      --blan: #ffffff;
+      --gri: #f4f6f8;
+      --gri2: #e5e7eb;
+      --tèks: #1f2937;
+      --wouj: #dc2626;
+      --lonbraj: 0 8px 25px rgba(0,0,0,0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: var(--gri);
+      color: var(--tèks);
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* =========================
+       LAYOUT
+    ========================== */
+
+    .admin-layout {
+      min-height: 100vh;
+      display: flex;
+    }
+
+    /* =========================
+       SIDEBAR
+    ========================== */
+
+    .sidebar {
+      width: 260px;
+      background: var(--ble);
+      color: white;
+      min-height: 100vh;
+      position: fixed;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      overflow-y: auto;
+      z-index: 1000;
+    }
+
+    .sidebar-logo {
+      padding: 25px 20px;
+      text-align: center;
+      border-bottom: 1px solid rgba(255,255,255,0.15);
+    }
+
+    .sidebar-logo h2 {
+      color: white;
+      font-size: 25px;
+      margin-bottom: 5px;
+    }
+
+    .sidebar-logo span {
+      color: var(--or);
+      font-size: 13px;
+    }
+
+    .menu-title {
+      font-size: 11px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+      padding: 20px 20px 8px;
+      font-weight: bold;
+    }
+
+    .sidebar-menu {
+      list-style: none;
+    }
+
+    .sidebar-menu li {
+      margin: 3px 10px;
+    }
+
+    .sidebar-menu a {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      padding: 12px 13px;
+      border-radius: 8px;
+      color: rgba(255,255,255,0.88);
+      font-size: 14px;
+      transition: 0.2s;
+    }
+
+    .sidebar-menu a:hover {
+      background: rgba(255,255,255,0.10);
+      color: white;
+    }
+
+    .sidebar-menu a.active {
+      background: var(--or);
+      color: #111;
+      font-weight: bold;
+    }
+
+    .sidebar-menu .icon {
+      width: 22px;
+      text-align: center;
+      font-size: 16px;
+    }
+
+    /* =========================
+       MAIN
+    ========================== */
+
+    .main-content {
+      margin-left: 260px;
+      width: calc(100% - 260px);
+      min-height: 100vh;
+    }
+
+    /* =========================
+       HEADER
+    ========================== */
+
+    .topbar {
+      height: 72px;
+      background: white;
+      border-bottom: 1px solid var(--gri2);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 28px;
+      position: sticky;
+      top: 0;
+      z-index: 900;
+    }
+
+    .topbar-left h1 {
+      font-size: 22px;
+      color: var(--ble);
+    }
+
+    .topbar-left p {
+      font-size: 13px;
+      color: #6b7280;
+      margin-top: 3px;
+    }
+
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .admin-profile {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .admin-avatar {
+      width: 40px;
+      height: 40px;
+      background: var(--ble);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+
+    .admin-info strong {
+      display: block;
+      font-size: 14px;
+    }
+
+    .admin-info span {
+      display: block;
+      font-size: 12px;
+      color: #6b7280;
+    }
+
+    /* =========================
+       PAGE
+    ========================== */
+
+    .page-content {
+      padding: 28px;
+      max-width: 1250px;
+      margin: auto;
+    }
+
+    .page-header {
+      margin-bottom: 25px;
+    }
+
+    .page-header h2 {
+      color: var(--ble);
+      font-size: 26px;
+      margin-bottom: 7px;
+    }
+
+    .page-header p {
+      color: #6b7280;
+      font-size: 14px;
+    }
+
+    /* =========================
+       ALERT
+    ========================== */
+
+    .alert {
+      display: none;
+      padding: 14px 16px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      font-size: 14px;
+    }
+
+    .alert.success {
+      background: #dcfce7;
+      color: #166534;
+      border: 1px solid #bbf7d0;
+    }
+
+    .alert.error {
+      background: #fee2e2;
+      color: #991b1b;
+      border: 1px solid #fecaca;
+    }
+
+    .alert.info {
+      background: #dbeafe;
+      color: #1e40af;
+      border: 1px solid #bfdbfe;
+    }
+
+    /* =========================
+       GRID
+    ========================== */
+
+    .settings-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+    }
+
+    .settings-card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: var(--lonbraj);
+      padding: 24px;
+    }
+
+    .settings-card.full {
+      grid-column: 1 / -1;
+    }
+
+    .card-header {
+      border-bottom: 1px solid var(--gri2);
+      padding-bottom: 15px;
+      margin-bottom: 20px;
+    }
+
+    .card-header h3 {
+      color: var(--ble);
+      font-size: 18px;
+      margin-bottom: 5px;
+    }
+
+    .card-header p {
+      color: #6b7280;
+      font-size: 13px;
+    }
+
+    /* =========================
+       FORM
+    ========================== */
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 17px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .form-group.full {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      font-size: 13px;
+      font-weight: bold;
+      color: #374151;
+    }
+
+    input,
+    textarea,
+    select {
+      width: 100%;
+      padding: 11px 12px;
+      border: 1px solid #d1d5db;
+      border-radius: 7px;
+      font-family: inherit;
+      font-size: 14px;
+      background: white;
+      color: #111827;
+      outline: none;
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+      border-color: var(--ble);
+      box-shadow: 0 0 0 2px rgba(11,59,117,0.08);
+    }
+
+    textarea {
+      min-height: 110px;
+      resize: vertical;
+    }
+
+    .help-text {
+      font-size: 11px;
+      color: #6b7280;
+    }
+
+    /* =========================
+       COLORS
+    ========================== */
+
+    .color-row {
+      display: grid;
+      grid-template-columns: 1fr 90px;
+      gap: 10px;
+      align-items: end;
+    }
+
+    .color-preview {
+      height: 43px;
+      border-radius: 7px;
+      border: 1px solid #d1d5db;
+    }
+
+    /* =========================
+       CHECKBOX
+    ========================== */
+
+    .switch-box {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 13px;
+      background: #f9fafb;
+      border: 1px solid var(--gri2);
+      border-radius: 8px;
+    }
+
+    .switch-box input {
+      width: auto;
+      transform: scale(1.2);
+      accent-color: var(--ble);
+    }
+
+    .switch-content strong {
+      display: block;
+      font-size: 14px;
+    }
+
+    .switch-content span {
+      display: block;
+      margin-top: 3px;
+      font-size: 12px;
+      color: #6b7280;
+    }
+
+    /* =========================
+       BUTTONS
+    ========================== */
+
+    .actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 25px;
+      padding-top: 20px;
+      border-top: 1px solid var(--gri2);
+    }
+
+    .btn {
+      border: none;
+      border-radius: 8px;
+      padding: 12px 20px;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .btn-primary {
+      background: var(--ble);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      opacity: 0.92;
+    }
+
+    .btn-secondary {
+      background: #e5e7eb;
+      color: #374151;
+    }
+
+    .btn-secondary:hover {
+      background: #d1d5db;
+    }
+
+    .btn-danger {
+      background: var(--wouj);
+      color: white;
+    }
+
+    /* =========================
+       LOADING
+    ========================== */
+
+    .loading {
+      text-align: center;
+      padding: 35px;
+      color: #6b7280;
+    }
+
+    .spinner {
+      width: 30px;
+      height: 30px;
+      border: 3px solid #e5e7eb;
+      border-top-color: var(--ble);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 12px;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* =========================
+       ACCESS DENIED
+    ========================== */
+
+    .access-denied {
+      display: none;
+      max-width: 600px;
+      margin: 80px auto;
+      background: white;
+      border-radius: 12px;
+      padding: 40px;
+      text-align: center;
+      box-shadow: var(--lonbraj);
+    }
+
+    .access-denied .icon {
+      font-size: 50px;
+      margin-bottom: 15px;
+    }
+
+    .access-denied h2 {
+      color: var(--wouj);
+      margin-bottom: 10px;
+    }
+
+    .access-denied p {
+      color: #6b7280;
+      line-height: 1.6;
+    }
+
+    /* =========================
+       MOBILE
+    ========================== */
+
+    .mobile-menu-btn {
+      display: none;
+      background: var(--ble);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      padding: 8px 11px;
+      cursor: pointer;
+      font-size: 18px;
+    }
+
+    @media (max-width: 900px) {
+
+      .sidebar {
+        transform: translateX(-100%);
+        transition: 0.25s;
+      }
+
+      .sidebar.open {
+        transform: translateX(0);
+      }
+
+      .main-content {
+        margin-left: 0;
+        width: 100%;
+      }
+
+      .mobile-menu-btn {
+        display: block;
+      }
+
+      .settings-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .settings-card.full {
+        grid-column: auto;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .form-group.full {
+        grid-column: auto;
+      }
+
+      .topbar {
+        padding: 0 15px;
+      }
+
+      .admin-info {
+        display: none;
+      }
+
+      .page-content {
+        padding: 18px;
+      }
+    }
+
+    @media (max-width: 500px) {
+
+      .topbar-left h1 {
+        font-size: 18px;
+      }
+
+      .topbar-left p {
+        display: none;
+      }
+
+      .settings-card {
+        padding: 17px;
+      }
+
+      .actions {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="admin-layout">
+
+  <!-- =========================
+       SIDEBAR
+  ========================== -->
+
+  <aside class="sidebar" id="sidebar">
+
+    <div class="sidebar-logo">
+      <h2>LAJONÈ'M</h2>
+      <span>Administrasyon</span>
+    </div>
+
+    <div class="menu-title">Jeneral</div>
+
+    <ul class="sidebar-menu">
+
+      <li>
+        <a href="admin.html">
+          <span class="icon">📊</span>
+          <span>Dashboard</span>
+        </a>
+      </li>
+
+    </ul>
+
+    <div class="menu-title">Jesyon</div>
+
+    <ul class="sidebar-menu">
+
+      <li>
+        <a href="admin-aktivite.html" data-permission="jere_aktivite">
+          <span class="icon">📅</span>
+          <span>Aktivite</span>
+        </a>
+      </li>
+
+      <li>
+        <a href="admin-pwogram.html" data-permission="jere_pwogram">
+          <span class="icon">📚</span>
+          <span>Pwogram</span>
+        </a>
+      </li>
+
+      <li>
+        <a href="admin-volonte.html" data-permission="jere_volonte">
+          <span class="icon">🤝</span>
+          <span>Volontè</span>
+        </a>
+      </li>
+
+      <li>
+        <a href="admin-benefisye.html" data-permission="jere_benefisye">
+          <span class="icon">👴</span>
+          <span>Benefisyè</span>
+        </a>
+      </li>
+
+      <li>
+        <a href="admin-vizit.html" data-permission="jere_vizit">
+          <span class="icon">🏠</span>
+          <span>Vizit</span>
+        </a>
+      </li>
+
+      <li>
+        <a href="admin-don.html" data-permission="jere_don">
+          <span class="icon">💰</span>
+          <span>Don</span>
+        </a>
+      </li>
+
+      <li>
+        <a href="admin-donatè.html" data-permission="jere_donatè">
+          <span class="icon">❤️</span>
+          <span>Donatè</span>
+        </a>
+      </li>
+
+      <li>
+        <a href="admin-patne.html" data-permission="jere_patne">
+          <span class="icon">🤝</span>
+          <span>Patnè</span>
+        </a>
+      </li>
+
+      <li>
+        <a href="admin-nouvel.html" data-permission="jere_nouvel">
+          <span class="icon">📰</span>
+          <span>Nouvèl</span>
+        </a>
+      </li>
+
+      <li>
+        <a href="admin-galri.html" data-permission="jere_galri">
+          <span class="icon">🖼️</span>
+          <span>Galri</span>
+        </a>
+      </li>
+
+      <li>
+        <a href="admin-rapo.html" data-permission="jere_rapo">
+          <span class="icon">📄</span>
+          <span>Rapò</span>
+        </a>
+      </li>
+
+      <li>
+        <a href="admin-mesaj.html" data-permission="jere_mesaj">
+          <span class="icon">✉️</span>
+          <span>Mesaj</span>
+        </a>
+      </li>
+
+    </ul>
+
+    <div class="menu-title">Administrasyon</div>
+
+    <ul class="sidebar-menu">
+
+      <li>
+        <a href="admin-itilizatè.html" data-permission="jere_itilizatè">
+          <span class="icon">👥</span>
+          <span>Itilizatè & Aksè</span>
+        </a>
+      </li>
+
+      <li>
+        <a
+          href="admin-paramet.html"
+          class="active"
+          data-permission="jere_paramet"
+        >
+          <span class="icon">⚙️</span>
+          <span>Paramèt</span>
+        </a>
+      </li>
+
+    </ul>
+
+  </aside>
+
+
+  <!-- =========================
+       MAIN
+  ========================== -->
+
+  <main class="main-content">
+
+    <header class="topbar">
+
+      <div class="topbar-left">
+
+        <div style="display:flex;align-items:center;gap:12px;">
+
+          <button
+            class="mobile-menu-btn"
+            id="mobileMenuBtn"
+            type="button"
+          >
+            ☰
+          </button>
+
+          <div>
+            <h1>Paramèt</h1>
+            <p>Konfigire idantite ak enfòmasyon LAJONÈ'M</p>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="topbar-right">
+
+        <div class="admin-profile">
+
+          <div class="admin-avatar" id="adminAvatar">
+            A
+          </div>
+
+          <div class="admin-info">
+
+            <strong id="adminName">
+              Administratè
+            </strong>
+
+            <span id="adminRole">
+              Super Admin
+            </span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </header>
+
+
+    <!-- =========================
+         CONTENT
+    ========================== -->
+
+    <section class="page-content">
+
+      <div class="page-header">
+
+        <h2>Paramèt LAJONÈ'M</h2>
+
+        <p>
+          Jere enfòmasyon òganizasyon an, kontak, idantite vizyèl
+          ak mòd fonksyònman sit la.
+        </p>
+
+      </div>
+
+
+      <!-- ALERT -->
+
+      <div id="alertBox" class="alert"></div>
+
+
+      <!-- LOADING -->
+
+      <div id="loadingBox" class="loading">
+
+        <div class="spinner"></div>
+
+        <p>Chajman paramèt yo...</p>
+
+      </div>
+
+
+      <!-- ACCESS DENIED -->
+
+      <div id="accessDenied" class="access-denied">
+
+        <div class="icon">
+          🔒
+        </div>
+
+        <h2>Aksè refize</h2>
+
+        <p>
+          Wòl kont ou a pa gen pèmisyon
+          <strong>jere_paramet</strong>.
+          Se sèlman administratè ki otorize ki kapab modifye
+          paramèt òganizasyon an.
+        </p>
+
+        <br>
+
+        <a
+          href="admin.html"
+          class="btn btn-primary"
+          style="display:inline-block;"
+        >
+          Retounen Dashboard
+        </a>
+
+      </div>
+
+
+      <!-- SETTINGS -->
+
+      <form id="parametForm" style="display:none;">
+
+        <div class="settings-grid">
+
+
+          <!-- =========================
+               IDENTITE
+          ========================== -->
+
+          <div class="settings-card full">
+
+            <div class="card-header">
+
+              <h3>🏢 Idantite òganizasyon an</h3>
+
+              <p>
+                Enfòmasyon prensipal ki reprezante LAJONÈ'M.
+              </p>
+
+            </div>
+
+            <div class="form-grid">
+
+              <div class="form-group">
+
+                <label for="non_oganizasyon">
+                  Non òganizasyon an
+                </label>
+
+                <input
+                  type="text"
+                  id="non_oganizasyon"
+                  required
+                >
+
+              </div>
+
+
+              <div class="form-group">
+
+                <label for="slogan">
+                  Slogan
+                </label>
+
+                <input
+                  type="text"
+                  id="slogan"
+                  placeholder="Laj yo se onè nou."
+                >
+
+              </div>
+
+
+              <div class="form-group full">
+
+                <label for="deskripsyon">
+                  Deskripsyon
+                </label>
+
+                <textarea
+                  id="deskripsyon"
+                  placeholder="Ekri yon deskripsyon kout sou LAJONÈ'M..."
+                ></textarea>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <!-- =========================
+               KONTAK
+          ========================== -->
+
+          <div class="settings-card">
+
+            <div class="card-header">
+
+              <h3>📞 Enfòmasyon kontak</h3>
+
+              <p>
+                Enfòmasyon moun yo kapab itilize pou kontakte òganizasyon an.
+              </p>
+
+            </div>
+
+            <div class="form-grid">
+
+              <div class="form-group">
+
+                <label for="telefòn">
+                  Telefòn
+                </label>
+
+                <input
+                  type="text"
+                  id="telefòn"
+                  placeholder="+509..."
+                >
+
+              </div>
+
+
+              <div class="form-group">
+
+                <label for="whatsapp">
+                  WhatsApp
+                </label>
+
+                <input
+                  type="text"
+                  id="whatsapp"
+                  placeholder="+509..."
+                >
+
+              </div>
+
+
+              <div class="form-group full">
+
+                <label for="email">
+                  Imèl
+                </label>
+
+                <input
+                  type="email"
+                  id="email"
+                  placeholder="contact@lajonem.org"
+                >
+
+              </div>
+
+
+              <div class="form-group full">
+
+                <label for="adrès">
+                  Adrès
+                </label>
+
+                <textarea
+                  id="adrès"
+                  style="min-height:80px;"
+                ></textarea>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <!-- =========================
+               REZO SOSYAL
+          ========================== -->
+
+          <div class="settings-card">
+
+            <div class="card-header">
+
+              <h3>🌐 Entènèt & Rezo sosyal</h3>
+
+              <p>
+                Mete lyen ofisyèl òganizasyon an.
+              </p>
+
+            </div>
+
+            <div class="form-grid">
+
+              <div class="form-group full">
+
+                <label for="sit_web">
+                  Sit entènèt
+                </label>
+
+                <input
+                  type="url"
+                  id="sit_web"
+                  placeholder="https://..."
+                >
+
+              </div>
+
+
+              <div class="form-group full">
+
+                <label for="facebook">
+                  Facebook
+                </label>
+
+                <input
+                  type="url"
+                  id="facebook"
+                  placeholder="https://facebook.com/..."
+                >
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <!-- =========================
+               IDENTITE VIZYEL
+          ========================== -->
+
+          <div class="settings-card full">
+
+            <div class="card-header">
+
+              <h3>🎨 Idantite vizyèl</h3>
+
+              <p>
+                Konfigire logo ak koulè prensipal sit LAJONÈ'M.
+              </p>
+
+            </div>
+
+            <div class="form-grid">
+
+              <div class="form-group full">
+
+                <label for="logo_url">
+                  URL Logo
+                </label>
+
+                <input
+                  type="url"
+                  id="logo_url"
+                  placeholder="https://..."
+                >
+
+                <span class="help-text">
+                  Mete URL imaj logo a si li disponib sou entènèt.
+                </span>
+
+              </div>
+
+
+              <!-- BLE -->
+
+              <div class="form-group">
+
+                <label for="koulè_prensipal">
+                  Koulè prensipal
+                </label>
+
+                <div class="color-row">
+
+                  <input
+                    type="text"
+                    id="koulè_prensipal"
+                    value="#0B3B75"
+                    placeholder="#0B3B75"
+                  >
+
+                  <div
+                    class="color-preview"
+                    id="previewBle"
+                  ></div>
+
+                </div>
+
+                <span class="help-text">
+                  Egzanp: #0B3B75
+                </span>
+
+              </div>
+
+
+              <!-- OR -->
+
+              <div class="form-group">
+
+                <label for="koulè_segondè">
+                  Koulè segondè
+                </label>
+
+                <div class="color-row">
+
+                  <input
+                    type="text"
+                    id="koulè_segondè"
+                    value="#F2B705"
+                    placeholder="#F2B705"
+                  >
+
+                  <div
+                    class="color-preview"
+                    id="previewOr"
+                  ></div>
+
+                </div>
+
+                <span class="help-text">
+                  Egzanp: #F2B705
+                </span>
+
+              </div>
+
+
+              <!-- VÈT -->
+
+              <div class="form-group">
+
+                <label for="koulè_tèsyè">
+                  Koulè tèsyè
+                </label>
+
+                <div class="color-row">
+
+                  <input
+                    type="text"
+                    id="koulè_tèsyè"
+                    value="#2E8B57"
+                    placeholder="#2E8B57"
+                  >
+
+                  <div
+                    class="color-preview"
+                    id="previewVet"
+                  ></div>
+
+                </div>
+
+                <span class="help-text">
+                  Egzanp: #2E8B57
+                </span>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <!-- =========================
+               ANTRETYEN
+          ========================== -->
+
+          <div class="settings-card full">
+
+            <div class="card-header">
+
+              <h3>🛠️ Antretyen sit</h3>
+
+              <p>
+                Aktive mòd antretyen lè sit la bezwen fèmen
+                tanporèman pou piblik la.
+              </p>
+
+            </div>
+
+            <div class="form-grid">
+
+              <div class="form-group full">
+
+                <div class="switch-box">
+
+                  <input
+                    type="checkbox"
+                    id="antretyen"
+                  >
+
+                  <div class="switch-content">
+
+                    <strong>
+                      Aktive mòd antretyen
+                    </strong>
+
+                    <span>
+                      Lè opsyon sa aktive, sit piblik la kapab
+                      montre yon mesaj antretyen.
+                    </span>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+
+              <div class="form-group full">
+
+                <label for="mesaj_antretyen">
+                  Mesaj antretyen
+                </label>
+
+                <textarea
+                  id="mesaj_antretyen"
+                  placeholder="Sit LAJONÈ'M ap fè kèk amelyorasyon. Tanpri retounen pita."
+                ></textarea>
+
+              </div>
+
+
+              <div class="form-group full">
+
+                <div class="switch-box">
+
+                  <input
+                    type="checkbox"
+                    id="aktif"
+                    checked
+                  >
+
+                  <div class="switch-content">
+
+                    <strong>
+                      Paramèt yo aktif
+                    </strong>
+
+                    <span>
+                      Paramèt sa yo ap itilize sou sit piblik la.
+                    </span>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+        </div>
+
+
+        <!-- =========================
+             ACTIONS
+        ========================== -->
+
+        <div class="actions">
+
+          <button
+            type="button"
+            class="btn btn-secondary"
+            id="btnDashboard"
+          >
+            ← Dashboard
+          </button>
+
+          <button
+            type="button"
+            class="btn btn-danger"
+            id="btnLogout"
+          >
+            Dekonekte
+          </button>
+
+          <button
+            type="submit"
+            class="btn btn-primary"
+            id="btnSave"
+          >
+            💾 Anrejistre paramèt yo
+          </button>
+
+        </div>
+
+      </form>
+
+    </section>
+
+  </main>
+
+</div>
+
+
+<!-- =========================
+     SCRIPTS
+========================== -->
+
+<script src="js/supabase.js"></script>
+<script src="js/permissions.js"></script>
+
+<script>
+
+  let parametId = null;
+
+
+  /* =========================
+     ELEMENTS
+  ========================== */
+
+  const loadingBox = document.getElementById("loadingBox");
+  const accessDenied = document.getElementById("accessDenied");
+  const parametForm = document.getElementById("parametForm");
+  const alertBox = document.getElementById("alertBox");
+
+  const adminName = document.getElementById("adminName");
+  const adminRole = document.getElementById("adminRole");
+  const adminAvatar = document.getElementById("adminAvatar");
+
+
+  /* =========================
+     ALERT
+  ========================== */
+
+  function montreAlert(message, type = "info") {
+
+    alertBox.textContent = message;
+
+    alertBox.className = "alert " + type;
+
+    alertBox.style.display = "block";
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+
+  }
+
+
+  /* =========================
+     HIDE ALERT
+  ========================== */
+
+  function kacheAlert() {
+
+    alertBox.style.display = "none";
+
+  }
+
+
+  /* =========================
+     ESCAPE HTML
+  ========================== */
+
+  function escapeHTML(value) {
+
+    if (value === null || value === undefined) {
+      return "";
+    }
+
+    return String(value)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+
+  }
+
+
+  /* =========================
+     AFFICHE PROFIL ADMIN
+  ========================== */
+
+  function aficheProfilAdmin() {
+
+    try {
+
+      if (
+        typeof jwennProfilAdmin === "function"
+      ) {
+
+        const profil = jwennProfilAdmin();
+
+        if (profil) {
+
+          const non = [
+            profil.non || "",
+            profil.siyati || ""
+          ]
+          .join(" ")
+          .trim();
+
+          adminName.textContent =
+            non || "Administratè";
+
+          adminRole.textContent =
+            profil.wòl || "Administratè";
+
+          if (non) {
+
+            adminAvatar.textContent =
+              non.charAt(0).toUpperCase();
+
+          }
+
+        }
+
+      }
+
+    } catch (error) {
+
+      console.warn(
+        "Profil admin pa kapab afiche:",
+        error
+      );
+
+    }
+
+  }
+
+
+  /* =========================
+     CHAJ PARAMÈT
+  ========================== */
+
+  async function chajeParamet() {
+
+    try {
+
+      const {
+        data,
+        error
+      } = await supabaseClient
+        .from("paramet")
+        .select(`
+          id,
+          non_oganizasyon,
+          slogan,
+          deskripsyon,
+          telefòn,
+          email,
+          adrès,
+          sit_web,
+          whatsapp,
+          facebook,
+          logo_url,
+          koulè_prensipal,
+          koulè_segondè,
+          koulè_tèsyè,
+          antretyen,
+          mesaj_antretyen,
+          aktif,
+          dat_kreyasyon,
+          dat_mizajou
+        `)
+        .order("dat_kreyasyon", {
+          ascending: true
+        })
+        .limit(1)
+        .maybeSingle();
+
+
+      if (error) {
+
+        console.error(
+          "Erè chaj paramèt:",
+          error
+        );
+
+        montreAlert(
+          "Nou pa kapab chaje paramèt yo. " +
+          (error.message || ""),
+          "error"
+        );
+
+        return;
+
+      }
+
+
+      if (!data) {
+
+        parametId = null;
+
+        document.getElementById(
+          "non_oganizasyon"
+        ).value = "LAJONÈ'M";
+
+        document.getElementById(
+          "slogan"
+        ).value = "Laj yo se onè nou.";
+
+        document.getElementById(
+          "koulè_prensipal"
+        ).value = "#0B3B75";
+
+        document.getElementById(
+          "koulè_segondè"
+        ).value = "#F2B705";
+
+        document.getElementById(
+          "koulè_tèsyè"
+        ).value = "#2E8B57";
+
+        document.getElementById(
+          "aktif"
+        ).checked = true;
+
+        metePreviewKoule();
+
+        return;
+
+      }
+
+
+      parametId = data.id;
+
+
+      /* =========================
+         RANPLI FORM
+      ========================== */
+
+      document.getElementById(
+        "non_oganizasyon"
+      ).value = data.non_oganizasyon || "";
+
+      document.getElementById(
+        "slogan"
+      ).value = data.slogan || "";
+
+      document.getElementById(
+        "deskripsyon"
+      ).value = data.deskripsyon || "";
+
+      document.getElementById(
+        "telefòn"
+      ).value = data.telefòn || "";
+
+      document.getElementById(
+        "email"
+      ).value = data.email || "";
+
+      document.getElementById(
+        "adrès"
+      ).value = data.adrès || "";
+
+      document.getElementById(
+        "sit_web"
+      ).value = data.sit_web || "";
+
+      document.getElementById(
+        "whatsapp"
+      ).value = data.whatsapp || "";
+
+      document.getElementById(
+        "facebook"
+      ).value = data.facebook || "";
+
+      document.getElementById(
+        "logo_url"
+      ).value = data.logo_url || "";
+
+      document.getElementById(
+        "koulè_prensipal"
+      ).value =
+        data.koulè_prensipal || "#0B3B75";
+
+      document.getElementById(
+        "koulè_segondè"
+      ).value =
+        data.koulè_segondè || "#F2B705";
+
+      document.getElementById(
+        "koulè_tèsyè"
+      ).value =
+        data.koulè_tèsyè || "#2E8B57";
+
+      document.getElementById(
+        "antretyen"
+      ).checked = data.antretyen === true;
+
+      document.getElementById(
+        "mesaj_antretyen"
+      ).value =
+        data.mesaj_antretyen || "";
+
+      document.getElementById(
+        "aktif"
+      ).checked = data.aktif !== false;
+
+
+      metePreviewKoule();
+
+    } catch (error) {
+
+      console.error(
+        "Erè chaj paramèt:",
+        error
+      );
+
+      montreAlert(
+        "Yon erè rive pandan chajman paramèt yo.",
+        "error"
+      );
+
+    }
+
+  }
+
+
+  /* =========================
+     VERIFYE HEX COLOR
+  ========================== */
+
+  function validKoule(value) {
+
+    return /^#[0-9A-Fa-f]{6}$/.test(
+      String(value || "").trim()
+    );
+
+  }
+
+
+  /* =========================
+     COLOR PREVIEW
+  ========================== */
+
+  function metePreviewKoule() {
+
+    const ble =
+      document.getElementById(
+        "koulè_prensipal"
+      ).value.trim();
+
+    const or =
+      document.getElementById(
+        "koulè_segondè"
+      ).value.trim();
+
+    const vet =
+      document.getElementById(
+        "koulè_tèsyè"
+      ).value.trim();
+
+
+    const previewBle =
+      document.getElementById(
+        "previewBle"
+      );
+
+    const previewOr =
+      document.getElementById(
+        "previewOr"
+      );
+
+    const previewVet =
+      document.getElementById(
+        "previewVet"
+      );
+
+
+    previewBle.style.background =
+      validKoule(ble)
+        ? ble
+        : "#ffffff";
+
+    previewOr.style.background =
+      validKoule(or)
+        ? or
+        : "#ffffff";
+
+    previewVet.style.background =
+      validKoule(vet)
+        ? vet
+        : "#ffffff";
+
+  }
+
+
+  /* =========================
+     SAVE
+  ========================== */
+
+  async function anrejistreParamet(event) {
+
+    event.preventDefault();
+
+    kacheAlert();
+
+
+    const btnSave =
+      document.getElementById("btnSave");
+
+
+    const non_oganizasyon =
+      document.getElementById(
+        "non_oganizasyon"
+      ).value.trim();
+
+    const slogan =
+      document.getElementById(
+        "slogan"
+      ).value.trim();
+
+    const deskripsyon =
+      document.getElementById(
+        "deskripsyon"
+      ).value.trim();
+
+    const telefòn =
+      document.getElementById(
+        "telefòn"
+      ).value.trim();
+
+    const email =
+      document.getElementById(
+        "email"
+      ).value.trim();
+
+    const adrès =
+      document.getElementById(
+        "adrès"
+      ).value.trim();
+
+    const sit_web =
+      document.getElementById(
+        "sit_web"
+      ).value.trim();
+
+    const whatsapp =
+      document.getElementById(
+        "whatsapp"
+      ).value.trim();
+
+    const facebook =
+      document.getElementById(
+        "facebook"
+      ).value.trim();
+
+    const logo_url =
+      document.getElementById(
+        "logo_url"
+      ).value.trim();
+
+    const koulè_prensipal =
+      document.getElementById(
+        "koulè_prensipal"
+      ).value.trim();
+
+    const koulè_segondè =
+      document.getElementById(
+        "koulè_segondè"
+      ).value.trim();
+
+    const koulè_tèsyè =
+      document.getElementById(
+        "koulè_tèsyè"
+      ).value.trim();
+
+    const antretyen =
+      document.getElementById(
+        "antretyen"
+      ).checked;
+
+    const mesaj_antretyen =
+      document.getElementById(
+        "mesaj_antretyen"
+      ).value.trim();
+
+    const aktif =
+      document.getElementById(
+        "aktif"
+      ).checked;
+
+
+    /* =========================
+       VALIDASYON
+    ========================== */
+
+    if (!non_oganizasyon) {
+
+      montreAlert(
+        "Tanpri mete non òganizasyon an.",
+        "error"
+      );
+
+      return;
+
+    }
+
+
+    if (
+      !validKoule(koulè_prensipal) ||
+      !validKoule(koulè_segondè) ||
+      !validKoule(koulè_tèsyè)
+    ) {
+
+      montreAlert(
+        "Koulè yo dwe nan fòma HEX, egzanp #0B3B75.",
+        "error"
+      );
+
+      return;
+
+    }
+
+
+    const payload = {
+
+      non_oganizasyon,
+
+      slogan,
+
+      deskripsyon,
+
+      telefòn,
+
+      email,
+
+      adrès,
+
+      sit_web,
+
+      whatsapp,
+
+      facebook,
+
+      logo_url,
+
+      koulè_prensipal,
+
+      koulè_segondè,
+
+      koulè_tèsyè,
+
+      antretyen,
+
+      mesaj_antretyen,
+
+      aktif,
+
+      dat_mizajou:
+        new Date().toISOString()
+
+    };
+
+
+    btnSave.disabled = true;
+
+    btnSave.textContent =
+      "⏳ Anrejistreman...";
+
+
+    try {
+
+      let result;
+
+
+      /* =========================
+         UPDATE
+      ========================== */
+
+      if (parametId) {
+
+        result =
+          await supabaseClient
+            .from("paramet")
+            .update(payload)
+            .eq("id", parametId)
+            .select()
+            .single();
+
+      }
+
+
+      /* =========================
+         INSERT
+      ========================== */
+
+      else {
+
+        result =
+          await supabaseClient
+            .from("paramet")
+            .insert([
+              payload
+            ])
+            .select()
+            .single();
+
+      }
+
+
+      const {
+        data,
+        error
+      } = result;
+
+
+      if (error) {
+
+        console.error(
+          "Erè anrejistreman:",
+          error
+        );
+
+        montreAlert(
+          "Nou pa kapab anrejistre paramèt yo: " +
+          (error.message || "Erè enkoni."),
+          "error"
+        );
+
+        return;
+
+      }
+
+
+      if (data?.id) {
+
+        parametId = data.id;
+
+      }
+
+
+      montreAlert(
+        "Paramèt LAJONÈ'M yo anrejistre avèk siksè.",
+        "success"
+      );
+
+
+      await chajeParamet();
+
+
+    } catch (error) {
+
+      console.error(
+        "Erè:",
+        error
+      );
+
+      montreAlert(
+        "Yon erè rive pandan anrejistreman an.",
+        "error"
+      );
+
+    } finally {
+
+      btnSave.disabled = false;
+
+      btnSave.textContent =
+        "💾 Anrejistre paramèt yo";
+
+    }
+
+  }
+
+
+  /* =========================
+     LOGOUT
+  ========================== */
+
+  async function dekonekte() {
+
+    try {
+
+      await supabaseClient.auth.signOut();
+
+    } catch (error) {
+
+      console.error(
+        "Erè dekoneksyon:",
+        error
+      );
+
+    }
+
+    window.location.href =
+      "login.html";
+
+  }
+
+
+  /* =========================
+     MOBILE MENU
+  ========================== */
+
+  function demareMenuMobile() {
+
+    const button =
+      document.getElementById(
+        "mobileMenuBtn"
+      );
+
+    const sidebar =
+      document.getElementById(
+        "sidebar"
+      );
+
+
+    if (!button || !sidebar) {
+      return;
+    }
+
+
+    button.addEventListener(
+      "click",
+      () => {
+
+        sidebar.classList.toggle(
+          "open"
+        );
+
+      }
+    );
+
+  }
+
+
+  /* =========================
+     RBAC
+  ========================== */
+
+  async function demareParamet() {
+
+    try {
+
+      loadingBox.style.display =
+        "block";
+
+      accessDenied.style.display =
+        "none";
+
+      parametForm.style.display =
+        "none";
+
+
+      /* =========================
+         CHAJE RBAC
+      ========================== */
+
+      await chajeRBAC();
+
+
+      /* =========================
+         VERIFYE PERMISSION
+      ========================== */
+
+      if (
+        typeof genPèmisyon !== "function" ||
+        !genPèmisyon("jere_paramet")
+      ) {
+
+        loadingBox.style.display =
+          "none";
+
+        accessDenied.style.display =
+          "block";
+
+        return;
+
+      }
+
+
+      /* =========================
+         AFFICHE PROFIL
+      ========================== */
+
+      aficheProfilAdmin();
+
+
+      /* =========================
+         CHAJ PARAMÈT
+      ========================== */
+
+      await chajeParamet();
+
+
+      loadingBox.style.display =
+        "none";
+
+      parametForm.style.display =
+        "block";
+
+
+    } catch (error) {
+
+      console.error(
+        "Erè demaraj paramèt:",
+        error
+      );
+
+      loadingBox.style.display =
+        "none";
+
+      accessDenied.style.display =
+        "block";
+
+    }
+
+  }
+
+
+  /* =========================
+     EVENTS
+  ========================== */
+
+  document
+    .getElementById("parametForm")
+    .addEventListener(
+      "submit",
+      anrejistreParamet
+    );
+
+
+  document
+    .getElementById("btnLogout")
+    .addEventListener(
+      "click",
+      dekonekte
+    );
+
+
+  document
+    .getElementById("btnDashboard")
+    .addEventListener(
+      "click",
+      () => {
+
+        window.location.href =
+          "admin.html";
+
+      }
+    );
+
+
+  [
+    "koulè_prensipal",
+    "koulè_segondè",
+    "koulè_tèsyè"
+  ].forEach(id => {
+
+    document
+      .getElementById(id)
+      .addEventListener(
+        "input",
+        metePreviewKoule
+      );
+
+  });
+
+
+  document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+
+      demareMenuMobile();
+
+      demareParamet();
+
+    }
+  );
+
+</script>
+
+</body>
+</html>
