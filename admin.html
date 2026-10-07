@@ -4,14 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>LAJONÈ'M — Administrasyon</title>
+  <title>Administrasyon | LAJONÈ'M</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-  <link
-    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@400;500;600;700&display=swap"
-    rel="stylesheet"
+  <meta
+    name="description"
+    content="Espas administrasyon LAJONÈ'M."
   >
 
   <style>
@@ -21,12 +18,15 @@
       --or: #F2B705;
       --vet: #2E8B57;
       --blan: #ffffff;
-      --gri: #f4f6f8;
-      --gri-fonse: #667085;
-      --nwa: #17202a;
-      --wouj: #c0392b;
-      --bord: #e4e7ec;
-      --lonbraj: 0 8px 25px rgba(0,0,0,.08);
+      --gris-fond: #f4f7fb;
+      --gris: #64748b;
+      --gris-leje: #e5e7eb;
+      --wouj: #dc2626;
+      --vèt-leje: #ecfdf5;
+      --ble-leje: #eff6ff;
+      --or-leje: #fffbeb;
+      --lonbraj: 0 8px 25px rgba(15, 23, 42, 0.08);
+      --radius: 14px;
     }
 
     * {
@@ -36,9 +36,10 @@
     }
 
     body {
-      font-family: "Open Sans", sans-serif;
-      background: var(--gri);
-      color: var(--nwa);
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--gris-fond);
+      color: #1e293b;
+      min-height: 100vh;
     }
 
     button,
@@ -51,90 +52,122 @@
     }
 
     /* =========================
+       LAYOUT
+    ========================== */
+
+    .admin-layout {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* =========================
        SIDEBAR
-    ========================= */
+    ========================== */
 
     .sidebar {
+      width: 270px;
+      background: var(--ble);
+      color: var(--blan);
       position: fixed;
       left: 0;
       top: 0;
-      width: 260px;
-      height: 100vh;
-      background: var(--ble);
-      color: white;
+      bottom: 0;
       overflow-y: auto;
       z-index: 1000;
+      transition: transform 0.3s ease;
     }
 
-    .logo-box {
+    .sidebar-header {
       padding: 24px 20px;
-      border-bottom: 1px solid rgba(255,255,255,.15);
+      border-bottom: 1px solid rgba(255,255,255,0.12);
       text-align: center;
     }
 
-    .logo-box h1 {
-      font-family: "Montserrat", sans-serif;
-      font-size: 25px;
-      font-weight: 800;
-      letter-spacing: .5px;
+    .logo-admin {
+      width: 62px;
+      height: 62px;
+      margin: 0 auto 10px;
+      border-radius: 50%;
+      background: var(--or);
+      color: var(--ble);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 22px;
     }
 
-    .logo-box p {
-      margin-top: 5px;
+    .sidebar-header h2 {
+      font-size: 20px;
+      margin-bottom: 4px;
+    }
+
+    .sidebar-header p {
       font-size: 12px;
-      opacity: .8;
+      opacity: 0.75;
     }
 
-    .menu-title {
-      padding: 20px 20px 8px;
+    .sidebar-section {
+      padding: 18px 14px 5px;
+    }
+
+    .sidebar-section-title {
       font-size: 10px;
-      font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 1px;
-      opacity: .6;
+      opacity: 0.55;
+      padding: 0 12px 8px;
+      font-weight: 700;
     }
 
-    .menu {
-      padding: 0 10px 10px;
-    }
-
-    .menu a {
+    .sidebar nav a {
       display: flex;
       align-items: center;
       gap: 11px;
-      padding: 11px 13px;
+      color: rgba(255,255,255,0.9);
+      padding: 11px 12px;
+      border-radius: 9px;
       margin-bottom: 3px;
-      border-radius: 8px;
-      color: rgba(255,255,255,.88);
-      font-size: 13px;
-      transition: .2s;
+      font-size: 14px;
+      transition: 0.2s ease;
     }
 
-    .menu a:hover,
-    .menu a.active {
-      background: rgba(255,255,255,.13);
+    .sidebar nav a:hover {
+      background: rgba(255,255,255,0.1);
       color: white;
     }
 
-    .menu-icon {
-      width: 22px;
+    .sidebar nav a.active {
+      background: var(--or);
+      color: var(--ble);
+      font-weight: 700;
+    }
+
+    .nav-icon {
+      width: 23px;
       text-align: center;
       font-size: 16px;
+      flex-shrink: 0;
     }
 
     /* =========================
        MAIN
-    ========================= */
+    ========================== */
 
-    .main {
-      margin-left: 260px;
-      min-height: 100vh;
+    .main-content {
+      flex: 1;
+      margin-left: 270px;
+      min-width: 0;
     }
+
+    /* =========================
+       TOPBAR
+    ========================== */
 
     .topbar {
       height: 72px;
       background: white;
-      border-bottom: 1px solid var(--bord);
+      border-bottom: 1px solid var(--gris-leje);
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -144,686 +177,1318 @@
       z-index: 900;
     }
 
-    .topbar h2 {
-      font-family: "Montserrat", sans-serif;
-      font-size: 20px;
-      color: var(--ble);
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 15px;
     }
 
-    .admin-info {
+    .menu-toggle {
+      display: none;
+      border: 0;
+      background: var(--ble);
+      color: white;
+      width: 40px;
+      height: 40px;
+      border-radius: 9px;
+      cursor: pointer;
+      font-size: 20px;
+    }
+
+    .topbar-title h1 {
+      color: var(--ble);
+      font-size: 21px;
+      margin-bottom: 3px;
+    }
+
+    .topbar-title p {
+      color: var(--gris);
+      font-size: 12px;
+    }
+
+    .admin-user {
       display: flex;
       align-items: center;
       gap: 12px;
     }
 
     .admin-avatar {
-      width: 40px;
-      height: 40px;
+      width: 42px;
+      height: 42px;
       border-radius: 50%;
       background: var(--ble);
       color: white;
       display: flex;
-      align-items: center;
       justify-content: center;
+      align-items: center;
       font-weight: 700;
     }
 
-    .admin-name {
-      font-size: 13px;
-      font-weight: 700;
+    .admin-user-info {
+      text-align: right;
     }
 
-    .admin-role {
+    .admin-user-info strong {
+      display: block;
+      color: var(--ble);
+      font-size: 14px;
+    }
+
+    .admin-user-info span {
       font-size: 11px;
-      color: var(--gri-fonse);
-      margin-top: 2px;
+      color: var(--gris);
     }
 
-    .btn-logout {
-      border: none;
-      background: #fef2f2;
+    .logout-btn {
+      border: 0;
+      background: #fee2e2;
       color: var(--wouj);
-      padding: 9px 13px;
-      border-radius: 7px;
+      padding: 9px 12px;
+      border-radius: 8px;
       cursor: pointer;
       font-weight: 700;
-      margin-left: 12px;
-    }
-
-    .content {
-      padding: 28px;
     }
 
     /* =========================
-       WELCOME
-    ========================= */
+       PAGE
+    ========================== */
 
-    .welcome {
-      background: linear-gradient(
-        135deg,
-        var(--ble),
-        var(--ble-fonse)
-      );
+    .page {
+      padding: 28px;
+    }
+
+    .welcome-box {
+      background: linear-gradient(135deg, var(--ble), #1557a0);
       color: white;
-      border-radius: 14px;
-      padding: 25px;
-      margin-bottom: 25px;
+      border-radius: var(--radius);
+      padding: 26px;
+      margin-bottom: 24px;
       box-shadow: var(--lonbraj);
     }
 
-    .welcome h1 {
-      font-family: "Montserrat", sans-serif;
-      font-size: 24px;
+    .welcome-box h2 {
+      font-size: 25px;
       margin-bottom: 7px;
     }
 
-    .welcome p {
-      opacity: .9;
+    .welcome-box p {
+      opacity: 0.9;
+      line-height: 1.6;
       font-size: 14px;
+    }
+
+    .role-badge {
+      display: inline-block;
+      margin-top: 13px;
+      background: var(--or);
+      color: var(--ble);
+      padding: 6px 12px;
+      border-radius: 30px;
+      font-size: 12px;
+      font-weight: 800;
     }
 
     /* =========================
        STATS
-    ========================= */
+    ========================== */
+
+    .section-title {
+      color: var(--ble);
+      margin-bottom: 14px;
+      font-size: 19px;
+    }
 
     .stats-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 18px;
-      margin-bottom: 25px;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 17px;
+      margin-bottom: 28px;
     }
 
     .stat-card {
       background: white;
-      border: 1px solid var(--bord);
-      border-radius: 12px;
-      padding: 20px;
-      box-shadow: 0 3px 12px rgba(0,0,0,.04);
+      border-radius: var(--radius);
+      padding: 19px;
+      box-shadow: var(--lonbraj);
+      border: 1px solid #eef2f7;
+      min-width: 0;
     }
 
-    .stat-label {
-      color: var(--gri-fonse);
+    .stat-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .stat-title {
+      color: var(--gris);
       font-size: 12px;
-      margin-bottom: 8px;
+      font-weight: 700;
     }
 
-    .stat-number {
-      font-family: "Montserrat", sans-serif;
-      font-size: 26px;
-      font-weight: 800;
-      color: var(--ble);
-    }
-
-    /* =========================
-       SECTIONS
-    ========================= */
-
-    .section {
-      background: white;
-      border: 1px solid var(--bord);
-      border-radius: 12px;
-      padding: 22px;
-      margin-bottom: 25px;
-    }
-
-    .section-title {
-      font-family: "Montserrat", sans-serif;
-      font-size: 17px;
-      color: var(--ble);
-      margin-bottom: 18px;
-    }
-
-    /* =========================
-       QUICK ACTIONS
-    ========================= */
-
-    .actions {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 14px;
-    }
-
-    .action-card {
-      border: 1px solid var(--bord);
+    .stat-icon {
+      width: 38px;
+      height: 38px;
       border-radius: 10px;
-      padding: 17px;
-      color: var(--nwa);
-      transition: .2s;
+      background: var(--ble-leje);
+      color: var(--ble);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 17px;
     }
 
-    .action-card:hover {
-      border-color: var(--ble);
-      transform: translateY(-2px);
+    .stat-value {
+      color: var(--ble);
+      font-size: 27px;
+      font-weight: 800;
+    }
+
+    .stat-card.gold .stat-icon {
+      background: var(--or-leje);
+      color: #a16207;
+    }
+
+    .stat-card.green .stat-icon {
+      background: var(--vèt-leje);
+      color: var(--vet);
+    }
+
+    /* =========================
+       SUMMARY
+    ========================== */
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 14px;
+      margin-bottom: 28px;
+    }
+
+    .summary-card {
+      background: white;
+      padding: 17px;
+      border-radius: 12px;
+      border-left: 4px solid var(--ble);
       box-shadow: var(--lonbraj);
     }
 
-    .action-icon {
-      font-size: 25px;
-      margin-bottom: 9px;
-    }
-
-    .action-card h3 {
-      font-size: 14px;
-      margin-bottom: 5px;
-    }
-
-    .action-card p {
-      color: var(--gri-fonse);
+    .summary-card h4 {
+      color: var(--gris);
       font-size: 11px;
+      margin-bottom: 7px;
+    }
+
+    .summary-card strong {
+      color: var(--ble);
+      font-size: 21px;
     }
 
     /* =========================
        STATUS
-    ========================= */
+    ========================== */
 
     .status-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 13px;
+      margin-bottom: 30px;
     }
 
     .status-card {
-      padding: 16px;
-      border-radius: 10px;
-      background: #f8fafc;
-      border: 1px solid var(--bord);
+      background: white;
+      padding: 15px;
+      border-radius: 12px;
+      box-shadow: var(--lonbraj);
     }
 
     .status-card span {
       display: block;
-      color: var(--gri-fonse);
+      color: var(--gris);
       font-size: 11px;
-      margin-bottom: 5px;
+      margin-bottom: 7px;
     }
 
     .status-card strong {
-      font-family: "Montserrat", sans-serif;
-      font-size: 20px;
       color: var(--ble);
+      font-size: 20px;
+    }
+
+    /* =========================
+       QUICK ACTIONS
+    ========================== */
+
+    .actions-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+
+    .action-card {
+      background: white;
+      border-radius: 13px;
+      padding: 19px;
+      box-shadow: var(--lonbraj);
+      border: 1px solid #eef2f7;
+      transition: 0.2s ease;
+      color: #1e293b;
+    }
+
+    .action-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--or);
+    }
+
+    .action-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      background: var(--ble-leje);
+      color: var(--ble);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 12px;
+      font-size: 18px;
+    }
+
+    .action-card h3 {
+      font-size: 14px;
+      color: var(--ble);
+      margin-bottom: 5px;
+    }
+
+    .action-card p {
+      font-size: 11px;
+      color: var(--gris);
+      line-height: 1.5;
+    }
+
+    /* =========================
+       RBAC ACCESS BOX
+    ========================== */
+
+    .access-box {
+      background: white;
+      border-radius: var(--radius);
+      box-shadow: var(--lonbraj);
+      padding: 22px;
+      margin-bottom: 30px;
+    }
+
+    .access-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      margin-bottom: 16px;
+    }
+
+    .access-header h2 {
+      color: var(--ble);
+      font-size: 18px;
+    }
+
+    .access-role {
+      background: var(--or-leje);
+      color: #92400e;
+      padding: 7px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .permission-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .permission-badge {
+      background: var(--ble-leje);
+      color: var(--ble);
+      border: 1px solid #dbeafe;
+      padding: 7px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .no-permission {
+      color: var(--gris);
+      font-size: 13px;
+      padding: 10px 0;
     }
 
     /* =========================
        LOADING
-    ========================= */
+    ========================== */
 
-    .loading {
-      opacity: .55;
+    .loading-screen {
+      position: fixed;
+      inset: 0;
+      background: rgba(255,255,255,0.97);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .loading-box {
+      width: min(90%, 400px);
+    }
+
+    .loading-logo {
+      width: 70px;
+      height: 70px;
+      background: var(--or);
+      color: var(--ble);
+      border-radius: 50%;
+      margin: 0 auto 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 24px;
+    }
+
+    .spinner {
+      width: 35px;
+      height: 35px;
+      border: 4px solid #dbeafe;
+      border-top-color: var(--ble);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 15px auto;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .loading-box p {
+      color: var(--gris);
+      font-size: 14px;
     }
 
     /* =========================
-       MOBILE
-    ========================= */
+       TOAST
+    ========================== */
 
-    @media (max-width: 1100px) {
-
-      .stats-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .actions {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
+    .toast {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      background: var(--ble);
+      color: white;
+      padding: 13px 17px;
+      border-radius: 10px;
+      box-shadow: var(--lonbraj);
+      font-size: 13px;
+      display: none;
+      z-index: 10000;
+      max-width: 320px;
     }
 
-    @media (max-width: 800px) {
+    .toast.error {
+      background: var(--wouj);
+    }
 
-      .sidebar {
-        width: 220px;
+    .toast.success {
+      background: var(--vet);
+    }
+
+    /* =========================
+       RESPONSIVE
+    ========================== */
+
+    @media (max-width: 1200px) {
+      .stats-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
       }
 
-      .main {
-        margin-left: 220px;
+      .summary-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
       }
 
       .status-grid {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
       }
 
+      .actions-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
     }
 
-    @media (max-width: 650px) {
-
+    @media (max-width: 900px) {
       .sidebar {
-        position: relative;
-        width: 100%;
-        height: auto;
+        transform: translateX(-100%);
       }
 
-      .main {
+      .sidebar.open {
+        transform: translateX(0);
+      }
+
+      .main-content {
         margin-left: 0;
       }
 
-      .topbar {
-        position: relative;
-        height: auto;
-        padding: 15px;
-        gap: 15px;
-        flex-wrap: wrap;
+      .menu-toggle {
+        display: block;
       }
 
-      .content {
-        padding: 15px;
+      .stats-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .summary-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .status-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .actions-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .admin-user-info {
+        display: none;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .topbar {
+        padding: 0 15px;
+      }
+
+      .topbar-title h1 {
+        font-size: 17px;
+      }
+
+      .page {
+        padding: 17px;
       }
 
       .stats-grid,
-      .actions,
-      .status-grid {
+      .summary-grid,
+      .status-grid,
+      .actions-grid {
         grid-template-columns: 1fr;
       }
 
-      .admin-info {
-        width: 100%;
+      .welcome-box {
+        padding: 20px;
       }
 
-      .btn-logout {
-        margin-left: auto;
+      .welcome-box h2 {
+        font-size: 21px;
       }
 
+      .logout-btn {
+        font-size: 11px;
+        padding: 8px 9px;
+      }
     }
   </style>
 </head>
 
 <body>
 
-  <!-- ==================================================
-       SIDEBAR
-  ================================================== -->
+  <!-- =========================
+       LOADING
+  ========================== -->
 
-  <aside class="sidebar">
+  <div class="loading-screen" id="loadingScreen">
+    <div class="loading-box">
 
-    <div class="logo-box">
-      <h1>LAJONÈ'M</h1>
-      <p>Administrasyon</p>
+      <div class="loading-logo">
+        L
+      </div>
+
+      <h2 style="color:#0B3B75;">
+        LAJONÈ'M
+      </h2>
+
+      <div class="spinner"></div>
+
+      <p id="loadingText">
+        N ap verifye aksè administratè ou...
+      </p>
+
     </div>
+  </div>
 
 
-    <div class="menu-title">
-      Jeneral
-    </div>
+  <!-- =========================
+       LAYOUT
+  ========================== -->
 
-    <nav class="menu">
+  <div class="admin-layout">
 
-      <a
-        href="admin.html"
-        class="active"
-      >
-        <span class="menu-icon">▣</span>
-        Dashboard
-      </a>
+    <!-- =========================
+         SIDEBAR
+    ========================== -->
 
-    </nav>
+    <aside class="sidebar" id="sidebar">
 
+      <div class="sidebar-header">
 
-    <div class="menu-title">
-      Òganizasyon
-    </div>
-
-    <nav class="menu">
-
-      <a
-        href="admin-pwogram.html"
-        data-permission="jere_pwogram"
-      >
-        <span class="menu-icon">📚</span>
-        Pwogram
-      </a>
-
-      <a
-        href="admin-aktivite.html"
-        data-permission="jere_aktivite"
-      >
-        <span class="menu-icon">📅</span>
-        Aktivite
-      </a>
-
-      <a
-        href="admin-volonte.html"
-        data-permission="jere_volonte"
-      >
-        <span class="menu-icon">🤝</span>
-        Volontè
-      </a>
-
-      <a
-        href="admin-benefisye.html"
-        data-permission="jere_benefisye"
-      >
-        <span class="menu-icon">👴</span>
-        Benefisyè
-      </a>
-
-      <a
-        href="admin-vizit.html"
-        data-permission="jere_vizit"
-      >
-        <span class="menu-icon">🏠</span>
-        Vizit
-      </a>
-
-    </nav>
-
-
-    <div class="menu-title">
-      Finans
-    </div>
-
-    <nav class="menu">
-
-      <a
-        href="admin-don.html"
-        data-permission="jere_don"
-      >
-        <span class="menu-icon">💰</span>
-        Don
-      </a>
-
-      <a
-        href="admin-donatè.html"
-        data-permission="jere_donatè"
-      >
-        <span class="menu-icon">💳</span>
-        Donatè
-      </a>
-
-    </nav>
-
-
-    <div class="menu-title">
-      Kominikasyon
-    </div>
-
-    <nav class="menu">
-
-      <a
-        href="admin-patne.html"
-        data-permission="jere_patne"
-      >
-        <span class="menu-icon">🏢</span>
-        Patnè
-      </a>
-
-      <a
-        href="admin-galri.html"
-        data-permission="jere_galri"
-      >
-        <span class="menu-icon">🖼️</span>
-        Galri
-      </a>
-
-      <a
-        href="admin-nouvel.html"
-        data-permission="jere_nouvel"
-      >
-        <span class="menu-icon">📰</span>
-        Nouvèl
-      </a>
-
-      <a
-        href="admin-rapo.html"
-        data-permission="jere_rapo"
-      >
-        <span class="menu-icon">📊</span>
-        Rapò
-      </a>
-
-      <a
-        href="admin-mesaj.html"
-        data-permission="jere_mesaj"
-      >
-        <span class="menu-icon">✉️</span>
-        Mesaj
-      </a>
-
-    </nav>
-
-
-    <div class="menu-title">
-      Administrasyon
-    </div>
-
-    <nav class="menu">
-
-      <a
-        href="admin-itilizatè.html"
-        data-permission="jere_itilizatè"
-      >
-        <span class="menu-icon">👥</span>
-        Itilizatè & Aksè
-      </a>
-
-      <a
-        href="#"
-        data-permission="jere_paramet"
-        onclick="alert('Paramèt yo ap vini nan pwochen etap la.'); return false;"
-      >
-        <span class="menu-icon">⚙️</span>
-        Paramèt
-      </a>
-
-    </nav>
-
-  </aside>
-
-
-  <!-- ==================================================
-       MAIN
-  ================================================== -->
-
-  <main class="main">
-
-    <header class="topbar">
-
-      <h2>Dashboard</h2>
-
-      <div class="admin-info">
-
-        <div
-          class="admin-avatar"
-          id="adminAvatar"
-        >
-          A
+        <div class="logo-admin">
+          L
         </div>
 
-        <div>
+        <h2>LAJONÈ'M</h2>
 
-          <div
-            class="admin-name"
-            id="adminName"
-          >
-            Administratè
-          </div>
-
-          <div
-            class="admin-role"
-            id="adminRole"
-            data-current-role
-          >
-            ...
-          </div>
-
-        </div>
-
-        <button
-          class="btn-logout"
-          id="logoutBtn"
-        >
-          Dekonekte
-        </button>
+        <p>Espas Administrasyon</p>
 
       </div>
 
-    </header>
+
+      <nav>
+
+        <div class="sidebar-section">
+
+          <div class="sidebar-section-title">
+            Jeneral
+          </div>
+
+          <a href="admin.html" class="active">
+            <span class="nav-icon">⌂</span>
+            <span>Dashboard</span>
+          </a>
+
+        </div>
 
 
-    <div class="content">
+        <div class="sidebar-section">
 
-      <!-- WELCOME -->
+          <div class="sidebar-section-title">
+            Pwogram & Aktivite
+          </div>
 
-      <section class="welcome">
+          <a
+            href="admin-pwogram.html"
+            data-permission="jere_pwogram"
+          >
+            <span class="nav-icon">▣</span>
+            <span>Pwogram</span>
+          </a>
 
-        <h1>
-          Byenveni,
-          <span id="welcomeName">
-            Administratè
+          <a
+            href="admin-aktivite.html"
+            data-permission="jere_aktivite"
+          >
+            <span class="nav-icon">◉</span>
+            <span>Aktivite</span>
+          </a>
+
+        </div>
+
+
+        <div class="sidebar-section">
+
+          <div class="sidebar-section-title">
+            Benefisyè & Volontè
+          </div>
+
+          <a
+            href="admin-benefisye.html"
+            data-permission="jere_benefisye"
+          >
+            <span class="nav-icon">♙</span>
+            <span>Benefisyè</span>
+          </a>
+
+          <a
+            href="admin-volonte.html"
+            data-permission="jere_volonte"
+          >
+            <span class="nav-icon">♧</span>
+            <span>Volontè</span>
+          </a>
+
+          <a
+            href="admin-vizit.html"
+            data-permission="jere_vizit"
+          >
+            <span class="nav-icon">⌖</span>
+            <span>Vizit</span>
+          </a>
+
+        </div>
+
+
+        <div class="sidebar-section">
+
+          <div class="sidebar-section-title">
+            Don & Patnè
+          </div>
+
+          <a
+            href="admin-don.html"
+            data-permission="jere_don"
+          >
+            <span class="nav-icon">$</span>
+            <span>Don</span>
+          </a>
+
+          <a
+            href="admin-donatè.html"
+            data-permission="jere_donatè"
+          >
+            <span class="nav-icon">◌</span>
+            <span>Donatè</span>
+          </a>
+
+          <a
+            href="admin-patne.html"
+            data-permission="jere_patne"
+          >
+            <span class="nav-icon">♢</span>
+            <span>Patnè</span>
+          </a>
+
+        </div>
+
+
+        <div class="sidebar-section">
+
+          <div class="sidebar-section-title">
+            Kominikasyon
+          </div>
+
+          <a
+            href="admin-nouvel.html"
+            data-permission="jere_nouvel"
+          >
+            <span class="nav-icon">▤</span>
+            <span>Nouvèl</span>
+          </a>
+
+          <a
+            href="admin-galri.html"
+            data-permission="jere_galri"
+          >
+            <span class="nav-icon">▧</span>
+            <span>Galri</span>
+          </a>
+
+          <a
+            href="admin-rapo.html"
+            data-permission="jere_rapo"
+          >
+            <span class="nav-icon">▥</span>
+            <span>Rapò</span>
+          </a>
+
+          <a
+            href="admin-mesaj.html"
+            data-permission="jere_mesaj"
+          >
+            <span class="nav-icon">✉</span>
+            <span>Mesaj</span>
+          </a>
+
+        </div>
+
+
+        <div class="sidebar-section">
+
+          <div class="sidebar-section-title">
+            Administrasyon
+          </div>
+
+          <a
+            href="admin-itilizatè.html"
+            data-permission="jere_itilizatè"
+          >
+            <span class="nav-icon">⚙</span>
+            <span>Itilizatè & Aksè</span>
+          </a>
+
+          <a
+            href="#"
+            data-permission="jere_paramet"
+            id="parametLink"
+          >
+            <span class="nav-icon">⚙</span>
+            <span>Paramèt</span>
+          </a>
+
+        </div>
+
+      </nav>
+
+    </aside>
+
+
+    <!-- =========================
+         MAIN
+    ========================== -->
+
+    <main class="main-content">
+
+      <!-- TOPBAR -->
+
+      <header class="topbar">
+
+        <div class="topbar-left">
+
+          <button
+            class="menu-toggle"
+            id="menuToggle"
+            type="button"
+          >
+            ☰
+          </button>
+
+          <div class="topbar-title">
+
+            <h1>Dashboard</h1>
+
+            <p>
+              Jesyon ak siveyans LAJONÈ'M
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="admin-user">
+
+          <div class="admin-user-info">
+
+            <strong id="topAdminName">
+              Administratè
+            </strong>
+
+            <span id="topAdminRole">
+              -
+            </span>
+
+          </div>
+
+          <div
+            class="admin-avatar"
+            id="adminAvatar"
+          >
+            L
+          </div>
+
+          <button
+            class="logout-btn"
+            id="logoutBtn"
+            type="button"
+          >
+            Dekonekte
+          </button>
+
+        </div>
+
+      </header>
+
+
+      <!-- PAGE -->
+
+      <div class="page">
+
+
+        <!-- WELCOME -->
+
+        <section class="welcome-box">
+
+          <h2>
+            Byenveni,
+            <span id="welcomeName">
+              Administratè
+            </span>
+          </h2>
+
+          <p>
+            Men espas kote ou ka suiv epi jere aktivite
+            LAJONÈ'M selon aksè w genyen.
+          </p>
+
+          <span
+            class="role-badge"
+            id="welcomeRole"
+          >
+            Wòl: -
           </span>
-        </h1>
 
-        <p>
-          Men panèl administrasyon LAJONÈ'M.
-          Wòl ak pèmisyon ou detèmine aksè ou genyen nan sistèm nan.
-        </p>
-
-      </section>
+        </section>
 
 
-      <!-- STATISTIK -->
+        <!-- =========================
+             STATISTIK
+        ========================== -->
 
-      <section>
+        <h2 class="section-title">
+          Rezime òganizasyon an
+        </h2>
+
 
         <div class="stats-grid">
 
-          <div class="stat-card">
 
-            <div class="stat-label">
-              Benefisyè aktif
+          <!-- BENEFISYE -->
+
+          <div
+            class="stat-card"
+            data-permission="jere_benefisye"
+          >
+
+            <div class="stat-top">
+
+              <span class="stat-title">
+                Moun akonpaye
+              </span>
+
+              <div class="stat-icon">
+                ♙
+              </div>
+
             </div>
 
             <div
-              class="stat-number loading"
+              class="stat-value"
               id="statBeneficiaires"
             >
-              ...
+              0
             </div>
 
           </div>
 
 
-          <div class="stat-card">
+          <!-- VOLONTE -->
 
-            <div class="stat-label">
-              Volontè aktif
+          <div
+            class="stat-card green"
+            data-permission="jere_volonte"
+          >
+
+            <div class="stat-top">
+
+              <span class="stat-title">
+                Volontè aktif
+              </span>
+
+              <div class="stat-icon">
+                ♧
+              </div>
+
             </div>
 
             <div
-              class="stat-number loading"
+              class="stat-value"
               id="statVolonte"
             >
-              ...
+              0
             </div>
 
           </div>
 
 
-          <div class="stat-card">
+          <!-- VIZIT -->
 
-            <div class="stat-label">
-              Vizit
+          <div
+            class="stat-card"
+            data-permission="jere_vizit"
+          >
+
+            <div class="stat-top">
+
+              <span class="stat-title">
+                Vizit
+              </span>
+
+              <div class="stat-icon">
+                ⌖
+              </div>
+
             </div>
 
             <div
-              class="stat-number loading"
+              class="stat-value"
               id="statVizit"
             >
-              ...
+              0
             </div>
 
           </div>
 
 
-          <div class="stat-card">
+          <!-- DON -->
 
-            <div class="stat-label">
-              Don konfime
+          <div
+            class="stat-card gold"
+            data-permission="jere_don"
+          >
+
+            <div class="stat-top">
+
+              <span class="stat-title">
+                Don konfime
+              </span>
+
+              <div class="stat-icon">
+                $
+              </div>
+
             </div>
 
             <div
-              class="stat-number loading"
+              class="stat-value"
               id="statDon"
             >
-              ...
+              0 HTG
             </div>
 
           </div>
 
 
-          <div class="stat-card">
+          <!-- AKTIVITE -->
 
-            <div class="stat-label">
-              Aktivite
+          <div
+            class="stat-card"
+            data-permission="jere_aktivite"
+          >
+
+            <div class="stat-top">
+
+              <span class="stat-title">
+                Aktivite
+              </span>
+
+              <div class="stat-icon">
+                ◉
+              </div>
+
             </div>
 
             <div
-              class="stat-number loading"
+              class="stat-value"
               id="statAktivite"
             >
-              ...
+              0
             </div>
 
           </div>
 
 
-          <div class="stat-card">
+          <!-- PWOGRAM -->
 
-            <div class="stat-label">
-              Pwogram aktif
+          <div
+            class="stat-card green"
+            data-permission="jere_pwogram"
+          >
+
+            <div class="stat-top">
+
+              <span class="stat-title">
+                Pwogram aktif
+              </span>
+
+              <div class="stat-icon">
+                ▣
+              </div>
+
             </div>
 
             <div
-              class="stat-number loading"
+              class="stat-value"
               id="statPwogram"
             >
-              ...
+              0
             </div>
 
           </div>
 
 
-          <div class="stat-card">
+          <!-- DONATE -->
 
-            <div class="stat-label">
-              Donatè
+          <div
+            class="stat-card"
+            data-permission="jere_donatè"
+          >
+
+            <div class="stat-top">
+
+              <span class="stat-title">
+                Donatè
+              </span>
+
+              <div class="stat-icon">
+                ◌
+              </div>
+
             </div>
 
             <div
-              class="stat-number loading"
+              class="stat-value"
               id="statDonatè"
             >
-              ...
+              0
             </div>
 
           </div>
 
 
-          <div class="stat-card">
+          <!-- PATNE -->
 
-            <div class="stat-label">
-              Patnè aktif
+          <div
+            class="stat-card gold"
+            data-permission="jere_patne"
+          >
+
+            <div class="stat-top">
+
+              <span class="stat-title">
+                Patnè aktif
+              </span>
+
+              <div class="stat-icon">
+                ♢
+              </div>
+
             </div>
 
             <div
-              class="stat-number loading"
+              class="stat-value"
               id="statPatne"
             >
-              ...
+              0
             </div>
 
           </div>
 
         </div>
 
-      </section>
+
+        <!-- =========================
+             SUMMARY
+        ========================== -->
+
+        <h2 class="section-title">
+          Sitiyasyon aktyèl
+        </h2>
 
 
-      <!-- AKSYON RAPID -->
+        <div class="summary-grid">
 
-      <section class="section">
+
+          <div
+            class="summary-card"
+            data-permission="jere_benefisye"
+          >
+
+            <h4>
+              Benefisyè aktif
+            </h4>
+
+            <strong id="summaryBeneficiaires">
+              0
+            </strong>
+
+          </div>
+
+
+          <div
+            class="summary-card"
+            data-permission="jere_volonte"
+          >
+
+            <h4>
+              Aplikasyon volontè
+            </h4>
+
+            <strong id="summaryVolonte">
+              0
+            </strong>
+
+          </div>
+
+
+          <div
+            class="summary-card"
+            data-permission="jere_vizit"
+          >
+
+            <h4>
+              Vizit total
+            </h4>
+
+            <strong id="summaryVizit">
+              0
+            </strong>
+
+          </div>
+
+
+          <div
+            class="summary-card"
+            data-permission="jere_donatè"
+          >
+
+            <h4>
+              Donatè
+            </h4>
+
+            <strong id="summaryDonatè">
+              0
+            </strong>
+
+          </div>
+
+
+          <div
+            class="summary-card"
+            data-permission="jere_patne"
+          >
+
+            <h4>
+              Patnè aktif
+            </h4>
+
+            <strong id="summaryPatne">
+              0
+            </strong>
+
+          </div>
+
+        </div>
+
+
+        <!-- =========================
+             STATUS
+        ========================== -->
+
+        <h2 class="section-title">
+          Sa ki bezwen atansyon
+        </h2>
+
+
+        <div class="status-grid">
+
+
+          <div
+            class="status-card"
+            data-permission="jere_volonte"
+          >
+
+            <span>
+              Volontè an atant
+            </span>
+
+            <strong id="pendingVolonte">
+              0
+            </strong>
+
+          </div>
+
+
+          <div
+            class="status-card"
+            data-permission="jere_vizit"
+          >
+
+            <span>
+              Vizit planifye
+            </span>
+
+            <strong id="plannedVizit">
+              0
+            </strong>
+
+          </div>
+
+
+          <div
+            class="status-card"
+            data-permission="jere_don"
+          >
+
+            <span>
+              Don an atant
+            </span>
+
+            <strong id="pendingDon">
+              0
+            </strong>
+
+          </div>
+
+
+          <div
+            class="status-card"
+            data-permission="jere_aktivite"
+          >
+
+            <span>
+              Aktivite ankou
+            </span>
+
+            <strong id="ongoingAktivite">
+              0
+            </strong>
+
+          </div>
+
+
+          <div
+            class="status-card"
+            data-permission="jere_mesaj"
+          >
+
+            <span>
+              Nouvo mesaj
+            </span>
+
+            <strong id="newMessages">
+              0
+            </strong>
+
+          </div>
+
+
+          <div
+            class="status-card"
+            data-permission="jere_pwogram"
+          >
+
+            <span>
+              Pwogram aktif
+            </span>
+
+            <strong id="activePrograms">
+              0
+            </strong>
+
+          </div>
+
+        </div>
+
+
+        <!-- =========================
+             AKSYON RAPID
+        ========================== -->
 
         <h2 class="section-title">
           Aksyon rapid
         </h2>
 
-        <div class="actions">
+
+        <div class="actions-grid">
+
 
           <a
             href="admin-benefisye.html"
@@ -832,7 +1497,7 @@
           >
 
             <div class="action-icon">
-              👴
+              ♙
             </div>
 
             <h3>
@@ -840,28 +1505,7 @@
             </h3>
 
             <p>
-              Jere moun LAJONÈ'M ap akonpaye yo.
-            </p>
-
-          </a>
-
-
-          <a
-            href="admin-aktivite.html"
-            class="action-card"
-            data-permission="jere_aktivite"
-          >
-
-            <div class="action-icon">
-              📅
-            </div>
-
-            <h3>
-              Aktivite
-            </h3>
-
-            <p>
-              Kreye epi jere aktivite yo.
+              Ajoute epi jere moun LAJONÈ'M ap akonpaye.
             </p>
 
           </a>
@@ -874,7 +1518,7 @@
           >
 
             <div class="action-icon">
-              🤝
+              ♧
             </div>
 
             <h3>
@@ -882,7 +1526,28 @@
             </h3>
 
             <p>
-              Jere aplikasyon ak volontè yo.
+              Verifye epi jere aplikasyon volontè yo.
+            </p>
+
+          </a>
+
+
+          <a
+            href="admin-aktivite.html"
+            class="action-card"
+            data-permission="jere_aktivite"
+          >
+
+            <div class="action-icon">
+              ◉
+            </div>
+
+            <h3>
+              Aktivite
+            </h3>
+
+            <p>
+              Kreye epi suiv aktivite LAJONÈ'M yo.
             </p>
 
           </a>
@@ -895,7 +1560,7 @@
           >
 
             <div class="action-icon">
-              💰
+              $
             </div>
 
             <h3>
@@ -903,7 +1568,28 @@
             </h3>
 
             <p>
-              Swiv don ak kontribisyon yo.
+              Jere don yo ak sitiyasyon peman yo.
+            </p>
+
+          </a>
+
+
+          <a
+            href="admin-pwogram.html"
+            class="action-card"
+            data-permission="jere_pwogram"
+          >
+
+            <div class="action-icon">
+              ▣
+            </div>
+
+            <h3>
+              Pwogram
+            </h3>
+
+            <p>
+              Jere pwogram ak sèvis òganizasyon an.
             </p>
 
           </a>
@@ -916,7 +1602,7 @@
           >
 
             <div class="action-icon">
-              🖼️
+              ▧
             </div>
 
             <h3>
@@ -924,7 +1610,7 @@
             </h3>
 
             <p>
-              Pibliye foto aktivite yo.
+              Ajoute epi pibliye foto aktivite yo.
             </p>
 
           </a>
@@ -937,7 +1623,7 @@
           >
 
             <div class="action-icon">
-              📰
+              ▤
             </div>
 
             <h3>
@@ -945,28 +1631,7 @@
             </h3>
 
             <p>
-              Jere nouvèl ak piblikasyon yo.
-            </p>
-
-          </a>
-
-
-          <a
-            href="admin-rapo.html"
-            class="action-card"
-            data-permission="jere_rapo"
-          >
-
-            <div class="action-icon">
-              📊
-            </div>
-
-            <h3>
-              Rapò
-            </h3>
-
-            <p>
-              Konsilte ak jere rapò yo.
+              Kreye epi jere nouvèl LAJONÈ'M.
             </p>
 
           </a>
@@ -979,7 +1644,7 @@
           >
 
             <div class="action-icon">
-              👥
+              ⚙
             </div>
 
             <h3>
@@ -987,1077 +1652,1253 @@
             </h3>
 
             <p>
-              Jere wòl ak otorizasyon administratè yo.
+              Jere administratè yo, wòl yo ak pèmisyon yo.
             </p>
 
           </a>
 
         </div>
 
-      </section>
 
+        <!-- =========================
+             AKSÈ RBAC
+        ========================== -->
 
-      <!-- REZIME -->
+        <section class="access-box">
 
-      <section class="section">
+          <div class="access-header">
 
-        <h2 class="section-title">
-          Rezime operasyonèl
-        </h2>
+            <h2>
+              Aksè administrasyon ou
+            </h2>
 
-        <div class="status-grid">
-
-          <div
-            class="status-card"
-            data-permission="jere_benefisye"
-          >
-            <span>
-              Benefisyè aktif
+            <span
+              class="access-role"
+              id="accessRole"
+            >
+              -
             </span>
 
-            <strong id="summaryBeneficiaires">
-              ...
-            </strong>
           </div>
 
 
           <div
-            class="status-card"
-            data-permission="jere_volonte"
+            class="permission-list"
+            id="permissionList"
           >
-            <span>
-              Aplikasyon volontè an atant
+
+            <span class="no-permission">
+              N ap chaje pèmisyon yo...
             </span>
 
-            <strong id="summaryVolonte">
-              ...
-            </strong>
           </div>
 
-
-          <div
-            class="status-card"
-            data-permission="jere_vizit"
-          >
-            <span>
-              Vizit total
-            </span>
-
-            <strong id="summaryVizit">
-              ...
-            </strong>
-          </div>
+        </section>
 
 
-          <div
-            class="status-card"
-            data-permission="jere_donatè"
-          >
-            <span>
-              Donatè
-            </span>
+      </div>
 
-            <strong id="summaryDonatè">
-              ...
-            </strong>
-          </div>
+    </main>
+
+  </div>
 
 
-          <div
-            class="status-card"
-            data-permission="jere_patne"
-          >
-            <span>
-              Patnè aktif
-            </span>
+  <!-- TOAST -->
 
-            <strong id="summaryPatne">
-              ...
-            </strong>
-          </div>
+  <div
+    class="toast"
+    id="toast"
+  ></div>
 
 
-          <div
-            class="status-card"
-            data-permission="jere_don"
-          >
-            <span>
-              Don an atant
-            </span>
-
-            <strong id="pendingDon">
-              ...
-            </strong>
-          </div>
-
-        </div>
-
-      </section>
-
-
-      <!-- ETA SISTÈM -->
-
-      <section class="section">
-
-        <h2 class="section-title">
-          Eta sistèm lan
-        </h2>
-
-        <div class="status-grid">
-
-          <div
-            class="status-card"
-            data-permission="jere_aktivite"
-          >
-            <span>
-              Aktivite ankou
-            </span>
-
-            <strong id="ongoingAktivite">
-              ...
-            </strong>
-          </div>
-
-
-          <div
-            class="status-card"
-            data-permission="jere_vizit"
-          >
-            <span>
-              Vizit planifye
-            </span>
-
-            <strong id="plannedVizit">
-              ...
-            </strong>
-          </div>
-
-
-          <div
-            class="status-card"
-            data-permission="jere_mesaj"
-          >
-            <span>
-              Nouvo mesaj
-            </span>
-
-            <strong id="newMessages">
-              ...
-            </strong>
-          </div>
-
-
-          <div
-            class="status-card"
-            data-permission="jere_pwogram"
-          >
-            <span>
-              Pwogram aktif
-            </span>
-
-            <strong id="activePrograms">
-              ...
-            </strong>
-          </div>
-
-
-          <div
-            class="status-card"
-            data-permission="jere_volonte"
-          >
-            <span>
-              Volontè aktif
-            </span>
-
-            <strong id="activeVolonte">
-              ...
-            </strong>
-          </div>
-
-
-          <div
-            class="status-card"
-            data-permission="jere_benefisye"
-          >
-            <span>
-              Benefisyè aktif
-            </span>
-
-            <strong id="activeBeneficiaires">
-              ...
-            </strong>
-          </div>
-
-        </div>
-
-      </section>
-
-    </div>
-
-  </main>
-
-
-  <!-- ==================================================
+  <!-- =========================
        SCRIPTS
-  ================================================== -->
+  ========================== -->
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <script src="js/supabase.js"></script>
 
+  <!-- RBAC -->
   <script src="js/permissions.js"></script>
 
 
   <script>
-    /*
-    ======================================================
-    LAJONÈ'M — ADMIN DASHBOARD
-    ======================================================
-    */
 
-    let adminProfile = null;
+    /* =====================================================
+       VARIABLES
+    ====================================================== */
+
+    
 
 
-    /*
-    ------------------------------------------------------
-    HTML ESCAPE
-    ------------------------------------------------------
-    */
+    /* =====================================================
+       UTILITAIRES
+    ====================================================== */
 
-    function escapeHTML(value) {
+    function montreToast(message, type = "normal") {
 
-      if (value === null || value === undefined) {
-        return "";
+      const toast = document.getElementById("toast");
+
+      toast.textContent = message;
+
+      toast.className = "toast";
+
+      if (type === "error") {
+        toast.classList.add("error");
       }
 
-      return String(value)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
+      if (type === "success") {
+        toast.classList.add("success");
+      }
 
+      toast.style.display = "block";
+
+      setTimeout(() => {
+        toast.style.display = "none";
+      }, 3500);
     }
 
 
-    /*
-    ------------------------------------------------------
-    VERIFYE AKSÈ
-    ------------------------------------------------------
-    */
+    function formatMoney(value) {
 
-    async function verifyeAkses() {
+      const number = Number(value || 0);
 
-      const {
-        data: {
-          user
-        },
-        error
-      } = await supabaseClient.auth.getUser();
+      return number.toLocaleString("fr-FR") + " HTG";
+    }
 
 
-      if (error || !user) {
+    function formatRole(role) {
 
-        window.location.href =
-          "login.html";
+      const roles = {
+        "super_admin": "Super Administratè",
+        "admin": "Administratè",
+        "editè": "Editè",
+        "volonte": "Volontè"
+      };
 
-        return false;
+      return roles[role] || role || "-";
+    }
 
-      }
+
+    function formatPermission(permission) {
+
+      const labels = {
+
+        "jere_itilizatè": "Jere itilizatè",
+
+        "jere_pwogram": "Jere pwogram",
+
+        "jere_aktivite": "Jere aktivite",
+
+        "jere_volonte": "Jere volontè",
+
+        "jere_benefisye": "Jere benefisyè",
+
+        "jere_vizit": "Jere vizit",
+
+        "jere_don": "Jere don",
+
+        "jere_donatè": "Jere donatè",
+
+        "jere_patne": "Jere patnè",
+
+        "jere_galri": "Jere galri",
+
+        "jere_nouvel": "Jere nouvèl",
+
+        "jere_rapo": "Jere rapò",
+
+        "jere_mesaj": "Jere mesaj",
+
+        "jere_paramet": "Jere paramèt"
+
+      };
+
+      return labels[permission] || permission;
+    }
 
 
-      const ok =
-        await egzijeAdmin(
-          "login.html"
+    /* =====================================================
+       AUTH + RBAC
+    ====================================================== */
+
+    async function verifyeAdminAktif() {
+
+      try {
+
+        const {
+          data: {
+            user
+          },
+          error
+        } = await supabaseClient.auth.getUser();
+
+
+        if (error || !user) {
+
+          window.location.href = "login.html";
+
+          return false;
+        }
+
+
+        /*
+         * Nou pa verifye sèlman super_admin/admin.
+         *
+         * Tout wòl aktif yo ka antre nan dashboard la.
+         *
+         * Se RBAC ki deside sa yo kapab wè/jere.
+         */
+
+        const {
+          data,
+          error: profileError
+        } = await supabaseClient
+
+          .from("itilizatè_admin")
+
+          .select(`
+            id,
+            user_id,
+            non,
+            siyati,
+            email,
+            wòl,
+            aktif
+          `)
+
+          .eq("user_id", user.id)
+
+          .eq("aktif", true)
+
+          .maybeSingle();
+
+
+        if (profileError) {
+
+          console.error(
+            "ADMIN PROFILE ERROR:",
+            profileError
+          );
+
+          montreToast(
+            "Nou pa kapab verifye pwofil administratè a.",
+            "error"
+          );
+
+          return false;
+        }
+
+
+        if (!data) {
+
+          alert(
+            "Kont sa a pa gen aksè administrasyon aktif."
+          );
+
+          await supabaseClient.auth.signOut();
+
+          window.location.href = "login.html";
+
+          return false;
+        }
+
+
+        profilAdmin = data;
+
+        return true;
+
+      } catch (error) {
+
+        console.error(
+          "VERIFY ADMIN ERROR:",
+          error
         );
 
-
-      if (!ok) {
-
         return false;
-
       }
+    }
 
 
-      adminProfile =
-        jwennProfilAdmin();
+    /* =====================================================
+       APLIKE RBAC
+    ====================================================== */
 
-
-      if (!adminProfile) {
-
-        window.location.href =
-          "login.html";
-
-        return false;
-
-      }
-
+    function aplikeRBAC() {
 
       /*
-      ----------------------------------------------------
-      Mete non administratè a
-      ----------------------------------------------------
-      */
+       * Nou pa itilize await sou genPèmisyon().
+       *
+       * chajeRBAC() deja fini anvan fonksyon sa a rele.
+       */
 
-      const fullName =
-        `${adminProfile.non || ""} ${adminProfile.siyati || ""}`.trim();
+      document
+        .querySelectorAll("[data-permission]")
+        .forEach(element => {
+
+          const permission =
+            element.getAttribute("data-permission");
+
+          const genyen =
+            genPèmisyon(permission);
 
 
-      const displayName =
-        fullName ||
-        adminProfile.email ||
-        "Administratè";
+          if (!genyen) {
+
+            element.style.display = "none";
+
+          } else {
+
+            element.style.display = "";
+          }
+
+        });
+    }
 
 
-      document.getElementById(
-        "adminName"
-      ).textContent =
-        displayName;
+    /* =====================================================
+       AFFICHE PROFIL ADMIN
+    ====================================================== */
+
+    function afficheProfilAdmin() {
+
+      if (!profilAdmin) {
+        return;
+      }
+
+
+      const nonComplet = [
+
+        profilAdmin.non || "",
+
+        profilAdmin.siyati || ""
+
+      ]
+        .join(" ")
+        .trim();
+
+
+      const nonAffiche =
+        nonComplet || "Administratè";
+
+
+      const role =
+        formatRole(profilAdmin.wòl);
 
 
       document.getElementById(
         "welcomeName"
-      ).textContent =
-        adminProfile.non ||
-        "Administratè";
+      ).textContent = nonAffiche;
 
 
       document.getElementById(
-        "adminRole"
+        "topAdminName"
+      ).textContent = nonAffiche;
+
+
+      document.getElementById(
+        "topAdminRole"
+      ).textContent = role;
+
+
+      document.getElementById(
+        "welcomeRole"
       ).textContent =
-        adminProfile.wòl;
+        "Wòl: " + role;
+
+
+      document.getElementById(
+        "accessRole"
+      ).textContent = role;
+
+
+      const initiale =
+        nonAffiche.charAt(0).toUpperCase();
 
 
       document.getElementById(
         "adminAvatar"
-      ).textContent =
-        (
-          adminProfile.non ||
-          "A"
-        )
-        .charAt(0)
-        .toUpperCase();
+      ).textContent = initiale;
+    }
+
+
+    /* =====================================================
+       AFFICHE PÈMISYON
+    ====================================================== */
+
+    function affichePèmisyon() {
+
+      const container =
+        document.getElementById("permissionList");
+
+
+      if (!container) {
+        return;
+      }
 
 
       /*
-      ----------------------------------------------------
-      Aplike RBAC sou meni yo
-      ----------------------------------------------------
-      */
-
-      await aplikePèmisyonSouMeni();
-
-
-      return true;
-
-    }
-
-
-    /*
-    ------------------------------------------------------
-    FORMAT LAJAN
-    ------------------------------------------------------
-    */
-
-    function formatMoney(value) {
-
-      const number =
-        Number(value || 0);
-
-
-      return new Intl.NumberFormat(
-        "fr-FR",
-        {
-          maximumFractionDigits: 0
-        }
-      ).format(number) + " HTG";
-
-    }
-
-
-    /*
-    ------------------------------------------------------
-    SET STAT
-    ------------------------------------------------------
-    */
-
-    function setStat(
-      id,
-      value,
-      money = false
-    ) {
-
-      const element =
-        document.getElementById(id);
-
-
-      if (!element) {
-        return;
-      }
-
-
-      element.classList.remove(
-        "loading"
-      );
-
-
-      element.textContent =
-        money
-          ? formatMoney(value)
-          : value ?? 0;
-
-    }
-
-
-    /*
-    ------------------------------------------------------
-    BENEFISYÈ
-    ------------------------------------------------------
-    */
-
-    async function chajeBenefisye() {
+       * permissions.js kenbe lis pèmisyon yo
+       * nan variable pèmisyonAdmin.
+       */
 
       if (
-        !(await genPèmisyon(
-          "jere_benefisye"
-        ))
+        typeof pèmisyonAdmin === "undefined" ||
+        !Array.isArray(pèmisyonAdmin)
       ) {
+
+        container.innerHTML = `
+          <span class="no-permission">
+            Pèmisyon yo poko chaje.
+          </span>
+        `;
+
         return;
       }
 
 
-      const {
-        count,
-        error
-      } = await supabaseClient
+      if (pèmisyonAdmin.length === 0) {
 
-        .from("benefisye")
+        container.innerHTML = `
+          <span class="no-permission">
+            Wòl sa a pa gen okenn pèmisyon administrasyon
+            ki defini pou kounye a.
+          </span>
+        `;
 
-        .select(
-          "id",
-          {
-            count: "exact",
-            head: true
-          }
-        )
-
-        .eq(
-          "estati",
-          "aktif"
-        );
+        return;
+      }
 
 
-      if (error) {
+      container.innerHTML =
+        pèmisyonAdmin
+          .map(permission => {
+
+            return `
+              <span class="permission-badge">
+                ${formatPermission(permission)}
+              </span>
+            `;
+
+          })
+          .join("");
+    }
+
+
+    /* =====================================================
+       QUERY HELPER
+    ====================================================== */
+
+    async function konteTab(
+      table,
+      queryBuilder
+    ) {
+
+      try {
+
+        let query =
+          supabaseClient
+            .from(table)
+            .select("*", {
+              count: "exact",
+              head: true
+            });
+
+
+        if (typeof queryBuilder === "function") {
+
+          query =
+            queryBuilder(query);
+        }
+
+
+        const {
+          count,
+          error
+        } = await query;
+
+
+        if (error) {
+
+          console.error(
+            "COUNT ERROR:",
+            table,
+            error
+          );
+
+          return 0;
+        }
+
+
+        return count || 0;
+
+      } catch (error) {
 
         console.error(
-          "Benefisyè:",
+          "COUNT EXCEPTION:",
+          table,
           error
         );
 
-        return;
+        return 0;
+      }
+    }
 
+
+    /* =====================================================
+       DASHBOARD
+    ====================================================== */
+
+    async function loadDashboard() {
+
+      /*
+       * IMPORTANT:
+       *
+       * Nou pa fè tout query yo an menm tan.
+       *
+       * Chak query fèt sèlman si wòl la gen
+       * pèmisyon ki koresponn ak li.
+       */
+
+      const tasks = [];
+
+
+      /* -------------------------
+         BENEFISYE
+      -------------------------- */
+
+      if (genPèmisyon("jere_benefisye")) {
+
+        tasks.push(
+
+          (async () => {
+
+            const count =
+              await konteTab(
+                "benefisye",
+                query =>
+                  query.eq("estati", "aktif")
+              );
+
+
+            document.getElementById(
+              "statBeneficiaires"
+            ).textContent = count;
+
+
+            document.getElementById(
+              "summaryBeneficiaires"
+            ).textContent = count;
+
+          })()
+
+        );
       }
 
 
-      setStat(
-        "statBeneficiaires",
-        count
+      /* -------------------------
+         VOLONTE
+      -------------------------- */
+
+      if (genPèmisyon("jere_volonte")) {
+
+        tasks.push(
+
+          (async () => {
+
+            const actifs =
+              await konteTab(
+                "volonte",
+                query =>
+                  query.eq("estati", "aktif")
+              );
+
+
+            const pending =
+              await konteTab(
+                "volonte",
+                query =>
+                  query.eq(
+                    "estati",
+                    "an_atant"
+                  )
+              );
+
+
+            document.getElementById(
+              "statVolonte"
+            ).textContent = actifs;
+
+
+            document.getElementById(
+              "summaryVolonte"
+            ).textContent = pending;
+
+
+            document.getElementById(
+              "pendingVolonte"
+            ).textContent = pending;
+
+          })()
+
+        );
+      }
+
+
+      /* -------------------------
+         VIZIT
+      -------------------------- */
+
+      if (genPèmisyon("jere_vizit")) {
+
+        tasks.push(
+
+          (async () => {
+
+            const total =
+              await konteTab("vizit");
+
+
+            const today =
+              new Date()
+                .toISOString()
+                .split("T")[0];
+
+
+            let planned = 0;
+
+
+            try {
+
+              const {
+                count,
+                error
+              } = await supabaseClient
+
+                .from("vizit")
+
+                .select("*", {
+                  count: "exact",
+                  head: true
+                })
+
+                .gte(
+                  "dat_vizit",
+                  today
+                );
+
+
+              if (!error) {
+                planned = count || 0;
+              }
+
+            } catch (error) {
+
+              console.error(
+                "Planned visit error:",
+                error
+              );
+            }
+
+
+            document.getElementById(
+              "statVizit"
+            ).textContent = total;
+
+
+            document.getElementById(
+              "summaryVizit"
+            ).textContent = total;
+
+
+            document.getElementById(
+              "plannedVizit"
+            ).textContent = planned;
+
+          })()
+
+        );
+      }
+
+
+      /* -------------------------
+         DON
+      -------------------------- */
+
+      if (genPèmisyon("jere_don")) {
+
+        tasks.push(
+
+          (async () => {
+
+            let totalDon = 0;
+
+
+            try {
+
+              const {
+                data,
+                error
+              } = await supabaseClient
+
+                .from("don")
+
+                .select("montan")
+
+                .eq(
+                  "estati",
+                  "konfime"
+                );
+
+
+              if (!error && data) {
+
+                totalDon =
+                  data.reduce(
+                    (sum, item) =>
+                      sum +
+                      Number(
+                        item.montan || 0
+                      ),
+                    0
+                  );
+              }
+
+            } catch (error) {
+
+              console.error(
+                "Donation total error:",
+                error
+              );
+            }
+
+
+            const pending =
+              await konteTab(
+                "don",
+                query =>
+                  query.eq(
+                    "estati",
+                    "an_atant"
+                  )
+              );
+
+
+            document.getElementById(
+              "statDon"
+            ).textContent =
+              formatMoney(totalDon);
+
+
+            document.getElementById(
+              "pendingDon"
+            ).textContent = pending;
+
+          })()
+
+        );
+      }
+
+
+      /* -------------------------
+         AKTIVITE
+      -------------------------- */
+
+      if (genPèmisyon("jere_aktivite")) {
+
+        tasks.push(
+
+          (async () => {
+
+            const total =
+              await konteTab(
+                "aktivite"
+              );
+
+
+            const ongoing =
+              await konteTab(
+                "aktivite",
+                query =>
+                  query.eq(
+                    "estati",
+                    "ankou"
+                  )
+              );
+
+
+            document.getElementById(
+              "statAktivite"
+            ).textContent = total;
+
+
+            document.getElementById(
+              "ongoingAktivite"
+            ).textContent = ongoing;
+
+          })()
+
+        );
+      }
+
+
+      /* -------------------------
+         PWOGRAM
+      -------------------------- */
+
+      if (genPèmisyon("jere_pwogram")) {
+
+        tasks.push(
+
+          (async () => {
+
+            const active =
+              await konteTab(
+                "pwogram",
+                query =>
+                  query.eq(
+                    "aktif",
+                    true
+                  )
+              );
+
+
+            document.getElementById(
+              "statPwogram"
+            ).textContent = active;
+
+
+            document.getElementById(
+              "activePrograms"
+            ).textContent = active;
+
+          })()
+
+        );
+      }
+
+
+      /* -------------------------
+         DONATÈ
+      -------------------------- */
+
+      if (genPèmisyon("jere_donatè")) {
+
+        tasks.push(
+
+          (async () => {
+
+            const total =
+              await konteTab(
+                "donate"
+              );
+
+
+            document.getElementById(
+              "statDonatè"
+            ).textContent = total;
+
+
+            document.getElementById(
+              "summaryDonatè"
+            ).textContent = total;
+
+          })()
+
+        );
+      }
+
+
+      /* -------------------------
+         PATNÈ
+      -------------------------- */
+
+      if (genPèmisyon("jere_patne")) {
+
+        tasks.push(
+
+          (async () => {
+
+            const active =
+              await konteTab(
+                "patne",
+                query =>
+                  query.eq(
+                    "aktif",
+                    true
+                  )
+              );
+
+
+            document.getElementById(
+              "statPatne"
+            ).textContent = active;
+
+
+            document.getElementById(
+              "summaryPatne"
+            ).textContent = active;
+
+          })()
+
+        );
+      }
+
+
+      /* -------------------------
+         MESAJ
+      -------------------------- */
+
+      if (genPèmisyon("jere_mesaj")) {
+
+        tasks.push(
+
+          (async () => {
+
+            const count =
+              await konteTab(
+                "mesaj_kontak",
+                query =>
+                  query.eq(
+                    "estati",
+                    "nouvo"
+                  )
+              );
+
+
+            document.getElementById(
+              "newMessages"
+            ).textContent = count;
+
+          })()
+
+        );
+      }
+
+
+      /*
+       * Tout query ki gen pèmisyon yo
+       * ka kouri ansanm.
+       */
+
+      await Promise.all(tasks);
+
+    }
+
+
+    /* =====================================================
+       LOGOUT
+    ====================================================== */
+
+    async function dekonekte() {
+
+      try {
+
+        await supabaseClient.auth.signOut();
+
+        window.location.href =
+          "login.html";
+
+      } catch (error) {
+
+        console.error(
+          "Logout error:",
+          error
+        );
+
+        montreToast(
+          "Nou pa kapab dekonekte kounye a.",
+          "error"
+        );
+      }
+    }
+
+
+    /* =====================================================
+       MENU MOBILE
+    ====================================================== */
+
+    function demareMenuMobile() {
+
+      const button =
+        document.getElementById(
+          "menuToggle"
+        );
+
+      const sidebar =
+        document.getElementById(
+          "sidebar"
+        );
+
+
+      button.addEventListener(
+        "click",
+        () => {
+
+          sidebar.classList.toggle(
+            "open"
+          );
+
+        }
       );
 
-      setStat(
-        "summaryBeneficiaires",
-        count
-      );
 
-      setStat(
-        "activeBeneficiaires",
-        count
-      );
+      document
+        .querySelectorAll(
+          ".sidebar a"
+        )
+        .forEach(link => {
 
+          link.addEventListener(
+            "click",
+            () => {
+
+              if (
+                window.innerWidth <= 900
+              ) {
+
+                sidebar.classList.remove(
+                  "open"
+                );
+
+              }
+
+            }
+          );
+
+        });
     }
 
 
-    /*
-    ------------------------------------------------------
-    VOLONTÈ
-    ------------------------------------------------------
-    */
+    /* =====================================================
+       PARAMÈT
+    ====================================================== */
 
-    async function chajeVolonte() {
+    document.addEventListener(
+      "click",
+      event => {
 
-      if (
-        !(await genPèmisyon(
-          "jere_volonte"
-        ))
-      ) {
-        return;
-      }
+        const link =
+          event.target.closest(
+            "#parametLink"
+          );
 
 
-      const active =
-        await supabaseClient
+        if (!link) {
+          return;
+        }
 
-          .from("volonte")
 
-          .select(
-            "id",
-            {
-              count: "exact",
-              head: true
-            }
+        event.preventDefault();
+
+
+        if (
+          genPèmisyon(
+            "jere_paramet"
           )
+        ) {
 
-          .eq(
-            "estati",
-            "aktif"
+          /*
+           * Paj Paramèt la ap ajoute pita.
+           */
+
+          montreToast(
+            "Seksyon Paramèt la pare pou pwochen etap la.",
+            "success"
+          );
+
+        } else {
+
+          montreToast(
+            "Ou pa gen pèmisyon pou Paramèt.",
+            "error"
+          );
+        }
+
+      }
+    );
+
+
+    /* =====================================================
+       INITIALISATION PRINCIPALE
+    ====================================================== */
+
+    document.addEventListener(
+      "DOMContentLoaded",
+      async () => {
+
+        const loadingText =
+          document.getElementById(
+            "loadingText"
           );
 
 
-      if (!active.error) {
+        try {
 
-        setStat(
-          "statVolonte",
-          active.count
-        );
+          /*
+           * ETAP 1
+           * Verifye itilizatè a.
+           */
 
-        setStat(
-          "activeVolonte",
-          active.count
-        );
-
-      }
+          loadingText.textContent =
+            "N ap verifye kont administratè a...";
 
 
-      const pending =
-        await supabaseClient
+          const adminOK =
+            await verifyeAdminAktif();
 
-          .from("volonte")
 
-          .select(
-            "id",
-            {
-              count: "exact",
-              head: true
-            }
-          )
+          if (!adminOK) {
 
-          .eq(
-            "estati",
-            "an_atant"
+            loadingText.textContent =
+              "Aksè refize.";
+
+            return;
+          }
+
+
+          /*
+           * ETAP 2
+           * Chaje RBAC AVAN nou itilize
+           * genPèmisyon().
+           */
+
+          loadingText.textContent =
+            "N ap chaje wòl ak pèmisyon ou yo...";
+
+
+          const rbacOK =
+            await chajeRBAC();
+
+
+          if (!rbacOK) {
+
+            console.error(
+              "RBAC pa t kapab chaje."
+            );
+
+
+            loadingText.textContent =
+              "Nou pa kapab verifye pèmisyon ou yo.";
+
+
+            setTimeout(() => {
+
+              window.location.href =
+                "login.html";
+
+            }, 1500);
+
+
+            return;
+          }
+
+
+          /*
+           * ETAP 3
+           * Afiche pwofil.
+           */
+
+          afficheProfilAdmin();
+
+
+          /*
+           * ETAP 4
+           * Aplike RBAC sou sidebar,
+           * cards ak bouton yo.
+           */
+
+          aplikeRBAC();
+
+
+          /*
+           * ETAP 5
+           * Afiche pèmisyon yo.
+           */
+
+          affichePèmisyon();
+
+
+          /*
+           * ETAP 6
+           * Chaje dashboard selon
+           * pèmisyon wòl la.
+           */
+
+          loadingText.textContent =
+            "N ap chaje dashboard la...";
+
+
+          await loadDashboard();
+
+
+          /*
+           * ETAP 7
+           * Menu mobile.
+           */
+
+          demareMenuMobile();
+
+
+          /*
+           * ETAP 8
+           * Kache loading screen.
+           */
+
+          document.getElementById(
+            "loadingScreen"
+          ).style.display = "none";
+
+
+        } catch (error) {
+
+          console.error(
+            "ADMIN INITIALIZATION ERROR:",
+            error
           );
 
 
-      if (!pending.error) {
-
-        setStat(
-          "summaryVolonte",
-          pending.count
-        );
-
-      }
-
-    }
+          loadingText.textContent =
+            "Gen yon erè pandan chajman dashboard la.";
 
 
-    /*
-    ------------------------------------------------------
-    VIZIT
-    ------------------------------------------------------
-    */
-
-    async function chajeVizit() {
-
-      if (
-        !(await genPèmisyon(
-          "jere_vizit"
-        ))
-      ) {
-        return;
-      }
-
-
-      const total =
-        await supabaseClient
-
-          .from("vizit")
-
-          .select(
-            "id",
-            {
-              count: "exact",
-              head: true
-            }
+          montreToast(
+            "Dashboard la pa t kapab chaje nèt.",
+            "error"
           );
 
 
-      if (!total.error) {
+          /*
+           * Nou pa voye itilizatè a soti
+           * otomatikman si se sèlman yon
+           * query dashboard ki echwe.
+           */
 
-        setStat(
-          "statVizit",
-          total.count
-        );
+          setTimeout(() => {
 
-        setStat(
-          "summaryVizit",
-          total.count
-        );
+            document.getElementById(
+              "loadingScreen"
+            ).style.display = "none";
 
-      }
+          }, 1800);
 
-
-      const today =
-        new Date()
-          .toISOString()
-          .split("T")[0];
-
-
-      const planned =
-        await supabaseClient
-
-          .from("vizit")
-
-          .select(
-            "id",
-            {
-              count: "exact",
-              head: true
-            }
-          )
-
-          .gte(
-            "dat_vizit",
-            today
-          );
-
-
-      if (!planned.error) {
-
-        setStat(
-          "plannedVizit",
-          planned.count
-        );
+        }
 
       }
+    );
 
-    }
 
-
-    /*
-    ------------------------------------------------------
-    DON
-    ------------------------------------------------------
-    */
-
-    async function chajeDon() {
-
-      if (
-        !(await genPèmisyon(
-          "jere_don"
-        ))
-      ) {
-        return;
-      }
-
-
-      const confirmed =
-        await supabaseClient
-
-          .from("don")
-
-          .select(
-            "montan"
-          )
-
-          .eq(
-            "estati",
-            "konfime"
-          );
-
-
-      if (!confirmed.error) {
-
-        const total =
-          confirmed.data.reduce(
-            (
-              sum,
-              row
-            ) =>
-              sum +
-              Number(
-                row.montan || 0
-              ),
-            0
-          );
-
-
-        setStat(
-          "statDon",
-          total,
-          true
-        );
-
-      }
-
-
-      const pending =
-        await supabaseClient
-
-          .from("don")
-
-          .select(
-            "id",
-            {
-              count: "exact",
-              head: true
-            }
-          )
-
-          .eq(
-            "estati",
-            "an_atant"
-          );
-
-
-      if (!pending.error) {
-
-        setStat(
-          "pendingDon",
-          pending.count
-        );
-
-      }
-
-    }
-
-
-    /*
-    ------------------------------------------------------
-    AKTIVITE
-    ------------------------------------------------------
-    */
-
-    async function chajeAktivite() {
-
-      if (
-        !(await genPèmisyon(
-          "jere_aktivite"
-        ))
-      ) {
-        return;
-      }
-
-
-      const total =
-        await supabaseClient
-
-          .from("aktivite")
-
-          .select(
-            "id",
-            {
-              count: "exact",
-              head: true
-            }
-          );
-
-
-      if (!total.error) {
-
-        setStat(
-          "statAktivite",
-          total.count
-        );
-
-      }
-
-
-      const ongoing =
-        await supabaseClient
-
-          .from("aktivite")
-
-          .select(
-            "id",
-            {
-              count: "exact",
-              head: true
-            }
-          )
-
-          .eq(
-            "estati",
-            "ankou"
-          );
-
-
-      if (!ongoing.error) {
-
-        setStat(
-          "ongoingAktivite",
-          ongoing.count
-        );
-
-      }
-
-    }
-
-
-    /*
-    ------------------------------------------------------
-    PWOGRAM
-    ------------------------------------------------------
-    */
-
-    async function chajePwogram() {
-
-      if (
-        !(await genPèmisyon(
-          "jere_pwogram"
-        ))
-      ) {
-        return;
-      }
-
-
-      const active =
-        await supabaseClient
-
-          .from("pwogram")
-
-          .select(
-            "id",
-            {
-              count: "exact",
-              head: true
-            }
-          )
-
-          .eq(
-            "aktif",
-            true
-          );
-
-
-      if (!active.error) {
-
-        setStat(
-          "statPwogram",
-          active.count
-        );
-
-        setStat(
-          "activePrograms",
-          active.count
-        );
-
-      }
-
-    }
-
-
-    /*
-    ------------------------------------------------------
-    DONATÈ
-    ------------------------------------------------------
-    */
-
-    async function chajeDonatè() {
-
-      if (
-        !(await genPèmisyon(
-          "jere_donatè"
-        ))
-      ) {
-        return;
-      }
-
-
-      const result =
-        await supabaseClient
-
-          .from("donate")
-
-          .select(
-            "id",
-            {
-              count: "exact",
-              head: true
-            }
-          );
-
-
-      if (!result.error) {
-
-        setStat(
-          "statDonatè",
-          result.count
-        );
-
-        setStat(
-          "summaryDonatè",
-          result.count
-        );
-
-      }
-
-    }
-
-
-    /*
-    ------------------------------------------------------
-    PATNÈ
-    ------------------------------------------------------
-    */
-
-    async function chajePatne() {
-
-      if (
-        !(await genPèmisyon(
-          "jere_patne"
-        ))
-      ) {
-        return;
-      }
-
-
-      const result =
-        await supabaseClient
-
-          .from("patne")
-
-          .select(
-            "id",
-            {
-              count: "exact",
-              head: true
-            }
-          )
-
-          .eq(
-            "aktif",
-            true
-          );
-
-
-      if (!result.error) {
-
-        setStat(
-          "statPatne",
-          result.count
-        );
-
-        setStat(
-          "summaryPatne",
-          result.count
-        );
-
-      }
-
-    }
-
-
-    /*
-    ------------------------------------------------------
-    MESAJ
-    ------------------------------------------------------
-    */
-
-    async function chajeMesaj() {
-
-      if (
-        !(await genPèmisyon(
-          "jere_mesaj"
-        ))
-      ) {
-        return;
-      }
-
-
-      const result =
-        await supabaseClient
-
-          .from("mesaj_kontak")
-
-          .select(
-            "id",
-            {
-              count: "exact",
-              head: true
-            }
-          )
-
-          .eq(
-            "estati",
-            "nouvo"
-          );
-
-
-      if (!result.error) {
-
-        setStat(
-          "newMessages",
-          result.count
-        );
-
-      }
-
-    }
-
-
-    /*
-    ------------------------------------------------------
-    LOGOUT
-    ------------------------------------------------------
-    */
+    /* =====================================================
+       LOGOUT EVENT
+    ====================================================== */
 
     document
       .getElementById("logoutBtn")
       .addEventListener(
         "click",
-        async () => {
-
-          await supabaseClient.auth.signOut();
-
-          window.location.href =
-            "login.html";
-
-        }
+        dekonekte
       );
-
-
-    /*
-    ------------------------------------------------------
-    INITIALISATION
-    ------------------------------------------------------
-    */
-
-    async function initAdmin() {
-
-      const allowed =
-        await verifyeAkses();
-
-
-      if (!allowed) {
-        return;
-      }
-
-
-      await Promise.all([
-        chajeBenefisye(),
-        chajeVolonte(),
-        chajeVizit(),
-        chajeDon(),
-        chajeAktivite(),
-        chajePwogram(),
-        chajeDonatè(),
-        chajePatne(),
-        chajeMesaj()
-      ]);
-
-    }
-
-
-    initAdmin();
 
   </script>
 
