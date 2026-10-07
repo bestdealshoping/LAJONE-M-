@@ -1,0 +1,1579 @@
+<!DOCTYPE html>
+<html lang="ht">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Espas Volontè | LAJONÈ'M</title>
+
+    <meta
+        name="description"
+        content="Espas pèsonèl volontè LAJONÈ'M."
+    >
+
+    <!-- =====================================================
+         FONT
+    ====================================================== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- =====================================================
+         SUPABASE
+    ====================================================== -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <style>
+
+        :root {
+            --ble: #0B3B75;
+            --ble-fonse: #082d59;
+            --or: #F2B705;
+            --vet: #2E8B57;
+            --blan: #FFFFFF;
+            --gri: #f4f7fa;
+            --gri-fonse: #667085;
+            --nwa: #172033;
+            --bord: #e5eaf0;
+            --wouj: #d92d20;
+            --lonbraj: 0 10px 30px rgba(11, 59, 117, 0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: "Montserrat", sans-serif;
+            background: var(--gri);
+            color: var(--nwa);
+            min-height: 100vh;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        button {
+            font-family: inherit;
+            cursor: pointer;
+        }
+
+        /* =================================================
+           HEADER
+        ================================================= */
+
+        header {
+            background: var(--ble);
+            color: var(--blan);
+            min-height: 72px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 28px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 18px rgba(0,0,0,0.12);
+        }
+
+        .logo-zone {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-symbol {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--or);
+            color: var(--ble);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 18px;
+        }
+
+        .logo-text h1 {
+            font-size: 20px;
+            font-weight: 800;
+        }
+
+        .logo-text p {
+            font-size: 10px;
+            opacity: 0.85;
+            margin-top: 2px;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-header {
+            border: none;
+            border-radius: 8px;
+            padding: 10px 15px;
+            font-weight: 700;
+            font-size: 13px;
+        }
+
+        .btn-site {
+            background: rgba(255,255,255,0.12);
+            color: white;
+        }
+
+        .btn-logout {
+            background: var(--or);
+            color: var(--ble);
+        }
+
+        /* =================================================
+           LOADING
+        ================================================= */
+
+        #loading {
+            position: fixed;
+            inset: 0;
+            background: rgba(255,255,255,0.97);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+
+        .loader {
+            width: 48px;
+            height: 48px;
+            border: 5px solid #e5eaf0;
+            border-top-color: var(--ble);
+            border-right-color: var(--or);
+            border-radius: 50%;
+            animation: vire 0.8s linear infinite;
+        }
+
+        @keyframes vire {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        #loading p {
+            margin-top: 15px;
+            color: var(--gri-fonse);
+            font-weight: 600;
+        }
+
+        /* =================================================
+           ACCESS DENIED
+        ================================================= */
+
+        #accesRefize {
+            display: none;
+            min-height: 100vh;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .denied-card {
+            max-width: 520px;
+            background: white;
+            padding: 40px;
+            border-radius: 18px;
+            box-shadow: var(--lonbraj);
+            text-align: center;
+        }
+
+        .denied-icon {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            background: #fff0ef;
+            color: var(--wouj);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            font-weight: 800;
+        }
+
+        .denied-card h2 {
+            color: var(--ble);
+            margin-bottom: 12px;
+        }
+
+        .denied-card p {
+            color: var(--gri-fonse);
+            line-height: 1.7;
+            margin-bottom: 22px;
+        }
+
+        /* =================================================
+           MAIN
+        ================================================= */
+
+        #app {
+            display: none;
+        }
+
+        main {
+            max-width: 1250px;
+            margin: 0 auto;
+            padding: 35px 22px 60px;
+        }
+
+        /* =================================================
+           WELCOME
+        ================================================= */
+
+        .welcome {
+            background: linear-gradient(
+                135deg,
+                var(--ble),
+                #145ca8
+            );
+            color: white;
+            border-radius: 18px;
+            padding: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 25px;
+            margin-bottom: 28px;
+            box-shadow: var(--lonbraj);
+        }
+
+        .welcome h2 {
+            font-size: 27px;
+            margin-bottom: 9px;
+        }
+
+        .welcome p {
+            line-height: 1.7;
+            opacity: 0.92;
+        }
+
+        .role-badge {
+            display: inline-block;
+            margin-top: 14px;
+            padding: 8px 13px;
+            border-radius: 30px;
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.25);
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .welcome-symbol {
+            width: 100px;
+            height: 100px;
+            min-width: 100px;
+            border-radius: 50%;
+            background: var(--or);
+            color: var(--ble);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 42px;
+            font-weight: 800;
+        }
+
+        /* =================================================
+           SECTION TITLE
+        ================================================= */
+
+        .section-title {
+            margin: 35px 0 17px;
+        }
+
+        .section-title h3 {
+            color: var(--ble);
+            font-size: 20px;
+        }
+
+        .section-title p {
+            margin-top: 5px;
+            color: var(--gri-fonse);
+            font-size: 13px;
+        }
+
+        /* =================================================
+           CARDS
+        ================================================= */
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+        }
+
+        .card {
+            background: white;
+            border: 1px solid var(--bord);
+            border-radius: 15px;
+            padding: 22px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.035);
+            transition: 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--lonbraj);
+        }
+
+        .card-icon {
+            width: 46px;
+            height: 46px;
+            border-radius: 12px;
+            background: #eef5fc;
+            color: var(--ble);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 21px;
+            font-weight: 800;
+            margin-bottom: 15px;
+        }
+
+        .card h4 {
+            color: var(--ble);
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+
+        .card p {
+            color: var(--gri-fonse);
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .card-link {
+            display: inline-block;
+            margin-top: 15px;
+            color: var(--ble);
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+        /* =================================================
+           PROGRAMMES
+        ================================================= */
+
+        .programmes {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+
+        .programme-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid var(--bord);
+        }
+
+        .programme-image {
+            height: 150px;
+            background: linear-gradient(
+                135deg,
+                #0B3B75,
+                #2E8B57
+            );
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 35px;
+            font-weight: 800;
+        }
+
+        .programme-body {
+            padding: 18px;
+        }
+
+        .programme-body h4 {
+            color: var(--ble);
+            margin-bottom: 8px;
+        }
+
+        .programme-body p {
+            color: var(--gri-fonse);
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        /* =================================================
+           ACTIVITE
+        ================================================= */
+
+        .activity-list {
+            display: grid;
+            gap: 12px;
+        }
+
+        .activity-item {
+            background: white;
+            border: 1px solid var(--bord);
+            border-radius: 12px;
+            padding: 17px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .activity-info h4 {
+            color: var(--ble);
+            margin-bottom: 6px;
+        }
+
+        .activity-info p {
+            color: var(--gri-fonse);
+            font-size: 12px;
+        }
+
+        .status {
+            padding: 7px 11px;
+            border-radius: 20px;
+            background: #edf8f1;
+            color: var(--vet);
+            font-size: 11px;
+            font-weight: 800;
+            white-space: nowrap;
+        }
+
+        /* =================================================
+           INFO
+        ================================================= */
+
+        .info-box {
+            margin-top: 30px;
+            background: #fffdf4;
+            border-left: 5px solid var(--or);
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .info-box h4 {
+            color: var(--ble);
+            margin-bottom: 7px;
+        }
+
+        .info-box p {
+            color: #5f6470;
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        /* =================================================
+           FOOTER
+        ================================================= */
+
+        footer {
+            background: var(--ble-fonse);
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+
+        footer p {
+            font-size: 12px;
+            opacity: 0.85;
+            line-height: 1.7;
+        }
+
+        /* =================================================
+           RESPONSIVE
+        ================================================= */
+
+        @media (max-width: 950px) {
+
+            .cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .programmes {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+        }
+
+        @media (max-width: 650px) {
+
+            header {
+                padding: 0 15px;
+            }
+
+            .logo-text p {
+                display: none;
+            }
+
+            .btn-site {
+                display: none;
+            }
+
+            main {
+                padding: 22px 14px 45px;
+            }
+
+            .welcome {
+                padding: 25px;
+            }
+
+            .welcome h2 {
+                font-size: 22px;
+            }
+
+            .welcome-symbol {
+                width: 70px;
+                height: 70px;
+                min-width: 70px;
+                font-size: 28px;
+            }
+
+            .cards,
+            .programmes {
+                grid-template-columns: 1fr;
+            }
+
+            .activity-item {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- =====================================================
+         LOADING
+    ====================================================== -->
+
+    <div id="loading">
+
+        <div class="loader"></div>
+
+        <p>
+            N ap verifye aksè ou...
+        </p>
+
+    </div>
+
+
+    <!-- =====================================================
+         ACCÈS REFIZE
+    ====================================================== -->
+
+    <section id="accesRefize">
+
+        <div class="denied-card">
+
+            <div class="denied-icon">
+                !
+            </div>
+
+            <h2>
+                Aksè pa otorize
+            </h2>
+
+            <p>
+                Paj sa a rezève pou volontè ki gen yon kont
+                aktif nan LAJONÈ'M.
+            </p>
+
+            <a
+                href="index.html"
+                class="btn-header btn-logout"
+            >
+                Retounen sou sit la
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         APPLICATION
+    ====================================================== -->
+
+    <div id="app">
+
+        <!-- HEADER -->
+
+        <header>
+
+            <div class="logo-zone">
+
+                <div class="logo-symbol">
+                    L
+                </div>
+
+                <div class="logo-text">
+
+                    <h1>
+                        LAJONÈ'M
+                    </h1>
+
+                    <p>
+                        Laj yo se onè nou.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="header-actions">
+
+                <a
+                    href="index.html"
+                    class="btn-header btn-site"
+                >
+                    Sit piblik
+                </a>
+
+                <button
+                    id="btnLogout"
+                    class="btn-header btn-logout"
+                >
+                    Dekonekte
+                </button>
+
+            </div>
+
+        </header>
+
+
+        <!-- MAIN -->
+
+        <main>
+
+            <!-- =============================================
+                 WELCOME
+            ============================================== -->
+
+            <section class="welcome">
+
+                <div>
+
+                    <h2 id="welcomeName">
+                        Byenveni
+                    </h2>
+
+                    <p>
+                        Men espas pèsonèl ou kòm volontè
+                        nan LAJONÈ'M.
+                    </p>
+
+                    <div
+                        class="role-badge"
+                        id="roleBadge"
+                    >
+                        Volontè
+                    </div>
+
+                </div>
+
+
+                <div class="welcome-symbol">
+                    ♥
+                </div>
+
+            </section>
+
+
+            <!-- =============================================
+                 AKSÈ RAPID
+            ============================================== -->
+
+            <div class="section-title">
+
+                <h3>
+                    Aksè rapid
+                </h3>
+
+                <p>
+                    Enfòmasyon ou gen otorizasyon pou konsilte.
+                </p>
+
+            </div>
+
+
+            <section class="cards">
+
+
+                <!-- PWOGRAM -->
+
+                <div
+                    class="card"
+                    id="cardPwogram"
+                >
+
+                    <div class="card-icon">
+                        P
+                    </div>
+
+                    <h4>
+                        Pwogram LAJONÈ'M
+                    </h4>
+
+                    <p>
+                        Konsilte pwogram ak sèvis
+                        òganizasyon an ap devlope.
+                    </p>
+
+                    <a
+                        href="pwogram.html"
+                        class="card-link"
+                    >
+                        Wè pwogram yo →
+                    </a>
+
+                </div>
+
+
+                <!-- AKTIVITE -->
+
+                <div
+                    class="card"
+                    id="cardAktivite"
+                >
+
+                    <div class="card-icon">
+                        A
+                    </div>
+
+                    <h4>
+                        Aktivite
+                    </h4>
+
+                    <p>
+                        Gade aktivite piblik LAJONÈ'M
+                        yo ak enfòmasyon ki disponib.
+                    </p>
+
+                    <a
+                        href="aktivite.html"
+                        class="card-link"
+                    >
+                        Wè aktivite yo →
+                    </a>
+
+                </div>
+
+
+                <!-- GALRI -->
+
+                <div
+                    class="card"
+                    id="cardGalri"
+                >
+
+                    <div class="card-icon">
+                        G
+                    </div>
+
+                    <h4>
+                        Galri
+                    </h4>
+
+                    <p>
+                        Gade foto ak moman piblik
+                        aktivite LAJONÈ'M yo.
+                    </p>
+
+                    <a
+                        href="galri.html"
+                        class="card-link"
+                    >
+                        Wè galri a →
+                    </a>
+
+                </div>
+
+
+                <!-- VIZIT -->
+
+                <div
+                    class="card"
+                    id="cardVizit"
+                >
+
+                    <div class="card-icon">
+                        V
+                    </div>
+
+                    <h4>
+                        Vizit
+                    </h4>
+
+                    <p>
+                        Espas sa a ap sèvi pou enfòmasyon
+                        sou vizit volontè yo otorize.
+                    </p>
+
+                    <span
+                        class="card-link"
+                        style="color:#667085;"
+                    >
+                        Ap prepare →
+                    </span>
+
+                </div>
+
+            </section>
+
+
+            <!-- =============================================
+                 PWOGRAM
+            ============================================== -->
+
+            <div class="section-title">
+
+                <h3>
+                    Pwogram aktif
+                </h3>
+
+                <p>
+                    Pwogram LAJONÈ'M ki disponib pou konsiltasyon.
+                </p>
+
+            </div>
+
+
+            <section
+                id="programmes"
+                class="programmes"
+            >
+
+                <div class="card">
+
+                    <p>
+                        N ap chaje pwogram yo...
+                    </p>
+
+                </div>
+
+            </section>
+
+
+            <!-- =============================================
+                 AKTIVITE
+            ============================================== -->
+
+            <div class="section-title">
+
+                <h3>
+                    Dènye aktivite yo
+                </h3>
+
+                <p>
+                    Aktivite piblik ki disponib sou platfòm nan.
+                </p>
+
+            </div>
+
+
+            <section
+                id="activities"
+                class="activity-list"
+            >
+
+                <div class="activity-item">
+
+                    <div class="activity-info">
+
+                        <h4>
+                            N ap chaje aktivite yo...
+                        </h4>
+
+                        <p>
+                            Tanpri tann yon ti moman.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =============================================
+                 RESPONSABLITE
+            ============================================== -->
+
+            <div class="info-box">
+
+                <h4>
+                    Responsablite volontè
+                </h4>
+
+                <p>
+                    Antanke volontè LAJONÈ'M, ou dwe respekte
+                    diyite, vi prive, sekirite ak enfòmasyon
+                    moun òganizasyon an akonpaye yo. Pa pataje
+                    enfòmasyon pèsonèl yon benefisyè san
+                    otorizasyon òganizasyon an.
+                </p>
+
+            </div>
+
+
+            <!-- =============================================
+                 MISYON
+            ============================================== -->
+
+            <div class="info-box">
+
+                <h4>
+                    Laj yo se onè nou.
+                </h4>
+
+                <p>
+                    Nou kwè chak moun ki rive nan yon laj
+                    avanse merite respè, prezans, solidarite
+                    ak diyite.
+                </p>
+
+            </div>
+
+        </main>
+
+
+        <!-- FOOTER -->
+
+        <footer>
+
+            <p>
+                LAJONÈ'M — Laj yo se onè nou.
+            </p>
+
+            <p>
+                Wè. Akonpaye. Valorizasyon.
+            </p>
+
+        </footer>
+
+    </div>
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+    ====================================================== -->
+
+    <script src="js/supabase.js"></script>
+
+    <script src="js/permissions.js"></script>
+
+
+    <script>
+
+        /* =================================================
+           ELEMENTS
+        ================================================= */
+
+        const loading =
+            document.getElementById("loading");
+
+        const app =
+            document.getElementById("app");
+
+        const accesRefize =
+            document.getElementById("accesRefize");
+
+
+        /* =================================================
+           ESCAPE HTML
+        ================================================= */
+
+        function echapeHTML(value) {
+
+            if (value === null || value === undefined) {
+                return "";
+            }
+
+            return String(value)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
+
+        /* =================================================
+           MONTRE ERÈ
+        ================================================= */
+
+        function montreErreur(message) {
+
+            console.error(
+                "❌",
+                message
+            );
+        }
+
+
+        /* =================================================
+           PWOGRÈM
+        ================================================= */
+
+        async function chajePwogram() {
+
+            if (!genPèmisyon("wè_pwogram")) {
+
+                document.getElementById(
+                    "programmes"
+                ).innerHTML = `
+                    <div class="card">
+                        <p>
+                            Ou pa gen pèmisyon pou wè
+                            pwogram yo.
+                        </p>
+                    </div>
+                `;
+
+                return;
+            }
+
+
+            const {
+                data,
+                error
+            } = await supabaseClient
+                .from("pwogram")
+                .select(`
+                    id,
+                    non,
+                    slug,
+                    deskripsyon,
+                    objektif,
+                    imaj_url
+                `)
+                .eq("aktif", true)
+                .order(
+                    "dat_kreyasyon",
+                    {
+                        ascending: true
+                    }
+                );
+
+
+            if (error) {
+
+                montreErreur(
+                    "Erè chaje pwogram:",
+                    error
+                );
+
+                document.getElementById(
+                    "programmes"
+                ).innerHTML = `
+                    <div class="card">
+                        <p>
+                            Nou pa kapab chaje pwogram yo
+                            pou kounye a.
+                        </p>
+                    </div>
+                `;
+
+                return;
+            }
+
+
+            const container =
+                document.getElementById(
+                    "programmes"
+                );
+
+
+            if (!data || data.length === 0) {
+
+                container.innerHTML = `
+                    <div class="card">
+                        <p>
+                            Pa gen pwogram aktif
+                            pou kounye a.
+                        </p>
+                    </div>
+                `;
+
+                return;
+            }
+
+
+            container.innerHTML =
+                data.map(program => {
+
+                    const description =
+                        program.deskripsyon ||
+                        program.objektif ||
+                        "Pwogram LAJONÈ'M.";
+
+                    return `
+
+                        <article class="programme-card">
+
+                            <div class="programme-image">
+
+                                ${
+                                    program.imaj_url
+                                    ? `
+                                        <img
+                                            src="${echapeHTML(program.imaj_url)}"
+                                            alt="${echapeHTML(program.non)}"
+                                            style="
+                                                width:100%;
+                                                height:100%;
+                                                object-fit:cover;
+                                            "
+                                        >
+                                    `
+                                    : "L"
+                                }
+
+                            </div>
+
+                            <div class="programme-body">
+
+                                <h4>
+                                    ${echapeHTML(program.non)}
+                                </h4>
+
+                                <p>
+                                    ${echapeHTML(description)}
+                                </p>
+
+                            </div>
+
+                        </article>
+
+                    `;
+
+                }).join("");
+
+        }
+
+
+        /* =================================================
+           AKTIVITE
+        ================================================= */
+
+        async function chajeAktivite() {
+
+            if (!genPèmisyon("wè_aktivite")) {
+
+                document.getElementById(
+                    "activities"
+                ).innerHTML = `
+                    <div class="activity-item">
+                        <div class="activity-info">
+                            <h4>
+                                Aksè limite
+                            </h4>
+                            <p>
+                                Ou pa gen pèmisyon pou wè
+                                aktivite yo.
+                            </p>
+                        </div>
+                    </div>
+                `;
+
+                return;
+            }
+
+
+            const {
+                data,
+                error
+            } = await supabaseClient
+                .from("aktivite")
+                .select(`
+                    id,
+                    tit,
+                    deskripsyon,
+                    tip,
+                    estati,
+                    dat_aktivite,
+                    kote,
+                    piblik,
+                    pwogram:pwogram_id (
+                        non
+                    )
+                `)
+                .eq("piblik", true)
+                .neq("estati", "anile")
+                .order(
+                    "dat_aktivite",
+                    {
+                        ascending: false
+                    }
+                )
+                .limit(8);
+
+
+            if (error) {
+
+                montreErreur(
+                    "Erè chaje aktivite:",
+                    error
+                );
+
+                document.getElementById(
+                    "activities"
+                ).innerHTML = `
+                    <div class="activity-item">
+                        <div class="activity-info">
+                            <h4>
+                                Aktivite yo pa disponib.
+                            </h4>
+                        </div>
+                    </div>
+                `;
+
+                return;
+            }
+
+
+            const container =
+                document.getElementById(
+                    "activities"
+                );
+
+
+            if (!data || data.length === 0) {
+
+                container.innerHTML = `
+                    <div class="activity-item">
+                        <div class="activity-info">
+                            <h4>
+                                Pa gen aktivite piblik.
+                            </h4>
+                            <p>
+                                Nou ap mete enfòmasyon yo
+                                ajou.
+                            </p>
+                        </div>
+                    </div>
+                `;
+
+                return;
+            }
+
+
+            container.innerHTML =
+                data.map(activity => {
+
+                    let dat = "";
+
+                    if (activity.dat_aktivite) {
+
+                        const d =
+                            new Date(
+                                activity.dat_aktivite
+                            );
+
+                        if (!isNaN(d)) {
+
+                            dat =
+                                d.toLocaleDateString(
+                                    "fr-FR"
+                                );
+                        }
+                    }
+
+
+                    return `
+
+                        <article class="activity-item">
+
+                            <div class="activity-info">
+
+                                <h4>
+                                    ${echapeHTML(activity.tit)}
+                                </h4>
+
+                                <p>
+
+                                    ${
+                                        activity.pwogram?.non
+                                        ? echapeHTML(
+                                            activity.pwogram.non
+                                          ) + " • "
+                                        : ""
+                                    }
+
+                                    ${
+                                        dat
+                                        ? "Dat: " + dat + " • "
+                                        : ""
+                                    }
+
+                                    ${
+                                        activity.kote
+                                        ? "Kote: " +
+                                          echapeHTML(
+                                              activity.kote
+                                          )
+                                        : ""
+                                    }
+
+                                </p>
+
+                            </div>
+
+                            <span class="status">
+
+                                ${echapeHTML(
+                                    activity.estati || "aktif"
+                                )}
+
+                            </span>
+
+                        </article>
+
+                    `;
+
+                }).join("");
+
+        }
+
+
+        /* =================================================
+           PWOTEJE KAT YO
+        ================================================= */
+
+        function aplikePèmisyonVizib() {
+
+            const cardPwogram =
+                document.getElementById(
+                    "cardPwogram"
+                );
+
+            const cardAktivite =
+                document.getElementById(
+                    "cardAktivite"
+                );
+
+            const cardGalri =
+                document.getElementById(
+                    "cardGalri"
+                );
+
+            const cardVizit =
+                document.getElementById(
+                    "cardVizit"
+                );
+
+
+            if (!genPèmisyon("wè_pwogram")) {
+                cardPwogram.style.display = "none";
+            }
+
+
+            if (!genPèmisyon("wè_aktivite")) {
+                cardAktivite.style.display = "none";
+            }
+
+
+            if (!genPèmisyon("wè_galri")) {
+                cardGalri.style.display = "none";
+            }
+
+
+            if (!genPèmisyon("wè_vizit")) {
+                cardVizit.style.display = "none";
+            }
+
+        }
+
+
+        /* =================================================
+           DEKONEKTE
+        ================================================= */
+
+        document
+            .getElementById("btnLogout")
+            .addEventListener(
+                "click",
+                async () => {
+
+                    await supabaseClient.auth.signOut();
+
+                    window.location.href =
+                        "login.html";
+                }
+            );
+
+
+        /* =================================================
+           DEMARAJ
+        ================================================= */
+
+        async function demareEspasVolonte() {
+
+            try {
+
+                /* -----------------------------------------
+                   VERIFYE SESSION
+                   ----------------------------------------- */
+
+                const {
+                    data: sessionData
+                } =
+                    await supabaseClient.auth.getSession();
+
+
+                if (
+                    !sessionData ||
+                    !sessionData.session
+                ) {
+
+                    window.location.href =
+                        "login.html";
+
+                    return;
+                }
+
+
+                /* -----------------------------------------
+                   CHAJE RBAC
+                   ----------------------------------------- */
+
+                await chajeRBAC();
+
+
+                /* -----------------------------------------
+                   VERIFYE WÒL
+                   ----------------------------------------- */
+
+                if (
+                    !profilAdmin ||
+                    profilAdmin.wòl !== "volonte" ||
+                    !profilAdmin.aktif
+                ) {
+
+                    loading.style.display = "none";
+
+                    accesRefize.style.display =
+                        "flex";
+
+                    return;
+                }
+
+
+                /* -----------------------------------------
+                   PWOTEJE AKSÈ
+                   ----------------------------------------- */
+
+                if (
+                    !genPèmisyon("wè_pwogram") &&
+                    !genPèmisyon("wè_aktivite") &&
+                    !genPèmisyon("wè_galri") &&
+                    !genPèmisyon("wè_vizit")
+                ) {
+
+                    loading.style.display = "none";
+
+                    accesRefize.style.display =
+                        "flex";
+
+                    return;
+                }
+
+
+                /* -----------------------------------------
+                   MONTRE NON
+                   ----------------------------------------- */
+
+                const nonKonplè =
+                    [
+                        profilAdmin.non,
+                        profilAdmin.siyati
+                    ]
+                    .filter(Boolean)
+                    .join(" ");
+
+
+                document.getElementById(
+                    "welcomeName"
+                ).textContent =
+                    `Byenveni, ${nonKonplè || "Volontè"}!`;
+
+
+                document.getElementById(
+                    "roleBadge"
+                ).textContent =
+                    jwennNonWolAdmin();
+
+
+                /* -----------------------------------------
+                   PWOTEKSYON KAT
+                   ----------------------------------------- */
+
+                aplikePèmisyonVizib();
+
+
+                /* -----------------------------------------
+                   CHAJE DONE OTORIZE
+                   ----------------------------------------- */
+
+                await Promise.all([
+                    chajePwogram(),
+                    chajeAktivite()
+                ]);
+
+
+                /* -----------------------------------------
+                   AFFICHE APPLICATION
+                   ----------------------------------------- */
+
+                loading.style.display =
+                    "none";
+
+                app.style.display =
+                    "block";
+
+
+            } catch (error) {
+
+                console.error(
+                    "❌ Erè espas volontè:",
+                    error
+                );
+
+                loading.style.display =
+                    "none";
+
+                accesRefize.style.display =
+                    "flex";
+            }
+        }
+
+
+        /* =================================================
+           LANSE
+        ================================================= */
+
+        demareEspasVolonte();
+
+    </script>
+
+</body>
+</html>
