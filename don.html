@@ -6,113 +6,257 @@
 
   <title>Fè yon Don pou LAJONÈ'M | Sipòte moun aje ann Ayiti</title>
 
-<meta
-  name="description"
-  content="Sipòte LAJONÈ'M pou nou ka akonpaye moun aje vilnerab yo ann Ayiti. Fè yon don epi kontribye nan manje, ijyèn, swen ak lòt bezwen esansyèl."
->
+  <meta
+    name="description"
+    content="Fè yon don pou sipòte LAJONÈ'M nan akonpayman moun aje depandan, vilnerab ak izole ann Ayiti."
+  >
 
-<meta
-  name="keywords"
-  content="don LAJONÈ'M, fè don Ayiti, ede moun aje, moun aje Ayiti, donasyon Ayiti, solidarite Ayiti, sipò moun aje, òganizasyon moun aje"
->
+  <meta
+    name="keywords"
+    content="LAJONÈ'M, fè don Ayiti, donasyon Ayiti, ede moun aje, moun aje Ayiti, solidarite, sipò moun aje, òganizasyon nonprofit"
+  >
 
-<meta name="robots" content="index, follow">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="LAJONÈ'M">
+  <meta name="theme-color" content="#0B3B75">
 
-<link
-  rel="canonical"
-  href="https://bestdealshoping.github.io/LAJONE-M-/don.html"
->
+  <link
+    rel="canonical"
+    href="https://bestdealshoping.github.io/LAJONE-M-/don.html"
+  >
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="Fè yon Don pou LAJONÈ'M | Laj yo se onè nou">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Fè yon Don pou LAJONÈ'M">
+  <meta
+    property="og:description"
+    content="Laj yo se onè nou. Sipòte LAJONÈ'M pou nou ka akonpaye moun aje ki nan bezwen."
+  >
+  <meta
+    property="og:url"
+    content="https://bestdealshoping.github.io/LAJONE-M-/don.html"
+  >
+  <meta property="og:site_name" content="LAJONÈ'M">
+  <meta property="og:locale" content="ht_HT">
 
-<meta
-  property="og:description"
-  content="Chak sipò konte. Ede LAJONÈ'M akonpaye moun aje yo avèk plis diyite, respè ak solidarite."
->
+  <meta
+    property="og:image"
+    content="https://terjfmeuzvhcntplnbsd.supabase.co/storage/v1/object/public/galri/foto-1791543704733-hspnevg.png"
+  >
 
-<meta
-  property="og:url"
-  content="https://bestdealshoping.github.io/LAJONE-M-/don.html"
->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Fè yon Don pou LAJONÈ'M">
+  <meta
+    name="twitter:description"
+    content="Sipòte moun aje yo avèk respè, solidarite ak diyite."
+  >
+  <meta
+    name="twitter:image"
+    content="https://terjfmeuzvhcntplnbsd.supabase.co/storage/v1/object/public/galri/foto-1791543704733-hspnevg.png"
+  >
 
-<meta property="og:site_name" content="LAJONÈ'M">
-<meta property="og:locale" content="ht_HT">
+  <link rel="icon"
+    href="https://terjfmeuzvhcntplnbsd.supabase.co/storage/v1/object/public/galri/foto-1791543704733-hspnevg.png"
+  >
+
   <link rel="stylesheet" href="css/style.css">
 
   <style>
+
+    /* =====================================================
+       DON PAGE
+    ===================================================== */
+
+    :root {
+      --blue: #0B3B75;
+      --blue-dark: #07284f;
+      --gold: #F2B705;
+      --green: #2E8B57;
+      --light: #f5f7fa;
+      --text: #263238;
+      --muted: #667085;
+      --white: #ffffff;
+      --border: #e1e6ed;
+    }
+
     .don-hero {
-      padding: 80px 20px;
+      padding: 75px 20px;
       text-align: center;
-      background: linear-gradient(
-        135deg,
-        #0B3B75,
-        #164f91
-      );
+      background:
+        linear-gradient(
+          135deg,
+          rgba(11,59,117,.98),
+          rgba(7,40,79,.98)
+        );
       color: white;
     }
 
-    .don-hero h1 {
+    .don-hero-inner {
+      max-width: 900px;
+      margin: auto;
+    }
+
+    .don-logo {
+      width: 120px;
+      height: 120px;
+      object-fit: contain;
+      background: white;
+      padding: 10px;
+      border-radius: 50%;
+      margin-bottom: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.18);
+    }
+
+    .don-tag {
+      display: inline-block;
+      padding: 7px 15px;
+      border: 1px solid rgba(255,255,255,.35);
+      border-radius: 50px;
+      font-size: .85rem;
+      font-weight: 700;
+      letter-spacing: .5px;
       margin-bottom: 15px;
-      font-size: 42px;
+    }
+
+    .don-hero h1 {
+      margin: 0 0 18px;
+      font-size: clamp(2.2rem, 6vw, 4rem);
+      line-height: 1.1;
     }
 
     .don-hero p {
-      max-width: 750px;
+      max-width: 760px;
       margin: auto;
-      font-size: 18px;
-      line-height: 1.7;
+      font-size: 1.08rem;
+      line-height: 1.8;
+      opacity: .95;
     }
 
+    .don-hero-slogan {
+      margin-top: 25px !important;
+      color: #F2B705;
+      font-weight: 800;
+      font-size: 1.1rem !important;
+    }
+
+    /* =====================================================
+       MAIN
+    ===================================================== */
+
     .don-section {
-      padding: 60px 20px;
+      padding: 70px 20px;
+      background: #f5f7fa;
     }
 
     .don-grid {
       display: grid;
-      grid-template-columns: 1fr 1.5fr;
-      gap: 40px;
+      grid-template-columns: .85fr 1.4fr;
+      gap: 45px;
       align-items: start;
+      max-width: 1200px;
+      margin: auto;
     }
 
+    /* =====================================================
+       INFO
+    ===================================================== */
+
     .don-info {
-      background: #f7f9fc;
-      padding: 30px;
-      border-radius: 16px;
+      background: var(--blue);
+      color: white;
+      padding: 35px;
+      border-radius: 20px;
+      box-shadow: 0 12px 35px rgba(11,59,117,.15);
+      position: sticky;
+      top: 100px;
     }
 
     .don-info h2 {
-      color: #0B3B75;
-      margin-bottom: 20px;
+      margin-top: 0;
+      font-size: 1.9rem;
     }
 
     .don-info p {
-      line-height: 1.7;
+      line-height: 1.8;
+    }
+
+    .don-info-intro {
+      opacity: .94;
     }
 
     .don-values {
-      margin-top: 25px;
       display: grid;
-      gap: 15px;
+      gap: 14px;
+      margin-top: 28px;
     }
 
     .don-value {
-      background: white;
-      padding: 18px;
-      border-left: 4px solid #F2B705;
-      border-radius: 8px;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.14);
+      border-left: 4px solid var(--gold);
+      padding: 17px;
+      border-radius: 10px;
+      line-height: 1.55;
     }
+
+    .don-value strong {
+      color: var(--gold);
+      font-size: 1.05rem;
+    }
+
+    .don-impact {
+      margin-top: 28px;
+      padding: 18px;
+      background: rgba(46,139,87,.2);
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.12);
+    }
+
+    .don-impact strong {
+      color: #bde8ce;
+    }
+
+    /* =====================================================
+       FORM
+    ===================================================== */
 
     .don-form-box {
       background: white;
-      padding: 35px;
-      border-radius: 16px;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 12px 35px rgba(0,0,0,.08);
     }
 
     .don-form-box h2 {
-      color: #0B3B75;
+      color: var(--blue);
+      margin-top: 0;
+      font-size: 2rem;
+    }
+
+    .form-intro {
+      color: var(--muted);
+      line-height: 1.7;
       margin-bottom: 25px;
+    }
+
+    .don-notice {
+      background: #fff8df;
+      border-left: 4px solid var(--gold);
+      padding: 17px;
+      margin-bottom: 30px;
+      border-radius: 8px;
+      color: #594800;
+      line-height: 1.6;
+    }
+
+    .form-section {
+      margin-top: 32px;
+      padding-top: 25px;
+      border-top: 1px solid var(--border);
+    }
+
+    .form-section h3 {
+      color: var(--blue);
+      margin-bottom: 22px;
     }
 
     .form-row {
@@ -128,7 +272,12 @@
     .form-group label {
       display: block;
       margin-bottom: 8px;
-      font-weight: 600;
+      color: var(--text);
+      font-weight: 700;
+    }
+
+    .required {
+      color: #c62828;
     }
 
     .form-group input,
@@ -136,11 +285,12 @@
     .form-group textarea {
       width: 100%;
       padding: 13px 14px;
-      border: 1px solid #d8dee8;
-      border-radius: 8px;
-      font-size: 15px;
-      box-sizing: border-box;
+      border: 1px solid #d0d5dd;
+      border-radius: 9px;
+      font: inherit;
+      color: var(--text);
       background: white;
+      box-sizing: border-box;
     }
 
     .form-group textarea {
@@ -152,46 +302,62 @@
     .form-group select:focus,
     .form-group textarea:focus {
       outline: none;
-      border-color: #0B3B75;
-      box-shadow: 0 0 0 3px rgba(11,59,117,0.10);
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(11,59,117,.1);
     }
 
-    .don-notice {
-      background: #fff8df;
-      border-left: 4px solid #F2B705;
-      padding: 15px;
-      margin-bottom: 25px;
-      border-radius: 6px;
-      line-height: 1.6;
+    .amount-group {
+      display: none;
     }
+
+    .amount-group.visible {
+      display: block;
+    }
+
+    .currency-note {
+      font-size: .86rem;
+      color: var(--muted);
+      margin-top: 6px;
+    }
+
+    /* =====================================================
+       SUBMIT
+    ===================================================== */
 
     .don-submit {
       width: 100%;
       border: none;
-      padding: 15px 20px;
-      background: #0B3B75;
+      padding: 16px 20px;
+      background: var(--blue);
       color: white;
-      border-radius: 8px;
-      font-size: 16px;
-      font-weight: 700;
+      border-radius: 9px;
+      font-size: 1rem;
+      font-weight: 800;
       cursor: pointer;
+      transition: .2s ease;
     }
 
     .don-submit:hover {
-      background: #082d5a;
+      background: var(--blue-dark);
+      transform: translateY(-1px);
     }
 
     .don-submit:disabled {
-      opacity: 0.6;
+      opacity: .6;
       cursor: not-allowed;
+      transform: none;
     }
+
+    /* =====================================================
+       MESSAGE
+    ===================================================== */
 
     .message {
       display: none;
       margin-top: 20px;
-      padding: 15px;
-      border-radius: 8px;
-      line-height: 1.6;
+      padding: 18px;
+      border-radius: 10px;
+      line-height: 1.65;
     }
 
     .message.success {
@@ -208,21 +374,43 @@
       border: 1px solid #efb1b1;
     }
 
-    .amount-group {
-      display: none;
+    /* =====================================================
+       SECURITY / PRIVACY NOTE
+    ===================================================== */
+
+    .privacy-note {
+      margin-top: 20px;
+      color: var(--muted);
+      font-size: .86rem;
+      line-height: 1.6;
+      text-align: center;
     }
 
-    .amount-group.visible {
-      display: block;
-    }
+    /* =====================================================
+       MOBILE
+    ===================================================== */
 
-    .required {
-      color: #c62828;
-    }
+    @media (max-width: 900px) {
 
-    @media (max-width: 800px) {
       .don-grid {
         grid-template-columns: 1fr;
+      }
+
+      .don-info {
+        position: static;
+      }
+
+    }
+
+    @media (max-width: 600px) {
+
+      .don-section {
+        padding: 45px 15px;
+      }
+
+      .don-form-box,
+      .don-info {
+        padding: 24px 18px;
       }
 
       .form-row {
@@ -230,455 +418,713 @@
         gap: 0;
       }
 
-      .don-hero h1 {
-        font-size: 32px;
+      .don-hero {
+        padding: 55px 18px;
       }
 
-      .don-form-box {
-        padding: 22px;
+      .don-logo {
+        width: 100px;
+        height: 100px;
       }
+
     }
+
   </style>
 </head>
 
 <body>
 
-  <!-- HEADER -->
+  <!-- =====================================================
+       HEADER
+  ====================================================== -->
+
   <header class="site-header">
+
     <div class="container">
 
       <div class="logo">
-        <a href="index.html">LAJONÈ'M</a>
+        <a href="index.html">
+          LAJONÈ'M
+        </a>
       </div>
 
       <nav class="main-nav">
-        <a href="index.html">Akèy</a>
-        <a href="sou-nou.html">Sou nou</a>
-        <a href="pwogram.html">Pwogram</a>
-        <a href="aktivite.html">Aktivite</a>
-        <a href="galri.html">Galri</a>
-        <a href="nouvel.html">Nouvèl</a>
-        <a href="volonte.html">Vin volontè</a>
-        <a href="don.html" class="active">Fè yon don</a>
+
+        <a href="index.html">
+          Akèy
+        </a>
+
+        <a href="sou-nou.html">
+          Sou nou
+        </a>
+
+        <a href="pwogram.html">
+          Pwogram
+        </a>
+
+        <a href="aktivite.html">
+          Aktivite
+        </a>
+
+        <a href="galri.html">
+          Galri
+        </a>
+
+        <a href="nouvel.html">
+          Nouvèl
+        </a>
+
+        <a href="volonte.html">
+          Vin volontè
+        </a>
+
+        <a href="don.html" class="active">
+          Fè yon don
+        </a>
+
+        <a href="kontak.html">
+          Kontakte nou
+        </a>
+
       </nav>
 
     </div>
+
   </header>
 
 
-  <!-- HERO -->
-  <section class="don-hero">
+  <!-- =====================================================
+       HERO
+  ====================================================== -->
 
-    <h1>Fè yon don</h1>
+  <main>
 
-    <p>
-      Chak kontribisyon kapab pote manje, swen, konpayi ak diyite
-      bay yon granmoun ki bezwen akonpayman.
-    </p>
+    <section class="don-hero">
 
-  </section>
+      <div class="don-hero-inner">
 
+        <img
+          class="don-logo"
+          src="https://terjfmeuzvhcntplnbsd.supabase.co/storage/v1/object/public/galri/foto-1791543704733-hspnevg.png"
+          alt="Logo ofisyèl LAJONÈ'M"
+        >
 
-  <!-- DON -->
-  <section class="don-section">
-
-    <div class="container don-grid">
-
-      <!-- INFORMATION -->
-      <div class="don-info">
-
-        <h2>Yon don, yon aksyon pou lavi</h2>
-
-        <p>
-          LAJONÈ'M ap travay pou akonpaye granmoun ki depandan,
-          vilnerab, izole oswa ki nan sitiyasyon prekè.
-        </p>
-
-        <p>
-          Don ou kapab ede nou reponn ak bezwen fondamantal,
-          òganize aktivite, soutni vizit lakay epi fasilite
-          oryantasyon sosyal ak sante.
-        </p>
-
-        <div class="don-values">
-
-          <div class="don-value">
-            <strong>Manje</strong>
-            <br>
-            Sipò pou bezwen alimantè moun nou akonpaye yo.
-          </div>
-
-          <div class="don-value">
-            <strong>Ijyèn</strong>
-            <br>
-            Pwodui ijyèn ak lòt bagay esansyèl.
-          </div>
-
-          <div class="don-value">
-            <strong>Sante ak otonomi</strong>
-            <br>
-            Sipò pou oryantasyon ak bezwen ki gen rapò ak sante.
-          </div>
-
-          <div class="don-value">
-            <strong>Diyite</strong>
-            <br>
-            Aktivite ak aksyon ki ede moun aje yo santi yo
-            konsidere ak valorize.
-          </div>
-
+        <div class="don-tag">
+          LAJONÈ'M
         </div>
+
+        <h1>
+          Fè yon don
+        </h1>
+
+        <p>
+          Chak kontribisyon kapab ede pote manje,
+          ijyèn, sipò, prezans ak diyite bay moun aje
+          ki bezwen akonpayman.
+        </p>
+
+        <p class="don-hero-slogan">
+          Laj yo se onè nou.
+        </p>
 
       </div>
 
-
-      <!-- FORM -->
-      <div class="don-form-box">
-
-        <h2>Fòm don</h2>
-
-        <div class="don-notice">
-          Apre ou fin voye fòm nan, ekip LAJONÈ'M ap kontakte ou
-          pou verifye enfòmasyon yo epi konfime don an.
-        </div>
-
-        <form id="donForm">
-
-          <!-- INFORMATIONS DONATEUR -->
-          <h3>1. Enfòmasyon sou donatè a</h3>
-
-          <div class="form-row">
-
-            <div class="form-group">
-              <label for="non">
-                Non <span class="required">*</span>
-              </label>
-
-              <input
-                type="text"
-                id="non"
-                required
-                placeholder="Non ou"
-              >
-            </div>
-
-            <div class="form-group">
-              <label for="òganizasyon">
-                Òganizasyon
-              </label>
-
-              <input
-                type="text"
-                id="òganizasyon"
-                placeholder="Non òganizasyon an si genyen"
-              >
-            </div>
-
-          </div>
+    </section>
 
 
-          <div class="form-row">
+    <!-- =====================================================
+         DON SECTION
+    ====================================================== -->
 
-            <div class="form-group">
-              <label for="telefòn">
-                Telefòn <span class="required">*</span>
-              </label>
+    <section class="don-section">
 
-              <input
-                type="tel"
-                id="telefòn"
-                required
-                placeholder="+509..."
-              >
-            </div>
+      <div class="don-grid">
 
-            <div class="form-group">
-              <label for="email">
-                Imèl
-              </label>
+        <!-- =================================================
+             INFORMATION
+        ================================================== -->
 
-              <input
-                type="email"
-                id="email"
-                placeholder="egzanp@email.com"
-              >
-            </div>
+        <aside class="don-info">
 
-          </div>
+          <h2>
+            Yon don, yon aksyon pou lavi
+          </h2>
 
+          <p class="don-info-intro">
+            LAJONÈ'M ap travay pou akonpaye moun aje
+            depandan, vilnerab, izole oswa ki nan
+            sitiyasyon prekè.
+          </p>
 
-          <div class="form-group">
-
-            <label for="adrès">
-              Adrès
-            </label>
-
-            <input
-              type="text"
-              id="adrès"
-              placeholder="Adrès ou"
-            >
-
-          </div>
+          <p>
+            Sipò ou kapab ede nou reponn ak bezwen
+            fondamantal yo, òganize aktivite, fè vizit
+            lakay epi fasilite oryantasyon sosyal ak sante.
+          </p>
 
 
-          <div class="form-group">
+          <div class="don-values">
 
-            <label for="kalite_donatè">
-              Kalite donatè <span class="required">*</span>
-            </label>
+            <div class="don-value">
 
-            <select id="kalite_donatè" required>
-
-              <option value="">
-                Chwazi
-              </option>
-
-              <option value="moun">
-                Moun
-              </option>
-
-              <option value="antrepriz">
-                Antrepriz
-              </option>
-
-              <option value="òganizasyon">
-                Òganizasyon
-              </option>
-
-              <option value="gwoup">
-                Gwoup
-              </option>
-
-              <option value="lòt">
-                Lòt
-              </option>
-
-            </select>
-
-          </div>
-
-
-          <!-- DON -->
-          <h3>2. Detay sou don an</h3>
-
-          <div class="form-group">
-
-            <label for="tip_don">
-              Kalite don <span class="required">*</span>
-            </label>
-
-            <select id="tip_don" required>
-
-              <option value="">
-                Chwazi kalite don an
-              </option>
-
-              <option value="lajan">
-                Lajan
-              </option>
-
-              <option value="manje">
+              <strong>
                 Manje
-              </option>
+              </strong>
 
-              <option value="rad">
-                Rad
-              </option>
+              <br>
 
-              <option value="medikaman">
-                Medikaman
-              </option>
+              Sipò pou bezwen alimantè moun nou
+              akonpaye yo.
 
-              <option value="materyèl">
-                Materyèl
-              </option>
-
-              <option value="ekipman">
-                Ekipman
-              </option>
-
-              <option value="lòt">
-                Lòt
-              </option>
-
-            </select>
-
-          </div>
+            </div>
 
 
-          <div
-            class="form-group amount-group"
-            id="amountGroup"
-          >
+            <div class="don-value">
 
-            <label for="montan">
-              Montan
-            </label>
+              <strong>
+                Ijyèn
+              </strong>
 
-            <input
-              type="number"
-              id="montan"
-              min="0"
-              step="0.01"
-              placeholder="0.00"
-            >
+              <br>
 
-          </div>
+              Pwodui ijyèn ak lòt bagay esansyèl.
+
+            </div>
 
 
-          <div class="form-group">
+            <div class="don-value">
 
-            <label for="lajan">
-              Lajan
-            </label>
+              <strong>
+                Sante ak otonomi
+              </strong>
 
-            <select id="lajan">
+              <br>
 
-              <option value="HTG">
-                HTG — Goud ayisyen
-              </option>
+              Sipò pou oryantasyon ak bezwen ki
+              gen rapò ak sante.
 
-              <option value="USD">
-                USD — Dola ameriken
-              </option>
+            </div>
 
-              <option value="EUR">
-                EUR — Euro
-              </option>
 
-              <option value="lòt">
-                Lòt
-              </option>
+            <div class="don-value">
 
-            </select>
+              <strong>
+                Diyite
+              </strong>
+
+              <br>
+
+              Aktivite ak aksyon ki ede moun aje yo
+              santi yo konsidere ak valorize.
+
+            </div>
 
           </div>
 
 
-          <div class="form-group">
+          <div class="don-impact">
 
-            <label for="aktivite_id">
-              Aktivite ou vle sipòte
-            </label>
+            <strong>
+              Chak sipò konte.
+            </strong>
 
-            <select id="aktivite_id">
+            <br>
 
-              <option value="">
-                Nenpòt aktivite LAJONÈ'M
-              </option>
+            Ansanm, nou kapab kreye yon kominote
+            ki prezan pou moun aje yo.
 
-            </select>
+          </div>
+
+        </aside>
+
+
+        <!-- =================================================
+             FORM
+        ================================================== -->
+
+        <div class="don-form-box">
+
+          <h2>
+            Fòm don
+          </h2>
+
+          <p class="form-intro">
+            Ranpli enfòmasyon ki anba yo pou fè nou konnen
+            ki kalite sipò ou vle pote. Ekip LAJONÈ'M ap
+            kontakte ou pou verifye enfòmasyon yo epi
+            konfime detay don an.
+          </p>
+
+
+          <div class="don-notice">
+
+            <strong>
+              Enpòtan:
+            </strong>
+
+            Soumèt fòm sa a pa vle di tranzaksyon an
+            fèt otomatikman. Li pèmèt ekip LAJONÈ'M
+            resevwa epi trete demann don ou an.
 
           </div>
 
 
-          <div class="form-group">
-
-            <label for="metòd_peman">
-              Mwayen peman
-            </label>
-
-            <select id="metòd_peman">
-
-              <option value="">
-                Chwazi
-              </option>
-
-              <option value="MonCash">
-                MonCash
-              </option>
-
-              <option value="NatCash">
-                NatCash
-              </option>
-
-              <option value="Virement bancaire">
-                Virement bancaire
-              </option>
-
-              <option value="Lajan kach">
-                Lajan kach
-              </option>
-
-              <option value="Lòt">
-                Lòt
-              </option>
-
-            </select>
-
-          </div>
+          <form id="donForm" novalidate>
 
 
-          <div class="form-group">
+            <!-- =============================================
+                 DONATEUR
+            ============================================== -->
 
-            <label for="referans_peman">
-              Referans peman
-            </label>
+            <div class="form-section">
 
-            <input
-              type="text"
-              id="referans_peman"
-              placeholder="Nimewo oswa referans tranzaksyon an"
-            >
-
-          </div>
+              <h3>
+                1. Enfòmasyon sou donatè a
+              </h3>
 
 
-          <div class="form-group">
+              <div class="form-row">
 
-            <label for="deskripsyon">
-              Deskripsyon don an
-            </label>
+                <div class="form-group">
 
-            <textarea
-              id="deskripsyon"
-              placeholder="Bay plis detay sou don ou vle fè a..."
-            ></textarea>
+                  <label for="non">
+                    Non
+                    <span class="required">*</span>
+                  </label>
 
-          </div>
+                  <input
+                    type="text"
+                    id="non"
+                    required
+                    maxlength="150"
+                    autocomplete="name"
+                    placeholder="Non ou"
+                  >
 
-
-          <div class="form-group">
-
-            <label for="nòt">
-              Nòt
-            </label>
-
-            <textarea
-              id="nòt"
-              placeholder="Nenpòt enfòmasyon ou vle pataje avèk ekip LAJONÈ'M..."
-            ></textarea>
-
-          </div>
+                </div>
 
 
-          <button
-            type="submit"
-            class="don-submit"
-            id="donSubmit"
-          >
-            Voye demann don an
-          </button>
+                <div class="form-group">
 
-          <div id="donMessage" class="message"></div>
+                  <label for="òganizasyon">
+                    Òganizasyon
+                  </label>
 
-        </form>
+                  <input
+                    type="text"
+                    id="òganizasyon"
+                    maxlength="200"
+                    autocomplete="organization"
+                    placeholder="Non òganizasyon an si genyen"
+                  >
+
+                </div>
+
+              </div>
+
+
+              <div class="form-row">
+
+                <div class="form-group">
+
+                  <label for="telefòn">
+                    Telefòn
+                    <span class="required">*</span>
+                  </label>
+
+                  <input
+                    type="tel"
+                    id="telefòn"
+                    required
+                    maxlength="30"
+                    autocomplete="tel"
+                    placeholder="+509..."
+                  >
+
+                </div>
+
+
+                <div class="form-group">
+
+                  <label for="email">
+                    Imèl
+                  </label>
+
+                  <input
+                    type="email"
+                    id="email"
+                    maxlength="150"
+                    autocomplete="email"
+                    placeholder="egzanp@email.com"
+                  >
+
+                </div>
+
+              </div>
+
+
+              <div class="form-group">
+
+                <label for="adrès">
+                  Adrès
+                </label>
+
+                <input
+                  type="text"
+                  id="adrès"
+                  maxlength="500"
+                  autocomplete="street-address"
+                  placeholder="Adrès ou"
+                >
+
+              </div>
+
+
+              <div class="form-group">
+
+                <label for="kalite_donatè">
+
+                  Kalite donatè
+
+                  <span class="required">
+                    *
+                  </span>
+
+                </label>
+
+
+                <select
+                  id="kalite_donatè"
+                  required
+                >
+
+                  <option value="">
+                    Chwazi
+                  </option>
+
+                  <option value="moun">
+                    Moun
+                  </option>
+
+                  <option value="antrepriz">
+                    Antrepriz
+                  </option>
+
+                  <option value="òganizasyon">
+                    Òganizasyon
+                  </option>
+
+                  <option value="gwoup">
+                    Gwoup
+                  </option>
+
+                  <option value="lòt">
+                    Lòt
+                  </option>
+
+                </select>
+
+              </div>
+
+            </div>
+
+
+            <!-- =============================================
+                 DETAY DON
+            ============================================== -->
+
+            <div class="form-section">
+
+              <h3>
+                2. Detay sou don an
+              </h3>
+
+
+              <div class="form-group">
+
+                <label for="tip_don">
+
+                  Kalite don
+
+                  <span class="required">
+                    *
+                  </span>
+
+                </label>
+
+
+                <select
+                  id="tip_don"
+                  required
+                >
+
+                  <option value="">
+                    Chwazi kalite don an
+                  </option>
+
+                  <option value="lajan">
+                    Lajan
+                  </option>
+
+                  <option value="manje">
+                    Manje
+                  </option>
+
+                  <option value="rad">
+                    Rad
+                  </option>
+
+                  <option value="medikaman">
+                    Medikaman
+                  </option>
+
+                  <option value="materyèl">
+                    Materyèl
+                  </option>
+
+                  <option value="ekipman">
+                    Ekipman
+                  </option>
+
+                  <option value="lòt">
+                    Lòt
+                  </option>
+
+                </select>
+
+              </div>
+
+
+              <div
+                class="form-group amount-group"
+                id="amountGroup"
+              >
+
+                <label for="montan">
+                  Montan
+                  <span class="required">*</span>
+                </label>
+
+                <input
+                  type="number"
+                  id="montan"
+                  min="0"
+                  step="0.01"
+                  placeholder="0.00"
+                >
+
+                <div class="currency-note">
+                  Chwazi lajan an nan chan ki anba a.
+                </div>
+
+              </div>
+
+
+              <div class="form-group">
+
+                <label for="lajan">
+                  Lajan
+                </label>
+
+
+                <select id="lajan">
+
+                  <option value="HTG">
+                    HTG — Goud ayisyen
+                  </option>
+
+                  <option value="USD">
+                    USD — Dola ameriken
+                  </option>
+
+                  <option value="EUR">
+                    EUR — Euro
+                  </option>
+
+                  <option value="lòt">
+                    Lòt
+                  </option>
+
+                </select>
+
+              </div>
+
+
+              <div class="form-group">
+
+                <label for="aktivite_id">
+                  Aktivite ou vle sipòte
+                </label>
+
+
+                <select id="aktivite_id">
+
+                  <option value="">
+                    Nenpòt aktivite LAJONÈ'M
+                  </option>
+
+                </select>
+
+              </div>
+
+
+              <div class="form-group">
+
+                <label for="metòd_peman">
+                  Mwayen peman
+                </label>
+
+
+                <select id="metòd_peman">
+
+                  <option value="">
+                    Chwazi
+                  </option>
+
+                  <option value="MonCash">
+                    MonCash
+                  </option>
+
+                  <option value="NatCash">
+                    NatCash
+                  </option>
+
+                  <option value="Virement bancaire">
+                    Virement bancaire
+                  </option>
+
+                  <option value="Lajan kach">
+                    Lajan kach
+                  </option>
+
+                  <option value="Lòt">
+                    Lòt
+                  </option>
+
+                </select>
+
+              </div>
+
+
+              <div class="form-group">
+
+                <label for="referans_peman">
+                  Referans peman
+                </label>
+
+                <input
+                  type="text"
+                  id="referans_peman"
+                  maxlength="250"
+                  placeholder="Nimewo oswa referans tranzaksyon an"
+                >
+
+              </div>
+
+            </div>
+
+
+            <!-- =============================================
+                 DESKRIPSYON
+            ============================================== -->
+
+            <div class="form-section">
+
+              <h3>
+                3. Plis enfòmasyon
+              </h3>
+
+
+              <div class="form-group">
+
+                <label for="deskripsyon">
+                  Deskripsyon don an
+                </label>
+
+                <textarea
+                  id="deskripsyon"
+                  maxlength="2000"
+                  placeholder="Bay plis detay sou don ou vle fè a..."
+                ></textarea>
+
+              </div>
+
+
+              <div class="form-group">
+
+                <label for="nòt">
+                  Nòt
+                </label>
+
+                <textarea
+                  id="nòt"
+                  maxlength="2000"
+                  placeholder="Nenpòt enfòmasyon ou vle pataje avèk ekip LAJONÈ'M..."
+                ></textarea>
+
+              </div>
+
+            </div>
+
+
+            <!-- =============================================
+                 SUBMIT
+            ============================================== -->
+
+            <div class="form-section">
+
+              <button
+                type="submit"
+                class="don-submit"
+                id="donSubmit"
+              >
+                Voye demann don an
+              </button>
+
+
+              <div
+                id="donMessage"
+                class="message"
+                role="alert"
+                aria-live="polite"
+              ></div>
+
+
+              <p class="privacy-note">
+
+                Enfòmasyon ou bay yo itilize pou trete
+                demann don ou an epi pou pèmèt ekip
+                LAJONÈ'M kontakte ou konsènan sipò ou.
+
+              </p>
+
+            </div>
+
+          </form>
+
+        </div>
 
       </div>
 
-    </div>
+    </section>
 
-  </section>
+  </main>
 
 
-  <!-- FOOTER -->
+  <!-- =====================================================
+       FOOTER
+  ====================================================== -->
+
   <footer class="site-footer">
 
     <div class="container footer-grid">
 
+
       <div>
-        <h3>LAJONÈ'M</h3>
+
+        <h3>
+          LAJONÈ'M
+        </h3>
 
         <p>
           Laj yo se onè nou.
@@ -687,11 +1133,15 @@
         <p>
           Wè. Akonpaye. Valorizasyon.
         </p>
+
       </div>
 
 
       <div>
-        <h3>Kontak</h3>
+
+        <h3>
+          Kontakte nou
+        </h3>
 
         <p>
           Cap-Haïtien, Haïti
@@ -704,11 +1154,15 @@
         <p>
           lajonem.ogr@gmail.com
         </p>
+
       </div>
 
 
       <div>
-        <h3>Angajman</h3>
+
+        <h3>
+          Angajman
+        </h3>
 
         <p>
           Respè • Solidarite • Imanite
@@ -725,6 +1179,13 @@
             Fè yon don
           </a>
         </p>
+
+        <p>
+          <a href="kontak.html">
+            Kontakte nou
+          </a>
+        </p>
+
       </div>
 
     </div>
@@ -732,72 +1193,147 @@
 
     <div class="footer-bottom">
 
-      <p>
-        © LAJONÈ'M — Laj yo se onè nou.
-      </p>
+      <div class="container">
+
+        <p>
+          ©
+          <span id="annee"></span>
+          LAJONÈ'M —
+          Laj yo se onè nou.
+        </p>
+
+      </div>
 
     </div>
 
   </footer>
 
 
-  <!-- SUPABASE -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="js/supabase.js"></script>
-  
-<script src="js/paramet.js"></script>
+  <!-- =====================================================
+       SUPABASE
+  ====================================================== -->
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script src="js/supabase.js"></script>
+
+  <script src="js/paramet.js"></script>
+
+
+  <!-- =====================================================
+       DON JAVASCRIPT
+  ====================================================== -->
 
   <script>
 
-    const donForm = document.getElementById("donForm");
-    const donMessage = document.getElementById("donMessage");
-    const donSubmit = document.getElementById("donSubmit");
+    document.addEventListener(
+      "DOMContentLoaded",
+      function () {
 
-    const tipDon = document.getElementById("tip_don");
-    const amountGroup = document.getElementById("amountGroup");
-    const montanInput = document.getElementById("montan");
+        const annee =
+          document.getElementById("annee");
+
+        if (annee) {
+          annee.textContent =
+            new Date().getFullYear();
+        }
+
+        chajeAktivite();
+
+      }
+    );
+
+
+    /* =====================================================
+       ELEMENTS
+    ===================================================== */
+
+    const donForm =
+      document.getElementById("donForm");
+
+    const donMessage =
+      document.getElementById("donMessage");
+
+    const donSubmit =
+      document.getElementById("donSubmit");
+
+    const tipDon =
+      document.getElementById("tip_don");
+
+    const amountGroup =
+      document.getElementById("amountGroup");
+
+    const montanInput =
+      document.getElementById("montan");
 
     const aktiviteSelect =
       document.getElementById("aktivite_id");
 
 
-    /*
-     * Montre montan sèlman si don an se lajan
-     */
-    tipDon.addEventListener("change", () => {
+    /* =====================================================
+       MONTAN
+    ===================================================== */
 
-      if (tipDon.value === "lajan") {
+    tipDon.addEventListener(
+      "change",
+      function () {
 
-        amountGroup.classList.add("visible");
-        montanInput.required = true;
+        if (tipDon.value === "lajan") {
 
-      } else {
+          amountGroup.classList.add("visible");
 
-        amountGroup.classList.remove("visible");
-        montanInput.required = false;
-        montanInput.value = "";
+          montanInput.required = true;
+
+        } else {
+
+          amountGroup.classList.remove("visible");
+
+          montanInput.required = false;
+
+          montanInput.value = "";
+
+        }
 
       }
+    );
 
-    });
 
+    /* =====================================================
+       CHAJE AKTIVITE
+    ===================================================== */
 
-    /*
-     * Chaje aktivite piblik yo
-     */
     async function chajeAktivite() {
 
       try {
 
-        const { data, error } = await supabaseClient
+        const {
+          data,
+          error
+        } = await supabaseClient
+
           .from("aktivite")
-          .select("id, tit, dat_aktivite")
-          .eq("piblik", true)
-          .neq("estati", "anile")
-          .order("dat_aktivite", {
-            ascending: false
-          });
+
+          .select(
+            "id, tit, dat_aktivite"
+          )
+
+          .eq(
+            "piblik",
+            true
+          )
+
+          .neq(
+            "estati",
+            "anile"
+          )
+
+          .order(
+            "dat_aktivite",
+            {
+              ascending: false
+            }
+          );
+
 
         if (error) {
 
@@ -807,268 +1343,467 @@
           );
 
           return;
-        }
-
-
-        if (!data) return;
-
-
-        data.forEach(aktivite => {
-
-          const option =
-            document.createElement("option");
-
-          option.value = aktivite.id;
-
-          option.textContent =
-            aktivite.tit;
-
-          aktiviteSelect.appendChild(option);
-
-        });
-
-      } catch (error) {
-
-        console.error(error);
-
-      }
-
-    }
-
-
-    /*
-     * Mesaj
-     */
-    function montreMessage(type, message) {
-
-      donMessage.className =
-        "message " + type;
-
-      donMessage.textContent = message;
-
-      donMessage.style.display = "block";
-
-    }
-
-
-    /*
-     * Soumèt don
-     */
-    donForm.addEventListener("submit", async (event) => {
-
-      event.preventDefault();
-
-
-      donSubmit.disabled = true;
-
-      donSubmit.textContent =
-        "Tanpri tann...";
-
-
-      donMessage.style.display = "none";
-
-
-      try {
-
-        /*
-         * 1. Kreye donatè a
-         */
-
-        const donorData = {
-
-          non:
-            document.getElementById("non").value.trim(),
-
-          òganizasyon:
-            document
-              .getElementById("òganizasyon")
-              .value
-              .trim(),
-
-          telefòn:
-            document
-              .getElementById("telefòn")
-              .value
-              .trim(),
-
-          email:
-            document
-              .getElementById("email")
-              .value
-              .trim(),
-
-          adrès:
-            document
-              .getElementById("adrès")
-              .value
-              .trim(),
-
-          kalite_donatè:
-            document
-              .getElementById("kalite_donatè")
-              .value,
-
-          nòt:
-            document
-              .getElementById("nòt")
-              .value
-              .trim()
-
-        };
-
-
-        const {
-          data: donor,
-          error: donorError
-        } = await supabaseClient
-
-          .from("donate")
-
-          .insert(donorData)
-
-          .select("id")
-
-          .single();
-
-
-        if (donorError) {
-
-          console.error(
-            "Erè donatè:",
-            donorError
-          );
-
-          throw donorError;
 
         }
 
 
-        /*
-         * 2. Kreye don an
-         */
-
-        const donationData = {
-
-          donate_id: donor.id,
-
-          aktivite_id:
-            aktiviteSelect.value || null,
-
-          tip_don:
-            tipDon.value,
-
-          montan:
-            tipDon.value === "lajan"
-              ? Number(montanInput.value)
-              : null,
-
-          lajan:
-            document
-              .getElementById("lajan")
-              .value,
-
-          deskripsyon:
-            document
-              .getElementById("deskripsyon")
-              .value
-              .trim(),
-
-          metòd_peman:
-            document
-              .getElementById("metòd_peman")
-              .value,
-
-          referans_peman:
-            document
-              .getElementById("referans_peman")
-              .value
-              .trim(),
-
-          estati:
-            "an_atant",
-
-          dat_don:
-            new Date().toISOString(),
-
-          nòt:
-            document
-              .getElementById("nòt")
-              .value
-              .trim()
-
-        };
-
-
-        const {
-          error: donationError
-        } = await supabaseClient
-
-          .from("don")
-
-          .insert(donationData);
-
-
-        if (donationError) {
-
-          console.error(
-            "Erè don:",
-            donationError
-          );
-
-          throw donationError;
-
+        if (!data) {
+          return;
         }
 
 
-        /*
-         * 3. Konfimasyon
-         */
+        data.forEach(
+          function (aktivite) {
 
-        montreMessage(
-          "success",
-          "Demann don ou an resevwa avèk siksè. " +
-          "Mèsi paske ou chwazi soutni LAJONÈ'M. " +
-          "Ekip nou an ap kontakte ou pou konfime detay yo."
+            const option =
+              document.createElement("option");
+
+            option.value =
+              aktivite.id;
+
+            option.textContent =
+              aktivite.tit;
+
+            aktiviteSelect.appendChild(
+              option
+            );
+
+          }
         );
-
-
-        donForm.reset();
-
-        amountGroup.classList.remove("visible");
-
-        montanInput.required = false;
 
 
       } catch (error) {
 
         console.error(
-          "Erè jeneral:",
+          "Erè chaje aktivite:",
           error
         );
 
+      }
+
+    }
+
+
+    /* =====================================================
+       MESAJ
+    ===================================================== */
+
+    function montreMessage(
+      type,
+      message
+    ) {
+
+      donMessage.className =
+        "message " + type;
+
+      donMessage.textContent =
+        message;
+
+      donMessage.style.display =
+        "block";
+
+    }
+
+
+    /* =====================================================
+       VALIDATION
+    ===================================================== */
+
+    function valideForm() {
+
+      const non =
+        document
+          .getElementById("non")
+          .value
+          .trim();
+
+      const telefòn =
+        document
+          .getElementById("telefòn")
+          .value
+          .trim();
+
+      const kaliteDonatè =
+        document
+          .getElementById("kalite_donatè")
+          .value;
+
+      const tip =
+        tipDon.value;
+
+
+      if (!non) {
 
         montreMessage(
           "error",
-          "Nou pa kapab anrejistre demann don an kounye a. " +
-          "Tanpri verifye enfòmasyon yo epi eseye ankò."
+          "Tanpri antre non donatè a."
         );
 
-      } finally {
-
-        donSubmit.disabled = false;
-
-        donSubmit.textContent =
-          "Voye demann don an";
+        return false;
 
       }
 
-    });
+
+      if (!telefòn) {
+
+        montreMessage(
+          "error",
+          "Tanpri antre nimewo telefòn donatè a."
+        );
+
+        return false;
+
+      }
 
 
-    /*
-     * Kòmanse paj la
-     */
-    chajeAktivite();
+      if (!kaliteDonatè) {
+
+        montreMessage(
+          "error",
+          "Tanpri chwazi kalite donatè a."
+        );
+
+        return false;
+
+      }
+
+
+      if (!tip) {
+
+        montreMessage(
+          "error",
+          "Tanpri chwazi kalite don an."
+        );
+
+        return false;
+
+      }
+
+
+      if (
+        tip === "lajan" &&
+        (
+          !montanInput.value ||
+          Number(montanInput.value) <= 0
+        )
+      ) {
+
+        montreMessage(
+          "error",
+          "Tanpri antre yon montan ki valab pou don an."
+        );
+
+        return false;
+
+      }
+
+
+      return true;
+
+    }
+
+
+    /* =====================================================
+       SOUMÈT DON
+    ===================================================== */
+
+    donForm.addEventListener(
+      "submit",
+      async function (event) {
+
+        event.preventDefault();
+
+
+        donMessage.style.display =
+          "none";
+
+
+        if (!valideForm()) {
+          return;
+        }
+
+
+        donSubmit.disabled = true;
+
+        donSubmit.textContent =
+          "Tanpri tann...";
+
+
+        try {
+
+          /* ================================================
+             1. DONATEUR
+          ================================================= */
+
+          const donorData = {
+
+            non:
+              document
+                .getElementById("non")
+                .value
+                .trim(),
+
+            òganizasyon:
+              document
+                .getElementById("òganizasyon")
+                .value
+                .trim(),
+
+            telefòn:
+              document
+                .getElementById("telefòn")
+                .value
+                .trim(),
+
+            email:
+              document
+                .getElementById("email")
+                .value
+                .trim(),
+
+            adrès:
+              document
+                .getElementById("adrès")
+                .value
+                .trim(),
+
+            kalite_donatè:
+              document
+                .getElementById("kalite_donatè")
+                .value,
+
+            nòt:
+              document
+                .getElementById("nòt")
+                .value
+                .trim()
+
+          };
+
+
+          console.log(
+            "Done donatè:",
+            donorData
+          );
+
+
+          const {
+            data: donor,
+            error: donorError
+          } = await supabaseClient
+
+            .from("donate")
+
+            .insert(donorData)
+
+            .select("id")
+
+            .single();
+
+
+          if (donorError) {
+
+            console.error(
+              "Erè donatè:",
+              donorError
+            );
+
+            throw donorError;
+
+          }
+
+
+          /* ================================================
+             2. DON
+          ================================================= */
+
+          const donationData = {
+
+            donate_id:
+              donor.id,
+
+            aktivite_id:
+              aktiviteSelect.value || null,
+
+            tip_don:
+              tipDon.value,
+
+            montan:
+              tipDon.value === "lajan"
+                ? Number(montanInput.value)
+                : null,
+
+            lajan:
+              document
+                .getElementById("lajan")
+                .value,
+
+            deskripsyon:
+              document
+                .getElementById("deskripsyon")
+                .value
+                .trim(),
+
+            metòd_peman:
+              document
+                .getElementById("metòd_peman")
+                .value,
+
+            referans_peman:
+              document
+                .getElementById("referans_peman")
+                .value
+                .trim(),
+
+            estati:
+              "an_atant",
+
+            dat_don:
+              new Date().toISOString(),
+
+            nòt:
+              document
+                .getElementById("nòt")
+                .value
+                .trim()
+
+          };
+
+
+          console.log(
+            "Done don:",
+            donationData
+          );
+
+
+          const {
+            error: donationError
+          } = await supabaseClient
+
+            .from("don")
+
+            .insert(
+              donationData
+            );
+
+
+          if (donationError) {
+
+            console.error(
+              "Erè don:",
+              donationError
+            );
+
+            throw donationError;
+
+          }
+
+
+          /* ================================================
+             3. SUCCÈS
+          ================================================= */
+
+          montreMessage(
+            "success",
+            "Demann don ou an resevwa avèk siksè. Mèsi paske ou chwazi soutni LAJONÈ'M. Ekip nou an ap kontakte ou pou konfime detay yo."
+          );
+
+
+          donForm.reset();
+
+
+          amountGroup.classList.remove(
+            "visible"
+          );
+
+
+          montanInput.required =
+            false;
+
+
+          window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+          });
+
+
+        } catch (error) {
+
+          console.error(
+            "Erè jeneral don:",
+            error
+          );
+
+
+          let mesaj =
+            "Nou pa kapab anrejistre demann don an kounye a. Tanpri verifye enfòmasyon yo epi eseye ankò.";
+
+
+          const code =
+            error?.code || "";
+
+
+          const errorMessage =
+            (
+              error?.message ||
+              ""
+            ).toLowerCase();
+
+
+          if (
+            code === "23505"
+          ) {
+
+            mesaj =
+              "Gen yon enfòmasyon ki deja egziste nan sistèm nan. Tanpri verifye done yo epi eseye ankò.";
+
+          }
+
+
+          else if (
+            code === "23502"
+          ) {
+
+            mesaj =
+              "Gen yon enfòmasyon obligatwa ki manke nan baz done a. Tanpri verifye fòm nan.";
+
+          }
+
+
+          else if (
+            code === "42501" ||
+            errorMessage.includes(
+              "row-level security"
+            ) ||
+            errorMessage.includes(
+              "permission denied"
+            )
+          ) {
+
+            mesaj =
+              "Sistèm nan bloke demann lan. Tanpri kontakte administratè LAJONÈ'M pou verifye pèmisyon Supabase yo.";
+
+          }
+
+
+          montreMessage(
+            "error",
+            mesaj
+          );
+
+
+        } finally {
+
+          donSubmit.disabled =
+            false;
+
+          donSubmit.textContent =
+            "Voye demann don an";
+
+        }
+
+      }
+    );
 
   </script>
 
