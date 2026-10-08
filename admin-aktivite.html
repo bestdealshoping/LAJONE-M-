@@ -1,2493 +1,3133 @@
 <!DOCTYPE html>
 <html lang="ht">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>Jesyon Aktivite — LAJONÈ'M</title>
-
-  <style>
-    :root {
-      --ble: #0B3B75;
-      --ble-fonse: #07284f;
-      --lo: #F2B705;
-      --vet: #2E8B57;
-      --blan: #ffffff;
-      --gri: #f5f7fa;
-      --gri-2: #e5e9ef;
-      --tek: #263238;
-      --tek-leje: #667085;
-      --wouj: #c62828;
-      --zoranj: #ef6c00;
-      --lonbraj: 0 8px 25px rgba(11,59,117,.10);
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      background: var(--gri);
-      color: var(--tek);
-      font-family: Arial, Helvetica, sans-serif;
-    }
-
-    button,
-    input,
-    select,
-    textarea {
-      font: inherit;
-    }
-
-    /* HEADER */
-
-    .header {
-      min-height: 72px;
-      background: var(--ble);
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 12px 24px;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      box-shadow: 0 3px 15px rgba(0,0,0,.15);
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .logo {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      background: var(--lo);
-      color: var(--ble);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 900;
-      font-size: 24px;
-    }
-
-    .brand strong {
-      display: block;
-      font-size: 19px;
-    }
-
-    .brand span {
-      font-size: 12px;
-      opacity: .85;
-    }
-
-    .header-buttons {
-      display: flex;
-      gap: 8px;
-    }
-
-    .header-btn {
-      border: 0;
-      border-radius: 8px;
-      padding: 10px 14px;
-      cursor: pointer;
-      font-weight: 700;
-    }
-
-    .site-btn {
-      background: rgba(255,255,255,.12);
-      color: white;
-    }
-
-    .logout-btn {
-      background: var(--lo);
-      color: var(--ble);
-    }
-
-    /* LAYOUT */
-
-    .layout {
-      display: flex;
-      min-height: calc(100vh - 72px);
-    }
-
-    .sidebar {
-      width: 245px;
-      background: white;
-      border-right: 1px solid var(--gri-2);
-      padding: 20px 14px;
-      flex-shrink: 0;
-    }
-
-    .sidebar-title {
-      color: var(--tek-leje);
-      font-size: 12px;
-      font-weight: 800;
-      text-transform: uppercase;
-      margin: 4px 12px 12px;
-    }
-
-    .nav-btn {
-      width: 100%;
-      border: 0;
-      background: transparent;
-      color: var(--tek);
-      padding: 12px;
-      margin-bottom: 4px;
-      border-radius: 9px;
-      cursor: pointer;
-      text-align: left;
-      font-weight: 600;
-    }
-
-    .nav-btn:hover {
-      background: #eef4fb;
-      color: var(--ble);
-    }
-
-    .nav-btn.active {
-      background: var(--ble);
-      color: white;
-    }
-
-    .main {
-      flex: 1;
-      min-width: 0;
-      padding: 28px;
-    }
-
-    /* PAGE HEADER */
-
-    .page-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 15px;
-      margin-bottom: 22px;
-    }
-
-    .page-header h1 {
-      color: var(--ble);
-      margin: 0 0 5px;
-      font-size: 28px;
-    }
-
-    .page-header p {
-      margin: 0;
-      color: var(--tek-leje);
-    }
-
-    .add-btn {
-      border: 0;
-      border-radius: 9px;
-      padding: 12px 17px;
-      background: var(--lo);
-      color: var(--ble);
-      cursor: pointer;
-      font-weight: 800;
-      white-space: nowrap;
-    }
-
-    /* STATUS */
-
-    .message {
-      display: none;
-      padding: 13px 15px;
-      border-radius: 8px;
-      margin-bottom: 18px;
-      font-weight: 600;
-    }
-
-    .message.show {
-      display: block;
-    }
-
-    .message.error {
-      background: #fde8e8;
-      color: var(--wouj);
-      border: 1px solid #f4b7b7;
-    }
-
-    .message.success {
-      background: #e8f6ee;
-      color: #17663d;
-      border: 1px solid #b8dfc8;
-    }
-
-    /* STATS */
-
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 15px;
-      margin-bottom: 22px;
-    }
-
-    .stat {
-      background: white;
-      border: 1px solid var(--gri-2);
-      border-radius: 12px;
-      padding: 17px;
-      box-shadow: var(--lonbraj);
-    }
-
-    .stat-label {
-      color: var(--tek-leje);
-      font-size: 13px;
-      font-weight: 700;
-    }
-
-    .stat-number {
-      color: var(--ble);
-      font-size: 28px;
-      font-weight: 900;
-      margin-top: 7px;
-    }
-
-    /* TOOLBAR */
-
-    .toolbar {
-      background: white;
-      border: 1px solid var(--gri-2);
-      border-radius: 12px;
-      padding: 15px;
-      margin-bottom: 18px;
-      display: grid;
-      grid-template-columns: 1.5fr 1fr 1fr;
-      gap: 10px;
-    }
-
-    .input,
-    .select,
-    .textarea {
-      width: 100%;
-      border: 1px solid #d7dce3;
-      border-radius: 8px;
-      padding: 11px 12px;
-      outline: none;
-      background: white;
-      color: var(--tek);
-    }
-
-    .input:focus,
-    .select:focus,
-    .textarea:focus {
-      border-color: var(--ble);
-      box-shadow: 0 0 0 3px rgba(11,59,117,.08);
-    }
-
-    /* TABLE */
-
-    .table-card {
-      background: white;
-      border: 1px solid var(--gri-2);
-      border-radius: 12px;
-      box-shadow: var(--lonbraj);
-      overflow: hidden;
-    }
-
-    .table-wrapper {
-      overflow-x: auto;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      min-width: 900px;
-    }
-
-    th,
-    td {
-      padding: 13px 14px;
-      border-bottom: 1px solid var(--gri-2);
-      text-align: left;
-      vertical-align: middle;
-    }
-
-    th {
-      background: #f8fafc;
-      color: var(--tek-leje);
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: .3px;
-    }
-
-    td {
-      font-size: 14px;
-    }
-
-    .activity-title {
-      color: var(--ble);
-      font-weight: 800;
-    }
-
-    .activity-description {
-      color: var(--tek-leje);
-      font-size: 12px;
-      margin-top: 3px;
-      max-width: 300px;
-    }
-
-    .badge {
-      display: inline-block;
-      border-radius: 20px;
-      padding: 5px 9px;
-      font-size: 11px;
-      font-weight: 800;
-      white-space: nowrap;
-    }
-
-    .badge-fini {
-      background: #e8f6ee;
-      color: #17663d;
-    }
-
-    .badge-ankou {
-      background: #fff4d6;
-      color: #8a6500;
-    }
-
-    .badge-planifye {
-      background: #e8f0fb;
-      color: var(--ble);
-    }
-
-    .badge-anile {
-      background: #fde8e8;
-      color: var(--wouj);
-    }
-
-    .badge-prive {
-      background: #edf0f4;
-      color: #667085;
-    }
-
-    .actions {
-      display: flex;
-      gap: 6px;
-    }
-
-    .action-btn {
-      border: 0;
-      border-radius: 7px;
-      padding: 7px 9px;
-      cursor: pointer;
-      font-size: 12px;
-      font-weight: 700;
-    }
-
-    .edit-btn {
-      background: #e8f0fb;
-      color: var(--ble);
-    }
-
-    .delete-btn {
-      background: #fde8e8;
-      color: var(--wouj);
-    }
-
-    .loading,
-    .empty {
-      text-align: center;
-      padding: 35px;
-      color: var(--tek-leje);
-    }
-
-    /* MODAL */
-
-    .modal {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,.55);
-      z-index: 2000;
-      padding: 25px 15px;
-      overflow-y: auto;
-    }
-
-    .modal.show {
-      display: flex;
-      align-items: flex-start;
-      justify-content: center;
-    }
-
-    .modal-content {
-      width: min(800px, 100%);
-      background: white;
-      border-radius: 15px;
-      padding: 24px;
-      box-shadow: 0 20px 60px rgba(0,0,0,.25);
-      margin-top: 20px;
-    }
-
-    .modal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 20px;
-    }
-
-    .modal-header h2 {
-      color: var(--ble);
-      margin: 0;
-      font-size: 22px;
-    }
-
-    .close-btn {
-      width: 38px;
-      height: 38px;
-      border: 0;
-      border-radius: 50%;
-      background: var(--gri);
-      cursor: pointer;
-      font-size: 20px;
-    }
-
-    .form-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 15px;
-    }
-
-    .form-group {
-      margin-bottom: 4px;
-    }
-
-    .form-group.full {
-      grid-column: 1 / -1;
-    }
-
-    .form-label {
-      display: block;
-      font-size: 13px;
-      font-weight: 800;
-      margin-bottom: 6px;
-      color: var(--tek);
-    }
-
-    .required {
-      color: var(--wouj);
-    }
-
-    .textarea {
-      min-height: 110px;
-      resize: vertical;
-    }
-
-    .checkbox-row {
-      display: flex;
-      align-items: center;
-      gap: 9px;
-      margin-top: 7px;
-    }
-
-    .checkbox-row input {
-      width: 18px;
-      height: 18px;
-    }
-
-    .form-actions {
-      display: flex;
-      justify-content: flex-end;
-      gap: 10px;
-      margin-top: 22px;
-      padding-top: 18px;
-      border-top: 1px solid var(--gri-2);
-    }
-
-    .cancel-btn,
-    .save-btn {
-      border: 0;
-      border-radius: 8px;
-      padding: 11px 17px;
-      cursor: pointer;
-      font-weight: 800;
-    }
-
-    .cancel-btn {
-      background: var(--gri);
-      color: var(--tek);
-    }
-
-    .save-btn {
-      background: var(--ble);
-      color: white;
-    }
-
-    .save-btn:disabled {
-      opacity: .6;
-      cursor: not-allowed;
-    }
-
-    /* MOBILE */
-
-    .menu-btn {
-      display: none;
-      border: 0;
-      background: rgba(255,255,255,.12);
-      color: white;
-      width: 42px;
-      height: 42px;
-      border-radius: 8px;
-      font-size: 20px;
-    }
-
-    @media (max-width: 1050px) {
-      .stats {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .toolbar {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .toolbar .search {
-        grid-column: 1 / -1;
-      }
-    }
-
-    @media (max-width: 800px) {
-      .header {
-        padding: 10px 15px;
-      }
-
-      .menu-btn {
-        display: block;
-      }
-
-      .brand {
-        gap: 8px;
-      }
-
-      .brand span {
-        display: none;
-      }
-
-      .sidebar {
-        position: fixed;
-        top: 72px;
-        bottom: 0;
-        left: -265px;
-        z-index: 1500;
-        transition: .25s;
-        box-shadow: 5px 0 20px rgba(0,0,0,.12);
-      }
-
-      .sidebar.open {
-        left: 0;
-      }
-
-      .main {
-        padding: 20px 15px;
-      }
-
-      .page-header {
-        align-items: flex-start;
-        flex-direction: column;
-      }
-
-      .toolbar {
-        grid-template-columns: 1fr;
-      }
-
-      .toolbar .search {
-        grid-column: auto;
-      }
-    }
-
-    @media (max-width: 550px) {
-      .stats {
-        grid-template-columns: 1fr 1fr;
-        gap: 10px;
-      }
-
-      .stat {
-        padding: 13px;
-      }
-
-      .stat-number {
-        font-size: 24px;
-      }
-
-      .form-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .form-group.full {
-        grid-column: auto;
-      }
-
-      .site-btn {
-        display: none;
-      }
-
-      .modal-content {
-        padding: 18px;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Jesyon aktivite LAJONÈ'M — administrasyon pwogram, aktivite ak aksyon òganizasyon an."
+    >
+
+    <title>Jesyon Aktivite — LAJONÈ'M</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+
+        :root {
+            --ble: #0B3B75;
+            --or: #F2B705;
+            --vet: #2E8B57;
+            --blan: #FFFFFF;
+            --gris: #f5f7fa;
+            --gris2: #e5e7eb;
+            --tèks: #1f2937;
+            --danger: #dc2626;
+            --success: #16a34a;
+            --ombre: 0 8px 30px rgba(0,0,0,.08);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: "Open Sans", sans-serif;
+            background: var(--gris);
+            color: var(--tèks);
+        }
+
+        button,
+        input,
+        select,
+        textarea {
+            font-family: inherit;
+        }
+
+        /* ==================================================
+           LAYOUT
+        ================================================== */
+
+        .admin-layout {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* ==================================================
+           SIDEBAR
+        ================================================== */
+
+        .admin-sidebar {
+            width: 260px;
+            background: var(--ble);
+            color: white;
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            overflow-y: auto;
+            z-index: 1000;
+        }
+
+        .admin-logo {
+            padding: 24px 20px;
+            border-bottom: 1px solid rgba(255,255,255,.15);
+        }
+
+        .admin-logo h2 {
+            margin: 0;
+            font-family: "Montserrat", sans-serif;
+            font-size: 22px;
+            font-weight: 800;
+        }
+
+        .admin-logo span {
+            display: block;
+            margin-top: 5px;
+            color: var(--or);
+            font-size: 12px;
+        }
+
+        .admin-nav {
+            padding: 15px 10px 30px;
+        }
+
+        .admin-nav-title {
+            padding: 12px 12px 7px;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: rgba(255,255,255,.55);
+        }
+
+        .admin-nav a {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            padding: 11px 12px;
+            margin: 3px 0;
+            color: rgba(255,255,255,.88);
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 13px;
+            transition: .2s;
+        }
+
+        .admin-nav a:hover,
+        .admin-nav a.active {
+            background: rgba(255,255,255,.12);
+            color: white;
+        }
+
+        .admin-nav a.active {
+            border-left: 3px solid var(--or);
+        }
+
+        .nav-icon {
+            width: 20px;
+            text-align: center;
+        }
+
+        /* ==================================================
+           MAIN
+        ================================================== */
+
+        .admin-main {
+            margin-left: 260px;
+            width: calc(100% - 260px);
+            min-height: 100vh;
+        }
+
+        /* ==================================================
+           HEADER
+        ================================================== */
+
+        .admin-header {
+            height: 74px;
+            background: white;
+            border-bottom: 1px solid var(--gris2);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 28px;
+            position: sticky;
+            top: 0;
+            z-index: 900;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header-left h1 {
+            margin: 0;
+            font-family: "Montserrat", sans-serif;
+            font-size: 20px;
+            color: var(--ble);
+        }
+
+        .header-left p {
+            margin: 3px 0 0;
+            font-size: 12px;
+            color: #6b7280;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* ==================================================
+           NOTIFICATIONS
+        ================================================== */
+
+        .notification-button {
+            position: relative;
+            width: 42px;
+            height: 42px;
+            border: 1px solid var(--gris2);
+            background: white;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 19px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: -3px;
+            right: -3px;
+            min-width: 19px;
+            height: 19px;
+            padding: 0 5px;
+            border-radius: 20px;
+            background: #dc2626;
+            color: white;
+            font-size: 10px;
+            font-weight: 700;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid white;
+        }
+
+        .notification-panel {
+            position: fixed;
+            top: 82px;
+            right: 25px;
+            width: 390px;
+            max-width: calc(100vw - 30px);
+            max-height: 570px;
+            background: white;
+            border-radius: 14px;
+            box-shadow: 0 15px 50px rgba(0,0,0,.18);
+            border: 1px solid var(--gris2);
+            z-index: 2000;
+            display: none;
+            overflow: hidden;
+        }
+
+        .notification-panel.aktif {
+            display: block;
+        }
+
+        .notification-header {
+            padding: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--gris2);
+        }
+
+        .notification-header h3 {
+            margin: 0;
+            font-family: "Montserrat", sans-serif;
+            color: var(--ble);
+            font-size: 15px;
+        }
+
+        .notification-header button {
+            border: 0;
+            background: transparent;
+            color: var(--ble);
+            cursor: pointer;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .notification-list {
+            max-height: 490px;
+            overflow-y: auto;
+        }
+
+        .notifikasyon-vide {
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .notifikasyon-vide-ikon {
+            font-size: 32px;
+        }
+
+        .notifikasyon-vide h3 {
+            color: var(--ble);
+            font-size: 15px;
+        }
+
+        .notifikasyon-vide p {
+            color: #6b7280;
+            font-size: 12px;
+        }
+
+        /* ==================================================
+           USER
+        ================================================== */
+
+        .admin-user {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding-left: 12px;
+            border-left: 1px solid var(--gris2);
+        }
+
+        .admin-avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: var(--ble);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        .admin-user-info strong {
+            display: block;
+            font-size: 13px;
+        }
+
+        .admin-user-info span {
+            display: block;
+            font-size: 11px;
+            color: #6b7280;
+            text-transform: capitalize;
+        }
+
+        .logout-btn {
+            border: 0;
+            background: transparent;
+            color: var(--danger);
+            cursor: pointer;
+            font-size: 18px;
+            padding: 8px;
+        }
+
+        /* ==================================================
+           CONTENT
+        ================================================== */
+
+        .admin-content {
+            padding: 28px;
+        }
+
+        .page-title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            margin-bottom: 22px;
+        }
+
+        .page-title h2 {
+            margin: 0;
+            font-family: "Montserrat", sans-serif;
+            color: var(--ble);
+            font-size: 25px;
+        }
+
+        .page-title p {
+            margin: 5px 0 0;
+            color: #6b7280;
+            font-size: 13px;
+        }
+
+        .add-btn {
+            border: 0;
+            border-radius: 9px;
+            padding: 12px 17px;
+            background: var(--or);
+            color: var(--ble);
+            cursor: pointer;
+            font-weight: 800;
+        }
+
+        /* ==================================================
+           MESSAGE
+        ================================================== */
+
+        .message {
+            display: none;
+            padding: 13px 15px;
+            border-radius: 8px;
+            margin-bottom: 18px;
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        .message.show {
+            display: block;
+        }
+
+        .message.success {
+            background: #e8f6ee;
+            color: #17663d;
+            border: 1px solid #b8dfc8;
+        }
+
+        .message.error {
+            background: #fde8e8;
+            color: #b91c1c;
+            border: 1px solid #f4b7b7;
+        }
+
+        /* ==================================================
+           STATS
+        ================================================== */
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0,1fr));
+            gap: 17px;
+            margin-bottom: 22px;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 13px;
+            padding: 18px;
+            box-shadow: var(--ombre);
+            border: 1px solid #edf0f4;
+        }
+
+        .stat-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .stat-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: #eef4fb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 19px;
+        }
+
+        .stat-label {
+            font-size: 11px;
+            color: #6b7280;
+        }
+
+        .stat-value {
+            margin-top: 3px;
+            font-family: "Montserrat", sans-serif;
+            font-size: 23px;
+            font-weight: 800;
+            color: var(--ble);
+        }
+
+        /* ==================================================
+           TOOLBAR
+        ================================================== */
+
+        .toolbar {
+            background: white;
+            border-radius: 14px;
+            padding: 16px;
+            box-shadow: var(--ombre);
+            border: 1px solid #edf0f4;
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 18px;
+        }
+
+        .input,
+        .select,
+        .textarea {
+            width: 100%;
+            border: 1px solid #d7dce3;
+            border-radius: 8px;
+            padding: 11px 12px;
+            outline: none;
+            background: white;
+            color: var(--tèks);
+        }
+
+        .input:focus,
+        .select:focus,
+        .textarea:focus {
+            border-color: var(--ble);
+        }
+
+        /* ==================================================
+           TABLE
+        ================================================== */
+
+        .table-card {
+            background: white;
+            border-radius: 14px;
+            box-shadow: var(--ombre);
+            border: 1px solid #edf0f4;
+            overflow: hidden;
+        }
+
+        .table-scroll {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            min-width: 900px;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: #f8fafc;
+            color: var(--ble);
+            font-family: "Montserrat", sans-serif;
+            font-size: 11px;
+            text-align: left;
+            padding: 13px;
+            border-bottom: 1px solid var(--gris2);
+        }
+
+        td {
+            padding: 13px;
+            border-bottom: 1px solid #edf0f4;
+            font-size: 12px;
+            vertical-align: top;
+        }
+
+        tr:hover td {
+            background: #fbfcfe;
+        }
+
+        .activity-title {
+            font-weight: 800;
+            color: var(--ble);
+            margin-bottom: 4px;
+        }
+
+        .activity-description {
+            color: #6b7280;
+            line-height: 1.5;
+            max-width: 260px;
+        }
+
+        .badge {
+            display: inline-flex;
+            padding: 5px 8px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: 800;
+        }
+
+        .badge-planifye {
+            background: #fff7d6;
+            color: #8a6500;
+        }
+
+        .badge-ankou {
+            background: #e7f1ff;
+            color: #0B3B75;
+        }
+
+        .badge-fini {
+            background: #e7f7ee;
+            color: #17663d;
+        }
+
+        .badge-anile {
+            background: #fde8e8;
+            color: #b91c1c;
+        }
+
+        .badge-prive {
+            background: #eef0f3;
+            color: #5b6470;
+        }
+
+        .actions {
+            display: flex;
+            gap: 6px;
+        }
+
+        .action-btn {
+            border: 0;
+            border-radius: 7px;
+            padding: 7px 9px;
+            cursor: pointer;
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        .edit-btn {
+            background: #e7f1ff;
+            color: var(--ble);
+        }
+
+        .delete-btn {
+            background: #fde8e8;
+            color: #b91c1c;
+        }
+
+        .empty,
+        .loading {
+            text-align: center;
+            padding: 35px !important;
+            color: #6b7280;
+        }
+
+        /* ==================================================
+           MODAL
+        ================================================== */
+
+        .modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,.55);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            z-index: 3000;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-box {
+            width: 100%;
+            max-width: 780px;
+            max-height: 90vh;
+            overflow-y: auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0,0,0,.25);
+        }
+
+        .modal-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--gris2);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .modal-header h3 {
+            margin: 0;
+            font-family: "Montserrat", sans-serif;
+            color: var(--ble);
+        }
+
+        .close-modal {
+            border: 0;
+            background: transparent;
+            font-size: 25px;
+            cursor: pointer;
+            color: #6b7280;
+        }
+
+        .modal-body {
+            padding: 20px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2,1fr);
+            gap: 14px;
+        }
+
+        .form-group {
+            margin-bottom: 14px;
+        }
+
+        .form-group.full {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 11px;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: #374151;
+        }
+
+        .checkbox-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 0;
+            font-size: 12px;
+        }
+
+        .modal-footer {
+            padding: 16px 20px;
+            border-top: 1px solid var(--gris2);
+            display: flex;
+            justify-content: flex-end;
+            gap: 9px;
+        }
+
+        .cancel-btn,
+        .save-btn {
+            border: 0;
+            border-radius: 8px;
+            padding: 11px 16px;
+            cursor: pointer;
+            font-weight: 700;
+        }
+
+        .cancel-btn {
+            background: #eef0f3;
+            color: #374151;
+        }
+
+        .save-btn {
+            background: var(--ble);
+            color: white;
+        }
+
+        .save-btn:disabled {
+            opacity: .6;
+            cursor: not-allowed;
+        }
+
+        /* ==================================================
+           ACCESS DENIED
+        ================================================== */
+
+        .access-denied {
+            min-height: 70vh;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 30px;
+        }
+
+        .access-denied-box {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            max-width: 450px;
+            box-shadow: var(--ombre);
+        }
+
+        .access-denied-box .icon {
+            font-size: 45px;
+        }
+
+        .access-denied-box h2 {
+            font-family: "Montserrat", sans-serif;
+            color: var(--ble);
+        }
+
+        .access-denied-box p {
+            color: #6b7280;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 18px;
+            background: var(--ble);
+            color: white;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 12px;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            border: 0;
+            background: transparent;
+            font-size: 23px;
+            cursor: pointer;
+        }
+
+        /* ==================================================
+           MOBILE
+        ================================================== */
+
+        @media (max-width:1100px) {
+
+            .stats-grid {
+                grid-template-columns: repeat(2,1fr);
+            }
+
+        }
+
+        @media (max-width:800px) {
+
+            .admin-sidebar {
+                transform: translateX(-100%);
+                transition: .25s;
+            }
+
+            .admin-sidebar.mobile-open {
+                transform: translateX(0);
+            }
+
+            .admin-main {
+                margin-left: 0;
+                width: 100%;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .admin-header {
+                padding: 0 15px;
+            }
+
+            .admin-content {
+                padding: 18px 14px;
+            }
+
+            .header-left h1 {
+                font-size: 16px;
+            }
+
+            .header-left p {
+                display: none;
+            }
+
+            .admin-user-info {
+                display: none;
+            }
+
+            .page-title {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .toolbar {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+        @media (max-width:550px) {
+
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+            }
+
+            .stat-card {
+                padding: 13px;
+            }
+
+            .stat-value {
+                font-size: 19px;
+            }
+
+            .notification-panel {
+                right: 10px;
+                top: 70px;
+                width: calc(100vw - 20px);
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group.full {
+                grid-column: auto;
+            }
+
+        }
+
+    </style>
 </head>
 
 <body>
 
-<header class="header">
+<div class="admin-layout">
 
-  <div class="brand">
+    <!-- ==================================================
+         SIDEBAR
+    ================================================== -->
 
-    <button
-      class="menu-btn"
-      id="menuBtn"
-      type="button">
-      ☰
-    </button>
+    <aside
+        class="admin-sidebar"
+        id="adminSidebar"
+    >
 
-    <div class="logo">L</div>
+        <div class="admin-logo">
+            <h2>LAJONÈ'M</h2>
+            <span>Administrasyon</span>
+        </div>
 
-    <div>
-      <strong>LAJONÈ'M</strong>
-      <span>Jesyon administrasyon</span>
-    </div>
+        <nav class="admin-nav">
 
-  </div>
+            <div class="admin-nav-title">
+                Dashboard
+            </div>
 
-  <div class="header-buttons">
+            <a href="admin.html">
+                <span class="nav-icon">📊</span>
+                Dashboard
+            </a>
 
-    <button
-      class="header-btn site-btn"
-      onclick="window.location.href='index.html'">
-      Gade sit la
-    </button>
+            <div class="admin-nav-title">
+                Jesyon
+            </div>
 
-    <button
-      class="header-btn logout-btn"
-      id="logoutBtn">
-      Dekonekte
-    </button>
+            <a
+                href="admin-aktivite.html"
+                class="active"
+                data-permission="jere_aktivite"
+            >
+                <span class="nav-icon">📅</span>
+                Aktivite
+            </a>
 
-  </div>
+            <a
+                href="admin-pwogram.html"
+                data-permission="jere_pwogram"
+            >
+                <span class="nav-icon">📚</span>
+                Pwogram
+            </a>
 
-</header>
+            <a
+                href="admin-volonte.html"
+                data-permission="jere_volonte"
+            >
+                <span class="nav-icon">🤝</span>
+                Volontè
+            </a>
 
+            <a
+                href="admin-benefisye.html"
+                data-permission="jere_benefisye"
+            >
+                <span class="nav-icon">👥</span>
+                Benefisyè
+            </a>
 
-<div class="layout">
+            <a
+                href="admin-vizit.html"
+                data-permission="jere_vizit"
+            >
+                <span class="nav-icon">🏠</span>
+                Vizit
+            </a>
 
-  <!-- SIDEBAR -->
+            <a
+                href="admin-don.html"
+                data-permission="jere_don"
+            >
+                <span class="nav-icon">💰</span>
+                Don
+            </a>
 
-  <aside class="sidebar" id="sidebar">
+            <a
+                href="admin-donatè.html"
+                data-permission="jere_donatè"
+            >
+                <span class="nav-icon">🎁</span>
+                Donatè
+            </a>
 
-    <div class="sidebar-title">
-      Administrasyon
-    </div>
+            <a
+                href="admin-patne.html"
+                data-permission="jere_patne"
+            >
+                <span class="nav-icon">🤝</span>
+                Patnè
+            </a>
 
-    <button
-      class="nav-btn"
-      onclick="window.location.href='admin.html'">
-      ▣ &nbsp; Dashboard
-    </button>
+            <a
+                href="admin-nouvel.html"
+                data-permission="jere_nouvel"
+            >
+                <span class="nav-icon">📰</span>
+                Nouvèl
+            </a>
 
-    <button
-      class="nav-btn active">
-      📅 &nbsp; Aktivite
-    </button>
+            <a
+                href="admin-galri.html"
+                data-permission="jere_galri"
+            >
+                <span class="nav-icon">🖼️</span>
+                Galri
+            </a>
 
-    <button
-      class="nav-btn"
-      onclick="window.location.href='pwogram.html'">
-      📚 &nbsp; Pwogram
-    </button>
+            <a
+                href="admin-rapo.html"
+                data-permission="jere_rapo"
+            >
+                <span class="nav-icon">📄</span>
+                Rapò
+            </a>
 
-    <button
-      class="nav-btn"
-      onclick="window.location.href='admin-volonte.html'">
-      🤝 &nbsp; Volontè
-    </button>
+            <a
+                href="admin-mesaj.html"
+                data-permission="jere_mesaj"
+            >
+                <span class="nav-icon">✉️</span>
+                Mesaj
+            </a>
 
-    <button
-      class="nav-btn"
-      onclick="paDisponib('Benefisyè')">
-      👴 &nbsp; Benefisyè
-    </button>
+            <div class="admin-nav-title">
+                Administrasyon
+            </div>
 
-    <button
-      class="nav-btn"
-      onclick="paDisponib('Don')">
-      ❤️ &nbsp; Don
-    </button>
+            <a
+                href="admin-itilizatè.html"
+                data-permission="jere_itilizatè"
+            >
+                <span class="nav-icon">🔐</span>
+                Itilizatè & Aksè
+            </a>
 
-    <button
-      class="nav-btn"
-      onclick="paDisponib('Donatè')">
-      💰 &nbsp; Donatè
-    </button>
+            <a
+                href="admin-paramet.html"
+                data-permission="jere_paramet"
+            >
+                <span class="nav-icon">⚙️</span>
+                Paramèt
+            </a>
 
-    <button
-      class="nav-btn"
-      onclick="paDisponib('Nouvèl')">
-      📰 &nbsp; Nouvèl
-    </button>
+        </nav>
 
-    <button
-      class="nav-btn"
-      onclick="paDisponib('Patnè')">
-      🏢 &nbsp; Patnè
-    </button>
-
-    <button
-      class="nav-btn"
-      onclick="paDisponib('Galri')">
-      🖼️ &nbsp; Galri
-    </button>
-
-    <button
-      class="nav-btn"
-      onclick="paDisponib('Rapò')">
-      📊 &nbsp; Rapò
-    </button>
-
-    <button
-      class="nav-btn"
-      onclick="paDisponib('Mesaj')">
-      ✉️ &nbsp; Mesaj
-    </button>
-
-  </aside>
-
-
-  <!-- MAIN -->
-
-  <main class="main">
-
-    <div class="page-header">
-
-      <div>
-        <h1>Jesyon aktivite</h1>
-
-        <p>
-          Kreye, modifye epi suiv tout aktivite LAJONÈ'M yo.
-        </p>
-      </div>
-
-      <button
-        class="add-btn"
-        id="addActivityBtn">
-        + Ajoute yon aktivite
-      </button>
-
-    </div>
-
-
-    <div
-      id="message"
-      class="message">
-    </div>
+    </aside>
 
 
-    <!-- STATS -->
+    <!-- ==================================================
+         MAIN
+    ================================================== -->
 
-    <section class="stats">
+    <main class="admin-main">
 
-      <div class="stat">
-        <div class="stat-label">Tout aktivite</div>
+        <header class="admin-header">
+
+            <div class="header-left">
+
+                <button
+                    class="mobile-menu-btn"
+                    id="mobileMenuBtn"
+                    type="button"
+                >
+                    ☰
+                </button>
+
+                <div>
+                    <h1>Jesyon Aktivite</h1>
+
+                    <p>
+                        Jere aktivite ak aksyon LAJONÈ'M
+                    </p>
+                </div>
+
+            </div>
+
+            <div class="header-right">
+
+                <button
+                    type="button"
+                    class="notification-button"
+                    id="notificationButton"
+                    aria-label="Notifikasyon"
+                    onclick="toggleNotifikasyon()"
+                >
+                    🔔
+
+                    <span
+                        class="notification-badge"
+                        id="notifikasyonBadge"
+                    >
+                        0
+                    </span>
+                </button>
+
+
+                <div class="admin-user">
+
+                    <div
+                        class="admin-avatar"
+                        id="adminAvatar"
+                    >
+                        A
+                    </div>
+
+                    <div class="admin-user-info">
+
+                        <strong id="adminName">
+                            Administratè
+                        </strong>
+
+                        <span id="adminRole">
+                            —
+                        </span>
+
+                    </div>
+
+                    <button
+                        type="button"
+                        class="logout-btn"
+                        id="logoutBtn"
+                        title="Dekonekte"
+                    >
+                        ⎋
+                    </button>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- ==================================================
+             NOTIFICATION PANEL
+        ================================================== -->
+
         <div
-          class="stat-number"
-          id="totalCount">0</div>
-      </div>
+            class="notification-panel"
+            id="notifikasyonPanel"
+        >
 
-      <div class="stat">
-        <div class="stat-label">Planifye</div>
-        <div
-          class="stat-number"
-          id="planifyeCount">0</div>
-      </div>
+            <div class="notification-header">
 
-      <div class="stat">
-        <div class="stat-label">Ankou</div>
-        <div
-          class="stat-number"
-          id="ankouCount">0</div>
-      </div>
+                <h3>Notifikasyon</h3>
 
-      <div class="stat">
-        <div class="stat-label">Fini</div>
-        <div
-          class="stat-number"
-          id="finiCount">0</div>
-      </div>
+                <button
+                    type="button"
+                    onclick="makeToutNotifikasyonLi()"
+                >
+                    Make tout kòm li
+                </button>
 
-    </section>
+            </div>
 
+            <div
+                class="notification-list"
+                id="notifikasyonContainer"
+            >
 
-    <!-- FILTRE -->
+                <div class="notifikasyon-vide">
 
-    <section class="toolbar">
+                    <div class="notifikasyon-vide-ikon">
+                        🔔
+                    </div>
 
-      <input
-        id="searchInput"
-        class="input search"
-        type="search"
-        placeholder="Chèche yon aktivite...">
+                    <h3>
+                        Chajman...
+                    </h3>
 
-      <select
-        id="statusFilter"
-        class="select">
+                    <p>
+                        N ap chaje notifikasyon yo.
+                    </p>
 
-        <option value="">Tout estati</option>
-        <option value="planifye">Planifye</option>
-        <option value="ankou">Ankou</option>
-        <option value="fini">Fini</option>
-        <option value="anile">Anile</option>
+                </div>
 
-      </select>
+            </div>
 
-      <select
-        id="programFilter"
-        class="select">
-
-        <option value="">Tout pwogram</option>
-
-      </select>
-
-    </section>
+        </div>
 
 
-    <!-- TABLE -->
+        <!-- ==================================================
+             CONTENT
+        ================================================== -->
 
-    <section class="table-card">
+        <section
+            class="admin-content"
+            id="activityContent"
+        >
 
-      <div class="table-wrapper">
+            <div class="page-title">
 
-        <table>
+                <div>
+                    <h2>Aktivite LAJONÈ'M</h2>
 
-          <thead>
+                    <p>
+                        Kreye, modifye, filtre epi swiv tout aktivite òganizasyon an.
+                    </p>
+                </div>
 
-            <tr>
-              <th>Aktivite</th>
-              <th>Pwogram</th>
-              <th>Estati</th>
-              <th>Dat</th>
-              <th>Kote</th>
-              <th>Piblik</th>
-              <th>Aksyon</th>
-            </tr>
+                <button
+                    type="button"
+                    class="add-btn"
+                    id="addActivityBtn"
+                >
+                    + Ajoute aktivite
+                </button>
 
-          </thead>
+            </div>
 
-          <tbody id="activityTable">
 
-            <tr>
-              <td
-                colspan="7"
-                class="loading">
-                Ap chaje aktivite yo...
-              </td>
-            </tr>
+            <div
+                class="message"
+                id="messageBox"
+            ></div>
 
-          </tbody>
 
-        </table>
+            <!-- STATS -->
 
-      </div>
+            <div class="stats-grid">
 
-    </section>
+                <div class="stat-card">
 
-  </main>
+                    <div class="stat-top">
+
+                        <div>
+                            <div class="stat-label">
+                                Total aktivite
+                            </div>
+
+                            <div
+                                class="stat-value"
+                                id="totalCount"
+                            >
+                                0
+                            </div>
+                        </div>
+
+                        <div class="stat-icon">
+                            📅
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-top">
+
+                        <div>
+                            <div class="stat-label">
+                                Planifye
+                            </div>
+
+                            <div
+                                class="stat-value"
+                                id="planifyeCount"
+                            >
+                                0
+                            </div>
+                        </div>
+
+                        <div class="stat-icon">
+                            🗓️
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-top">
+
+                        <div>
+                            <div class="stat-label">
+                                Ankou
+                            </div>
+
+                            <div
+                                class="stat-value"
+                                id="ankouCount"
+                            >
+                                0
+                            </div>
+                        </div>
+
+                        <div class="stat-icon">
+                            🔄
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-top">
+
+                        <div>
+                            <div class="stat-label">
+                                Fini
+                            </div>
+
+                            <div
+                                class="stat-value"
+                                id="finiCount"
+                            >
+                                0
+                            </div>
+                        </div>
+
+                        <div class="stat-icon">
+                            ✅
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- FILTERS -->
+
+            <div class="toolbar">
+
+                <input
+                    type="search"
+                    id="searchInput"
+                    class="input"
+                    placeholder="Rechèch aktivite..."
+                >
+
+                <select
+                    id="statusFilter"
+                    class="select"
+                >
+                    <option value="">
+                        Tout estati
+                    </option>
+
+                    <option value="planifye">
+                        Planifye
+                    </option>
+
+                    <option value="ankou">
+                        Ankou
+                    </option>
+
+                    <option value="fini">
+                        Fini
+                    </option>
+
+                    <option value="anile">
+                        Anile
+                    </option>
+                </select>
+
+                <select
+                    id="programFilter"
+                    class="select"
+                >
+                    <option value="">
+                        Tout pwogram
+                    </option>
+                </select>
+
+            </div>
+
+
+            <!-- TABLE -->
+
+            <div class="table-card">
+
+                <div class="table-scroll">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    Aktivite
+                                </th>
+
+                                <th>
+                                    Pwogram
+                                </th>
+
+                                <th>
+                                    Estati
+                                </th>
+
+                                <th>
+                                    Dat
+                                </th>
+
+                                <th>
+                                    Kote
+                                </th>
+
+                                <th>
+                                    Piblik
+                                </th>
+
+                                <th>
+                                    Aksyon
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="activityTableBody">
+
+                            <tr>
+                                <td
+                                    colspan="7"
+                                    class="loading"
+                                >
+                                    Ap chaje aktivite yo...
+                                </td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==================================================
+             ACCESS DENIED
+        ================================================== -->
+
+        <section
+            class="access-denied"
+            id="accessDenied"
+        >
+
+            <div class="access-denied-box">
+
+                <div class="icon">
+                    🔐
+                </div>
+
+                <h2>
+                    Aksè limite
+                </h2>
+
+                <p>
+                    Wòl kont ou a pa gen pèmisyon
+                    pou jere aktivite LAJONÈ'M.
+                </p>
+
+                <a
+                    href="admin.html"
+                    class="back-btn"
+                >
+                    Retounen dashboard
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
 
 </div>
 
 
-<!-- =====================================================
-     MODAL AJOUTE / MODIFYE
-====================================================== -->
+<!-- ==================================================
+     MODAL AKTIVITE
+================================================== -->
 
 <div
-  class="modal"
-  id="activityModal">
+    class="modal"
+    id="activityModal"
+>
 
-  <div class="modal-content">
+    <div class="modal-box">
 
-    <div class="modal-header">
+        <div class="modal-header">
 
-      <h2 id="modalTitle">
-        Ajoute yon aktivite
-      </h2>
+            <h3 id="modalTitle">
+                Ajoute yon aktivite
+            </h3>
 
-      <button
-        class="close-btn"
-        id="closeModal"
-        type="button">
-        ×
-      </button>
+            <button
+                type="button"
+                class="close-modal"
+                id="closeModal"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <form id="activityForm">
+
+            <div class="modal-body">
+
+                <input
+                    type="hidden"
+                    id="activityId"
+                >
+
+
+                <div class="form-grid">
+
+                    <div class="form-group full">
+
+                        <label for="activityTitle">
+                            Tit aktivite *
+                        </label>
+
+                        <input
+                            type="text"
+                            id="activityTitle"
+                            class="input"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="activitySlug">
+                            Slug
+                        </label>
+
+                        <input
+                            type="text"
+                            id="activitySlug"
+                            class="input"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="activityType">
+                            Tip aktivite
+                        </label>
+
+                        <input
+                            type="text"
+                            id="activityType"
+                            class="input"
+                            placeholder="Egzanp: fòmasyon"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="activityProgram">
+                            Pwogram
+                        </label>
+
+                        <select
+                            id="activityProgram"
+                            class="select"
+                        >
+                            <option value="">
+                                Pa gen pwogram
+                            </option>
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="activityStatus">
+                            Estati
+                        </label>
+
+                        <select
+                            id="activityStatus"
+                            class="select"
+                        >
+
+                            <option value="planifye">
+                                Planifye
+                            </option>
+
+                            <option value="ankou">
+                                Ankou
+                            </option>
+
+                            <option value="fini">
+                                Fini
+                            </option>
+
+                            <option value="anile">
+                                Anile
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="activityDate">
+                            Dat ak lè kòmansman
+                        </label>
+
+                        <input
+                            type="datetime-local"
+                            id="activityDate"
+                            class="input"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="activityEndDate">
+                            Dat ak lè fen
+                        </label>
+
+                        <input
+                            type="datetime-local"
+                            id="activityEndDate"
+                            class="input"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="activityLocation">
+                            Kote
+                        </label>
+
+                        <input
+                            type="text"
+                            id="activityLocation"
+                            class="input"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="activityBeneficiaries">
+                            Kantite benefisyè
+                        </label>
+
+                        <input
+                            type="number"
+                            id="activityBeneficiaries"
+                            class="input"
+                            min="0"
+                            value="0"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="activityVolunteers">
+                            Kantite volontè
+                        </label>
+
+                        <input
+                            type="number"
+                            id="activityVolunteers"
+                            class="input"
+                            min="0"
+                            value="0"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group full">
+
+                        <label for="activityImage">
+                            URL imaj prensipal
+                        </label>
+
+                        <input
+                            type="url"
+                            id="activityImage"
+                            class="input"
+                            placeholder="https://..."
+                        >
+
+                    </div>
+
+
+                    <div class="form-group full">
+
+                        <label for="activityDescription">
+                            Deskripsyon
+                        </label>
+
+                        <textarea
+                            id="activityDescription"
+                            class="textarea"
+                            rows="5"
+                        ></textarea>
+
+                    </div>
+
+
+                    <div class="form-group full">
+
+                        <label class="checkbox-row">
+
+                            <input
+                                type="checkbox"
+                                id="activityPublic"
+                            >
+
+                            Aktivite sa a piblik
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="modal-footer">
+
+                <button
+                    type="button"
+                    class="cancel-btn"
+                    id="cancelModal"
+                >
+                    Anile
+                </button>
+
+                <button
+                    type="submit"
+                    class="save-btn"
+                    id="saveBtn"
+                >
+                    Anrejistre aktivite
+                </button>
+
+            </div>
+
+        </form>
 
     </div>
-
-
-    <form id="activityForm">
-
-      <input
-        type="hidden"
-        id="activityId">
-
-
-      <div class="form-grid">
-
-        <!-- TIT -->
-
-        <div class="form-group full">
-
-          <label class="form-label">
-            Tit aktivite <span class="required">*</span>
-          </label>
-
-          <input
-            id="activityTitle"
-            class="input"
-            type="text"
-            required
-            placeholder="Egzanp: Distribisyon manje pou granmoun aje">
-
-        </div>
-
-
-        <!-- SLUG -->
-
-        <div class="form-group">
-
-          <label class="form-label">
-            Slug
-          </label>
-
-          <input
-            id="activitySlug"
-            class="input"
-            type="text"
-            placeholder="distribisyon-manje">
-
-        </div>
-
-
-        <!-- TIP -->
-
-        <div class="form-group">
-
-          <label class="form-label">
-            Kalite aktivite
-          </label>
-
-          <input
-            id="activityType"
-            class="input"
-            type="text"
-            placeholder="Egzanp: Sipò alimantè">
-
-        </div>
-
-
-        <!-- PWOGRAM -->
-
-        <div class="form-group">
-
-          <label class="form-label">
-            Pwogram
-          </label>
-
-          <select
-            id="activityProgram"
-            class="select">
-
-            <option value="">
-              Chwazi yon pwogram
-            </option>
-
-          </select>
-
-        </div>
-
-
-        <!-- ESTATI -->
-
-        <div class="form-group">
-
-          <label class="form-label">
-            Estati <span class="required">*</span>
-          </label>
-
-          <select
-            id="activityStatus"
-            class="select"
-            required>
-
-            <option value="planifye">
-              Planifye
-            </option>
-
-            <option value="ankou">
-              Ankou
-            </option>
-
-            <option value="fini">
-              Fini
-            </option>
-
-            <option value="anile">
-              Anile
-            </option>
-
-          </select>
-
-        </div>
-
-
-        <!-- DAT -->
-
-        <div class="form-group">
-
-          <label class="form-label">
-            Dat ak lè aktivite a
-          </label>
-
-          <input
-            id="activityDate"
-            class="input"
-            type="datetime-local">
-
-        </div>
-
-
-        <!-- DAT FIN -->
-
-        <div class="form-group">
-
-          <label class="form-label">
-            Dat ak lè li fini
-          </label>
-
-          <input
-            id="activityEndDate"
-            class="input"
-            type="datetime-local">
-
-        </div>
-
-
-        <!-- KOTE -->
-
-        <div class="form-group full">
-
-          <label class="form-label">
-            Kote
-          </label>
-
-          <input
-            id="activityLocation"
-            class="input"
-            type="text"
-            placeholder="Egzanp: Petite-Anse, Cap-Haïtien">
-
-        </div>
-
-
-        <!-- BENEFISYE -->
-
-        <div class="form-group">
-
-          <label class="form-label">
-            Kantite benefisyè
-          </label>
-
-          <input
-            id="activityBeneficiaries"
-            class="input"
-            type="number"
-            min="0"
-            value="0">
-
-        </div>
-
-
-        <!-- VOLONTE -->
-
-        <div class="form-group">
-
-          <label class="form-label">
-            Kantite volontè
-          </label>
-
-          <input
-            id="activityVolunteers"
-            class="input"
-            type="number"
-            min="0"
-            value="0">
-
-        </div>
-
-
-        <!-- IMAJ -->
-
-        <div class="form-group full">
-
-          <label class="form-label">
-            URL imaj prensipal
-          </label>
-
-          <input
-            id="activityImage"
-            class="input"
-            type="url"
-            placeholder="https://...">
-
-        </div>
-
-
-        <!-- DESCRIPTION -->
-
-        <div class="form-group full">
-
-          <label class="form-label">
-            Deskripsyon
-          </label>
-
-          <textarea
-            id="activityDescription"
-            class="textarea"
-            placeholder="Dekri aktivite a..."></textarea>
-
-        </div>
-
-
-        <!-- PIBLIK -->
-
-        <div class="form-group full">
-
-          <label class="checkbox-row">
-
-            <input
-              id="activityPublic"
-              type="checkbox"
-              checked>
-
-            <span>
-              Pibliye aktivite sa a sou sit piblik LAJONÈ'M.
-            </span>
-
-          </label>
-
-        </div>
-
-      </div>
-
-
-      <div class="form-actions">
-
-        <button
-          type="button"
-          class="cancel-btn"
-          id="cancelModal">
-          Anile
-        </button>
-
-        <button
-          type="submit"
-          class="save-btn"
-          id="saveBtn">
-          Anrejistre aktivite
-        </button>
-
-      </div>
-
-    </form>
-
-  </div>
 
 </div>
 
 
-<!-- SUPABASE -->
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<!-- ==================================================
+     SCRIPTS
+================================================== -->
 
 <script src="js/supabase.js"></script>
 
 <script src="js/permissions.js"></script>
 
+<script src="js/notifikasyon.js"></script>
+
+
 <script>
 
-  let currentUser = null;
-  let adminProfile = null;
-  let activities = [];
-  let programs = [];
-  let editingId = null;
+    let activities = [];
+
+    let editingId = null;
+
+    let adminProfile = null;
 
 
-  /* =====================================================
-     ELEMENTS
-  ====================================================== */
+    /* ==================================================
+       HELPERS
+    ================================================== */
 
-  const tableBody =
-    document.getElementById("activityTable");
+    function escapeHTML(value) {
 
-  const modal =
-    document.getElementById("activityModal");
+        if (
+            value === null ||
+            value === undefined
+        ) {
+            return "";
+        }
 
-  const form =
-    document.getElementById("activityForm");
-
-  const message =
-    document.getElementById("message");
-
-
-  /* =====================================================
-     MESAJ
-  ====================================================== */
-
-  function showMessage(text, type = "error") {
-
-    message.textContent = text;
-
-    message.className =
-      "message show " +
-      (type === "success"
-        ? "success"
-        : "error");
-
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    });
-
-    setTimeout(function() {
-      message.className = "message";
-    }, 5000);
-  }
+        return String(value)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+    }
 
 
-  /* =====================================================
-     ESCAPE
-  ====================================================== */
+    function makeSlug(value) {
 
-  function escapeHTML(value) {
+        return String(value || "")
+            .toLowerCase()
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .replace(/[^a-z0-9]+/g, "-")
+            .replace(/^-+|-+$/g, "");
+    }
 
-    if (
-      value === null ||
-      value === undefined
+
+    function showMessage(
+        message,
+        type = "error"
     ) {
-      return "";
-    }
 
-    return String(value)
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#039;");
-  }
+        const box =
+            document.getElementById(
+                "messageBox"
+            );
 
+        box.textContent = message;
 
-  /* =====================================================
-     SLUG
-  ====================================================== */
+        box.className =
+            "message show " + type;
 
-  function makeSlug(text) {
-
-    return text
-      .toString()
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "")
-      .toLowerCase()
-      .trim()
-      .replace(/[^a-z0-9\s-]/g, "")
-      .replace(/\s+/g, "-")
-      .replace(/-+/g, "-");
-
-  }
-
-
-  /* =====================================================
-     VERIFY ADMIN
-  ====================================================== */
-
-  async function verifyAdmin(user) {
-
-    const { data, error } =
-      await supabaseClient
-        .from("itilizatè_admin")
-        .select(`
-          id,
-          user_id,
-          non,
-          siyati,
-          email,
-          wòl,
-          aktif
-        `)
-        .eq("user_id", user.id)
-        .eq("aktif", true)
-        .maybeSingle();
-
-
-    if (error) {
-      console.error(
-        "Erè admin:",
-        error
-      );
-
-      throw error;
-    }
-
-
-    if (!data) {
-      throw new Error(
-        "Kont sa a pa gen aksè administratè."
-      );
-    }
-
-
-    if (
-      data.wòl !== "super_admin" &&
-      data.wòl !== "admin"
-    ) {
-      throw new Error(
-        "Wòl kont sa a pa pèmèt aksè."
-      );
-    }
-
-
-    return data;
-  }
-
-
-  /* =====================================================
-     CHARGE PWOGRAM
-  ====================================================== */
-
-  async function loadPrograms() {
-
-    const { data, error } =
-      await supabaseClient
-        .from("pwogram")
-        .select(`
-          id,
-          non,
-          slug,
-          aktif
-        `)
-        .order("dat_kreyasyon", {
-          ascending: true
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
         });
 
+        setTimeout(function() {
 
-    if (error) {
-      throw error;
-    }
+            box.classList.remove(
+                "show"
+            );
 
-
-    programs = data || [];
-
-
-    const select =
-      document.getElementById(
-        "activityProgram"
-      );
-
-    const filter =
-      document.getElementById(
-        "programFilter"
-      );
-
-
-    select.innerHTML =
-      `<option value="">Chwazi yon pwogram</option>`;
-
-
-    filter.innerHTML =
-      `<option value="">Tout pwogram</option>`;
-
-
-    programs.forEach(function(program) {
-
-      const option =
-        document.createElement("option");
-
-      option.value = program.id;
-      option.textContent = program.non;
-
-      select.appendChild(option);
-
-
-      const filterOption =
-        document.createElement("option");
-
-      filterOption.value = program.id;
-      filterOption.textContent = program.non;
-
-      filter.appendChild(filterOption);
-
-    });
-
-  }
-
-
-  /* =====================================================
-     CHARGE AKTIVITE
-  ====================================================== */
-
-  async function loadActivities() {
-
-    tableBody.innerHTML = `
-      <tr>
-        <td colspan="7" class="loading">
-          Ap chaje aktivite yo...
-        </td>
-      </tr>
-    `;
-
-
-    const { data, error } =
-      await supabaseClient
-        .from("aktivite")
-        .select(`
-          id,
-          pwogram_id,
-          tit,
-          slug,
-          deskripsyon,
-          tip,
-          estati,
-          dat_aktivite,
-          dat_fin,
-          kote,
-          kantite_benefisye,
-          kantite_volonte,
-          imaj_prensipal_url,
-          piblik,
-          kreye_nan,
-          modifye_nan,
-          pwogram (
-            id,
-            non,
-            slug
-          )
-        `)
-        .order("dat_aktivite", {
-          ascending: false
-        });
-
-
-    if (error) {
-
-      console.error(
-        "Erè aktivite:",
-        error
-      );
-
-      throw error;
-    }
-
-
-    activities = data || [];
-
-    updateStats();
-
-    renderActivities();
-
-  }
-
-
-  /* =====================================================
-     STATS
-  ====================================================== */
-
-  function updateStats() {
-
-    document.getElementById(
-      "totalCount"
-    ).textContent = activities.length;
-
-
-    document.getElementById(
-      "planifyeCount"
-    ).textContent =
-      activities.filter(
-        item => item.estati === "planifye"
-      ).length;
-
-
-    document.getElementById(
-      "ankouCount"
-    ).textContent =
-      activities.filter(
-        item => item.estati === "ankou"
-      ).length;
-
-
-    document.getElementById(
-      "finiCount"
-    ).textContent =
-      activities.filter(
-        item => item.estati === "fini"
-      ).length;
-
-  }
-
-
-  /* =====================================================
-     FORMAT DATE
-  ====================================================== */
-
-  function formatDate(date) {
-
-    if (!date) {
-      return "—";
-    }
-
-    const d = new Date(date);
-
-    if (isNaN(d.getTime())) {
-      return "—";
-    }
-
-    return d.toLocaleDateString(
-      "fr-FR",
-      {
-        day: "2-digit",
-        month: "2-digit",
-        year: "numeric"
-      }
-    );
-
-  }
-
-
-  /* =====================================================
-     STATUS BADGE
-  ====================================================== */
-
-  function statusBadge(status) {
-
-    const labels = {
-      planifye: "Planifye",
-      ankou: "Ankou",
-      fini: "Fini",
-      anile: "Anile"
-    };
-
-
-    return `
-      <span class="badge badge-${escapeHTML(status)}">
-        ${escapeHTML(labels[status] || status)}
-      </span>
-    `;
-
-  }
-
-
-  /* =====================================================
-     RENDER
-  ====================================================== */
-
-  function renderActivities() {
-
-    const search =
-      document.getElementById(
-        "searchInput"
-      ).value
-        .toLowerCase()
-        .trim();
-
-
-    const status =
-      document.getElementById(
-        "statusFilter"
-      ).value;
-
-
-    const program =
-      document.getElementById(
-        "programFilter"
-      ).value;
-
-
-    const filtered =
-      activities.filter(function(item) {
-
-        const matchesSearch =
-          !search ||
-          (
-            item.tit || ""
-          ).toLowerCase().includes(search) ||
-          (
-            item.deskripsyon || ""
-          ).toLowerCase().includes(search) ||
-          (
-            item.kote || ""
-          ).toLowerCase().includes(search);
-
-
-        const matchesStatus =
-          !status ||
-          item.estati === status;
-
-
-        const matchesProgram =
-          !program ||
-          item.pwogram_id === program;
-
-
-        return (
-          matchesSearch &&
-          matchesStatus &&
-          matchesProgram
-        );
-
-      });
-
-
-    if (!filtered.length) {
-
-      tableBody.innerHTML = `
-        <tr>
-          <td colspan="7" class="empty">
-            Pa gen aktivite ki koresponn ak rechèch la.
-          </td>
-        </tr>
-      `;
-
-      return;
-    }
-
-
-    tableBody.innerHTML =
-      filtered.map(function(item) {
-
-        return `
-
-          <tr>
-
-            <td>
-
-              <div class="activity-title">
-                ${escapeHTML(item.tit)}
-              </div>
-
-              <div class="activity-description">
-                ${escapeHTML(
-                  item.deskripsyon || ""
-                )}
-              </div>
-
-            </td>
-
-
-            <td>
-              ${escapeHTML(
-                item.pwogram?.non || "—"
-              )}
-            </td>
-
-
-            <td>
-              ${statusBadge(item.estati)}
-            </td>
-
-
-            <td>
-              ${formatDate(item.dat_aktivite)}
-            </td>
-
-
-            <td>
-              ${escapeHTML(item.kote || "—")}
-            </td>
-
-
-            <td>
-
-              ${
-                item.piblik
-                ? `<span class="badge badge-fini">Wi</span>`
-                : `<span class="badge badge-prive">Non</span>`
-              }
-
-            </td>
-
-
-            <td>
-
-              <div class="actions">
-
-                <button
-                  class="action-btn edit-btn"
-                  onclick="editActivity('${item.id}')">
-                  Modifye
-                </button>
-
-                <button
-                  class="action-btn delete-btn"
-                  onclick="deleteActivity('${item.id}')">
-                  Efase
-                </button>
-
-              </div>
-
-            </td>
-
-          </tr>
-
-        `;
-
-      }).join("");
-
-  }
-
-
-  /* =====================================================
-     OPEN MODAL
-  ====================================================== */
-
-  function openModal(activity = null) {
-
-    editingId =
-      activity
-        ? activity.id
-        : null;
-
-
-    document.getElementById(
-      "modalTitle"
-    ).textContent =
-      activity
-        ? "Modifye aktivite"
-        : "Ajoute yon aktivite";
-
-
-    document.getElementById(
-      "saveBtn"
-    ).textContent =
-      activity
-        ? "Sove chanjman yo"
-        : "Anrejistre aktivite";
-
-
-    form.reset();
-
-
-    document.getElementById(
-      "activityId"
-    ).value =
-      activity?.id || "";
-
-
-    if (activity) {
-
-      document.getElementById(
-        "activityTitle"
-      ).value =
-        activity.tit || "";
-
-
-      document.getElementById(
-        "activitySlug"
-      ).value =
-        activity.slug || "";
-
-
-      document.getElementById(
-        "activityType"
-      ).value =
-        activity.tip || "";
-
-
-      document.getElementById(
-        "activityProgram"
-      ).value =
-        activity.pwogram_id || "";
-
-
-      document.getElementById(
-        "activityStatus"
-      ).value =
-        activity.estati || "planifye";
-
-
-      document.getElementById(
-        "activityDate"
-      ).value =
-        toDateTimeLocal(
-          activity.dat_aktivite
-        );
-
-
-      document.getElementById(
-        "activityEndDate"
-      ).value =
-        toDateTimeLocal(
-          activity.dat_fin
-        );
-
-
-      document.getElementById(
-        "activityLocation"
-      ).value =
-        activity.kote || "";
-
-
-      document.getElementById(
-        "activityBeneficiaries"
-      ).value =
-        activity.kantite_benefisye ?? 0;
-
-
-      document.getElementById(
-        "activityVolunteers"
-      ).value =
-        activity.kantite_volonte ?? 0;
-
-
-      document.getElementById(
-        "activityImage"
-      ).value =
-        activity.imaj_prensipal_url || "";
-
-
-      document.getElementById(
-        "activityDescription"
-      ).value =
-        activity.deskripsyon || "";
-
-
-      document.getElementById(
-        "activityPublic"
-      ).checked =
-        activity.piblik === true;
-
-    } else {
-
-      document.getElementById(
-        "activityStatus"
-      ).value = "planifye";
-
-
-      document.getElementById(
-        "activityPublic"
-      ).checked = true;
+        }, 5000);
 
     }
 
 
-    modal.classList.add("show");
+    /* ==================================================
+       PROFILE
+    ================================================== */
 
-  }
+    function displayAdminProfile() {
 
-
-  /* =====================================================
-     DATETIME LOCAL
-  ====================================================== */
-
-  function toDateTimeLocal(value) {
-
-    if (!value) {
-      return "";
-    }
-
-    const date = new Date(value);
-
-    if (isNaN(date.getTime())) {
-      return "";
-    }
-
-    const offset =
-      date.getTimezoneOffset();
-
-    const localDate =
-      new Date(
-        date.getTime() - offset * 60000
-      );
-
-    return localDate
-      .toISOString()
-      .slice(0, 16);
-
-  }
-
-
-  /* =====================================================
-     CLOSE MODAL
-  ====================================================== */
-
-  function closeModal() {
-
-    modal.classList.remove("show");
-
-    editingId = null;
-
-  }
-
-
-  /* =====================================================
-     EDIT
-  ====================================================== */
-
-  function editActivity(id) {
-
-    const activity =
-      activities.find(
-        item => item.id === id
-      );
-
-
-    if (!activity) {
-      return;
-    }
-
-
-    openModal(activity);
-
-  }
-
-
-  /* =====================================================
-     SAVE
-  ====================================================== */
-
-  async function saveActivity(event) {
-
-    event.preventDefault();
-
-
-    const saveBtn =
-      document.getElementById(
-        "saveBtn"
-      );
-
-
-    saveBtn.disabled = true;
-
-    saveBtn.textContent =
-      "Ap anrejistre...";
-
-
-    try {
-
-      const title =
-        document.getElementById(
-          "activityTitle"
-        ).value.trim();
-
-
-      if (!title) {
-        throw new Error(
-          "Tit aktivite a obligatwa."
-        );
-      }
-
-
-      let slug =
-        document.getElementById(
-          "activitySlug"
-        ).value.trim();
-
-
-      if (!slug) {
-        slug = makeSlug(title);
-      } else {
-        slug = makeSlug(slug);
-      }
-
-
-      const programId =
-        document.getElementById(
-          "activityProgram"
-        ).value || null;
-
-
-      const dateValue =
-        document.getElementById(
-          "activityDate"
-        ).value;
-
-
-      const endDateValue =
-        document.getElementById(
-          "activityEndDate"
-        ).value;
-
-
-      const data = {
-
-        pwogram_id: programId,
-
-        tit: title,
-
-        slug: slug,
-
-        deskripsyon:
-          document.getElementById(
-            "activityDescription"
-          ).value.trim() || null,
-
-        tip:
-          document.getElementById(
-            "activityType"
-          ).value.trim() || null,
-
-        estati:
-          document.getElementById(
-            "activityStatus"
-          ).value,
-
-        dat_aktivite:
-          dateValue
-            ? new Date(dateValue).toISOString()
-            : null,
-
-        dat_fin:
-          endDateValue
-            ? new Date(endDateValue).toISOString()
-            : null,
-
-        kote:
-          document.getElementById(
-            "activityLocation"
-          ).value.trim() || null,
-
-        kantite_benefisye:
-          Number(
-            document.getElementById(
-              "activityBeneficiaries"
-            ).value || 0
-          ),
-
-        kantite_volonte:
-          Number(
-            document.getElementById(
-              "activityVolunteers"
-            ).value || 0
-          ),
-
-        imaj_prensipal_url:
-          document.getElementById(
-            "activityImage"
-          ).value.trim() || null,
-
-        piblik:
-          document.getElementById(
-            "activityPublic"
-          ).checked,
-
-        modifye_nan:
-          new Date().toISOString()
-
-      };
-
-
-      /* =========================
-         MODIFYE
-      ========================== */
-
-      if (editingId) {
-
-        const {
-          error
-        } = await supabaseClient
-          .from("aktivite")
-          .update(data)
-          .eq("id", editingId);
-
-
-        if (error) {
-          throw error;
+        if (!adminProfile) {
+            return;
         }
 
+        const non =
+            adminProfile.non || "";
 
-        showMessage(
-          "Aktivite a modifye avèk siksè.",
-          "success"
-        );
+        const siyati =
+            adminProfile.siyati || "";
 
-      }
+        const fullName =
+            `${non} ${siyati}`.trim();
+
+        const role =
+            adminProfile.wòl || "";
+
+        document.getElementById(
+            "adminName"
+        ).textContent =
+            fullName || "Administratè";
+
+        document.getElementById(
+            "adminRole"
+        ).textContent =
+            role.replace("_", " ");
+
+        document.getElementById(
+            "adminAvatar"
+        ).textContent =
+            (
+                non.charAt(0) ||
+                "A"
+            ).toUpperCase();
+
+    }
 
 
-      /* =========================
-         AJOUTE
-      ========================== */
+    /* ==================================================
+       ACCESS
+    ================================================== */
 
-      else {
+    async function verifyActivityAccess() {
 
-        const insertData = {
-          ...data,
-          kreye_nan:
-            new Date().toISOString()
-        };
+        await chajeRBAC();
 
-
-        const {
-          error
-        } = await supabaseClient
-          .from("aktivite")
-          .insert(insertData);
-
-
-        if (error) {
-          throw error;
+        if (!rbacPare) {
+            return false;
         }
 
+        adminProfile =
+            jwennProfilAdmin();
 
-        showMessage(
-          "Nouvo aktivite a anrejistre avèk siksè.",
-          "success"
-        );
-
-      }
-
-
-      closeModal();
-
-      await loadActivities();
-
-
-    } catch (error) {
-
-      console.error(
-        "Erè anrejistreman aktivite:",
-        error
-      );
-
-
-      showMessage(
-        error.message ||
-        "Nou pa kapab anrejistre aktivite a."
-      );
-
-    } finally {
-
-      saveBtn.disabled = false;
-
-      saveBtn.textContent =
-        editingId
-          ? "Sove chanjman yo"
-          : "Anrejistre aktivite";
-
-    }
-
-  }
-
-
-  /* =====================================================
-     DELETE
-  ====================================================== */
-
-  async function deleteActivity(id) {
-
-    const activity =
-      activities.find(
-        item => item.id === id
-      );
-
-
-    if (!activity) {
-      return;
-    }
-
-
-    const confirmed =
-      confirm(
-        "Èske ou sèten ou vle efase aktivite sa a?\n\n" +
-        activity.tit
-      );
-
-
-    if (!confirmed) {
-      return;
-    }
-
-
-    try {
-
-      const {
-        error
-      } = await supabaseClient
-        .from("aktivite")
-        .delete()
-        .eq("id", id);
-
-
-      if (error) {
-        throw error;
-      }
-
-
-      showMessage(
-        "Aktivite a efase avèk siksè.",
-        "success"
-      );
-
-
-      await loadActivities();
-
-
-    } catch (error) {
-
-      console.error(
-        "Erè efasman:",
-        error
-      );
-
-
-      showMessage(
-        error.message ||
-        "Nou pa kapab efase aktivite a."
-      );
-
-    }
-
-  }
-
-
-  /* =====================================================
-     LOGOUT
-  ====================================================== */
-
-  document
-    .getElementById("logoutBtn")
-    .addEventListener(
-      "click",
-      async function() {
-
-        const {
-          error
-        } = await supabaseClient
-          .auth
-          .signOut();
-
-
-        if (error) {
-
-          showMessage(
-            "Nou pa kapab dekonekte."
-          );
-
-          return;
+        if (!adminProfile) {
+            return false;
         }
 
+        return genPèmisyon(
+            "jere_aktivite"
+        );
 
-        window.location.href =
-          "login.html";
-
-      }
-    );
-
-
-  /* =====================================================
-     EVENTS
-  ====================================================== */
-
-  document
-    .getElementById("addActivityBtn")
-    .addEventListener(
-      "click",
-      function() {
-        openModal();
-      }
-    );
+    }
 
 
-  document
-    .getElementById("closeModal")
-    .addEventListener(
-      "click",
-      closeModal
-    );
+    function showAccessDenied() {
+
+        document.getElementById(
+            "activityContent"
+        ).style.display = "none";
+
+        document.getElementById(
+            "accessDenied"
+        ).style.display = "flex";
+
+    }
 
 
-  document
-    .getElementById("cancelModal")
-    .addEventListener(
-      "click",
-      closeModal
-    );
-
-
-  form.addEventListener(
-    "submit",
-    saveActivity
-  );
-
-
-  document
-    .getElementById("searchInput")
-    .addEventListener(
-      "input",
-      renderActivities
-    );
-
-
-  document
-    .getElementById("statusFilter")
-    .addEventListener(
-      "change",
-      renderActivities
-    );
-
-
-  document
-    .getElementById("programFilter")
-    .addEventListener(
-      "change",
-      renderActivities
-    );
-
-
-  document
-    .getElementById("menuBtn")
-    .addEventListener(
-      "click",
-      function() {
+    function applyRBAC() {
 
         document
-          .getElementById("sidebar")
-          .classList.toggle("open");
+            .querySelectorAll(
+                "[data-permission]"
+            )
+            .forEach(function(element) {
 
-      }
-    );
+                const permission =
+                    element.getAttribute(
+                        "data-permission"
+                    );
+
+                if (
+                    !genPèmisyon(
+                        permission
+                    )
+                ) {
+
+                    element.style.display =
+                        "none";
+                }
+
+            });
+
+    }
 
 
-  /* =====================================================
-     SLUG OTOMATIK
-  ====================================================== */
+    /* ==================================================
+       PROGRAMS
+    ================================================== */
 
-  document
-    .getElementById("activityTitle")
-    .addEventListener(
-      "input",
-      function() {
+    async function loadPrograms() {
 
-        if (!editingId) {
+        const {
+            data,
+            error
+        } = await supabaseClient
+            .from("pwogram")
+            .select(`
+                id,
+                non,
+                slug,
+                aktif
+            `)
+            .order(
+                "dat_kreyasyon",
+                {
+                    ascending: true
+                }
+            );
 
-          document.getElementById(
-            "activitySlug"
-          ).value =
-            makeSlug(
-              this.value
+        if (error) {
+            throw error;
+        }
+
+        const programs =
+            data || [];
+
+        const select =
+            document.getElementById(
+                "activityProgram"
+            );
+
+        const filter =
+            document.getElementById(
+                "programFilter"
+            );
+
+        select.innerHTML = `
+            <option value="">
+                Pa gen pwogram
+            </option>
+        `;
+
+        filter.innerHTML = `
+            <option value="">
+                Tout pwogram
+            </option>
+        `;
+
+        programs.forEach(
+            function(program) {
+
+                const option =
+                    document.createElement(
+                        "option"
+                    );
+
+                option.value =
+                    program.id;
+
+                option.textContent =
+                    program.non;
+
+                select.appendChild(
+                    option
+                );
+
+
+                const filterOption =
+                    document.createElement(
+                        "option"
+                    );
+
+                filterOption.value =
+                    program.id;
+
+                filterOption.textContent =
+                    program.non;
+
+                filter.appendChild(
+                    filterOption
+                );
+
+            }
+        );
+
+    }
+
+
+    /* ==================================================
+       LOAD ACTIVITIES
+    ================================================== */
+
+    async function loadActivities() {
+
+        const tableBody =
+            document.getElementById(
+                "activityTableBody"
+            );
+
+        tableBody.innerHTML = `
+            <tr>
+                <td
+                    colspan="7"
+                    class="loading"
+                >
+                    Ap chaje aktivite yo...
+                </td>
+            </tr>
+        `;
+
+
+        const {
+            data,
+            error
+        } = await supabaseClient
+            .from("aktivite")
+            .select(`
+                id,
+                pwogram_id,
+                tit,
+                slug,
+                deskripsyon,
+                tip,
+                estati,
+                dat_aktivite,
+                dat_fin,
+                kote,
+                kantite_benefisye,
+                kantite_volonte,
+                imaj_prensipal_url,
+                piblik,
+                kreye_nan,
+                modifye_nan,
+                pwogram (
+                    id,
+                    non,
+                    slug
+                )
+            `)
+            .order(
+                "dat_aktivite",
+                {
+                    ascending: false
+                }
+            );
+
+        if (error) {
+            throw error;
+        }
+
+        activities =
+            data || [];
+
+        updateStats();
+
+        renderActivities();
+
+    }
+
+
+    /* ==================================================
+       STATS
+    ================================================== */
+
+    function updateStats() {
+
+        document.getElementById(
+            "totalCount"
+        ).textContent =
+            activities.length;
+
+        document.getElementById(
+            "planifyeCount"
+        ).textContent =
+            activities.filter(
+                item =>
+                    item.estati ===
+                    "planifye"
+            ).length;
+
+        document.getElementById(
+            "ankouCount"
+        ).textContent =
+            activities.filter(
+                item =>
+                    item.estati ===
+                    "ankou"
+            ).length;
+
+        document.getElementById(
+            "finiCount"
+        ).textContent =
+            activities.filter(
+                item =>
+                    item.estati ===
+                    "fini"
+            ).length;
+
+    }
+
+
+    /* ==================================================
+       DATE
+    ================================================== */
+
+    function formatDate(date) {
+
+        if (!date) {
+            return "—";
+        }
+
+        const d =
+            new Date(date);
+
+        if (
+            Number.isNaN(
+                d.getTime()
+            )
+        ) {
+            return "—";
+        }
+
+        return d.toLocaleDateString(
+            "fr-FR",
+            {
+                day: "2-digit",
+                month: "2-digit",
+                year: "numeric"
+            }
+        );
+
+    }
+
+
+    /* ==================================================
+       STATUS
+    ================================================== */
+
+    function statusBadge(status) {
+
+        const labels = {
+            planifye: "Planifye",
+            ankou: "Ankou",
+            fini: "Fini",
+            anile: "Anile"
+        };
+
+        return `
+            <span
+                class="badge badge-${escapeHTML(status)}"
+            >
+                ${escapeHTML(
+                    labels[status] ||
+                    status ||
+                    "—"
+                )}
+            </span>
+        `;
+
+    }
+
+
+    /* ==================================================
+       RENDER
+    ================================================== */
+
+    function renderActivities() {
+
+        const tableBody =
+            document.getElementById(
+                "activityTableBody"
+            );
+
+        const search =
+            document.getElementById(
+                "searchInput"
+            )
+            .value
+            .toLowerCase()
+            .trim();
+
+        const status =
+            document.getElementById(
+                "statusFilter"
+            ).value;
+
+        const program =
+            document.getElementById(
+                "programFilter"
+            ).value;
+
+
+        const filtered =
+            activities.filter(
+                function(item) {
+
+                    const matchesSearch =
+                        !search ||
+                        (
+                            item.tit ||
+                            ""
+                        )
+                        .toLowerCase()
+                        .includes(search) ||
+
+                        (
+                            item.deskripsyon ||
+                            ""
+                        )
+                        .toLowerCase()
+                        .includes(search) ||
+
+                        (
+                            item.kote ||
+                            ""
+                        )
+                        .toLowerCase()
+                        .includes(search);
+
+
+                    const matchesStatus =
+                        !status ||
+                        item.estati ===
+                        status;
+
+
+                    const matchesProgram =
+                        !program ||
+                        item.pwogram_id ===
+                        program;
+
+
+                    return (
+                        matchesSearch &&
+                        matchesStatus &&
+                        matchesProgram
+                    );
+
+                }
+            );
+
+
+        if (!filtered.length) {
+
+            tableBody.innerHTML = `
+                <tr>
+                    <td
+                        colspan="7"
+                        class="empty"
+                    >
+                        Pa gen aktivite ki koresponn ak rechèch la.
+                    </td>
+                </tr>
+            `;
+
+            return;
+        }
+
+
+        tableBody.innerHTML =
+            filtered
+                .map(
+                    function(item) {
+
+                        return `
+                            <tr>
+
+                                <td>
+
+                                    <div class="activity-title">
+                                        ${escapeHTML(
+                                            item.tit
+                                        )}
+                                    </div>
+
+                                    <div class="activity-description">
+                                        ${escapeHTML(
+                                            item.deskripsyon ||
+                                            ""
+                                        )}
+                                    </div>
+
+                                </td>
+
+                                <td>
+                                    ${escapeHTML(
+                                        item.pwogram?.non ||
+                                        "—"
+                                    )}
+                                </td>
+
+                                <td>
+                                    ${statusBadge(
+                                        item.estati
+                                    )}
+                                </td>
+
+                                <td>
+                                    ${formatDate(
+                                        item.dat_aktivite
+                                    )}
+                                </td>
+
+                                <td>
+                                    ${escapeHTML(
+                                        item.kote ||
+                                        "—"
+                                    )}
+                                </td>
+
+                                <td>
+                                    ${
+                                        item.piblik
+                                        ?
+                                        `<span class="badge badge-fini">Wi</span>`
+                                        :
+                                        `<span class="badge badge-prive">Non</span>`
+                                    }
+                                </td>
+
+                                <td>
+
+                                    <div class="actions">
+
+                                        <button
+                                            type="button"
+                                            class="action-btn edit-btn"
+                                            onclick="editActivity('${item.id}')"
+                                        >
+                                            Modifye
+                                        </button>
+
+                                        <button
+                                            type="button"
+                                            class="action-btn delete-btn"
+                                            onclick="deleteActivity('${item.id}')"
+                                        >
+                                            Efase
+                                        </button>
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+                        `;
+
+                    }
+                )
+                .join("");
+
+    }
+
+
+    /* ==================================================
+       DATETIME LOCAL
+    ================================================== */
+
+    function toDateTimeLocal(value) {
+
+        if (!value) {
+            return "";
+        }
+
+        const date =
+            new Date(value);
+
+        if (
+            Number.isNaN(
+                date.getTime()
+            )
+        ) {
+            return "";
+        }
+
+        const offset =
+            date.getTimezoneOffset();
+
+        const localDate =
+            new Date(
+                date.getTime() -
+                offset * 60000
+            );
+
+        return localDate
+            .toISOString()
+            .slice(0,16);
+
+    }
+
+
+    /* ==================================================
+       OPEN MODAL
+    ================================================== */
+
+    function openModal(
+        activity = null
+    ) {
+
+        editingId =
+            activity
+                ? activity.id
+                : null;
+
+        document.getElementById(
+            "modalTitle"
+        ).textContent =
+            activity
+                ? "Modifye aktivite"
+                : "Ajoute yon aktivite";
+
+        document.getElementById(
+            "saveBtn"
+        ).textContent =
+            activity
+                ? "Sove chanjman yo"
+                : "Anrejistre aktivite";
+
+
+        document.getElementById(
+            "activityForm"
+        ).reset();
+
+
+        document.getElementById(
+            "activityId"
+        ).value =
+            activity?.id || "";
+
+
+        if (activity) {
+
+            document.getElementById(
+                "activityTitle"
+            ).value =
+                activity.tit || "";
+
+            document.getElementById(
+                "activitySlug"
+            ).value =
+                activity.slug || "";
+
+            document.getElementById(
+                "activityType"
+            ).value =
+                activity.tip || "";
+
+            document.getElementById(
+                "activityProgram"
+            ).value =
+                activity.pwogram_id || "";
+
+            document.getElementById(
+                "activityStatus"
+            ).value =
+                activity.estati ||
+                "planifye";
+
+            document.getElementById(
+                "activityDate"
+            ).value =
+                toDateTimeLocal(
+                    activity.dat_aktivite
+                );
+
+            document.getElementById(
+                "activityEndDate"
+            ).value =
+                toDateTimeLocal(
+                    activity.dat_fin
+                );
+
+            document.getElementById(
+                "activityLocation"
+            ).value =
+                activity.kote || "";
+
+            document.getElementById(
+                "activityBeneficiaries"
+            ).value =
+                activity.kantite_benefisye ??
+                0;
+
+            document.getElementById(
+                "activityVolunteers"
+            ).value =
+                activity.kantite_volonte ??
+                0;
+
+            document.getElementById(
+                "activityImage"
+            ).value =
+                activity.imaj_prensipal_url ||
+                "";
+
+            document.getElementById(
+                "activityDescription"
+            ).value =
+                activity.deskripsyon ||
+                "";
+
+            document.getElementById(
+                "activityPublic"
+            ).checked =
+                activity.piblik === true;
+
+        } else {
+
+            document.getElementById(
+                "activityStatus"
+            ).value =
+                "planifye";
+
+            document.getElementById(
+                "activityPublic"
+            ).checked =
+                true;
+
+        }
+
+
+        document.getElementById(
+            "activityModal"
+        ).classList.add("show");
+
+    }
+
+
+    function closeModal() {
+
+        document.getElementById(
+            "activityModal"
+        ).classList.remove(
+            "show"
+        );
+
+        editingId = null;
+
+    }
+
+
+    /* ==================================================
+       EDIT
+    ================================================== */
+
+    function editActivity(id) {
+
+        const activity =
+            activities.find(
+                item =>
+                    item.id === id
+            );
+
+        if (!activity) {
+            return;
+        }
+
+        openModal(activity);
+
+    }
+
+
+    /* ==================================================
+       SAVE
+    ================================================== */
+
+    async function saveActivity(
+        event
+    ) {
+
+        event.preventDefault();
+
+        const saveBtn =
+            document.getElementById(
+                "saveBtn"
+            );
+
+        saveBtn.disabled =
+            true;
+
+        saveBtn.textContent =
+            "Ap anrejistre...";
+
+
+        try {
+
+            const title =
+                document.getElementById(
+                    "activityTitle"
+                )
+                .value
+                .trim();
+
+
+            if (!title) {
+
+                throw new Error(
+                    "Tit aktivite a obligatwa."
+                );
+
+            }
+
+
+            let slug =
+                document.getElementById(
+                    "activitySlug"
+                )
+                .value
+                .trim();
+
+
+            if (!slug) {
+
+                slug =
+                    makeSlug(title);
+
+            } else {
+
+                slug =
+                    makeSlug(slug);
+
+            }
+
+
+            const programId =
+                document.getElementById(
+                    "activityProgram"
+                ).value || null;
+
+
+            const dateValue =
+                document.getElementById(
+                    "activityDate"
+                ).value;
+
+
+            const endDateValue =
+                document.getElementById(
+                    "activityEndDate"
+                ).value;
+
+
+            const data = {
+
+                pwogram_id:
+                    programId,
+
+                tit:
+                    title,
+
+                slug:
+                    slug,
+
+                deskripsyon:
+                    document.getElementById(
+                        "activityDescription"
+                    )
+                    .value
+                    .trim() || null,
+
+                tip:
+                    document.getElementById(
+                        "activityType"
+                    )
+                    .value
+                    .trim() || null,
+
+                estati:
+                    document.getElementById(
+                        "activityStatus"
+                    ).value,
+
+                dat_aktivite:
+                    dateValue
+                        ? new Date(
+                            dateValue
+                          ).toISOString()
+                        : null,
+
+                dat_fin:
+                    endDateValue
+                        ? new Date(
+                            endDateValue
+                          ).toISOString()
+                        : null,
+
+                kote:
+                    document.getElementById(
+                        "activityLocation"
+                    )
+                    .value
+                    .trim() || null,
+
+                kantite_benefisye:
+                    Number(
+                        document.getElementById(
+                            "activityBeneficiaries"
+                        ).value || 0
+                    ),
+
+                kantite_volonte:
+                    Number(
+                        document.getElementById(
+                            "activityVolunteers"
+                        ).value || 0
+                    ),
+
+                imaj_prensipal_url:
+                    document.getElementById(
+                        "activityImage"
+                    )
+                    .value
+                    .trim() || null,
+
+                piblik:
+                    document.getElementById(
+                        "activityPublic"
+                    ).checked,
+
+                modifye_nan:
+                    new Date().toISOString()
+
+            };
+
+
+            if (editingId) {
+
+                const {
+                    error
+                } = await supabaseClient
+                    .from("aktivite")
+                    .update(data)
+                    .eq(
+                        "id",
+                        editingId
+                    );
+
+                if (error) {
+                    throw error;
+                }
+
+                showMessage(
+                    "Aktivite a modifye avèk siksè.",
+                    "success"
+                );
+
+            } else {
+
+                const insertData = {
+                    ...data,
+                    kreye_nan:
+                        new Date().toISOString()
+                };
+
+                const {
+                    error
+                } = await supabaseClient
+                    .from("aktivite")
+                    .insert(
+                        insertData
+                    );
+
+                if (error) {
+                    throw error;
+                }
+
+                showMessage(
+                    "Nouvo aktivite a anrejistre avèk siksè.",
+                    "success"
+                );
+
+            }
+
+
+            closeModal();
+
+            await loadActivities();
+
+
+        } catch (error) {
+
+            console.error(
+                "Erè anrejistreman aktivite:",
+                error
+            );
+
+            showMessage(
+                error.message ||
+                "Nou pa kapab anrejistre aktivite a."
+            );
+
+        } finally {
+
+            saveBtn.disabled =
+                false;
+
+            saveBtn.textContent =
+                editingId
+                    ? "Sove chanjman yo"
+                    : "Anrejistre aktivite";
+
+        }
+
+    }
+
+
+    /* ==================================================
+       DELETE
+    ================================================== */
+
+    async function deleteActivity(id) {
+
+        const activity =
+            activities.find(
+                item =>
+                    item.id === id
+            );
+
+        if (!activity) {
+            return;
+        }
+
+
+        const confirmed =
+            confirm(
+                "Èske ou sèten ou vle efase aktivite sa a?\n\n" +
+                activity.tit
+            );
+
+        if (!confirmed) {
+            return;
+        }
+
+
+        try {
+
+            const {
+                error
+            } = await supabaseClient
+                .from("aktivite")
+                .delete()
+                .eq(
+                    "id",
+                    id
+                );
+
+            if (error) {
+                throw error;
+            }
+
+            showMessage(
+                "Aktivite a efase avèk siksè.",
+                "success"
+            );
+
+            await loadActivities();
+
+        } catch (error) {
+
+            console.error(
+                "Erè efasman:",
+                error
+            );
+
+            showMessage(
+                error.message ||
+                "Nou pa kapab efase aktivite a."
             );
 
         }
 
-      }
-    );
+    }
 
 
-  /* =====================================================
-     OTHER MENU
-  ====================================================== */
+    /* ==================================================
+       MOBILE MENU
+    ================================================== */
 
-  function paDisponib(nom) {
+    function startMobileMenu() {
 
-    showMessage(
-      nom +
-      " ap disponib nan pwochen etap devlopman an.",
-      "success"
-    );
+        const button =
+            document.getElementById(
+                "mobileMenuBtn"
+            );
 
-  }
+        const sidebar =
+            document.getElementById(
+                "adminSidebar"
+            );
 
+        button.addEventListener(
+            "click",
+            function() {
 
-  /* =====================================================
-     INITIALISATION
-  ====================================================== */
+                sidebar.classList.toggle(
+                    "mobile-open"
+                );
 
-  async function init() {
-
-    try {
-
-      const {
-        data: {
-          user
-        },
-        error
-      } = await supabaseClient
-        .auth
-        .getUser();
-
-
-      if (error) {
-        throw error;
-      }
-
-
-      if (!user) {
-
-        window.location.href =
-          "login.html";
-
-        return;
-      }
-
-
-      currentUser = user;
-
-
-      adminProfile =
-        await verifyAdmin(user);
-
-
-      await loadPrograms();
-
-      await loadActivities();
-
-
-    } catch (error) {
-
-      console.error(
-        "Erè inisyalizasyon:",
-        error
-      );
-
-
-      if (
-        error.message &&
-        (
-          error.message.includes(
-            "aksè administratè"
-          ) ||
-          error.message.includes(
-            "Wòl kont sa a"
-          )
-        )
-      ) {
-
-        await supabaseClient
-          .auth
-          .signOut();
-
-        window.location.href =
-          "login.html";
-
-        return;
-      }
-
-
-      showMessage(
-        "Nou pa kapab chaje jesyon aktivite yo: " +
-        (
-          error.message ||
-          "Erè enkoni."
-        )
-      );
+            }
+        );
 
     }
 
-  }
+
+    /* ==================================================
+       EVENTS
+    ================================================== */
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        async function() {
+
+            try {
+
+                const hasAccess =
+                    await verifyActivityAccess();
+
+                if (!hasAccess) {
+
+                    showAccessDenied();
+
+                    return;
+                }
 
 
-  document.addEventListener(
-    "DOMContentLoaded",
-    init
-  );
+                displayAdminProfile();
+
+                applyRBAC();
+
+                startMobileMenu();
+
+                await loadPrograms();
+
+                await loadActivities();
+
+                await demareNotifikasyon();
+
+
+            } catch (error) {
+
+                console.error(
+                    "Erè inisyalizasyon:",
+                    error
+                );
+
+                showMessage(
+                    "Nou pa kapab chaje jesyon aktivite yo: " +
+                    (
+                        error.message ||
+                        "Erè enkoni."
+                    )
+                );
+
+            }
+
+        }
+    );
+
+
+    document.getElementById(
+        "addActivityBtn"
+    ).addEventListener(
+        "click",
+        function() {
+            openModal();
+        }
+    );
+
+
+    document.getElementById(
+        "closeModal"
+    ).addEventListener(
+        "click",
+        closeModal
+    );
+
+
+    document.getElementById(
+        "cancelModal"
+    ).addEventListener(
+        "click",
+        closeModal
+    );
+
+
+    document.getElementById(
+        "activityForm"
+    ).addEventListener(
+        "submit",
+        saveActivity
+    );
+
+
+    document.getElementById(
+        "searchInput"
+    ).addEventListener(
+        "input",
+        renderActivities
+    );
+
+
+    document.getElementById(
+        "statusFilter"
+    ).addEventListener(
+        "change",
+        renderActivities
+    );
+
+
+    document.getElementById(
+        "programFilter"
+    ).addEventListener(
+        "change",
+        renderActivities
+    );
+
+
+    document.getElementById(
+        "activityTitle"
+    ).addEventListener(
+        "input",
+        function() {
+
+            if (!editingId) {
+
+                document.getElementById(
+                    "activitySlug"
+                ).value =
+                    makeSlug(
+                        this.value
+                    );
+
+            }
+
+        }
+    );
+
+
+    document.getElementById(
+        "logoutBtn"
+    ).addEventListener(
+        "click",
+        async function() {
+
+            const {
+                error
+            } = await supabaseClient
+                .auth
+                .signOut();
+
+            if (error) {
+
+                showMessage(
+                    "Nou pa kapab dekonekte."
+                );
+
+                return;
+            }
+
+            window.location.href =
+                "login.html";
+
+        }
+    );
 
 </script>
 
