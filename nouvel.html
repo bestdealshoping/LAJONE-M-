@@ -4,305 +4,810 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
- <title>Nouvèl LAJONÈ'M | Enfòmasyon ak nouvèl sou aksyon nou yo</title>
+  <title>Nouvèl LAJONÈ'M | Laj yo se onè nou</title>
 
-<meta
-  name="description"
-  content="Swiv dènye nouvèl, aktivite, pwojè ak aksyon LAJONÈ'M ap reyalize pou akonpaye ak valorize moun aje ann Ayiti."
->
+  <meta
+    name="description"
+    content="Swiv dènye nouvèl, aktivite, pwojè ak aksyon LAJONÈ'M ap reyalize pou akonpaye ak valorize moun aje ann Ayiti."
+  >
 
-<meta
-  name="keywords"
-  content="nouvèl LAJONÈ'M, nouvèl Ayiti, aktivite moun aje, pwojè LAJONÈ'M, moun aje Ayiti, solidarite Ayiti, òganizasyon sosyal, Cap-Haïtien"
->
+  <meta
+    name="keywords"
+    content="nouvèl LAJONÈ'M, nouvèl Ayiti, aktivite moun aje, pwojè LAJONÈ'M, moun aje Ayiti, solidarite Ayiti, òganizasyon sosyal, Cap-Haïtien"
+  >
 
-<meta name="robots" content="index, follow">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="LAJONÈ'M">
+  <meta name="theme-color" content="#0B3B75">
 
-<link
-  rel="canonical"
-  href="https://bestdealshoping.github.io/LAJONE-M-/nouvel.html"
->
+  <link
+    rel="canonical"
+    href="https://bestdealshoping.github.io/LAJONE-M-/nouvel.html"
+  >
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="Nouvèl LAJONÈ'M | Laj yo se onè nou">
+  <!-- OPEN GRAPH -->
 
-<meta
-  property="og:description"
-  content="Rete enfòme sou aktivite, pwojè ak aksyon LAJONÈ'M pou moun aje yo."
->
+  <meta property="og:type" content="website">
 
-<meta
-  property="og:url"
-  content="https://bestdealshoping.github.io/LAJONE-M-/nouvel.html"
->
+  <meta
+    property="og:title"
+    content="Nouvèl LAJONÈ'M | Laj yo se onè nou"
+  >
 
-<meta property="og:site_name" content="LAJONÈ'M">
-<meta property="og:locale" content="ht_HT">
+  <meta
+    property="og:description"
+    content="Rete enfòme sou aktivite, pwojè ak aksyon LAJONÈ'M pou moun aje yo."
+  >
+
+  <meta
+    property="og:url"
+    content="https://bestdealshoping.github.io/LAJONE-M-/nouvel.html"
+  >
+
+  <meta property="og:site_name" content="LAJONÈ'M">
+  <meta property="og:locale" content="ht_HT">
+
+  <meta
+    property="og:image"
+    content="https://terjfmeuzvhcntplnbsd.supabase.co/storage/v1/object/public/galri/foto-1791543704733-hspnevg.png"
+  >
+
+  <!-- TWITTER -->
+
+  <meta
+    name="twitter:card"
+    content="summary_large_image"
+  >
+
+  <meta
+    name="twitter:title"
+    content="Nouvèl LAJONÈ'M"
+  >
+
+  <meta
+    name="twitter:description"
+    content="Swiv nouvèl, aktivite ak pwojè LAJONÈ'M."
+  >
+
+  <meta
+    name="twitter:image"
+    content="https://terjfmeuzvhcntplnbsd.supabase.co/storage/v1/object/public/galri/foto-1791543704733-hspnevg.png"
+  >
+
   <link rel="stylesheet" href="css/style.css">
 
+
   <style>
+
+    /* =====================================================
+       HERO
+    ====================================================== */
+
     .news-hero {
-      padding: 80px 20px;
+      padding: 85px 20px;
+
       text-align: center;
-      color: white;
-      background: linear-gradient(135deg, #0B3B75, #164f91);
+
+      color: #ffffff;
+
+      background:
+        linear-gradient(
+          135deg,
+          #0B3B75,
+          #07284f
+        );
+    }
+
+    .news-logo {
+      width: 95px;
+      height: 95px;
+
+      object-fit: contain;
+
+      display: block;
+
+      margin: 0 auto 20px;
+
+      padding: 7px;
+
+      background: #ffffff;
+
+      border-radius: 50%;
     }
 
     .news-hero h1 {
-      margin-bottom: 15px;
-      font-size: 42px;
+      margin: 0 0 18px;
+
+      font-size:
+        clamp(2rem, 5vw, 3.2rem);
+
+      line-height: 1.15;
     }
 
     .news-hero p {
-      max-width: 750px;
-      margin: auto;
-      font-size: 18px;
-      line-height: 1.7;
+      max-width: 780px;
+
+      margin: 0 auto;
+
+      font-size: 1.05rem;
+
+      line-height: 1.8;
     }
 
+
+    /* =====================================================
+       INTRO
+    ====================================================== */
+
+    .news-intro {
+      padding: 65px 20px;
+
+      background: #ffffff;
+
+      text-align: center;
+    }
+
+    .news-intro-content {
+      max-width: 800px;
+
+      margin: auto;
+    }
+
+    .news-intro h2 {
+      margin: 10px 0 15px;
+
+      color: #0B3B75;
+
+      font-size: 2rem;
+    }
+
+    .news-intro p {
+      margin: 0;
+
+      color: #667085;
+
+      line-height: 1.8;
+    }
+
+
+    /* =====================================================
+       NEWS SECTION
+    ====================================================== */
+
     .news-section {
-      padding: 60px 20px;
+      padding: 70px 20px;
+
+      background: #f5f7fa;
     }
 
     .news-toolbar {
       display: flex;
+
       justify-content: space-between;
+
       align-items: center;
+
       gap: 20px;
-      margin-bottom: 35px;
+
       flex-wrap: wrap;
+
+      margin-bottom: 35px;
     }
 
     .news-toolbar h2 {
-      color: #0B3B75;
       margin: 0;
+
+      color: #0B3B75;
+
+      font-size: 2rem;
+    }
+
+    .news-filter-wrapper {
+      display: flex;
+
+      align-items: center;
+
+      gap: 10px;
+    }
+
+    .news-filter-label {
+      color: #475467;
+
+      font-weight: 700;
+
+      font-size: .92rem;
     }
 
     .news-filter {
-      padding: 11px 14px;
+      min-width: 220px;
+
+      padding: 12px 14px;
+
       border: 1px solid #d8dee8;
-      border-radius: 8px;
-      background: white;
-      min-width: 200px;
-      font-size: 15px;
+
+      border-radius: 10px;
+
+      background: #ffffff;
+
+      color: #263238;
+
+      font-size: .95rem;
+
+      outline: none;
     }
+
+    .news-filter:focus {
+      border-color: #0B3B75;
+
+      box-shadow:
+        0 0 0 3px
+        rgba(11,59,117,.12);
+    }
+
+
+    /* =====================================================
+       NEWS GRID
+    ====================================================== */
 
     .news-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
       gap: 25px;
     }
 
+
+    /* =====================================================
+       NEWS CARD
+    ====================================================== */
+
     .news-card {
-      background: white;
-      border-radius: 14px;
-      overflow: hidden;
-      box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
       display: flex;
+
       flex-direction: column;
+
+      overflow: hidden;
+
+      background: #ffffff;
+
+      border-radius: 18px;
+
+      border: 1px solid #e5e9ef;
+
+      box-shadow:
+        0 8px 28px
+        rgba(0,0,0,.07);
+
+      transition:
+        transform .25s ease,
+        box-shadow .25s ease;
     }
+
+    .news-card:hover {
+      transform: translateY(-6px);
+
+      box-shadow:
+        0 16px 35px
+        rgba(0,0,0,.12);
+    }
+
+
+    /* =====================================================
+       IMAGE
+    ====================================================== */
 
     .news-image {
       width: 100%;
-      height: 210px;
+
+      height: 230px;
+
       object-fit: cover;
+
       display: block;
     }
 
     .news-image-placeholder {
       width: 100%;
-      height: 210px;
+
+      height: 230px;
+
       display: flex;
+
       align-items: center;
+
       justify-content: center;
-      background: #e9eef5;
-      color: #0B3B75;
-      font-weight: 700;
+
+      text-align: center;
+
+      padding: 20px;
+
+      background:
+        linear-gradient(
+          135deg,
+          #0B3B75,
+          #2E8B57
+        );
+
+      color: #ffffff;
+
+      font-size: 1.2rem;
+
+      font-weight: 800;
     }
 
+
+    /* =====================================================
+       CONTENT
+    ====================================================== */
+
     .news-content {
-      padding: 22px;
       flex: 1;
+
       display: flex;
+
       flex-direction: column;
+
+      padding: 24px;
     }
 
     .news-category {
-      display: inline-block;
+      display: inline-flex;
+
+      align-items: center;
+
       width: fit-content;
-      padding: 5px 10px;
-      background: #fff3c4;
+
+      padding: 6px 11px;
+
+      margin-bottom: 13px;
+
+      border-radius: 30px;
+
+      background: #fff4d6;
+
       color: #725700;
-      border-radius: 20px;
-      font-size: 12px;
-      font-weight: 700;
-      margin-bottom: 12px;
+
+      font-size: .76rem;
+
+      font-weight: 800;
     }
 
     .news-title {
-      color: #0B3B75;
-      font-size: 21px;
-      line-height: 1.35;
       margin: 0 0 12px;
+
+      color: #0B3B75;
+
+      font-size: 1.25rem;
+
+      line-height: 1.4;
     }
 
     .news-summary {
-      color: #555;
-      line-height: 1.7;
-      margin-bottom: 18px;
+      margin: 0 0 20px;
+
+      color: #667085;
+
+      line-height: 1.75;
     }
 
     .news-meta {
-      font-size: 13px;
-      color: #777;
       margin-top: auto;
+
       padding-top: 15px;
-      border-top: 1px solid #eee;
+
+      border-top: 1px solid #edf0f3;
+
+      color: #7a8491;
+
+      font-size: .82rem;
+
+      line-height: 1.6;
     }
 
-    .news-empty {
-      text-align: center;
-      padding: 50px 20px;
-      color: #666;
-      grid-column: 1 / -1;
-    }
 
-    .news-loading {
-      text-align: center;
-      padding: 50px 20px;
-      grid-column: 1 / -1;
-      color: #0B3B75;
-      font-weight: 600;
-    }
+    /* =====================================================
+       STATES
+    ====================================================== */
 
+    .news-loading,
+    .news-empty,
     .news-error {
-      text-align: center;
-      padding: 30px;
-      background: #fdecec;
-      color: #9b2020;
-      border-radius: 10px;
       grid-column: 1 / -1;
-    }
 
-    .news-cta {
-      margin-top: 60px;
-      padding: 45px 25px;
+      padding: 60px 25px;
+
       text-align: center;
-      background: #f5f8fc;
+
       border-radius: 16px;
     }
 
-    .news-cta h2 {
+    .news-loading {
+      background: #ffffff;
+
       color: #0B3B75;
-      margin-bottom: 12px;
-    }
 
-    .news-cta p {
-      max-width: 650px;
-      margin: 0 auto 25px;
-      line-height: 1.7;
-    }
-
-    .news-btn {
-      display: inline-block;
-      padding: 13px 22px;
-      background: #0B3B75;
-      color: white;
-      text-decoration: none;
-      border-radius: 8px;
       font-weight: 700;
     }
 
-    .news-btn:hover {
-      background: #082d5a;
+    .news-empty {
+      background: #ffffff;
+
+      border: 1px dashed #cbd5e1;
+
+      color: #667085;
     }
 
-    @media (max-width: 1000px) {
-      .news-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
+    .news-empty h3 {
+      margin-top: 0;
+
+      color: #0B3B75;
     }
+
+    .news-empty p {
+      margin-bottom: 0;
+
+      line-height: 1.7;
+    }
+
+    .news-error {
+      background: #fff5f5;
+
+      border: 1px solid #f3b5b5;
+
+      color: #a61b1b;
+    }
+
+
+    /* =====================================================
+       CTA
+    ====================================================== */
+
+    .news-cta {
+      margin-top: 55px;
+
+      padding: 50px 25px;
+
+      text-align: center;
+
+      background: #ffffff;
+
+      border-radius: 18px;
+
+      border: 1px solid #e5e9ef;
+
+      box-shadow:
+        0 8px 28px
+        rgba(0,0,0,.05);
+    }
+
+    .news-cta h2 {
+      margin: 10px 0 15px;
+
+      color: #0B3B75;
+
+      font-size: 2rem;
+    }
+
+    .news-cta p {
+      max-width: 700px;
+
+      margin: 0 auto 28px;
+
+      color: #667085;
+
+      line-height: 1.8;
+    }
+
+    .news-buttons {
+      display: flex;
+
+      justify-content: center;
+
+      flex-wrap: wrap;
+
+      gap: 12px;
+    }
+
+    .news-btn {
+      display: inline-flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      min-height: 48px;
+
+      padding: 12px 24px;
+
+      border-radius: 10px;
+
+      text-decoration: none;
+
+      font-weight: 800;
+
+      transition:
+        transform .2s ease,
+        opacity .2s ease;
+    }
+
+    .news-btn:hover {
+      transform: translateY(-2px);
+
+      opacity: .92;
+    }
+
+    .news-btn-primary {
+      background: #0B3B75;
+
+      color: #ffffff;
+    }
+
+    .news-btn-secondary {
+      background: #F2B705;
+
+      color: #07284f;
+    }
+
+
+    /* =====================================================
+       RESPONSIVE
+    ====================================================== */
+
+    @media (max-width: 950px) {
+
+      .news-grid {
+        grid-template-columns:
+          repeat(2, minmax(0, 1fr));
+      }
+
+    }
+
 
     @media (max-width: 650px) {
+
+      .news-hero {
+        padding: 70px 18px;
+      }
+
+      .news-logo {
+        width: 85px;
+        height: 85px;
+      }
+
+      .news-intro,
+      .news-section {
+        padding: 55px 18px;
+      }
+
       .news-grid {
         grid-template-columns: 1fr;
       }
 
-      .news-hero h1 {
-        font-size: 32px;
-      }
-
       .news-toolbar {
         align-items: stretch;
+
+        flex-direction: column;
+      }
+
+      .news-filter-wrapper {
+        align-items: stretch;
+
         flex-direction: column;
       }
 
       .news-filter {
         width: 100%;
       }
+
+      .news-buttons {
+        flex-direction: column;
+      }
+
+      .news-btn {
+        width: 100%;
+      }
+
     }
+
   </style>
 </head>
 
+
 <body>
 
-  <!-- HEADER -->
+
+  <!-- =====================================================
+       HEADER
+  ====================================================== -->
+
   <header class="site-header">
-    <div class="container">
 
-      <div class="logo">
-        <a href="index.html">LAJONÈ'M</a>
-      </div>
+    <div class="container nav-container">
 
-      <nav class="main-nav">
-        <a href="index.html">Akèy</a>
-        <a href="sou-nou.html">Sou nou</a>
-        <a href="pwogram.html">Pwogram</a>
-        <a href="aktivite.html">Aktivite</a>
-        <a href="galri.html">Galri</a>
-        <a href="nouvel.html" class="active">Nouvèl</a>
-        <a href="volonte.html">Vin volontè</a>
-        <a href="don.html">Fè yon don</a>
+      <a
+        href="index.html"
+        class="logo"
+        aria-label="LAJONÈ'M - Akèy"
+      >
+
+        <span class="logo-main">
+          LAJONÈ'M
+        </span>
+
+        <span class="logo-sub">
+          Laj yo se onè nou.
+        </span>
+
+      </a>
+
+
+      <nav
+        class="main-nav"
+        aria-label="Navigasyon prensipal"
+      >
+
+        <a href="index.html">
+          Akèy
+        </a>
+
+        <a href="sou-nou.html">
+          Sou nou
+        </a>
+
+        <a href="pwogram.html">
+          Pwogram
+        </a>
+
+        <a href="aktivite.html">
+          Aktivite
+        </a>
+
+        <a href="galri.html">
+          Galri
+        </a>
+
+        <a
+          href="nouvel.html"
+          class="active"
+          aria-current="page"
+        >
+          Nouvèl
+        </a>
+
+        <a href="volonte.html">
+          Vin volontè
+        </a>
+
+        <a href="don.html">
+          Fè yon don
+        </a>
+
       </nav>
 
     </div>
+
   </header>
 
 
-  <!-- HERO -->
+  <!-- =====================================================
+       HERO
+  ====================================================== -->
+
   <section class="news-hero">
 
-    <h1>Nouvèl LAJONÈ'M</h1>
+    <div class="container">
 
-    <p>
-      Swiv dènye nouvèl yo, aktivite nou yo, aksyon nou yo
-      ak istwa kominote nou ap konstwi ansanm.
-    </p>
+      <img
+        class="news-logo"
+        src="https://terjfmeuzvhcntplnbsd.supabase.co/storage/v1/object/public/galri/foto-1791543704733-hspnevg.png"
+        alt="Logo ofisyèl LAJONÈ'M"
+      >
+
+      <span class="section-tag">
+        LAJONÈ'M
+      </span>
+
+      <h1>
+        Nouvèl LAJONÈ'M
+      </h1>
+
+      <p>
+        Swiv dènye nouvèl yo, aktivite nou yo,
+        aksyon nou yo ak istwa kominote nou
+        ap konstwi ansanm.
+      </p>
+
+    </div>
 
   </section>
 
 
-  <!-- NEWS -->
+  <!-- =====================================================
+       INTRO
+  ====================================================== -->
+
+  <section class="news-intro">
+
+    <div class="container">
+
+      <div class="news-intro-content">
+
+        <span class="section-tag">
+          ENFÒMASYON
+        </span>
+
+        <h2>
+          Rete konekte ak aksyon nou yo
+        </h2>
+
+        <p>
+          LAJONÈ'M pataje nouvèl ak enfòmasyon
+          sou pwogram, aktivite, pwojè ak aksyon
+          n ap reyalize pou moun aje yo.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =====================================================
+       NEWS
+  ====================================================== -->
+
   <section class="news-section">
 
     <div class="container">
 
+
       <div class="news-toolbar">
 
-        <h2>Dènye piblikasyon yo</h2>
+        <div>
 
-        <select id="categoryFilter" class="news-filter">
+          <span class="section-tag">
+            NOUVÈL
+          </span>
 
-          <option value="">
-            Tout kategori
-          </option>
+          <h2>
+            Dènye piblikasyon yo
+          </h2>
 
-        </select>
+        </div>
+
+
+        <div class="news-filter-wrapper">
+
+          <label
+            for="categoryFilter"
+            class="news-filter-label"
+          >
+            Filtre:
+          </label>
+
+          <select
+            id="categoryFilter"
+            class="news-filter"
+          >
+
+            <option value="">
+              Tout kategori
+            </option>
+
+          </select>
+
+        </div>
 
       </div>
 
 
-      <div id="newsContainer" class="news-grid">
+      <div
+        id="newsContainer"
+        class="news-grid"
+      >
 
         <div class="news-loading">
           N ap chaje nouvèl yo...
@@ -311,27 +816,44 @@
       </div>
 
 
-      <!-- CTA -->
+      <!-- =================================================
+           CTA
+      ================================================== -->
+
       <div class="news-cta">
 
-        <h2>Vle patisipe nan misyon an?</h2>
+        <span class="section-tag">
+          ANGAJE W
+        </span>
+
+        <h2>
+          Vle patisipe nan misyon an?
+        </h2>
 
         <p>
-          Ou kapab vin volontè oswa kontribye nan aksyon
-          LAJONÈ'M pou ede nou akonpaye granmoun ki nan bezwen.
+          Ou kapab vin volontè oswa kontribye
+          nan aksyon LAJONÈ'M pou ede nou
+          akonpaye moun aje ki nan bezwen.
         </p>
 
-        <a href="volonte.html" class="news-btn">
-          Vin volontè
-        </a>
 
-        <a
-          href="don.html"
-          class="news-btn"
-          style="margin-left:10px;"
-        >
-          Fè yon don
-        </a>
+        <div class="news-buttons">
+
+          <a
+            href="volonte.html"
+            class="news-btn news-btn-primary"
+          >
+            Vin volontè
+          </a>
+
+          <a
+            href="don.html"
+            class="news-btn news-btn-secondary"
+          >
+            Fè yon don
+          </a>
+
+        </div>
 
       </div>
 
@@ -340,33 +862,60 @@
   </section>
 
 
-  <!-- FOOTER -->
+  <!-- =====================================================
+       FOOTER
+  ====================================================== -->
+
   <footer class="site-footer">
 
     <div class="container footer-grid">
 
+
       <div>
-        <h3>LAJONÈ'M</h3>
 
-        <p>Laj yo se onè nou.</p>
+        <h3>
+          LAJONÈ'M
+        </h3>
 
-        <p>Wè. Akonpaye. Valorizasyon.</p>
+        <p>
+          Laj yo se onè nou.
+        </p>
+
+        <p>
+          Wè. Akonpaye. Valorizasyon.
+        </p>
+
       </div>
 
 
       <div>
-        <h3>Kontak</h3>
 
-        <p>Cap-Haïtien, Haïti</p>
+        <h3>
+          Kontak
+        </h3>
 
-        <p>+509 42824391\ +509 35274215</p>
+        <p>
+          Cap-Haïtien, Haïti
+        </p>
 
-        <p>lajonem.ogr@gmail.com</p>
+        <p>
+          +509 42824391\ +509 35274215
+        </p>
+
+        <p>
+          <a href="mailto:lajonem.ogr@gmail.com">
+            lajonem.ogr@gmail.com
+          </a>
+        </p>
+
       </div>
 
 
       <div>
-        <h3>Angajman</h3>
+
+        <h3>
+          Angajman
+        </h3>
 
         <p>
           Respè • Solidarite • Imanite
@@ -391,211 +940,401 @@
 
     <div class="footer-bottom">
 
-      <p>
-        © LAJONÈ'M — Laj yo se onè nou.
-      </p>
+      <div class="container">
+
+        <p>
+          ©
+          <span id="annee"></span>
+          LAJONÈ'M —
+          Laj yo se onè nou.
+        </p>
+
+      </div>
 
     </div>
 
   </footer>
 
 
-  <!-- SUPABASE -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="js/supabase.js"></script>
-  
-    <script src="js/paramet.js"></script>
+  <!-- =====================================================
+       SUPABASE
+  ====================================================== -->
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script src="js/supabase.js"></script>
+
+  <script src="js/paramet.js"></script>
+
+
+  <!-- =====================================================
+       JAVASCRIPT NOUVÈL
+  ====================================================== -->
 
   <script>
 
     const newsContainer =
-      document.getElementById("newsContainer");
+      document.getElementById(
+        "newsContainer"
+      );
+
 
     const categoryFilter =
-      document.getElementById("categoryFilter");
+      document.getElementById(
+        "categoryFilter"
+      );
+
+
+    const annee =
+      document.getElementById(
+        "annee"
+      );
+
 
     let allNews = [];
 
 
-    /*
-     * Pwoteje tèks HTML
-     */
+    /* =====================================================
+       ANNEE
+    ====================================================== */
+
+    if (annee) {
+
+      annee.textContent =
+        new Date().getFullYear();
+
+    }
+
+
+    /* =====================================================
+       SECURITY
+    ====================================================== */
+
     function escapeHTML(value) {
 
-      if (value === null || value === undefined) {
+      if (
+        value === null ||
+        value === undefined
+      ) {
+
         return "";
+
       }
+
 
       return String(value)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
+
+        .replace(
+          /&/g,
+          "&amp;"
+        )
+
+        .replace(
+          /</g,
+          "&lt;"
+        )
+
+        .replace(
+          />/g,
+          "&gt;"
+        )
+
+        .replace(
+          /"/g,
+          "&quot;"
+        )
+
+        .replace(
+          /'/g,
+          "&#039;"
+        );
+
     }
 
 
-    /*
-     * Fòma dat
-     */
-    function formatDate(dateValue) {
+    /* =====================================================
+       DATE
+    ====================================================== */
+
+    function formatDate(
+      dateValue
+    ) {
 
       if (!dateValue) {
+
         return "";
+
       }
 
-      const date = new Date(dateValue);
 
-      if (isNaN(date.getTime())) {
+      const date =
+        new Date(dateValue);
+
+
+      if (
+        isNaN(
+          date.getTime()
+        )
+      ) {
+
         return "";
+
       }
 
-      return date.toLocaleDateString("fr-FR", {
-        day: "2-digit",
-        month: "long",
-        year: "numeric"
-      });
+
+      return date.toLocaleDateString(
+        "fr-FR",
+        {
+          day: "2-digit",
+          month: "long",
+          year: "numeric"
+        }
+      );
 
     }
 
 
-    /*
-     * Kreye lis kategori yo
-     */
-    function chargerCategories(news) {
+    /* =====================================================
+       CATEGORIES
+    ====================================================== */
+
+    function chargerCategories(
+      news
+    ) {
 
       const categories = [
         ...new Set(
           news
-            .map(item => item.kategori)
+            .map(
+              item =>
+                item.kategori
+            )
             .filter(Boolean)
         )
       ];
 
+
       categories.sort();
 
-      categories.forEach(category => {
 
-        const option =
-          document.createElement("option");
+      categories.forEach(
+        category => {
 
-        option.value = category;
+          const option =
+            document.createElement(
+              "option"
+            );
 
-        option.textContent = category;
 
-        categoryFilter.appendChild(option);
+          option.value =
+            category;
 
-      });
+
+          option.textContent =
+            category;
+
+
+          categoryFilter.appendChild(
+            option
+          );
+
+        }
+      );
 
     }
 
 
-    /*
-     * Montre nouvèl yo
-     */
-    function afficherNews(news) {
+    /* =====================================================
+       AFFICHER NOUVEL
+    ====================================================== */
 
-      if (!news || news.length === 0) {
+    function afficherNews(
+      news
+    ) {
+
+      if (
+        !news ||
+        news.length === 0
+      ) {
 
         newsContainer.innerHTML = `
+
           <div class="news-empty">
-            <h3>Pa gen nouvèl pou kounye a.</h3>
+
+            <h3>
+              Pa gen nouvèl pou kounye a.
+            </h3>
+
             <p>
-              Nou pral pataje nouvo enfòmasyon avèk kominote a
-              depi gen nouvo piblikasyon.
+              Nou pral pataje nouvo enfòmasyon
+              avèk kominote a depi gen nouvo
+              piblikasyon.
             </p>
+
           </div>
+
         `;
 
         return;
+
       }
 
 
-      newsContainer.innerHTML = news.map(item => {
+      newsContainer.innerHTML =
 
-        const imageHTML = item.imaj_url
-          ? `
-            <img
-              class="news-image"
-              src="${escapeHTML(item.imaj_url)}"
-              alt="${escapeHTML(item.tit)}"
-              loading="lazy"
-            >
-          `
-          : `
-            <div class="news-image-placeholder">
-              LAJONÈ'M
-            </div>
-          `;
+        news
+          .map(
+            item => {
 
+              const imageHTML =
+                item.imaj_url
 
-        const categoryHTML = item.kategori
-          ? `
-            <span class="news-category">
-              ${escapeHTML(item.kategori)}
-            </span>
-          `
-          : "";
-
-
-        const authorHTML = item.otè
-          ? ` • ${escapeHTML(item.otè)}`
-          : "";
-
-
-        return `
-          <article class="news-card">
-
-            ${imageHTML}
-
-            <div class="news-content">
-
-              ${categoryHTML}
-
-              <h3 class="news-title">
-                ${escapeHTML(item.tit)}
-              </h3>
-
-              ${
-                item.rezime
                   ? `
-                    <p class="news-summary">
-                      ${escapeHTML(item.rezime)}
-                    </p>
+
+                    <img
+                      class="news-image"
+                      src="${escapeHTML(
+                        item.imaj_url
+                      )}"
+                      alt="${escapeHTML(
+                        item.tit ||
+                        "Nouvèl LAJONÈ'M"
+                      )}"
+                      loading="lazy"
+                    >
+
                   `
-                  : ""
-              }
 
-              <div class="news-meta">
+                  : `
 
-                ${
-                  item.dat_piblikasyon
-                    ? `
-                      <span>
-                        ${formatDate(item.dat_piblikasyon)}
-                      </span>
-                    `
-                    : ""
-                }
+                    <div
+                      class="news-image-placeholder"
+                      aria-label="LAJONÈ'M"
+                    >
+                      LAJONÈ'M
+                    </div>
 
-                ${authorHTML}
+                  `;
 
-              </div>
 
-            </div>
+              const categoryHTML =
+                item.kategori
 
-          </article>
-        `;
+                  ? `
 
-      }).join("");
+                    <span
+                      class="news-category"
+                    >
+                      ${escapeHTML(
+                        item.kategori
+                      )}
+                    </span>
+
+                  `
+
+                  : "";
+
+
+              const dateHTML =
+                item.dat_piblikasyon
+
+                  ? `
+
+                    ${formatDate(
+                      item.dat_piblikasyon
+                    )}
+
+                  `
+
+                  : "";
+
+
+              const authorHTML =
+                item.otè
+
+                  ? `
+
+                    • ${escapeHTML(
+                      item.otè
+                    )}
+
+                  `
+
+                  : "";
+
+
+              return `
+
+                <article
+                  class="news-card"
+                >
+
+                  ${imageHTML}
+
+
+                  <div
+                    class="news-content"
+                  >
+
+                    ${categoryHTML}
+
+
+                    <h3
+                      class="news-title"
+                    >
+                      ${escapeHTML(
+                        item.tit ||
+                        "Nouvèl LAJONÈ'M"
+                      )}
+                    </h3>
+
+
+                    ${
+                      item.rezime
+
+                        ? `
+
+                          <p
+                            class="news-summary"
+                          >
+                            ${escapeHTML(
+                              item.rezime
+                            )}
+                          </p>
+
+                        `
+
+                        : ""
+                    }
+
+
+                    <div
+                      class="news-meta"
+                    >
+
+                      ${dateHTML}
+
+                      ${authorHTML}
+
+                    </div>
+
+                  </div>
+
+                </article>
+
+              `;
+
+            }
+          )
+          .join("");
 
     }
 
 
-    /*
-     * Chaje nouvèl depi Supabase
-     */
+    /* =====================================================
+       CHARGE NOUVEL YO
+    ====================================================== */
+
     async function chargerNews() {
 
       try {
@@ -620,7 +1359,10 @@
             dat_piblikasyon
           `)
 
-          .eq("pibliye", true)
+          .eq(
+            "pibliye",
+            true
+          )
 
           .order(
             "dat_piblikasyon",
@@ -638,32 +1380,58 @@
             error
           );
 
+
           newsContainer.innerHTML = `
-            <div class="news-error">
-              Nou pa kapab chaje nouvèl yo kounye a.
-              Tanpri eseye ankò pita.
+
+            <div
+              class="news-error"
+            >
+
+              Nou pa kapab chaje nouvèl yo
+              kounye a. Tanpri eseye ankò pita.
+
             </div>
+
           `;
 
           return;
+
         }
 
 
-        allNews = data || [];
+        allNews =
+          data || [];
 
-        chargerCategories(allNews);
 
-        afficherNews(allNews);
+        chargerCategories(
+          allNews
+        );
+
+
+        afficherNews(
+          allNews
+        );
 
 
       } catch (error) {
 
-        console.error(error);
+        console.error(
+          "Erè nouvèl:",
+          error
+        );
+
 
         newsContainer.innerHTML = `
-          <div class="news-error">
-            Yon erè rive pandan n ap chaje nouvèl yo.
+
+          <div
+            class="news-error"
+          >
+
+            Yon erè rive pandan n ap
+            chaje nouvèl yo.
+
           </div>
+
         `;
 
       }
@@ -671,9 +1439,10 @@
     }
 
 
-    /*
-     * Filtre kategori
-     */
+    /* =====================================================
+       FILTRE
+    ====================================================== */
+
     categoryFilter.addEventListener(
       "change",
       () => {
@@ -681,9 +1450,12 @@
         const category =
           categoryFilter.value;
 
+
         if (!category) {
 
-          afficherNews(allNews);
+          afficherNews(
+            allNews
+          );
 
           return;
 
@@ -693,18 +1465,23 @@
         const filtered =
           allNews.filter(
             item =>
-              item.kategori === category
+              item.kategori ===
+              category
           );
 
-        afficherNews(filtered);
+
+        afficherNews(
+          filtered
+        );
 
       }
     );
 
 
-    /*
-     * Kòmanse
-     */
+    /* =====================================================
+       START
+    ====================================================== */
+
     chargerNews();
 
   </script>
