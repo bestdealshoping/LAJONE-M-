@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://bestdealshoping.github.io/LAJONE-M-/sitemap.xml
