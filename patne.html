@@ -4,78 +4,190 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Patnè LAJONÈ'M | Ansanm pou moun aje ann Ayiti</title>
+  <title>Patnè LAJONÈ'M | Ansanm pou moun aje ann Ayiti</title>
 
-<meta
-  name="description"
-  content="Dekouvri patnè LAJONÈ'M yo ak fason kolaborasyon yo ede nou akonpaye, pwoteje ak valorize moun aje ann Ayiti."
->
+  <meta
+    name="description"
+    content="Dekouvri patnè LAJONÈ'M yo ak fason kolaborasyon yo ede nou akonpaye, pwoteje ak valorize moun aje ann Ayiti."
+  >
 
-<meta
-  name="keywords"
-  content="patnè LAJONÈ'M, patnè Ayiti, patnè moun aje, òganizasyon Ayiti, solidarite Ayiti, sipò moun aje, kolaborasyon sosyal, Cap-Haïtien"
->
+  <meta
+    name="keywords"
+    content="LAJONÈ'M, patnè, patenarya, moun aje, granmoun, Ayiti, solidarite, òganizasyon sosyal, sipò moun aje"
+  >
 
-<meta name="robots" content="index, follow">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="LAJONÈ'M">
 
-<link
-  rel="canonical"
-  href="https://bestdealshoping.github.io/LAJONE-M-/patne.html"
->
+  <meta name="theme-color" content="#0B3B75">
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="Patnè LAJONÈ'M | Laj yo se onè nou">
+  <link
+    rel="canonical"
+    href="https://bestdealshoping.github.io/LAJONE-M-/patne.html"
+  >
 
-<meta
-  property="og:description"
-  content="Ansanm ak patnè nou yo, LAJONÈ'M travay pou amelyore lavi ak diyite moun aje yo."
->
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
 
-<meta
-  property="og:url"
-  content="https://bestdealshoping.github.io/LAJONE-M-/patne.html"
->
+  <meta
+    property="og:title"
+    content="Patnè LAJONÈ'M | Laj yo se onè nou"
+  >
 
-<meta property="og:site_name" content="LAJONÈ'M">
-<meta property="og:locale" content="ht_HT">
+  <meta
+    property="og:description"
+    content="Ansanm ak patnè nou yo, LAJONÈ'M travay pou amelyore lavi ak diyite moun aje yo."
+  >
+
+  <meta
+    property="og:url"
+    content="https://bestdealshoping.github.io/LAJONE-M-/patne.html"
+  >
+
+  <meta property="og:site_name" content="LAJONÈ'M">
+  <meta property="og:locale" content="ht_HT">
+
+  <meta
+    property="og:image"
+    content="https://terjfmeuzvhcntplnbsd.supabase.co/storage/v1/object/public/galri/foto-1791543704733-hspnevg.png"
+  >
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+
+  <meta
+    name="twitter:title"
+    content="Patnè LAJONÈ'M"
+  >
+
+  <meta
+    name="twitter:description"
+    content="Ansanm pou diyite ak byennèt moun aje yo."
+  >
+
+  <meta
+    name="twitter:image"
+    content="https://terjfmeuzvhcntplnbsd.supabase.co/storage/v1/object/public/galri/foto-1791543704733-hspnevg.png"
+  >
 
   <link rel="stylesheet" href="css/style.css">
 
   <style>
+
+    /* ==============================
+       HERO
+    ============================== */
+
     .partner-hero {
-      padding: 80px 20px;
+      position: relative;
+      padding: 70px 20px 75px;
       text-align: center;
       color: white;
-      background: linear-gradient(135deg, #0B3B75, #164f91);
+      background:
+        linear-gradient(
+          135deg,
+          rgba(11,59,117,.98),
+          rgba(22,79,145,.96)
+        );
+      overflow: hidden;
+    }
+
+    .partner-hero::before {
+      content: "";
+      position: absolute;
+      width: 260px;
+      height: 260px;
+      border-radius: 50%;
+      background: rgba(242,183,5,.12);
+      top: -120px;
+      right: -80px;
+    }
+
+    .partner-hero::after {
+      content: "";
+      position: absolute;
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      background: rgba(46,139,87,.14);
+      bottom: -120px;
+      left: -80px;
+    }
+
+    .partner-hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    .partner-hero-logo {
+      width: 115px;
+      height: 115px;
+      object-fit: contain;
+      background: white;
+      border-radius: 50%;
+      padding: 8px;
+      margin-bottom: 22px;
+      box-shadow: 0 12px 35px rgba(0,0,0,.18);
     }
 
     .partner-hero h1 {
-      margin-bottom: 15px;
-      font-size: 42px;
+      margin: 0 0 15px;
+      font-size: clamp(32px, 5vw, 48px);
+      font-weight: 800;
     }
 
     .partner-hero p {
-      max-width: 750px;
+      max-width: 760px;
       margin: auto;
       font-size: 18px;
-      line-height: 1.7;
+      line-height: 1.8;
+      opacity: .96;
     }
 
+    .partner-slogan {
+      display: inline-block;
+      margin-top: 22px;
+      padding: 9px 18px;
+      border: 1px solid rgba(255,255,255,.35);
+      border-radius: 30px;
+      font-weight: 700;
+      color: #F2B705;
+    }
+
+
+    /* ==============================
+       MAIN
+    ============================== */
+
     .partner-section {
-      padding: 60px 20px;
+      padding: 65px 20px;
+      background: #f7f9fc;
     }
 
     .partner-intro {
-      max-width: 800px;
+      max-width: 850px;
       margin: 0 auto 45px;
       text-align: center;
-      line-height: 1.8;
     }
 
     .partner-intro h2 {
       color: #0B3B75;
       margin-bottom: 15px;
+      font-size: 30px;
     }
+
+    .partner-intro p {
+      color: #555;
+      line-height: 1.8;
+      font-size: 16px;
+    }
+
+
+    /* ==============================
+       GRID
+    ============================== */
 
     .partner-grid {
       display: grid;
@@ -83,153 +195,286 @@
       gap: 25px;
     }
 
+
+    /* ==============================
+       CARD
+    ============================== */
+
     .partner-card {
+      position: relative;
       background: white;
-      border-radius: 14px;
-      padding: 28px;
+      border-radius: 18px;
+      padding: 30px 25px;
       text-align: center;
-      box-shadow: 0 7px 25px rgba(0,0,0,0.08);
+      box-shadow: 0 8px 28px rgba(11,59,117,.08);
+      border: 1px solid #edf1f6;
       display: flex;
       flex-direction: column;
       align-items: center;
-      min-height: 260px;
+      min-height: 285px;
+      transition:
+        transform .25s ease,
+        box-shadow .25s ease;
     }
 
+    .partner-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(11,59,117,.14);
+    }
+
+
+    /* ==============================
+       LOGO
+    ============================== */
+
     .partner-logo {
-      width: 100px;
-      height: 100px;
+      width: 105px;
+      height: 105px;
       object-fit: contain;
       margin-bottom: 20px;
-      border-radius: 10px;
+      border-radius: 14px;
+      background: #f8fafc;
+      padding: 8px;
     }
 
     .partner-logo-placeholder {
-      width: 100px;
-      height: 100px;
+      width: 105px;
+      height: 105px;
       margin-bottom: 20px;
       border-radius: 50%;
-      background: #0B3B75;
+      background: linear-gradient(
+        135deg,
+        #0B3B75,
+        #164f91
+      );
       color: white;
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 30px;
       font-weight: 800;
+      box-shadow: 0 8px 20px rgba(11,59,117,.18);
     }
+
+
+    /* ==============================
+       TYPE
+    ============================== */
 
     .partner-type {
       display: inline-block;
-      padding: 5px 12px;
-      background: #fff3c4;
+      padding: 6px 13px;
+      background: #fff5d6;
       color: #725700;
-      border-radius: 20px;
+      border-radius: 30px;
       font-size: 12px;
-      font-weight: 700;
+      font-weight: 800;
       margin-bottom: 12px;
     }
+
+
+    /* ==============================
+       TEXT
+    ============================== */
 
     .partner-name {
       color: #0B3B75;
       font-size: 21px;
       margin: 0 0 12px;
+      line-height: 1.3;
     }
 
     .partner-description {
       color: #555;
       line-height: 1.7;
-      margin-bottom: 18px;
+      margin: 0 0 20px;
+      font-size: 15px;
     }
+
+
+    /* ==============================
+       LINK
+    ============================== */
 
     .partner-link {
       margin-top: auto;
       display: inline-block;
       color: #0B3B75;
-      font-weight: 700;
+      font-weight: 800;
       text-decoration: none;
+      padding: 9px 15px;
+      border-radius: 8px;
+      background: #f1f6fc;
+      transition: .2s ease;
     }
 
     .partner-link:hover {
-      color: #2E8B57;
+      color: white;
+      background: #2E8B57;
     }
+
+
+    /* ==============================
+       STATES
+    ============================== */
 
     .partner-empty,
     .partner-loading,
     .partner-error {
       grid-column: 1 / -1;
       text-align: center;
-      padding: 45px 20px;
+      padding: 55px 20px;
+      border-radius: 16px;
     }
 
     .partner-empty {
+      background: white;
       color: #666;
+      border: 1px solid #edf1f6;
+    }
+
+    .partner-empty h3 {
+      color: #0B3B75;
+      margin-bottom: 10px;
     }
 
     .partner-loading {
+      background: white;
       color: #0B3B75;
-      font-weight: 600;
+      font-weight: 700;
     }
 
     .partner-error {
-      background: #fdecec;
+      background: #fff0f0;
       color: #9b2020;
-      border-radius: 10px;
+      border: 1px solid #f2caca;
     }
+
+
+    /* ==============================
+       CTA
+    ============================== */
 
     .partner-cta {
       margin-top: 60px;
-      padding: 45px 25px;
+      padding: 50px 25px;
       text-align: center;
-      background: #f5f8fc;
-      border-radius: 16px;
+      background: white;
+      border-radius: 20px;
+      border: 1px solid #e9eef5;
+      box-shadow: 0 8px 28px rgba(11,59,117,.06);
     }
 
     .partner-cta h2 {
       color: #0B3B75;
       margin-bottom: 12px;
+      font-size: 28px;
     }
 
     .partner-cta p {
-      max-width: 700px;
+      max-width: 720px;
       margin: 0 auto 25px;
-      line-height: 1.7;
+      line-height: 1.8;
+      color: #555;
     }
 
     .partner-btn {
       display: inline-block;
-      padding: 13px 22px;
+      padding: 14px 24px;
       background: #0B3B75;
       color: white;
       text-decoration: none;
-      border-radius: 8px;
-      font-weight: 700;
+      border-radius: 9px;
+      font-weight: 800;
+      transition: .2s ease;
     }
 
     .partner-btn:hover {
-      background: #082d5a;
+      background: #2E8B57;
+      transform: translateY(-2px);
     }
 
+
+    /* ==============================
+       FOOTER
+    ============================== */
+
+    .partner-contact-link {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .partner-contact-link:hover {
+      text-decoration: underline;
+    }
+
+
+    /* ==============================
+       RESPONSIVE
+    ============================== */
+
     @media (max-width: 1000px) {
+
       .partner-grid {
         grid-template-columns: repeat(2, 1fr);
       }
+
     }
 
     @media (max-width: 650px) {
+
+      .partner-section {
+        padding: 50px 15px;
+      }
+
       .partner-grid {
         grid-template-columns: 1fr;
+      }
+
+      .partner-hero {
+        padding: 55px 18px 60px;
       }
 
       .partner-hero h1 {
         font-size: 32px;
       }
+
+      .partner-hero p {
+        font-size: 16px;
+      }
+
+      .partner-hero-logo {
+        width: 95px;
+        height: 95px;
+      }
+
+      .partner-intro h2 {
+        font-size: 25px;
+      }
+
+      .partner-card {
+        min-height: 260px;
+      }
+
+      .partner-cta h2 {
+        font-size: 24px;
+      }
+
     }
+
   </style>
 </head>
 
+
 <body>
 
-  <!-- HEADER -->
+
+  <!-- ==============================
+       HEADER
+  ============================== -->
+
   <header class="site-header">
+
     <div class="container">
 
       <div class="logo">
@@ -237,115 +482,189 @@
       </div>
 
       <nav class="main-nav">
+
         <a href="index.html">Akèy</a>
+
         <a href="sou-nou.html">Sou nou</a>
+
         <a href="pwogram.html">Pwogram</a>
+
         <a href="aktivite.html">Aktivite</a>
+
         <a href="galri.html">Galri</a>
+
         <a href="nouvel.html">Nouvèl</a>
+
         <a href="volonte.html">Vin volontè</a>
+
         <a href="don.html">Fè yon don</a>
+
+        <a href="patne.html">Patnè</a>
+
       </nav>
 
     </div>
+
   </header>
 
 
-  <!-- HERO -->
+
+  <!-- ==============================
+       HERO
+  ============================== -->
+
   <section class="partner-hero">
 
-    <h1>Patnè nou yo</h1>
+    <div class="partner-hero-content">
 
-    <p>
-      Ansanm, nou kapab konstwi yon kominote kote granmoun yo
-      jwenn plis respè, sipò, swen ak diyite.
-    </p>
+      <img
+        src="https://terjfmeuzvhcntplnbsd.supabase.co/storage/v1/object/public/galri/foto-1791543704733-hspnevg.png"
+        alt="Logo ofisyèl LAJONÈ'M"
+        class="partner-hero-logo"
+      >
+
+      <h1>Patnè nou yo</h1>
+
+      <p>
+        Ansanm, nou kapab konstwi yon kominote kote
+        moun aje yo jwenn plis respè, sipò,
+        swen ak diyite.
+      </p>
+
+      <div class="partner-slogan">
+        Laj yo se onè nou.
+      </div>
+
+    </div>
 
   </section>
 
 
-  <!-- PARTNERS -->
-  <section class="partner-section">
 
-    <div class="container">
+  <!-- ==============================
+       PARTNERS
+  ============================== -->
 
-      <div class="partner-intro">
+  <main>
 
-        <h2>Fòs nou se nan tèt ansanm</h2>
+    <section class="partner-section">
 
-        <p>
-          LAJONÈ'M kwè kolaborasyon se youn nan pi bon fason
-          pou nou ogmante enpak aksyon nou yo. Nou travay avèk
-          patnè, òganizasyon, antrepriz ak lòt aktè ki pataje
-          menm angajman pou diyite moun aje yo.
-        </p>
-
-      </div>
+      <div class="container">
 
 
-      <div
-        id="partnersContainer"
-        class="partner-grid"
-      >
+        <div class="partner-intro">
 
-        <div class="partner-loading">
-          N ap chaje patnè yo...
+          <h2>Fòs nou se nan tèt ansanm</h2>
+
+          <p>
+            LAJONÈ'M kwè kolaborasyon se youn nan pi bon
+            fason pou nou ogmante enpak aksyon nou yo.
+            Nou travay avèk patnè, òganizasyon, antrepriz
+            ak lòt aktè ki pataje menm angajman pou
+            diyite moun aje yo.
+          </p>
+
+        </div>
+
+
+        <div
+          id="partnersContainer"
+          class="partner-grid"
+          aria-live="polite"
+        >
+
+          <div class="partner-loading">
+
+            N ap chaje patnè yo...
+
+          </div>
+
+        </div>
+
+
+        <!-- ==============================
+             CTA
+        ============================== -->
+
+        <div class="partner-cta">
+
+          <h2>
+            Èske ou ta renmen vin yon patnè?
+          </h2>
+
+          <p>
+            Si òganizasyon ou oswa antrepriz ou ta renmen
+            kolabore avèk LAJONÈ'M, kontakte nou pou nou
+            kapab diskite sou posiblite patenarya yo.
+          </p>
+
+          <a
+            href="kontak.html"
+            class="partner-btn"
+          >
+            Kontakte nou
+          </a>
+
         </div>
 
       </div>
 
+    </section>
 
-      <!-- CTA -->
-      <div class="partner-cta">
-
-        <h2>Èske ou ta renmen vin yon patnè?</h2>
-
-        <p>
-          Si òganizasyon ou oswa antrepriz ou ta renmen
-          kolabore avèk LAJONÈ'M, kontakte nou pou nou kapab
-          diskite sou posiblite patenarya yo.
-        </p>
-
-        <a
-          href="kontak.html"
-          class="partner-btn"
-        >
-          Kontakte nou
-        </a>
-
-      </div>
-
-    </div>
-
-  </section>
+  </main>
 
 
-  <!-- FOOTER -->
+
+  <!-- ==============================
+       FOOTER
+  ============================== -->
+
   <footer class="site-footer">
 
     <div class="container footer-grid">
 
+
       <div>
+
         <h3>LAJONÈ'M</h3>
 
-        <p>Laj yo se onè nou.</p>
+        <p>
+          Laj yo se onè nou.
+        </p>
 
-        <p>Wè. Akonpaye. Valorizasyon.</p>
+        <p>
+          Wè. Akonpaye. Valorizasyon.
+        </p>
+
       </div>
 
 
       <div>
+
         <h3>Kontak</h3>
 
-        <p>Cap-Haïtien, Haïti</p>
+        <p>
+          Cap-Haïtien, Haïti
+        </p>
 
-        <p>+509 42824391\ +509 35274215</p>
+        <p>
+          +509 42824391\ +509 35274215
+        </p>
 
-        <p>lajonem.ogr@gmail.com</p>
+        <p>
+          <a
+            href="mailto:lajonem.ogr@gmail.com"
+            class="partner-contact-link"
+          >
+            lajonem.ogr@gmail.com
+          </a>
+        </p>
+
       </div>
 
 
       <div>
+
         <h3>Angajman</h3>
 
         <p>
@@ -366,6 +685,7 @@
 
       </div>
 
+
     </div>
 
 
@@ -380,10 +700,17 @@
   </footer>
 
 
-  <!-- SUPABASE -->
+
+  <!-- ==============================
+       SUPABASE
+  ============================== -->
+
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
   <script src="js/supabase.js"></script>
-    <script src="js/paramet.js"></script>
+
+  <script src="js/paramet.js"></script>
+
 
 
   <script>
@@ -392,32 +719,47 @@
       document.getElementById("partnersContainer");
 
 
-    /*
-     * Pwoteje tèks kont HTML
-     */
+    /* ==============================
+       Pwoteksyon HTML
+    ============================== */
+
     function escapeHTML(value) {
 
-      if (value === null || value === undefined) {
+      if (
+        value === null ||
+        value === undefined
+      ) {
+
         return "";
+
       }
 
       return String(value)
+
         .replace(/&/g, "&amp;")
+
         .replace(/</g, "&lt;")
+
         .replace(/>/g, "&gt;")
+
         .replace(/"/g, "&quot;")
+
         .replace(/'/g, "&#039;");
 
     }
 
 
-    /*
-     * Kreye inisyal patnè a
-     */
+
+    /* ==============================
+       Inisyal patnè
+    ============================== */
+
     function getInitials(name) {
 
       if (!name) {
+
         return "L";
+
       }
 
       const words =
@@ -426,11 +768,15 @@
           .split(/\s+/)
           .filter(Boolean);
 
+
       if (words.length === 1) {
+
         return words[0]
           .substring(0, 2)
           .toUpperCase();
+
       }
+
 
       return (
         words[0][0] +
@@ -440,14 +786,20 @@
     }
 
 
-    /*
-     * Montre patnè yo
-     */
+
+    /* ==============================
+       Montre patnè yo
+    ============================== */
+
     function afficherPatne(partners) {
 
-      if (!partners || partners.length === 0) {
+      if (
+        !partners ||
+        partners.length === 0
+      ) {
 
         partnersContainer.innerHTML = `
+
           <div class="partner-empty">
 
             <h3>
@@ -460,60 +812,135 @@
             </p>
 
           </div>
+
         `;
 
         return;
+
       }
 
 
+
       partnersContainer.innerHTML =
+
         partners.map(partner => {
 
+
+          /* Logo */
+
           const logoHTML =
+
             partner.logo_url
+
               ? `
+
                 <img
                   src="${escapeHTML(partner.logo_url)}"
-                  alt="Logo ${escapeHTML(partner.non)}"
+                  alt="Logo ${escapeHTML(partner.non || "patnè LAJONÈ'M")}"
                   class="partner-logo"
                   loading="lazy"
                 >
+
               `
+
               : `
-                <div class="partner-logo-placeholder">
+
+                <div
+                  class="partner-logo-placeholder"
+                  aria-hidden="true"
+                >
+
                   ${escapeHTML(
                     getInitials(partner.non)
                   )}
+
                 </div>
+
               `;
 
 
+
+          /* Kalite patnè */
+
           const typeHTML =
+
             partner.kalite
+
               ? `
+
                 <span class="partner-type">
-                  ${escapeHTML(partner.kalite)}
+
+                  ${escapeHTML(
+                    partner.kalite
+                  )}
+
                 </span>
+
               `
+
               : "";
 
 
-          const linkHTML =
-            partner.sit_web
+
+          /* Sit entènèt */
+
+          let linkHTML = "";
+
+          if (partner.sit_web) {
+
+            let safeURL =
+              String(partner.sit_web).trim();
+
+            if (
+              !/^https?:\/\//i.test(safeURL)
+            ) {
+
+              safeURL =
+                "https://" + safeURL;
+
+            }
+
+            linkHTML = `
+
+              <a
+                href="${escapeHTML(safeURL)}"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="partner-link"
+              >
+                Vizite sit entènèt
+              </a>
+
+            `;
+
+          }
+
+
+
+          /* Description */
+
+          const descriptionHTML =
+
+            partner.deskripsyon
+
               ? `
-                <a
-                  href="${escapeHTML(partner.sit_web)}"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="partner-link"
-                >
-                  Vizite sit entènèt
-                </a>
+
+                <p class="partner-description">
+
+                  ${escapeHTML(
+                    partner.deskripsyon
+                  )}
+
+                </p>
+
               `
+
               : "";
+
 
 
           return `
+
             <article class="partner-card">
 
               ${logoHTML}
@@ -521,24 +948,20 @@
               ${typeHTML}
 
               <h3 class="partner-name">
-                ${escapeHTML(partner.non)}
+
+                ${escapeHTML(
+                  partner.non ||
+                  "Patnè LAJONÈ'M"
+                )}
+
               </h3>
 
-              ${
-                partner.deskripsyon
-                  ? `
-                    <p class="partner-description">
-                      ${escapeHTML(
-                        partner.deskripsyon
-                      )}
-                    </p>
-                  `
-                  : ""
-              }
+              ${descriptionHTML}
 
               ${linkHTML}
 
             </article>
+
           `;
 
         }).join("");
@@ -546,9 +969,11 @@
     }
 
 
-    /*
-     * Chaje patnè aktif yo
-     */
+
+    /* ==============================
+       Chaje patnè yo
+    ============================== */
+
     async function chargerPatne() {
 
       try {
@@ -577,6 +1002,7 @@
           });
 
 
+
         if (error) {
 
           console.error(
@@ -584,27 +1010,52 @@
             error
           );
 
+
           partnersContainer.innerHTML = `
+
             <div class="partner-error">
+
               Nou pa kapab chaje patnè yo kounye a.
+
+              <br>
+
               Tanpri eseye ankò pita.
+
             </div>
+
           `;
 
           return;
+
         }
 
 
-        afficherPatne(data || []);
+
+        afficherPatne(
+          data || []
+        );
+
 
       } catch (error) {
 
-        console.error(error);
+        console.error(
+          "Erè inatandi:",
+          error
+        );
+
 
         partnersContainer.innerHTML = `
+
           <div class="partner-error">
+
             Yon erè rive pandan n ap chaje patnè yo.
+
+            <br>
+
+            Tanpri eseye ankò pita.
+
           </div>
+
         `;
 
       }
@@ -612,12 +1063,15 @@
     }
 
 
-    /*
-     * Kòmanse
-     */
+
+    /* ==============================
+       Kòmanse paj la
+    ============================== */
+
     chargerPatne();
 
   </script>
+
 
 </body>
 </html>
