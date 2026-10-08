@@ -4,9 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Pwogram — Admin | LAJONÈ'M</title>
+  <title>Jesyon Pwogram — Admin | LAJONÈ'M</title>
+  <meta name="description" content="Jesyon pwogram LAJONÈ'M.">
+  <meta name="robots" content="noindex, nofollow">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <link rel="stylesheet" href="css/style.css">
 
   <style>
     :root {
@@ -19,6 +27,7 @@
       --gri2: #e5e7eb;
       --tèks: #1f2937;
       --blan: #ffffff;
+      --gri-tèks: #667085;
       --lonbraj: 0 4px 18px rgba(0,0,0,.08);
     }
 
@@ -29,15 +38,20 @@
     }
 
     body {
-      font-family: Arial, sans-serif;
+      font-family: "Open Sans", Arial, sans-serif;
       background: var(--gri);
       color: var(--tèks);
     }
 
     button,
     input,
-    textarea {
+    textarea,
+    select {
       font: inherit;
+    }
+
+    button {
+      cursor: pointer;
     }
 
     a {
@@ -45,218 +59,338 @@
       color: inherit;
     }
 
-    /* HEADER */
+    /* =========================
+       ADMIN HEADER
+    ========================= */
 
-    header {
+    .admin-header {
       height: 70px;
       background: var(--ble);
       color: white;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 25px;
+      padding: 0 24px;
       position: sticky;
       top: 0;
       z-index: 1000;
       box-shadow: var(--lonbraj);
     }
 
-    .logo {
-      font-size: 22px;
-      font-weight: 800;
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
     }
 
-    .logo span {
+    .mobile-menu {
+      display: none;
+      border: none;
+      background: transparent;
+      color: white;
+      font-size: 26px;
+      padding: 5px;
+    }
+
+    .brand {
+      font-family: "Montserrat", sans-serif;
+      font-weight: 800;
+      font-size: 21px;
+      line-height: 1.1;
+    }
+
+    .brand span {
       display: block;
       color: var(--lò);
-      font-size: 11px;
+      font-family: "Open Sans", sans-serif;
+      font-size: 10px;
+      font-weight: 600;
       margin-top: 3px;
     }
 
     .header-right {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
     }
 
     .admin-name {
       font-size: 14px;
+      font-weight: 600;
     }
 
-    .btn-header {
+    .header-btn {
       border: none;
-      padding: 9px 14px;
-      border-radius: 7px;
-      cursor: pointer;
-      font-weight: bold;
+      border-radius: 8px;
+      padding: 9px 13px;
+      font-weight: 700;
     }
 
-    .btn-site {
+    .site-btn {
       background: white;
       color: var(--ble);
     }
 
-    .btn-logout {
+    .logout-btn {
       background: #b83227;
       color: white;
     }
 
-    /* LAYOUT */
+    .notification-btn {
+      width: 40px;
+      height: 40px;
+      border: 1px solid rgba(255,255,255,.2);
+      border-radius: 50%;
+      background: rgba(255,255,255,.1);
+      color: white;
+      position: relative;
+      font-size: 18px;
+    }
 
-    .layout {
+    .notification-badge {
+      position: absolute;
+      top: -3px;
+      right: -2px;
+      min-width: 18px;
+      height: 18px;
+      border-radius: 20px;
+      background: #e53935;
+      color: white;
+      font-size: 10px;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+    }
+
+    /* =========================
+       NOTIFICATION PANEL
+    ========================= */
+
+    .notification-panel {
+      display: none;
+      position: fixed;
+      top: 65px;
+      right: 20px;
+      width: 350px;
+      max-width: calc(100vw - 30px);
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 10px 35px rgba(0,0,0,.18);
+      z-index: 3000;
+      overflow: hidden;
+    }
+
+    .notification-panel.show {
+      display: block;
+    }
+
+    .notification-header {
+      padding: 15px;
+      background: var(--ble);
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .notification-header h3 {
+      font-size: 15px;
+    }
+
+    .notification-content {
+      max-height: 350px;
+      overflow-y: auto;
+      padding: 10px;
+    }
+
+    .notification-empty {
+      padding: 25px 15px;
+      text-align: center;
+      color: var(--gri-tèks);
+      font-size: 13px;
+    }
+
+    /* =========================
+       LAYOUT
+    ========================= */
+
+    .admin-layout {
       display: flex;
       min-height: calc(100vh - 70px);
     }
 
-    aside {
-      width: 250px;
+    .sidebar {
+      width: 260px;
       background: var(--ble-dark);
       color: white;
       padding: 20px 12px;
       flex-shrink: 0;
+      transition: .25s;
     }
 
     .menu-title {
-      font-size: 11px;
-      text-transform: uppercase;
       color: #b8c7d9;
-      margin: 12px 12px 8px;
-      letter-spacing: .5px;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .7px;
+      margin: 13px 12px 8px;
+    }
+
+    .menu {
+      margin-bottom: 8px;
     }
 
     .menu a {
       display: block;
       padding: 11px 13px;
-      border-radius: 7px;
       margin-bottom: 4px;
-      font-size: 14px;
+      border-radius: 7px;
+      font-size: 13px;
       transition: .2s;
     }
 
-    .menu a:hover,
+    .menu a:hover {
+      background: rgba(255,255,255,.1);
+    }
+
     .menu a.active {
       background: rgba(255,255,255,.13);
-    }
-
-    .menu a.active {
       border-left: 4px solid var(--lò);
       padding-left: 9px;
+      font-weight: 700;
     }
 
-    main {
+    .admin-main {
       flex: 1;
-      padding: 25px;
       min-width: 0;
+      padding: 25px;
     }
 
-    /* PAGE HEADER */
+    /* =========================
+       PAGE HEADER
+    ========================= */
 
     .page-header {
       display: flex;
-      align-items: center;
       justify-content: space-between;
+      align-items: center;
       gap: 15px;
-      margin-bottom: 22px;
       flex-wrap: wrap;
+      margin-bottom: 22px;
     }
 
     .page-header h1 {
+      font-family: "Montserrat", sans-serif;
       color: var(--ble);
-      font-size: 27px;
+      font-size: 26px;
     }
 
     .page-header p {
-      color: #667085;
-      margin-top: 5px;
+      color: var(--gri-tèks);
       font-size: 14px;
+      margin-top: 5px;
     }
 
     .btn-primary {
+      border: none;
       background: var(--ble);
       color: white;
-      border: none;
-      border-radius: 8px;
       padding: 11px 17px;
-      cursor: pointer;
-      font-weight: bold;
+      border-radius: 8px;
+      font-weight: 700;
     }
 
     .btn-primary:hover {
       background: var(--ble-dark);
     }
 
-    /* STATS */
+    /* =========================
+       STATS
+    ========================= */
 
-    .stats {
+    .stats-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 15px;
       margin-bottom: 22px;
     }
 
-    .stat {
+    .stat-card {
       background: white;
+      border-radius: 12px;
       padding: 20px;
-      border-radius: 10px;
       box-shadow: var(--lonbraj);
       border-top: 4px solid var(--ble);
     }
 
-    .stat:nth-child(2) {
+    .stat-card:nth-child(2) {
       border-top-color: var(--vèt);
     }
 
-    .stat:nth-child(3) {
+    .stat-card:nth-child(3) {
       border-top-color: var(--lò);
     }
 
     .stat-number {
-      font-size: 30px;
-      font-weight: bold;
+      font-family: "Montserrat", sans-serif;
       color: var(--ble);
+      font-size: 30px;
+      font-weight: 800;
     }
 
     .stat-label {
-      color: #667085;
+      color: var(--gri-tèks);
       font-size: 13px;
       margin-top: 5px;
     }
 
-    /* SEARCH */
+    /* =========================
+       SEARCH
+    ========================= */
 
-    .search-box {
+    .search-card {
       background: white;
-      padding: 17px;
-      border-radius: 10px;
+      border-radius: 12px;
       box-shadow: var(--lonbraj);
+      padding: 17px;
       margin-bottom: 20px;
     }
 
-    .search-box input {
+    .search-input {
       width: 100%;
-      padding: 12px;
+      padding: 12px 13px;
       border: 1px solid var(--gri2);
-      border-radius: 7px;
+      border-radius: 8px;
       outline: none;
+      color: var(--tèks);
     }
 
-    .search-box input:focus {
+    .search-input:focus {
       border-color: var(--ble);
+      box-shadow: 0 0 0 3px rgba(11,59,117,.08);
     }
 
-    /* TABLE */
+    /* =========================
+       TABLE
+    ========================= */
 
-    .table-container {
+    .table-card {
       background: white;
-      border-radius: 10px;
+      border-radius: 12px;
       box-shadow: var(--lonbraj);
+      overflow: hidden;
+    }
+
+    .table-wrapper {
       overflow-x: auto;
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
-      min-width: 800px;
+      min-width: 850px;
     }
 
     th,
@@ -265,37 +399,47 @@
       text-align: left;
       border-bottom: 1px solid #edf0f2;
       font-size: 13px;
+      vertical-align: top;
     }
 
     th {
       background: #f8fafc;
       color: var(--ble);
+      font-weight: 700;
     }
 
-    tr:hover td {
+    tbody tr:hover td {
       background: #fafcff;
     }
 
     .program-title {
       color: var(--ble);
-      font-weight: bold;
+      font-weight: 800;
       font-size: 14px;
     }
 
     .slug {
-      color: #667085;
+      color: #7b8492;
       font-size: 11px;
       margin-top: 4px;
     }
 
-    /* BADGES */
+    .description-text {
+      max-width: 240px;
+      line-height: 1.5;
+    }
+
+    /* =========================
+       BADGES
+    ========================= */
 
     .badge {
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
       padding: 5px 10px;
       border-radius: 20px;
       font-size: 11px;
-      font-weight: bold;
+      font-weight: 700;
     }
 
     .badge-active {
@@ -308,21 +452,22 @@
       color: #555;
     }
 
-    /* ACTIONS */
+    /* =========================
+       ACTIONS
+    ========================= */
 
     .actions {
       display: flex;
-      gap: 6px;
       flex-wrap: wrap;
+      gap: 6px;
     }
 
     .btn-small {
       border: none;
       padding: 7px 10px;
       border-radius: 6px;
-      cursor: pointer;
       font-size: 11px;
-      font-weight: bold;
+      font-weight: 700;
     }
 
     .btn-edit {
@@ -340,14 +485,43 @@
       color: #a52c22;
     }
 
-    /* MODAL */
+    /* =========================
+       LOADING / EMPTY
+    ========================= */
+
+    .loading,
+    .empty-message {
+      padding: 40px 20px;
+      text-align: center;
+      color: var(--gri-tèks);
+      font-size: 14px;
+    }
+
+    .loading {
+      color: var(--ble);
+      font-weight: 700;
+    }
+
+    .error-box {
+      display: none;
+      background: #fde3e1;
+      color: #8f2921;
+      padding: 13px 15px;
+      border-radius: 8px;
+      margin-bottom: 18px;
+      font-size: 13px;
+    }
+
+    /* =========================
+       MODAL
+    ========================= */
 
     .modal {
       display: none;
       position: fixed;
       inset: 0;
       background: rgba(0,0,0,.55);
-      z-index: 2000;
+      z-index: 5000;
       overflow-y: auto;
       padding: 25px 15px;
     }
@@ -357,12 +531,13 @@
     }
 
     .modal-box {
+      width: 100%;
       max-width: 700px;
-      background: white;
       margin: 20px auto;
-      border-radius: 12px;
+      background: white;
+      border-radius: 13px;
       overflow: hidden;
-      box-shadow: 0 10px 40px rgba(0,0,0,.25);
+      box-shadow: 0 12px 45px rgba(0,0,0,.25);
     }
 
     .modal-header {
@@ -375,22 +550,25 @@
     }
 
     .modal-header h2 {
-      font-size: 20px;
+      font-family: "Montserrat", sans-serif;
+      font-size: 19px;
     }
 
-    .close {
+    .modal-close {
       border: none;
       background: transparent;
       color: white;
       font-size: 28px;
-      cursor: pointer;
+      line-height: 1;
     }
 
     .modal-body {
       padding: 22px;
     }
 
-    /* FORM */
+    /* =========================
+       FORM
+    ========================= */
 
     .form-grid {
       display: grid;
@@ -409,35 +587,38 @@
     }
 
     label {
-      font-size: 13px;
-      font-weight: bold;
       color: #344054;
+      font-size: 13px;
+      font-weight: 700;
     }
 
     input,
     textarea {
       width: 100%;
-      padding: 10px;
+      padding: 10px 11px;
       border: 1px solid var(--gri2);
-      border-radius: 7px;
+      border-radius: 8px;
       outline: none;
+      color: var(--tèks);
     }
 
     input:focus,
     textarea:focus {
       border-color: var(--ble);
+      box-shadow: 0 0 0 3px rgba(11,59,117,.07);
     }
 
     textarea {
       min-height: 110px;
       resize: vertical;
+      line-height: 1.5;
     }
 
     .check-group {
       display: flex;
       align-items: center;
       gap: 8px;
-      margin-top: 5px;
+      padding-top: 4px;
     }
 
     .check-group input {
@@ -451,65 +632,46 @@
       gap: 10px;
     }
 
+    .btn-cancel,
+    .btn-save {
+      border: none;
+      padding: 10px 17px;
+      border-radius: 8px;
+      font-weight: 700;
+    }
+
     .btn-cancel {
       background: #e5e7eb;
       color: #333;
-      border: none;
-      padding: 10px 16px;
-      border-radius: 7px;
-      cursor: pointer;
-      font-weight: bold;
     }
 
     .btn-save {
       background: var(--vèt);
       color: white;
-      border: none;
-      padding: 10px 18px;
-      border-radius: 7px;
-      cursor: pointer;
-      font-weight: bold;
     }
 
-    /* MESSAGE */
-
-    .message {
-      padding: 35px;
-      text-align: center;
-      color: #667085;
+    .btn-save:disabled {
+      opacity: .65;
+      cursor: not-allowed;
     }
 
-    .loading {
-      text-align: center;
-      padding: 35px;
-      color: var(--ble);
-      font-weight: bold;
-    }
-
-    .error-box {
-      display: none;
-      background: #fde3e1;
-      color: #8f2921;
-      padding: 12px;
-      border-radius: 7px;
-      margin-bottom: 15px;
-    }
-
-    /* TOAST */
+    /* =========================
+       TOAST
+    ========================= */
 
     .toast {
       position: fixed;
       right: 20px;
       bottom: 20px;
+      max-width: 380px;
       padding: 13px 17px;
-      border-radius: 8px;
+      border-radius: 9px;
       background: var(--ble);
       color: white;
       box-shadow: var(--lonbraj);
       display: none;
-      z-index: 5000;
-      max-width: 350px;
-      font-size: 14px;
+      z-index: 6000;
+      font-size: 13px;
     }
 
     .toast.show {
@@ -524,30 +686,21 @@
       background: var(--wouj);
     }
 
-    /* MOBILE */
+    /* =========================
+       RESPONSIVE
+    ========================= */
 
-    .mobile-menu {
-      display: none;
-      border: none;
-      background: transparent;
-      color: white;
-      font-size: 25px;
-      cursor: pointer;
-    }
-
-    @media (max-width: 850px) {
-
-      aside {
+    @media (max-width: 900px) {
+      .sidebar {
         position: fixed;
-        left: -260px;
+        left: -270px;
         top: 70px;
         bottom: 0;
-        z-index: 1500;
-        transition: .25s;
+        z-index: 2500;
         overflow-y: auto;
       }
 
-      aside.open {
+      .sidebar.open {
         left: 0;
       }
 
@@ -555,26 +708,29 @@
         display: block;
       }
 
-      main {
-        padding: 18px;
-      }
-
       .admin-name {
         display: none;
       }
+
+      .stats-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
     }
 
-    @media (max-width: 600px) {
-
-      header {
+    @media (max-width: 650px) {
+      .admin-header {
         padding: 0 14px;
       }
 
-      .btn-site {
+      .site-btn {
         display: none;
       }
 
-      .stats {
+      .admin-main {
+        padding: 18px 14px;
+      }
+
+      .stats-grid {
         grid-template-columns: 1fr;
       }
 
@@ -589,1251 +745,725 @@
       .full {
         grid-column: auto;
       }
+
+      .modal {
+        padding: 10px;
+      }
+
+      .modal-body {
+        padding: 17px;
+      }
+
+      .form-actions {
+        flex-direction: column-reverse;
+      }
+
+      .btn-cancel,
+      .btn-save {
+        width: 100%;
+      }
+
+      .notification-panel {
+        right: 10px;
+        top: 65px;
+      }
     }
   </style>
 </head>
 
 <body>
 
-<header>
+  <!-- =========================
+       HEADER
+  ========================= -->
 
-  <div style="display:flex;align-items:center;gap:12px;">
+  <header class="admin-header">
 
-    <button
-      class="mobile-menu"
-      onclick="toggleMenu()"
-    >
-      ☰
-    </button>
+    <div class="header-left">
 
-    <div class="logo">
-      LAJONÈ'M
-      <span>Laj yo se onè nou.</span>
+      <button
+        class="mobile-menu"
+        id="mobileMenuButton"
+        aria-label="Ouvri meni"
+        onclick="toggleMenu()"
+      >
+        ☰
+      </button>
+
+      <div class="brand">
+        LAJONÈ'M
+        <span>Laj yo se onè nou.</span>
+      </div>
+
     </div>
 
-  </div>
+    <div class="header-right">
 
+      <span
+        class="admin-name"
+        id="adminName"
+      >
+        Administratè
+      </span>
 
-  <div class="header-right">
-
-    <span
-      class="admin-name"
-      id="adminName"
-    >
-      Administratè
-    </span>
-
-    <a
-      href="index.html"
-      class="btn-header btn-site"
-    >
-      Wè sit la
-    </a>
-
-    <button
-      class="btn-header btn-logout"
-      onclick="dekonèkte()"
-    >
-      Dekonekte
-    </button>
-
-  </div>
-
-</header>
-
-
-<div class="layout">
-
-  <!-- SIDEBAR -->
-
-  <aside id="sidebar">
-
-    <div class="menu-title">
-      Jeneral
-    </div>
-
-    <nav class="menu">
-
-      <a href="admin.html">
-        Dashboard
-      </a>
-
-      <a href="admin-aktivite.html">
-        Aktivite
-      </a>
+      <button
+        type="button"
+        class="notification-btn"
+        id="notificationButton"
+        aria-label="Notifikasyon"
+        onclick="toggleNotifikasyon()"
+      >
+        🔔
+        <span
+          class="notification-badge"
+          id="notificationBadge"
+        >
+          0
+        </span>
+      </button>
 
       <a
-        href="admin-pwogram.html"
-        class="active"
+        href="index.html"
+        class="header-btn site-btn"
       >
-        Pwogram
+        Wè sit la
       </a>
-
-    </nav>
-
-
-    <div class="menu-title">
-      Benefisyè ak volontè
-    </div>
-
-    <nav class="menu">
-
-      <a href="admin-benefisye.html">
-        Benefisyè
-      </a>
-
-      <a href="admin-volonte.html">
-        Volontè
-      </a>
-
-      <a href="admin-vizit.html">
-        Vizit
-      </a>
-
-    </nav>
-
-
-    <div class="menu-title">
-      Resous
-    </div>
-
-    <nav class="menu">
-
-      <a href="admin-don.html">
-        Don
-      </a>
-
-      <a href="admin-donatè.html">
-        Donatè
-      </a>
-
-      <a href="admin-patne.html">
-        Patnè
-      </a>
-
-    </nav>
-
-
-    <div class="menu-title">
-      Kontni
-    </div>
-
-    <nav class="menu">
-
-      <a href="admin-nouvel.html">
-        Nouvèl
-      </a>
-
-      <a href="admin-galri.html">
-        Galri
-      </a>
-
-      <a href="admin-rapo.html">
-        Rapò
-      </a>
-
-      <a href="admin-mesaj.html">
-        Mesaj
-      </a>
-
-    </nav>
-
-  </aside>
-
-
-  <!-- MAIN -->
-
-  <main>
-
-    <div class="page-header">
-
-      <div>
-
-        <h1>
-          Jesyon Pwogram
-        </h1>
-
-        <p>
-          Kreye epi jere pwogram sosyal LAJONÈ'M yo.
-        </p>
-
-      </div>
-
 
       <button
-        class="btn-primary"
-        onclick="ouvriModalAjoute()"
+        type="button"
+        class="header-btn logout-btn"
+        onclick="dekonèkte()"
       >
-        + Nouvo pwogram
+        Dekonekte
       </button>
 
     </div>
 
+  </header>
+
+
+  <!-- =========================
+       NOTIFICATION PANEL
+  ========================= -->
+
+  <div
+    class="notification-panel"
+    id="notificationPanel"
+  >
+
+    <div class="notification-header">
+
+      <h3>Notifikasyon</h3>
+
+      <button
+        type="button"
+        onclick="makeToutNotifikasyonLi()"
+        style="border:none;background:transparent;color:white;font-size:11px;font-weight:700;"
+      >
+        Make tout li
+      </button>
+
+    </div>
 
     <div
-      id="errorBox"
-      class="error-box"
-    ></div>
-
-
-    <!-- STATS -->
-
-    <section class="stats">
-
-      <div class="stat">
-
-        <div
-          class="stat-number"
-          id="totalPwogram"
-        >
-          0
-        </div>
-
-        <div class="stat-label">
-          Total pwogram
-        </div>
-
+      class="notification-content"
+      id="notificationContent"
+    >
+      <div class="notification-empty">
+        Pa gen nouvo notifikasyon.
       </div>
-
-
-      <div class="stat">
-
-        <div
-          class="stat-number"
-          id="pwogramAktif"
-        >
-          0
-        </div>
-
-        <div class="stat-label">
-          Pwogram aktif
-        </div>
-
-      </div>
-
-
-      <div class="stat">
-
-        <div
-          class="stat-number"
-          id="pwogramInaktif"
-        >
-          0
-        </div>
-
-        <div class="stat-label">
-          Pwogram inaktif
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- SEARCH -->
-
-    <section class="search-box">
-
-      <input
-        type="search"
-        id="recherche"
-        placeholder="Rechèch yon pwogram..."
-        oninput="afichePwogram()"
-      >
-
-    </section>
-
-
-    <!-- TABLE -->
-
-    <section class="table-container">
-
-      <div
-        id="loading"
-        class="loading"
-      >
-        Ap chaje pwogram yo...
-      </div>
-
-
-      <table
-        id="programTable"
-        style="display:none;"
-      >
-
-        <thead>
-
-          <tr>
-
-            <th>
-              Pwogram
-            </th>
-
-            <th>
-              Deskripsyon
-            </th>
-
-            <th>
-              Objektif
-            </th>
-
-            <th>
-              Estati
-            </th>
-
-            <th>
-              Aksyon
-            </th>
-
-          </tr>
-
-        </thead>
-
-
-        <tbody id="programBody"></tbody>
-
-      </table>
-
-
-      <div
-        id="emptyMessage"
-        class="message"
-        style="display:none;"
-      >
-        Pa gen okenn pwogram ki koresponn ak rechèch la.
-      </div>
-
-    </section>
-
-  </main>
-
-</div>
-
-
-<!-- MODAL -->
-
-<div
-  class="modal"
-  id="programModal"
->
-
-  <div class="modal-box">
-
-    <div class="modal-header">
-
-      <h2 id="modalTitle">
-        Nouvo pwogram
-      </h2>
-
-      <button
-        class="close"
-        onclick="femenModal()"
-      >
-        ×
-      </button>
-
     </div>
 
+  </div>
 
-    <div class="modal-body">
 
-      <form id="programForm">
+  <!-- =========================
+       LAYOUT
+  ========================= -->
+
+  <div class="admin-layout">
+
+    <!-- SIDEBAR -->
+
+    <aside
+      class="sidebar"
+      id="sidebar"
+    >
+
+      <div class="menu-title">
+        Jeneral
+      </div>
+
+      <nav class="menu">
+
+        <a href="admin.html">
+          Dashboard
+        </a>
+
+        <a href="admin-aktivite.html">
+          Aktivite
+        </a>
+
+        <a
+          href="admin-pwogram.html"
+          class="active"
+        >
+          Pwogram
+        </a>
+
+      </nav>
+
+
+      <div class="menu-title">
+        Benefisyè ak volontè
+      </div>
+
+      <nav class="menu">
+
+        <a href="admin-benefisye.html">
+          Benefisyè
+        </a>
+
+        <a href="admin-volonte.html">
+          Volontè
+        </a>
+
+        <a href="admin-vizit.html">
+          Vizit
+        </a>
+
+      </nav>
+
+
+      <div class="menu-title">
+        Resous
+      </div>
+
+      <nav class="menu">
+
+        <a href="admin-don.html">
+          Don
+        </a>
+
+        <a href="admin-donatè.html">
+          Donatè
+        </a>
+
+        <a href="admin-patner.html">
+          Patnè
+        </a>
+
+      </nav>
+
+
+      <div class="menu-title">
+        Kontni
+      </div>
+
+      <nav class="menu">
+
+        <a href="admin-nouvel.html">
+          Nouvèl
+        </a>
+
+        <a href="admin-galri.html">
+          Galri
+        </a>
+
+        <a href="admin-rapo.html">
+          Rapò
+        </a>
+
+        <a href="admin-mesaj.html">
+          Mesaj
+        </a>
+
+      </nav>
+
+    </aside>
+
+
+    <!-- MAIN -->
+
+    <main class="admin-main">
+
+      <div class="page-header">
+
+        <div>
+
+          <h1>
+            Jesyon Pwogram
+          </h1>
+
+          <p>
+            Kreye epi jere pwogram sosyal LAJONÈ'M yo.
+          </p>
+
+        </div>
+
+        <button
+          type="button"
+          class="btn-primary"
+          onclick="ouvriModalAjoute()"
+        >
+          + Nouvo pwogram
+        </button>
+
+      </div>
+
+
+      <div
+        id="errorBox"
+        class="error-box"
+      ></div>
+
+
+      <!-- STATS -->
+
+      <section class="stats-grid">
+
+        <div class="stat-card">
+
+          <div
+            class="stat-number"
+            id="totalPwogram"
+          >
+            0
+          </div>
+
+          <div class="stat-label">
+            Total pwogram
+          </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+          <div
+            class="stat-number"
+            id="pwogramAktif"
+          >
+            0
+          </div>
+
+          <div class="stat-label">
+            Pwogram aktif
+          </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+          <div
+            class="stat-number"
+            id="pwogramInaktif"
+          >
+            0
+          </div>
+
+          <div class="stat-label">
+            Pwogram inaktif
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- SEARCH -->
+
+      <section class="search-card">
 
         <input
-          type="hidden"
-          id="programId"
+          type="search"
+          id="recherche"
+          class="search-input"
+          placeholder="Rechèch yon pwogram..."
+          oninput="afichePwogram()"
         >
 
-
-        <div class="form-grid">
-
-
-          <!-- NON -->
-
-          <div class="form-group full">
-
-            <label for="non">
-              Non pwogram *
-            </label>
-
-            <input
-              type="text"
-              id="non"
-              required
-              placeholder="Egzanp: Yon Men Pou Lavi"
-            >
-
-          </div>
+      </section>
 
 
-          <!-- SLUG -->
+      <!-- TABLE -->
 
-          <div class="form-group full">
+      <section class="table-card">
 
-            <label for="slug">
-              Slug
-            </label>
+        <div
+          id="loading"
+          class="loading"
+        >
+          Ap chaje pwogram yo...
+        </div>
 
-            <input
-              type="text"
-              id="slug"
-              placeholder="yon-men-pou-lavi"
-            >
+        <div class="table-wrapper">
 
-          </div>
+          <table
+            id="programTable"
+            style="display:none;"
+          >
 
+            <thead>
 
-          <!-- DESKRIPSYON -->
+              <tr>
 
-          <div class="form-group full">
+                <th>
+                  Pwogram
+                </th>
 
-            <label for="deskripsyon">
-              Deskripsyon
-            </label>
+                <th>
+                  Deskripsyon
+                </th>
 
-            <textarea
-              id="deskripsyon"
-              placeholder="Eksplike pwogram nan..."
-            ></textarea>
+                <th>
+                  Objektif
+                </th>
 
-          </div>
+                <th>
+                  Estati
+                </th>
 
+                <th>
+                  Aksyon
+                </th>
 
-          <!-- OBJEKTIF -->
+              </tr>
 
-          <div class="form-group full">
+            </thead>
 
-            <label for="objektif">
-              Objektif
-            </label>
+            <tbody id="programBody"></tbody>
 
-            <textarea
-              id="objektif"
-              placeholder="Ki objektif prensipal pwogram nan?"
-            ></textarea>
+          </table>
 
-          </div>
-
-
-          <!-- IMAGE -->
-
-          <div class="form-group full">
-
-            <label for="imaj_url">
-              URL imaj
-            </label>
-
-            <input
-              type="url"
-              id="imaj_url"
-              placeholder="https://..."
-            >
-
-          </div>
+        </div>
 
 
-          <!-- ACTIVE -->
+        <div
+          id="emptyMessage"
+          class="empty-message"
+          style="display:none;"
+        >
+          Pa gen okenn pwogram ki koresponn ak rechèch la.
+        </div>
 
-          <div class="form-group full">
+      </section>
 
-            <div class="check-group">
+    </main>
+
+  </div>
+
+
+  <!-- =========================
+       PROGRAM MODAL
+  ========================= -->
+
+  <div
+    class="modal"
+    id="programModal"
+  >
+
+    <div class="modal-box">
+
+      <div class="modal-header">
+
+        <h2 id="modalTitle">
+          Nouvo pwogram
+        </h2>
+
+        <button
+          type="button"
+          class="modal-close"
+          onclick="femenModal()"
+          aria-label="Fèmen"
+        >
+          ×
+        </button>
+
+      </div>
+
+
+      <div class="modal-body">
+
+        <form id="programForm">
+
+          <input
+            type="hidden"
+            id="programId"
+          >
+
+
+          <div class="form-grid">
+
+            <div class="form-group full">
+
+              <label for="non">
+                Non pwogram *
+              </label>
 
               <input
-                type="checkbox"
-                id="aktif"
-                checked
+                type="text"
+                id="non"
+                required
+                placeholder="Egzanp: Yon Men Pou Lavi"
               >
 
-              <label for="aktif">
-                Pwogram sa a aktif
+            </div>
+
+
+            <div class="form-group full">
+
+              <label for="slug">
+                Slug
               </label>
+
+              <input
+                type="text"
+                id="slug"
+                placeholder="yon-men-pou-lavi"
+              >
+
+            </div>
+
+
+            <div class="form-group full">
+
+              <label for="deskripsyon">
+                Deskripsyon
+              </label>
+
+              <textarea
+                id="deskripsyon"
+                placeholder="Eksplike pwogram nan..."
+              ></textarea>
+
+            </div>
+
+
+            <div class="form-group full">
+
+              <label for="objektif">
+                Objektif
+              </label>
+
+              <textarea
+                id="objektif"
+                placeholder="Ki objektif prensipal pwogram nan?"
+              ></textarea>
+
+            </div>
+
+
+            <div class="form-group full">
+
+              <label for="imaj_url">
+                URL imaj
+              </label>
+
+              <input
+                type="url"
+                id="imaj_url"
+                placeholder="https://..."
+              >
+
+            </div>
+
+
+            <div class="form-group full">
+
+              <div class="check-group">
+
+                <input
+                  type="checkbox"
+                  id="aktif"
+                  checked
+                >
+
+                <label for="aktif">
+                  Pwogram sa a aktif
+                </label>
+
+              </div>
 
             </div>
 
           </div>
 
 
-        </div>
+          <div class="form-actions">
 
+            <button
+              type="button"
+              class="btn-cancel"
+              onclick="femenModal()"
+            >
+              Anile
+            </button>
 
-        <div class="form-actions">
+            <button
+              type="submit"
+              class="btn-save"
+              id="saveButton"
+            >
+              Anrejistre pwogram
+            </button>
 
-          <button
-            type="button"
-            class="btn-cancel"
-            onclick="femenModal()"
-          >
-            Anile
-          </button>
+          </div>
 
+        </form>
 
-          <button
-            type="submit"
-            class="btn-save"
-            id="saveButton"
-          >
-            Anrejistre pwogram
-          </button>
-
-        </div>
-
-      </form>
+      </div>
 
     </div>
 
   </div>
 
-</div>
+
+  <!-- TOAST -->
+
+  <div
+    id="toast"
+    class="toast"
+  ></div>
 
 
-<!-- TOAST -->
+  <!-- =========================
+       SCRIPTS
+  ========================= -->
 
-<div
-  id="toast"
-  class="toast"
-></div>
-
-
-<script src="js/supabase.js"></script>
+  <script src="js/supabase.js"></script>
+  <script src="js/permissions.js"></script>
+  <script src="js/notifikasyon.js"></script>
 
 
-<script>
+  <script>
 
-  let pwogram = [];
-
-  let adminUser = null;
-
-
-  /* =========================
-     INITIALISATION
-  ========================= */
-
-  document.addEventListener(
-    "DOMContentLoaded",
-    async () => {
-
-      await verifyeAdmin();
-
-    }
-  );
+    let pwogram = [];
+    let adminUser = null;
 
 
-  /* =========================
-     VERIFY ADMIN
-  ========================= */
+    /* =========================
+       INITIALISATION
+    ========================= */
 
-  async function verifyeAdmin() {
+    document.addEventListener(
+      "DOMContentLoaded",
+      async () => {
 
-    try {
-
-      const {
-        data: {
-          user
-        },
-        error
-      } = await supabaseClient.auth.getUser();
-
-
-      if (error || !user) {
-
-        window.location.href =
-          "login.html";
-
-        return;
+        await verifyeAdmin();
 
       }
+    );
 
 
-      const {
-        data: admin,
-        error: adminError
-      } = await supabaseClient
+    /* =========================
+       VERIFY ADMIN
+    ========================= */
 
-        .from("itilizatè_admin")
-
-        .select(`
-          id,
-          user_id,
-          non,
-          siyati,
-          email,
-          wòl,
-          aktif
-        `)
-
-        .eq("user_id", user.id)
-
-        .eq("aktif", true)
-
-        .maybeSingle();
-
-
-      if (adminError) {
-
-        console.error(adminError);
-
-        montreErreur(
-          "Nou pa kapab verifye administratè a."
-        );
-
-        return;
-
-      }
-
-
-      if (
-        !admin ||
-        !["super_admin", "admin"]
-          .includes(admin.wòl)
-      ) {
-
-        await supabaseClient.auth.signOut();
-
-        window.location.href =
-          "login.html";
-
-        return;
-
-      }
-
-
-      adminUser = admin;
-
-
-      document.getElementById(
-        "adminName"
-      ).textContent =
-        admin.non || "Administratè";
-
-
-      await chajePwogram();
-
-    }
-
-    catch (error) {
-
-      console.error(error);
-
-      montreErreur(
-        "Yon erè rive pandan verifikasyon an."
-      );
-
-    }
-
-  }
-
-
-  /* =========================
-     LOAD PROGRAMS
-  ========================= */
-
-  async function chajePwogram() {
-
-    document.getElementById(
-      "loading"
-    ).style.display = "block";
-
-
-    document.getElementById(
-      "programTable"
-    ).style.display = "none";
-
-
-    const {
-      data,
-      error
-    } = await supabaseClient
-
-      .from("pwogram")
-
-      .select(`
-        id,
-        non,
-        slug,
-        deskripsyon,
-        objektif,
-        imaj_url,
-        aktif,
-        dat_kreyasyon,
-        dat_mizajou
-      `)
-
-      .order(
-        "dat_kreyasyon",
-        {
-          ascending: true
-        }
-      );
-
-
-    if (error) {
-
-      console.error(error);
-
-      document.getElementById(
-        "loading"
-      ).style.display = "none";
-
-
-      montreErreur(
-        "Nou pa kapab chaje pwogram yo: " +
-        error.message
-      );
-
-      return;
-
-    }
-
-
-    pwogram = data || [];
-
-
-    document.getElementById(
-      "loading"
-    ).style.display = "none";
-
-
-    aficheStats();
-
-    afichePwogram();
-
-  }
-
-
-  /* =========================
-     STATS
-  ========================= */
-
-  function aficheStats() {
-
-    const total =
-      pwogram.length;
-
-
-    const actifs =
-      pwogram.filter(
-        p => p.aktif === true
-      ).length;
-
-
-    const inactifs =
-      pwogram.filter(
-        p => p.aktif !== true
-      ).length;
-
-
-    document.getElementById(
-      "totalPwogram"
-    ).textContent = total;
-
-
-    document.getElementById(
-      "pwogramAktif"
-    ).textContent = actifs;
-
-
-    document.getElementById(
-      "pwogramInaktif"
-    ).textContent = inactifs;
-
-  }
-
-
-  /* =========================
-     DISPLAY PROGRAMS
-  ========================= */
-
-  function afichePwogram() {
-
-    const recherche =
-      document.getElementById(
-        "recherche"
-      )
-      .value
-      .toLowerCase()
-      .trim();
-
-
-    const filtre =
-      pwogram.filter(p => {
-
-        if (!recherche) {
-          return true;
-        }
-
-
-        const non =
-          (p.non || "")
-          .toLowerCase();
-
-
-        const slug =
-          (p.slug || "")
-          .toLowerCase();
-
-
-        const description =
-          (p.deskripsyon || "")
-          .toLowerCase();
-
-
-        const objectif =
-          (p.objektif || "")
-          .toLowerCase();
-
-
-        return (
-          non.includes(recherche) ||
-          slug.includes(recherche) ||
-          description.includes(recherche) ||
-          objectif.includes(recherche)
-        );
-
-      });
-
-
-    const tbody =
-      document.getElementById(
-        "programBody"
-      );
-
-
-    tbody.innerHTML = "";
-
-
-    if (!filtre.length) {
-
-      document.getElementById(
-        "programTable"
-      ).style.display = "none";
-
-
-      document.getElementById(
-        "emptyMessage"
-      ).style.display = "block";
-
-
-      return;
-
-    }
-
-
-    document.getElementById(
-      "programTable"
-    ).style.display = "table";
-
-
-    document.getElementById(
-      "emptyMessage"
-    ).style.display = "none";
-
-
-    filtre.forEach(p => {
-
-      const tr =
-        document.createElement("tr");
-
-
-      tr.innerHTML = `
-
-        <td>
-
-          <div class="program-title">
-            ${escapeHTML(
-              p.non || "Sans nom"
-            )}
-          </div>
-
-          <div class="slug">
-            ${escapeHTML(
-              p.slug || "—"
-            )}
-          </div>
-
-        </td>
-
-
-        <td>
-          ${escapeHTML(
-            kout(p.deskripsyon, 100)
-          )}
-        </td>
-
-
-        <td>
-          ${escapeHTML(
-            kout(p.objektif, 100)
-          )}
-        </td>
-
-
-        <td>
-
-          ${
-            p.aktif
-
-            ? `
-              <span class="badge badge-active">
-                Aktif
-              </span>
-            `
-
-            : `
-              <span class="badge badge-inactive">
-                Inaktif
-              </span>
-            `
-          }
-
-        </td>
-
-
-        <td>
-
-          <div class="actions">
-
-            <button
-              class="btn-small btn-edit"
-              onclick="ouvriModalModifye('${p.id}')"
-            >
-              Modifye
-            </button>
-
-
-            <button
-              class="btn-small btn-toggle"
-              onclick="chanjeAktif('${p.id}')"
-            >
-              ${
-                p.aktif
-                ? "Dezaktive"
-                : "Aktive"
-              }
-            </button>
-
-
-            <button
-              class="btn-small btn-delete"
-              onclick="efasePwogram('${p.id}')"
-            >
-              Efase
-            </button>
-
-          </div>
-
-        </td>
-
-      `;
-
-
-      tbody.appendChild(tr);
-
-    });
-
-  }
-
-
-  /* =========================
-     ADD MODAL
-  ========================= */
-
-  function ouvriModalAjoute() {
-
-    document.getElementById(
-      "programForm"
-    ).reset();
-
-
-    document.getElementById(
-      "programId"
-    ).value = "";
-
-
-    document.getElementById(
-      "modalTitle"
-    ).textContent =
-      "Nouvo pwogram";
-
-
-    document.getElementById(
-      "saveButton"
-    ).textContent =
-      "Anrejistre pwogram";
-
-
-    document.getElementById(
-      "aktif"
-    ).checked = true;
-
-
-    document.getElementById(
-      "programModal"
-    ).classList.add("show");
-
-  }
-
-
-  /* =========================
-     EDIT MODAL
-  ========================= */
-
-  function ouvriModalModifye(id) {
-
-    const p =
-      pwogram.find(
-        item =>
-          String(item.id) ===
-          String(id)
-      );
-
-
-    if (!p) {
-
-      montreToast(
-        "Pwogram nan pa jwenn.",
-        "error"
-      );
-
-      return;
-
-    }
-
-
-    document.getElementById(
-      "programId"
-    ).value = p.id;
-
-
-    document.getElementById(
-      "non"
-    ).value =
-      p.non || "";
-
-
-    document.getElementById(
-      "slug"
-    ).value =
-      p.slug || "";
-
-
-    document.getElementById(
-      "deskripsyon"
-    ).value =
-      p.deskripsyon || "";
-
-
-    document.getElementById(
-      "objektif"
-    ).value =
-      p.objektif || "";
-
-
-    document.getElementById(
-      "imaj_url"
-    ).value =
-      p.imaj_url || "";
-
-
-    document.getElementById(
-      "aktif"
-    ).checked =
-      p.aktif === true;
-
-
-    document.getElementById(
-      "modalTitle"
-    ).textContent =
-      "Modifye pwogram";
-
-
-    document.getElementById(
-      "saveButton"
-    ).textContent =
-      "Sove chanjman yo";
-
-
-    document.getElementById(
-      "programModal"
-    ).classList.add("show");
-
-  }
-
-
-  /* =========================
-     CLOSE MODAL
-  ========================= */
-
-  function femenModal() {
-
-    document.getElementById(
-      "programModal"
-    ).classList.remove("show");
-
-  }
-
-
-  /* =========================
-     SAVE PROGRAM
-  ========================= */
-
-  document.getElementById(
-    "programForm"
-  )
-  .addEventListener(
-    "submit",
-    async function(e) {
-
-      e.preventDefault();
-
-
-      const button =
-        document.getElementById(
-          "saveButton"
-        );
-
-
-      button.disabled = true;
-
-      button.textContent =
-        "Ap anrejistre...";
-
+    async function verifyeAdmin() {
 
       try {
 
-        const id =
-          document.getElementById(
-            "programId"
-          ).value;
+        const {
+          data: {
+            user
+          },
+          error
+        } = await supabaseClient.auth.getUser();
 
 
-        const non =
-          document.getElementById(
-            "non"
-          )
-          .value
-          .trim();
+        if (error || !user) {
+
+          window.location.href = "login.html";
+
+          return;
+
+        }
 
 
-        if (!non) {
+        const {
+          data: admin,
+          error: adminError
+        } = await supabaseClient
 
-          throw new Error(
-            "Non pwogram nan obligatwa."
+          .from("itilizatè_admin")
+
+          .select(`
+            id,
+            user_id,
+            non,
+            siyati,
+            email,
+            wòl,
+            aktif
+          `)
+
+          .eq("user_id", user.id)
+
+          .eq("aktif", true)
+
+          .maybeSingle();
+
+
+        if (adminError) {
+
+          console.error(adminError);
+
+          montreErreur(
+            "Nou pa kapab verifye administratè a."
+          );
+
+          return;
+
+        }
+
+
+        if (
+          !admin ||
+          !["super_admin", "admin"].includes(admin.wòl)
+        ) {
+
+          await supabaseClient.auth.signOut();
+
+          window.location.href = "login.html";
+
+          return;
+
+        }
+
+
+        adminUser = admin;
+
+
+        document.getElementById(
+          "adminName"
+        ).textContent =
+          admin.non || "Administratè";
+
+
+        /*
+          Nou eseye demare notifikasyon yo.
+          Si sistèm notifikasyon an pa disponib,
+          paj pwogram nan toujou kontinye fonksyone.
+        */
+
+        try {
+
+          if (
+            typeof demareNotifikasyon === "function"
+          ) {
+            await demareNotifikasyon();
+          }
+
+        } catch (notificationError) {
+
+          console.warn(
+            "Notifikasyon pa t kapab demare:",
+            notificationError
           );
 
         }
-
-
-        let slug =
-          document.getElementById(
-            "slug"
-          )
-          .value
-          .trim();
-
-
-        if (!slug) {
-
-          slug =
-            kreyeSlug(non);
-
-        }
-
-
-        const data = {
-
-          non: non,
-
-          slug: slug,
-
-          deskripsyon:
-            document.getElementById(
-              "deskripsyon"
-            )
-            .value
-            .trim() || null,
-
-          objektif:
-            document.getElementById(
-              "objektif"
-            )
-            .value
-            .trim() || null,
-
-          imaj_url:
-            document.getElementById(
-              "imaj_url"
-            )
-            .value
-            .trim() || null,
-
-          aktif:
-            document.getElementById(
-              "aktif"
-            ).checked,
-
-          dat_mizajou:
-            new Date().toISOString()
-
-        };
-
-
-        let result;
-
-
-        /* MODIFYE */
-
-        if (id) {
-
-          result =
-            await supabaseClient
-
-              .from("pwogram")
-
-              .update(data)
-
-              .eq("id", id);
-
-        }
-
-
-        /* AJOUTE */
-
-        else {
-
-          data.dat_kreyasyon =
-            new Date().toISOString();
-
-
-          result =
-            await supabaseClient
-
-              .from("pwogram")
-
-              .insert(data);
-
-        }
-
-
-        if (result.error) {
-
-          console.error(
-            result.error
-          );
-
-          throw result.error;
-
-        }
-
-
-        femenModal();
-
-
-        montreToast(
-          id
-          ? "Pwogram nan modifye avèk siksè."
-          : "Pwogram nan ajoute avèk siksè.",
-          "success"
-        );
 
 
         await chajePwogram();
@@ -1844,387 +1474,1117 @@
 
         console.error(error);
 
-        montreToast(
-          "Erè: " +
-          (
-            error.message ||
-            "Operasyon an echwe."
-          ),
-          "error"
+        montreErreur(
+          "Yon erè rive pandan verifikasyon an."
         );
 
       }
 
-      finally {
+    }
 
-        button.disabled = false;
 
-        button.textContent =
-          document.getElementById(
-            "programId"
-          ).value
-          ? "Sove chanjman yo"
-          : "Anrejistre pwogram";
+    /* =========================
+       LOAD PROGRAMS
+    ========================= */
+
+    async function chajePwogram() {
+
+      document.getElementById(
+        "loading"
+      ).style.display = "block";
+
+
+      document.getElementById(
+        "programTable"
+      ).style.display = "none";
+
+
+      const {
+        data,
+        error
+      } = await supabaseClient
+
+        .from("pwogram")
+
+        .select(`
+          id,
+          non,
+          slug,
+          deskripsyon,
+          objektif,
+          imaj_url,
+          aktif,
+          dat_kreyasyon,
+          dat_mizajou
+        `)
+
+        .order(
+          "dat_kreyasyon",
+          {
+            ascending: true
+          }
+        );
+
+
+      if (error) {
+
+        console.error(error);
+
+        document.getElementById(
+          "loading"
+        ).style.display = "none";
+
+
+        montreErreur(
+          "Nou pa kapab chaje pwogram yo: " +
+          error.message
+        );
+
+        return;
 
       }
 
-    }
-  );
+
+      pwogram = data || [];
 
 
-  /* =========================
-     ACTIVATE / DEACTIVATE
-  ========================= */
-
-  async function chanjeAktif(id) {
-
-    const p =
-      pwogram.find(
-        item =>
-          String(item.id) ===
-          String(id)
-      );
+      document.getElementById(
+        "loading"
+      ).style.display = "none";
 
 
-    if (!p) return;
+      aficheStats();
 
-
-    const nouvoEta =
-      !p.aktif;
-
-
-    const action =
-      nouvoEta
-      ? "aktive"
-      : "dezaktive";
-
-
-    const confirme =
-      confirm(
-        `Èske ou vle ${action} pwogram "${p.non}" ?`
-      );
-
-
-    if (!confirme) return;
-
-
-    const {
-      error
-    } = await supabaseClient
-
-      .from("pwogram")
-
-      .update({
-
-        aktif: nouvoEta,
-
-        dat_mizajou:
-          new Date().toISOString()
-
-      })
-
-      .eq("id", id);
-
-
-    if (error) {
-
-      console.error(error);
-
-      montreToast(
-        "Nou pa kapab chanje estati a: " +
-        error.message,
-        "error"
-      );
-
-      return;
+      afichePwogram();
 
     }
 
 
-    montreToast(
-      nouvoEta
-      ? "Pwogram nan aktive."
-      : "Pwogram nan dezaktive.",
-      "success"
-    );
+    /* =========================
+       STATS
+    ========================= */
+
+    function aficheStats() {
+
+      const total =
+        pwogram.length;
 
 
-    await chajePwogram();
-
-  }
-
-
-  /* =========================
-     DELETE
-  ========================= */
-
-  async function efasePwogram(id) {
-
-    const p =
-      pwogram.find(
-        item =>
-          String(item.id) ===
-          String(id)
-      );
+      const actifs =
+        pwogram.filter(
+          p => p.aktif === true
+        ).length;
 
 
-    if (!p) return;
+      const inactifs =
+        pwogram.filter(
+          p => p.aktif !== true
+        ).length;
 
 
-    const confirme =
-      confirm(
-        `Èske ou sèten ou vle efase pwogram "${p.non}" ?\n\nAtansyon: si gen aktivite ki lye ak pwogram sa a, Supabase ka refize efase li.`
-      );
+      document.getElementById(
+        "totalPwogram"
+      ).textContent = total;
 
 
-    if (!confirme) return;
+      document.getElementById(
+        "pwogramAktif"
+      ).textContent = actifs;
 
 
-    const {
-      error
-    } = await supabaseClient
-
-      .from("pwogram")
-
-      .delete()
-
-      .eq("id", id);
-
-
-    if (error) {
-
-      console.error(error);
-
-      montreToast(
-        "Nou pa kapab efase pwogram nan: " +
-        error.message,
-        "error"
-      );
-
-      return;
+      document.getElementById(
+        "pwogramInaktif"
+      ).textContent = inactifs;
 
     }
 
 
-    montreToast(
-      "Pwogram nan efase avèk siksè.",
-      "success"
-    );
+    /* =========================
+       DISPLAY PROGRAMS
+    ========================= */
+
+    function afichePwogram() {
+
+      const recherche =
+        document.getElementById(
+          "recherche"
+        )
+        .value
+        .toLowerCase()
+        .trim();
 
 
-    await chajePwogram();
+      const filtre =
+        pwogram.filter(p => {
 
-  }
-
-
-  /* =========================
-     LOGOUT
-  ========================= */
-
-  async function dekonèkte() {
-
-    await supabaseClient.auth.signOut();
-
-    window.location.href =
-      "login.html";
-
-  }
+          if (!recherche) {
+            return true;
+          }
 
 
-  /* =========================
-     MOBILE MENU
-  ========================= */
+          const non =
+            (p.non || "")
+            .toLowerCase();
 
-  function toggleMenu() {
+
+          const slug =
+            (p.slug || "")
+            .toLowerCase();
+
+
+          const description =
+            (p.deskripsyon || "")
+            .toLowerCase();
+
+
+          const objectif =
+            (p.objektif || "")
+            .toLowerCase();
+
+
+          return (
+            non.includes(recherche) ||
+            slug.includes(recherche) ||
+            description.includes(recherche) ||
+            objectif.includes(recherche)
+          );
+
+        });
+
+
+      const tbody =
+        document.getElementById(
+          "programBody"
+        );
+
+
+      tbody.innerHTML = "";
+
+
+      if (!filtre.length) {
+
+        document.getElementById(
+          "programTable"
+        ).style.display = "none";
+
+
+        document.getElementById(
+          "emptyMessage"
+        ).style.display = "block";
+
+
+        return;
+
+      }
+
+
+      document.getElementById(
+        "programTable"
+      ).style.display = "table";
+
+
+      document.getElementById(
+        "emptyMessage"
+      ).style.display = "none";
+
+
+      filtre.forEach(p => {
+
+        const tr =
+          document.createElement("tr");
+
+
+        tr.innerHTML = `
+
+          <td>
+
+            <div class="program-title">
+              ${escapeHTML(
+                p.non || "Sans nom"
+              )}
+            </div>
+
+            <div class="slug">
+              ${escapeHTML(
+                p.slug || "—"
+              )}
+            </div>
+
+          </td>
+
+
+          <td>
+
+            <div class="description-text">
+              ${escapeHTML(
+                kout(p.deskripsyon, 100)
+              )}
+            </div>
+
+          </td>
+
+
+          <td>
+
+            <div class="description-text">
+              ${escapeHTML(
+                kout(p.objektif, 100)
+              )}
+            </div>
+
+          </td>
+
+
+          <td>
+
+            ${
+              p.aktif
+
+              ? `
+                <span class="badge badge-active">
+                  Aktif
+                </span>
+              `
+
+              : `
+                <span class="badge badge-inactive">
+                  Inaktif
+                </span>
+              `
+            }
+
+          </td>
+
+
+          <td>
+
+            <div class="actions">
+
+              <button
+                type="button"
+                class="btn-small btn-edit"
+                onclick="ouvriModalModifye('${p.id}')"
+              >
+                Modifye
+              </button>
+
+
+              <button
+                type="button"
+                class="btn-small btn-toggle"
+                onclick="chanjeAktif('${p.id}')"
+              >
+                ${
+                  p.aktif
+                  ? "Dezaktive"
+                  : "Aktive"
+                }
+              </button>
+
+
+              <button
+                type="button"
+                class="btn-small btn-delete"
+                onclick="efasePwogram('${p.id}')"
+              >
+                Efase
+              </button>
+
+            </div>
+
+          </td>
+
+        `;
+
+
+        tbody.appendChild(tr);
+
+      });
+
+    }
+
+
+    /* =========================
+       ADD MODAL
+    ========================= */
+
+    function ouvriModalAjoute() {
+
+      document.getElementById(
+        "programForm"
+      ).reset();
+
+
+      document.getElementById(
+        "programId"
+      ).value = "";
+
+
+      document.getElementById(
+        "modalTitle"
+      ).textContent =
+        "Nouvo pwogram";
+
+
+      document.getElementById(
+        "saveButton"
+      ).textContent =
+        "Anrejistre pwogram";
+
+
+      document.getElementById(
+        "aktif"
+      ).checked = true;
+
+
+      document.getElementById(
+        "programModal"
+      ).classList.add("show");
+
+    }
+
+
+    /* =========================
+       EDIT MODAL
+    ========================= */
+
+    function ouvriModalModifye(id) {
+
+      const p =
+        pwogram.find(
+          item =>
+            String(item.id) ===
+            String(id)
+        );
+
+
+      if (!p) {
+
+        montreToast(
+          "Pwogram nan pa jwenn.",
+          "error"
+        );
+
+        return;
+
+      }
+
+
+      document.getElementById(
+        "programId"
+      ).value = p.id;
+
+
+      document.getElementById(
+        "non"
+      ).value =
+        p.non || "";
+
+
+      document.getElementById(
+        "slug"
+      ).value =
+        p.slug || "";
+
+
+      document.getElementById(
+        "deskripsyon"
+      ).value =
+        p.deskripsyon || "";
+
+
+      document.getElementById(
+        "objektif"
+      ).value =
+        p.objektif || "";
+
+
+      document.getElementById(
+        "imaj_url"
+      ).value =
+        p.imaj_url || "";
+
+
+      document.getElementById(
+        "aktif"
+      ).checked =
+        p.aktif === true;
+
+
+      document.getElementById(
+        "modalTitle"
+      ).textContent =
+        "Modifye pwogram";
+
+
+      document.getElementById(
+        "saveButton"
+      ).textContent =
+        "Sove chanjman yo";
+
+
+      document.getElementById(
+        "programModal"
+      ).classList.add("show");
+
+    }
+
+
+    /* =========================
+       CLOSE MODAL
+    ========================= */
+
+    function femenModal() {
+
+      document.getElementById(
+        "programModal"
+      ).classList.remove("show");
+
+    }
+
+
+    /* =========================
+       SAVE PROGRAM
+    ========================= */
 
     document.getElementById(
-      "sidebar"
-    ).classList.toggle("open");
-
-  }
-
-
-  /* =========================
-     TOAST
-  ========================= */
-
-  function montreToast(
-    message,
-    type = ""
-  ) {
-
-    const toast =
-      document.getElementById(
-        "toast"
-      );
-
-
-    toast.textContent =
-      message;
-
-
-    toast.className =
-      "toast show " + type;
-
-
-    setTimeout(() => {
-
-      toast.classList.remove(
-        "show"
-      );
-
-    }, 4000);
-
-  }
-
-
-  /* =========================
-     ERROR
-  ========================= */
-
-  function montreErreur(message) {
-
-    const box =
-      document.getElementById(
-        "errorBox"
-      );
-
-
-    box.textContent =
-      message;
-
-
-    box.style.display =
-      "block";
-
-  }
-
-
-  /* =========================
-     SLUG
-  ========================= */
-
-  function kreyeSlug(text) {
-
-    return text
-
-      .toString()
-
-      .normalize("NFD")
-
-      .replace(
-        /[\u0300-\u036f]/g,
-        ""
-      )
-
-      .toLowerCase()
-
-      .trim()
-
-      .replace(
-        /[^a-z0-9\s-]/g,
-        ""
-      )
-
-      .replace(
-        /\s+/g,
-        "-"
-      )
-
-      .replace(
-        /-+/g,
-        "-"
-      );
-
-  }
-
-
-  /* =========================
-     TEXT SHORTENER
-  ========================= */
-
-  function kout(text, max) {
-
-    if (!text) {
-      return "—";
-    }
-
-
-    const value =
-      String(text);
-
-
-    if (value.length <= max) {
-      return value;
-    }
-
-
-    return value.substring(
-      0,
-      max
-    ) + "...";
-
-  }
-
-
-  /* =========================
-     SECURITY
-  ========================= */
-
-  function escapeHTML(value) {
-
-    return String(
-      value ?? ""
+      "programForm"
     )
+    .addEventListener(
+      "submit",
+      async function(e) {
 
-      .replace(
-        /&/g,
-        "&amp;"
-      )
+        e.preventDefault();
 
-      .replace(
-        /</g,
-        "&lt;"
-      )
-      .replace(
-        />/g,
-        "&gt;"
-      )
 
-      .replace(
-        /"/g,
-        "&quot;"
-      )
+        const button =
+          document.getElementById(
+            "saveButton"
+          );
 
-      .replace(
-        /'/g,
-        "&#039;"
+
+        button.disabled = true;
+
+        button.textContent =
+          "Ap anrejistre...";
+
+
+        try {
+
+          const id =
+            document.getElementById(
+              "programId"
+            ).value;
+
+
+          const non =
+            document.getElementById(
+              "non"
+            )
+            .value
+            .trim();
+
+
+          if (!non) {
+
+            throw new Error(
+              "Non pwogram nan obligatwa."
+            );
+
+          }
+
+
+          let slug =
+            document.getElementById(
+              "slug"
+            )
+            .value
+            .trim();
+
+
+          if (!slug) {
+
+            slug =
+              kreyeSlug(non);
+
+          }
+
+
+          const data = {
+
+            non: non,
+
+            slug: slug,
+
+            deskripsyon:
+              document.getElementById(
+                "deskripsyon"
+              )
+              .value
+              .trim() || null,
+
+            objektif:
+              document.getElementById(
+                "objektif"
+              )
+              .value
+              .trim() || null,
+
+            imaj_url:
+              document.getElementById(
+                "imaj_url"
+              )
+              .value
+              .trim() || null,
+
+            aktif:
+              document.getElementById(
+                "aktif"
+              ).checked,
+
+            dat_mizajou:
+              new Date().toISOString()
+
+          };
+
+
+          let result;
+
+
+          /* MODIFYE */
+
+          if (id) {
+
+            result =
+              await supabaseClient
+
+                .from("pwogram")
+
+                .update(data)
+
+                .eq("id", id);
+
+          }
+
+
+          /* AJOUTE */
+
+          else {
+
+            data.dat_kreyasyon =
+              new Date().toISOString();
+
+
+            result =
+              await supabaseClient
+
+                .from("pwogram")
+
+                .insert(data);
+
+          }
+
+
+          if (result.error) {
+
+            console.error(
+              result.error
+            );
+
+            throw result.error;
+
+          }
+
+
+          femenModal();
+
+
+          montreToast(
+            id
+            ? "Pwogram nan modifye avèk siksè."
+            : "Pwogram nan ajoute avèk siksè.",
+            "success"
+          );
+
+
+          await chajePwogram();
+
+        }
+
+        catch (error) {
+
+          console.error(error);
+
+          montreToast(
+            "Erè: " +
+            (
+              error.message ||
+              "Operasyon an echwe."
+            ),
+            "error"
+          );
+
+        }
+
+        finally {
+
+          button.disabled = false;
+
+          button.textContent =
+            document.getElementById(
+              "programId"
+            ).value
+            ? "Sove chanjman yo"
+            : "Anrejistre pwogram";
+
+        }
+
+      }
+    );
+
+
+    /* =========================
+       ACTIVATE / DEACTIVATE
+    ========================= */
+
+    async function chanjeAktif(id) {
+
+      const p =
+        pwogram.find(
+          item =>
+            String(item.id) ===
+            String(id)
+        );
+
+
+      if (!p) return;
+
+
+      const nouvoEta =
+        !p.aktif;
+
+
+      const action =
+        nouvoEta
+        ? "aktive"
+        : "dezaktive";
+
+
+      const confirme =
+        confirm(
+          `Èske ou vle ${action} pwogram "${p.non}" ?`
+        );
+
+
+      if (!confirme) return;
+
+
+      const {
+        error
+      } = await supabaseClient
+
+        .from("pwogram")
+
+        .update({
+
+          aktif: nouvoEta,
+
+          dat_mizajou:
+            new Date().toISOString()
+
+        })
+
+        .eq("id", id);
+
+
+      if (error) {
+
+        console.error(error);
+
+        montreToast(
+          "Nou pa kapab chanje estati a: " +
+          error.message,
+          "error"
+        );
+
+        return;
+
+      }
+
+
+      montreToast(
+        nouvoEta
+        ? "Pwogram nan aktive."
+        : "Pwogram nan dezaktive.",
+        "success"
       );
 
-  }
+
+      await chajePwogram();
+
+    }
 
 
-  /* =========================
-     CLOSE MODAL OUTSIDE
-  ========================= */
+    /* =========================
+       DELETE
+    ========================= */
 
-  document.getElementById(
-    "programModal"
-  )
-  .addEventListener(
-    "click",
-    function(e) {
+    async function efasePwogram(id) {
 
-      if (e.target === this) {
+      const p =
+        pwogram.find(
+          item =>
+            String(item.id) ===
+            String(id)
+        );
 
-        femenModal();
+
+      if (!p) return;
+
+
+      const confirme =
+        confirm(
+          `Èske ou sèten ou vle efase pwogram "${p.non}" ?\n\nAtansyon: si gen aktivite ki lye ak pwogram sa a, Supabase ka refize efase li.`
+        );
+
+
+      if (!confirme) return;
+
+
+      const {
+        error
+      } = await supabaseClient
+
+        .from("pwogram")
+
+        .delete()
+
+        .eq("id", id);
+
+
+      if (error) {
+
+        console.error(error);
+
+        montreToast(
+          "Nou pa kapab efase pwogram nan: " +
+          error.message,
+          "error"
+        );
+
+        return;
+
+      }
+
+
+      montreToast(
+        "Pwogram nan efase avèk siksè.",
+        "success"
+      );
+
+
+      await chajePwogram();
+
+    }
+
+
+    /* =========================
+       LOGOUT
+    ========================= */
+
+    async function dekonèkte() {
+
+      await supabaseClient.auth.signOut();
+
+      window.location.href =
+        "login.html";
+
+    }
+
+
+    /* =========================
+       MOBILE MENU
+    ========================= */
+
+    function toggleMenu() {
+
+      document.getElementById(
+        "sidebar"
+      ).classList.toggle("open");
+
+    }
+
+
+    /* =========================
+       NOTIFICATIONS
+    ========================= */
+
+    function toggleNotifikasyon() {
+
+      const panel =
+        document.getElementById(
+          "notificationPanel"
+        );
+
+      panel.classList.toggle("show");
+
+    }
+
+
+    async function makeToutNotifikasyonLi() {
+
+      try {
+
+        if (
+          typeof markAllNotificationsRead ===
+          "function"
+        ) {
+
+          await markAllNotificationsRead();
+
+        }
+        else if (
+          typeof makeToutNotifikasyonLiJS ===
+          "function"
+        ) {
+
+          await makeToutNotifikasyonLiJS();
+
+        }
+
+      }
+
+      catch (error) {
+
+        console.warn(
+          "Pa kapab make notifikasyon yo kòm li:",
+          error
+        );
 
       }
 
     }
-  );
 
-</script>
+
+    /* =========================
+       TOAST
+    ========================= */
+
+    function montreToast(
+      message,
+      type = ""
+    ) {
+
+      const toast =
+        document.getElementById(
+          "toast"
+        );
+
+
+      toast.textContent =
+        message;
+
+
+      toast.className =
+        "toast show " + type;
+
+
+      setTimeout(() => {
+
+        toast.classList.remove(
+          "show"
+        );
+
+      }, 4000);
+
+    }
+
+
+    /* =========================
+       ERROR
+    ========================= */
+
+    function montreErreur(message) {
+
+      const box =
+        document.getElementById(
+          "errorBox"
+        );
+
+
+      box.textContent =
+        message;
+
+
+      box.style.display =
+        "block";
+
+    }
+
+
+    /* =========================
+       SLUG
+    ========================= */
+
+    function kreyeSlug(text) {
+
+      return text
+
+        .toString()
+
+        .normalize("NFD")
+
+        .replace(
+          /[\u0300-\u036f]/g,
+          ""
+        )
+
+        .toLowerCase()
+
+        .trim()
+
+        .replace(
+          /[^a-z0-9\s-]/g,
+          ""
+        )
+
+        .replace(
+          /\s+/g,
+          "-"
+        )
+
+        .replace(
+          /-+/g,
+          "-"
+        );
+
+    }
+
+
+    /* =========================
+       TEXT SHORTENER
+    ========================= */
+
+    function kout(text, max) {
+
+      if (!text) {
+        return "—";
+      }
+
+
+      const value =
+        String(text);
+
+
+      if (value.length <= max) {
+        return value;
+      }
+
+
+      return value.substring(
+        0,
+        max
+      ) + "...";
+
+    }
+
+
+    /* =========================
+       SECURITY
+    ========================= */
+
+    function escapeHTML(value) {
+
+      return String(
+        value ?? ""
+      )
+
+        .replace(
+          /&/g,
+          "&amp;"
+        )
+
+        .replace(
+          /</g,
+          "&lt;"
+        )
+
+        .replace(
+          />/g,
+          "&gt;"
+        )
+
+        .replace(
+          /"/g,
+          "&quot;"
+        )
+
+        .replace(
+          /'/g,
+          "&#039;"
+        );
+
+    }
+
+
+    /* =========================
+       CLOSE MODAL OUTSIDE
+    ========================= */
+
+    document.getElementById(
+      "programModal"
+    )
+    .addEventListener(
+      "click",
+      function(e) {
+
+        if (e.target === this) {
+
+          femenModal();
+
+        }
+
+      }
+    );
+
+
+    /* =========================
+       CLOSE NOTIFICATION
+       WHEN CLICKING OUTSIDE
+    ========================= */
+
+    document.addEventListener(
+      "click",
+      function(e) {
+
+        const panel =
+          document.getElementById(
+            "notificationPanel"
+          );
+
+        const button =
+          document.getElementById(
+            "notificationButton"
+          );
+
+
+        if (
+          panel &&
+          button &&
+          !panel.contains(e.target) &&
+          !button.contains(e.target)
+        ) {
+
+          panel.classList.remove(
+            "show"
+          );
+
+        }
+
+      }
+    );
+
+  </script>
 
 </body>
 </html>
