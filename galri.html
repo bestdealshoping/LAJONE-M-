@@ -4,181 +4,501 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Galri LAJONÈ'M | Aktivite ak aksyon pou moun aje</title>
+  <title>Galri LAJONÈ'M | Laj yo se onè nou</title>
 
-<meta
-  name="description"
-  content="Gade foto ak moman enpòtan nan aktivite LAJONÈ'M yo pou sipòte, akonpaye ak valorize moun aje ann Ayiti."
->
+  <meta
+    name="description"
+    content="Dekouvri foto ak moman LAJONÈ'M ap pataje nan aksyon li yo pou wè, akonpaye epi valorize moun aje ann Ayiti."
+  >
 
-<meta
-  name="keywords"
-  content="galri LAJONÈ'M, foto LAJONÈ'M, aktivite moun aje, moun aje Ayiti, aksyon sosyal Ayiti, solidarite, volontè Ayiti, Cap-Haïtien"
->
+  <meta
+    name="keywords"
+    content="LAJONÈ'M, galri LAJONÈ'M, foto moun aje, aktivite moun aje Ayiti, solidarite, volontè, Cap-Haïtien"
+  >
 
-<meta name="robots" content="index, follow">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="LAJONÈ'M">
+  <meta name="theme-color" content="#0B3B75">
 
-<link
-  rel="canonical"
-  href="https://bestdealshoping.github.io/LAJONE-M-/galri.html"
->
+  <link
+    rel="canonical"
+    href="https://bestdealshoping.github.io/LAJONE-M-/galri.html"
+  >
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="Galri LAJONÈ'M | Laj yo se onè nou">
+  <meta property="og:type" content="website">
 
-<meta
-  property="og:description"
-  content="Dekouvri imaj ak moman ki montre aksyon LAJONÈ'M ap reyalize pou moun aje yo."
->
+  <meta
+    property="og:title"
+    content="Galri LAJONÈ'M | Laj yo se onè nou"
+  >
 
-<meta
-  property="og:url"
-  content="https://bestdealshoping.github.io/LAJONE-M-/galri.html"
->
+  <meta
+    property="og:description"
+    content="Dekouvri imaj ak moman ki montre aksyon LAJONÈ'M ap reyalize pou moun aje yo."
+  >
 
-<meta property="og:site_name" content="LAJONÈ'M">
-<meta property="og:locale" content="ht_HT">
+  <meta
+    property="og:url"
+    content="https://bestdealshoping.github.io/LAJONE-M-/galri.html"
+  >
+
+  <meta
+    property="og:site_name"
+    content="LAJONÈ'M"
+  >
+
+  <meta
+    property="og:locale"
+    content="ht_HT"
+  >
+
+  <meta
+    property="og:image"
+    content="https://terjfmeuzvhcntplnbsd.supabase.co/storage/v1/object/public/galri/foto-1791543704733-hspnevg.png"
+  >
+
+  <meta
+    name="twitter:card"
+    content="summary_large_image"
+  >
+
+  <meta
+    name="twitter:title"
+    content="Galri LAJONÈ'M"
+  >
+
+  <meta
+    name="twitter:description"
+    content="Foto ak moman aksyon LAJONÈ'M pou moun aje yo."
+  >
+
+  <meta
+    name="twitter:image"
+    content="https://terjfmeuzvhcntplnbsd.supabase.co/storage/v1/object/public/galri/foto-1791543704733-hspnevg.png"
+  >
 
   <link rel="stylesheet" href="css/style.css">
 
   <style>
+
+    /* =====================================================
+       GALRI LAJONÈ'M
+    ====================================================== */
+
     .gallery-hero {
-      padding: 80px 20px;
+      padding: 90px 20px;
       text-align: center;
-      color: white;
-      background: linear-gradient(135deg, #0B3B75, #164f91);
+
+      color: #ffffff;
+
+      background:
+        linear-gradient(
+          135deg,
+          #0B3B75,
+          #07284f
+        );
+    }
+
+    .gallery-logo {
+      width: 100px;
+      height: 100px;
+
+      object-fit: contain;
+
+      display: block;
+
+      margin: 0 auto 20px;
+
+      padding: 8px;
+
+      background: #ffffff;
+
+      border-radius: 50%;
     }
 
     .gallery-hero h1 {
-      margin-bottom: 15px;
-      font-size: 42px;
+      margin: 0 0 18px;
+
+      font-size:
+        clamp(2rem, 5vw, 3.2rem);
+
+      line-height: 1.15;
     }
 
     .gallery-hero p {
-      max-width: 750px;
-      margin: auto;
-      font-size: 18px;
-      line-height: 1.7;
+      max-width: 780px;
+
+      margin: 0 auto;
+
+      font-size: 1.05rem;
+
+      line-height: 1.8;
     }
 
+
+    /* =====================================================
+       INTRO
+    ====================================================== */
+
+    .gallery-intro {
+      padding: 70px 20px;
+
+      background: #ffffff;
+    }
+
+    .gallery-intro-content {
+      max-width: 800px;
+
+      margin: 0 auto;
+
+      text-align: center;
+    }
+
+    .gallery-intro h2 {
+      margin: 10px 0 15px;
+
+      color: #0B3B75;
+
+      font-size: 2rem;
+    }
+
+    .gallery-intro p {
+      margin: 0;
+
+      color: #667085;
+
+      line-height: 1.8;
+    }
+
+
+    /* =====================================================
+       GALLERY SECTION
+    ====================================================== */
+
     .gallery-section {
-      padding: 60px 20px;
+      padding: 70px 20px;
+
+      background: #f5f7fa;
     }
 
     .gallery-toolbar {
       display: flex;
+
       justify-content: space-between;
+
       align-items: center;
+
       gap: 20px;
+
       flex-wrap: wrap;
+
       margin-bottom: 35px;
     }
 
     .gallery-toolbar h2 {
       margin: 0;
+
       color: #0B3B75;
+
+      font-size: 2rem;
+    }
+
+    .gallery-filter-wrapper {
+      display: flex;
+
+      align-items: center;
+
+      gap: 10px;
+    }
+
+    .gallery-filter-label {
+      color: #475467;
+
+      font-weight: 700;
+
+      font-size: .92rem;
     }
 
     .gallery-filter {
-      min-width: 210px;
-      padding: 11px 14px;
+      min-width: 220px;
+
+      padding: 12px 14px;
+
       border: 1px solid #d8dee8;
-      border-radius: 8px;
-      background: white;
-      font-size: 15px;
+
+      border-radius: 10px;
+
+      background: #ffffff;
+
+      color: #263238;
+
+      font-size: .95rem;
+
+      outline: none;
     }
+
+    .gallery-filter:focus {
+      border-color: #0B3B75;
+
+      box-shadow:
+        0 0 0 3px
+        rgba(11,59,117,.12);
+    }
+
+
+    /* =====================================================
+       GRID
+    ====================================================== */
 
     .gallery-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 22px;
+
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+      gap: 25px;
     }
 
+
+    /* =====================================================
+       CARD
+    ====================================================== */
+
     .gallery-card {
-      background: white;
-      border-radius: 14px;
+      background: #ffffff;
+
+      border-radius: 18px;
+
       overflow: hidden;
-      box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+
+      border: 1px solid #e5e9ef;
+
+      box-shadow:
+        0 8px 28px
+        rgba(0,0,0,.07);
+
       cursor: pointer;
-      transition: transform 0.2s ease;
+
+      transition:
+        transform .25s ease,
+        box-shadow .25s ease;
+
+      outline: none;
     }
 
     .gallery-card:hover {
-      transform: translateY(-4px);
+      transform: translateY(-6px);
+
+      box-shadow:
+        0 16px 35px
+        rgba(0,0,0,.12);
+    }
+
+    .gallery-card:focus-visible {
+      box-shadow:
+        0 0 0 4px
+        rgba(242,183,5,.45);
+    }
+
+
+    /* =====================================================
+       IMAGE
+    ====================================================== */
+
+    .gallery-image-wrapper {
+      position: relative;
+
+      height: 240px;
+
+      overflow: hidden;
+
+      background:
+        linear-gradient(
+          135deg,
+          #0B3B75,
+          #2E8B57
+        );
     }
 
     .gallery-image {
       width: 100%;
-      height: 250px;
+
+      height: 100%;
+
       object-fit: cover;
+
       display: block;
+
+      transition:
+        transform .4s ease;
     }
 
+    .gallery-card:hover
+    .gallery-image {
+      transform: scale(1.05);
+    }
+
+    .gallery-image-overlay {
+      position: absolute;
+
+      inset: 0;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      background:
+        rgba(11,59,117,.35);
+
+      color: #ffffff;
+
+      font-weight: 800;
+
+      opacity: 0;
+
+      transition:
+        opacity .25s ease;
+    }
+
+    .gallery-card:hover
+    .gallery-image-overlay {
+      opacity: 1;
+    }
+
+
+    /* =====================================================
+       CONTENT
+    ====================================================== */
+
     .gallery-content {
-      padding: 18px;
+      padding: 22px;
     }
 
     .gallery-title {
-      margin: 0 0 8px;
+      margin: 0 0 10px;
+
       color: #0B3B75;
-      font-size: 19px;
+
+      font-size: 1.2rem;
+
+      line-height: 1.4;
     }
 
     .gallery-description {
-      margin: 0 0 12px;
-      color: #555;
-      line-height: 1.6;
+      margin: 0 0 15px;
+
+      color: #667085;
+
+      line-height: 1.7;
     }
 
     .gallery-category {
-      display: inline-block;
-      padding: 5px 10px;
-      background: #fff3c4;
+      display: inline-flex;
+
+      align-items: center;
+
+      padding: 6px 11px;
+
+      border-radius: 30px;
+
+      background: #fff4d6;
+
       color: #725700;
-      border-radius: 20px;
-      font-size: 12px;
-      font-weight: 700;
+
+      font-size: .76rem;
+
+      font-weight: 800;
     }
 
     .gallery-activity {
-      margin-top: 10px;
-      font-size: 13px;
-      color: #777;
+      margin-top: 13px;
+
+      color: #2E8B57;
+
+      font-size: .88rem;
+
+      font-weight: 700;
+
+      line-height: 1.5;
     }
+
+
+    /* =====================================================
+       LOADING / EMPTY / ERROR
+    ====================================================== */
 
     .gallery-loading,
     .gallery-empty,
     .gallery-error {
       grid-column: 1 / -1;
+
+      padding: 60px 25px;
+
       text-align: center;
-      padding: 50px 20px;
+
+      border-radius: 16px;
     }
 
     .gallery-loading {
+      background: #ffffff;
+
       color: #0B3B75;
-      font-weight: 600;
+
+      font-weight: 700;
     }
 
     .gallery-empty {
-      color: #666;
+      background: #ffffff;
+
+      border: 1px dashed #cbd5e1;
+
+      color: #667085;
+    }
+
+    .gallery-empty h3 {
+      margin-top: 0;
+
+      color: #0B3B75;
+    }
+
+    .gallery-empty p {
+      margin-bottom: 0;
+
+      line-height: 1.7;
     }
 
     .gallery-error {
-      background: #fdecec;
-      color: #9b2020;
-      border-radius: 10px;
+      background: #fff5f5;
+
+      border: 1px solid #f3b5b5;
+
+      color: #a61b1b;
     }
 
-    /* LIGHTBOX */
+
+    /* =====================================================
+       LIGHTBOX
+    ====================================================== */
+
     .lightbox {
       display: none;
+
       position: fixed;
+
       z-index: 9999;
+
       inset: 0;
-      background: rgba(0, 0, 0, 0.88);
+
       align-items: center;
+
       justify-content: center;
+
       padding: 25px;
+
+      background:
+        rgba(0,0,0,.90);
     }
 
     .lightbox.show {
@@ -186,153 +506,423 @@
     }
 
     .lightbox-content {
-      max-width: 1000px;
       width: 100%;
+
+      max-width: 1050px;
+
       text-align: center;
     }
 
     .lightbox-image {
       max-width: 100%;
+
       max-height: 75vh;
+
       object-fit: contain;
-      border-radius: 8px;
+
+      border-radius: 10px;
+
+      box-shadow:
+        0 20px 60px
+        rgba(0,0,0,.35);
     }
 
     .lightbox-caption {
-      color: white;
-      margin-top: 15px;
-      line-height: 1.6;
+      max-width: 800px;
+
+      margin: 18px auto 0;
+
+      color: #ffffff;
+
+      line-height: 1.7;
     }
 
     .lightbox-close {
       position: absolute;
-      top: 20px;
-      right: 25px;
+
+      top: 18px;
+
+      right: 24px;
+
+      width: 48px;
+
+      height: 48px;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
       border: none;
-      background: transparent;
-      color: white;
-      font-size: 40px;
-      cursor: pointer;
+
+      border-radius: 50%;
+
+      background:
+        rgba(255,255,255,.15);
+
+      color: #ffffff;
+
+      font-size: 32px;
+
       line-height: 1;
+
+      cursor: pointer;
     }
 
+    .lightbox-close:hover {
+      background:
+        rgba(255,255,255,.25);
+    }
+
+
+    /* =====================================================
+       CTA
+    ====================================================== */
+
     .gallery-cta {
-      margin-top: 60px;
-      padding: 45px 25px;
+      margin-top: 55px;
+
+      padding: 50px 25px;
+
       text-align: center;
-      background: #f5f8fc;
-      border-radius: 16px;
+
+      background: #ffffff;
+
+      border-radius: 18px;
+
+      border: 1px solid #e5e9ef;
+
+      box-shadow:
+        0 8px 28px
+        rgba(0,0,0,.05);
     }
 
     .gallery-cta h2 {
+      margin: 10px 0 15px;
+
       color: #0B3B75;
-      margin-bottom: 12px;
+
+      font-size: 2rem;
     }
 
     .gallery-cta p {
       max-width: 700px;
-      margin: 0 auto 25px;
-      line-height: 1.7;
+
+      margin: 0 auto 28px;
+
+      color: #667085;
+
+      line-height: 1.8;
+    }
+
+    .gallery-buttons {
+      display: flex;
+
+      justify-content: center;
+
+      flex-wrap: wrap;
+
+      gap: 12px;
     }
 
     .gallery-btn {
-      display: inline-block;
-      padding: 13px 22px;
-      background: #0B3B75;
-      color: white;
+      display: inline-flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      min-height: 48px;
+
+      padding: 12px 24px;
+
+      border-radius: 10px;
+
       text-decoration: none;
-      border-radius: 8px;
-      font-weight: 700;
+
+      font-weight: 800;
+
+      transition:
+        transform .2s ease,
+        opacity .2s ease;
     }
 
     .gallery-btn:hover {
-      background: #082d5a;
+      transform: translateY(-2px);
+
+      opacity: .92;
     }
 
-    @media (max-width: 1000px) {
+    .gallery-btn-primary {
+      background: #0B3B75;
+
+      color: #ffffff;
+    }
+
+    .gallery-btn-secondary {
+      background: #F2B705;
+
+      color: #07284f;
+    }
+
+
+    /* =====================================================
+       RESPONSIVE
+    ====================================================== */
+
+    @media (max-width: 950px) {
+
       .gallery-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns:
+          repeat(2, minmax(0, 1fr));
       }
+
     }
 
     @media (max-width: 650px) {
+
+      .gallery-hero {
+        padding: 70px 18px;
+      }
+
+      .gallery-logo {
+        width: 85px;
+        height: 85px;
+      }
+
+      .gallery-intro,
+      .gallery-section {
+        padding: 55px 18px;
+      }
+
       .gallery-grid {
         grid-template-columns: 1fr;
       }
 
-      .gallery-hero h1 {
-        font-size: 32px;
+      .gallery-toolbar {
+        align-items: stretch;
+
+        flex-direction: column;
       }
 
-      .gallery-toolbar {
-        flex-direction: column;
+      .gallery-filter-wrapper {
         align-items: stretch;
+
+        flex-direction: column;
       }
 
       .gallery-filter {
         width: 100%;
       }
+
+      .gallery-image-wrapper {
+        height: 230px;
+      }
+
+      .gallery-cta {
+        padding: 40px 20px;
+      }
+
+      .gallery-buttons {
+        flex-direction: column;
+      }
+
+      .gallery-btn {
+        width: 100%;
+      }
+
     }
+
   </style>
 </head>
 
+
 <body>
 
-  <!-- HEADER -->
+
+  <!-- =====================================================
+       HEADER
+  ====================================================== -->
+
   <header class="site-header">
-    <div class="container">
 
-      <div class="logo">
-        <a href="index.html">LAJONÈ'M</a>
-      </div>
+    <div class="container nav-container">
 
-      <nav class="main-nav">
-        <a href="index.html">Akèy</a>
-        <a href="sou-nou.html">Sou nou</a>
-        <a href="pwogram.html">Pwogram</a>
-        <a href="aktivite.html">Aktivite</a>
-        <a href="galri.html" class="active">Galri</a>
-        <a href="nouvel.html">Nouvèl</a>
-        <a href="volonte.html">Vin volontè</a>
-        <a href="don.html">Fè yon don</a>
+      <a
+        href="index.html"
+        class="logo"
+        aria-label="LAJONÈ'M - Akèy"
+      >
+
+        <span class="logo-main">
+          LAJONÈ'M
+        </span>
+
+        <span class="logo-sub">
+          Laj yo se onè nou.
+        </span>
+
+      </a>
+
+
+      <nav
+        class="main-nav"
+        aria-label="Navigasyon prensipal"
+      >
+
+        <a href="index.html">
+          Akèy
+        </a>
+
+        <a href="sou-nou.html">
+          Sou nou
+        </a>
+
+        <a href="pwogram.html">
+          Pwogram
+        </a>
+
+        <a href="aktivite.html">
+          Aktivite
+        </a>
+
+        <a
+          href="galri.html"
+          class="active"
+          aria-current="page"
+        >
+          Galri
+        </a>
+
+        <a href="nouvel.html">
+          Nouvèl
+        </a>
+
+        <a href="volonte.html">
+          Vin volontè
+        </a>
+
+        <a href="don.html">
+          Fè yon don
+        </a>
+
       </nav>
 
     </div>
+
   </header>
 
 
-  <!-- HERO -->
+  <!-- =====================================================
+       HERO
+  ====================================================== -->
+
   <section class="gallery-hero">
 
-    <h1>Galri LAJONÈ'M</h1>
+    <div class="container">
 
-    <p>
-      Dekouvri kèk nan moman, aktivite ak aksyon nou
-      ap reyalize ansanm ak kominote a.
-    </p>
+      <img
+        class="gallery-logo"
+        src="https://terjfmeuzvhcntplnbsd.supabase.co/storage/v1/object/public/galri/foto-1791543704733-hspnevg.png"
+        alt="Logo ofisyèl LAJONÈ'M"
+      >
+
+      <span class="section-tag">
+        LAJONÈ'M
+      </span>
+
+      <h1>
+        Galri nou an
+      </h1>
+
+      <p>
+        Dekouvri foto, moman ak aksyon LAJONÈ'M
+        ap pataje avèk kominote a pandan n ap
+        travay pou moun aje yo.
+      </p>
+
+    </div>
 
   </section>
 
 
-  <!-- GALLERY -->
+  <!-- =====================================================
+       INTRO
+  ====================================================== -->
+
+  <section class="gallery-intro">
+
+    <div class="container">
+
+      <div class="gallery-intro-content">
+
+        <span class="section-tag">
+          MOMAN NOU PATAJE
+        </span>
+
+        <h2>
+          Chak imaj rakonte yon istwa
+        </h2>
+
+        <p>
+          Galri LAJONÈ'M la pèmèt nou prezève
+          epi pataje kèk nan moman ki make
+          aksyon nou yo nan kominote a.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =====================================================
+       GALLERY
+  ====================================================== -->
+
   <section class="gallery-section">
 
     <div class="container">
 
+
       <div class="gallery-toolbar">
 
-        <h2>Momant nou pataje yo</h2>
+        <div>
 
-        <select
-          id="categoryFilter"
-          class="gallery-filter"
-        >
+          <span class="section-tag">
+            GALRI
+          </span>
 
-          <option value="">
-            Tout kategori
-          </option>
+          <h2>
+            Momant nou pataje yo
+          </h2>
 
-        </select>
+        </div>
+
+
+        <div class="gallery-filter-wrapper">
+
+          <label
+            for="categoryFilter"
+            class="gallery-filter-label"
+          >
+            Filtre:
+          </label>
+
+          <select
+            id="categoryFilter"
+            class="gallery-filter"
+          >
+
+            <option value="">
+              Tout kategori
+            </option>
+
+          </select>
+
+        </div>
 
       </div>
 
@@ -349,29 +939,42 @@
       </div>
 
 
+      <!-- CTA -->
+
       <div class="gallery-cta">
 
-        <h2>Ann konstwi plis bèl moman ansanm</h2>
+        <span class="section-tag">
+          ANGAJE W
+        </span>
+
+        <h2>
+          Ann konstwi plis bèl moman ansanm
+        </h2>
 
         <p>
-          Chak aktivite se yon opòtinite pou nou pote
-          plis prezans, respè ak diyite bay moun nou akonpaye yo.
+          Chak aktivite se yon opòtinite pou nou
+          pote plis prezans, respè ak diyite bay
+          moun nou akonpaye yo.
         </p>
 
-        <a
-          href="volonte.html"
-          class="gallery-btn"
-        >
-          Vin volontè
-        </a>
 
-        <a
-          href="don.html"
-          class="gallery-btn"
-          style="margin-left:10px;"
-        >
-          Fè yon don
-        </a>
+        <div class="gallery-buttons">
+
+          <a
+            href="volonte.html"
+            class="gallery-btn gallery-btn-primary"
+          >
+            Vin volontè
+          </a>
+
+          <a
+            href="don.html"
+            class="gallery-btn gallery-btn-secondary"
+          >
+            Fè yon don
+          </a>
+
+        </div>
 
       </div>
 
@@ -380,22 +983,27 @@
   </section>
 
 
-  <!-- LIGHTBOX -->
+  <!-- =====================================================
+       LIGHTBOX
+  ====================================================== -->
+
   <div
     id="lightbox"
     class="lightbox"
     role="dialog"
     aria-modal="true"
-    aria-label="Foto"
+    aria-label="Foto LAJONÈ'M"
   >
 
     <button
       id="lightboxClose"
       class="lightbox-close"
-      aria-label="Fèmen"
+      aria-label="Fèmen foto"
+      type="button"
     >
       ×
     </button>
+
 
     <div class="lightbox-content">
 
@@ -416,36 +1024,83 @@
   </div>
 
 
-  <!-- FOOTER -->
+  <!-- =====================================================
+       FOOTER
+  ====================================================== -->
+
   <footer class="site-footer">
 
     <div class="container footer-grid">
 
-      <div>
-        <h3>LAJONÈ'M</h3>
-
-        <p>Laj yo se onè nou.</p>
-
-        <p>Wè. Akonpaye. Valorizasyon.</p>
-      </div>
-
 
       <div>
-        <h3>Kontak</h3>
 
-        <p>Cap-Haïtien, Haïti</p>
-
-        <p>+509 42824391\ +509 35274215</p>
-
-        <p>lajonem.ogr@gmail.com</p>
-      </div>
-
-
-      <div>
-        <h3>Angajman</h3>
+        <h3>
+          LAJONÈ'M
+        </h3>
 
         <p>
-          Respè • Solidarite • Imanite
+          Laj yo se onè nou.
+        </p>
+
+        <p>
+          Wè. Akonpaye. Valorizasyon.
+        </p>
+
+      </div>
+
+
+      <div>
+
+        <h3>
+          Kontakte nou
+        </h3>
+
+        <p>
+          Cap-Haïtien, Ayiti
+        </p>
+
+        <p>
+          +509 42824391\ +509 35274215
+        </p>
+
+        <p>
+          <a href="mailto:lajonem.ogr@gmail.com">
+            lajonem.ogr@gmail.com
+          </a>
+        </p>
+
+      </div>
+
+
+      <div>
+
+        <h3>
+          Lyen rapid
+        </h3>
+
+        <p>
+          <a href="sou-nou.html">
+            Sou nou
+          </a>
+        </p>
+
+        <p>
+          <a href="pwogram.html">
+            Pwogram
+          </a>
+        </p>
+
+        <p>
+          <a href="aktivite.html">
+            Aktivite
+          </a>
+        </p>
+
+        <p>
+          <a href="nouvel.html">
+            Nouvèl
+          </a>
         </p>
 
         <p>
@@ -467,137 +1122,287 @@
 
     <div class="footer-bottom">
 
-      <p>
-        © LAJONÈ'M — Laj yo se onè nou.
-      </p>
+      <div class="container">
+
+        <p>
+          ©
+          <span id="annee"></span>
+          LAJONÈ'M —
+          Laj yo se onè nou.
+        </p>
+
+      </div>
 
     </div>
 
   </footer>
 
 
-  <!-- SUPABASE -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="js/supabase.js"></script>
-  
-<script src="js/paramet.js"></script>
+  <!-- =====================================================
+       SUPABASE
+  ====================================================== -->
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script src="js/supabase.js"></script>
+
+  <script src="js/paramet.js"></script>
+
+
+  <!-- =====================================================
+       GALRI JAVASCRIPT
+  ====================================================== -->
 
   <script>
 
     const galleryContainer =
-      document.getElementById("galleryContainer");
+      document.getElementById(
+        "galleryContainer"
+      );
+
 
     const categoryFilter =
-      document.getElementById("categoryFilter");
+      document.getElementById(
+        "categoryFilter"
+      );
+
 
     const lightbox =
-      document.getElementById("lightbox");
+      document.getElementById(
+        "lightbox"
+      );
+
 
     const lightboxImage =
-      document.getElementById("lightboxImage");
+      document.getElementById(
+        "lightboxImage"
+      );
+
 
     const lightboxCaption =
-      document.getElementById("lightboxCaption");
+      document.getElementById(
+        "lightboxCaption"
+      );
+
 
     const lightboxClose =
-      document.getElementById("lightboxClose");
+      document.getElementById(
+        "lightboxClose"
+      );
+
+
+    const annee =
+      document.getElementById(
+        "annee"
+      );
+
 
     let allPhotos = [];
 
 
-    /*
-     * Pwoteje tèks HTML
-     */
-    function escapeHTML(value) {
+    /* =====================================================
+       ANNEE
+    ====================================================== */
 
-      if (value === null || value === undefined) {
-        return "";
-      }
+    if (annee) {
 
-      return String(value)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
+      annee.textContent =
+        new Date().getFullYear();
 
     }
 
 
-    /*
-     * Kreye lis kategori yo
-     */
-    function chargerCategories(photos) {
+    /* =====================================================
+       ESCAPE HTML
+    ====================================================== */
+
+    function escapeHTML(value) {
+
+      if (
+        value === null ||
+        value === undefined
+      ) {
+
+        return "";
+
+      }
+
+
+      return String(value)
+
+        .replace(
+          /&/g,
+          "&amp;"
+        )
+
+        .replace(
+          /</g,
+          "&lt;"
+        )
+
+        .replace(
+          />/g,
+          "&gt;"
+        )
+
+        .replace(
+          /"/g,
+          "&quot;"
+        )
+
+        .replace(
+          /'/g,
+          "&#039;"
+        );
+
+    }
+
+
+    /* =====================================================
+       KATEGORI
+    ====================================================== */
+
+    function chargerCategories(
+      photos
+    ) {
 
       const categories = [
         ...new Set(
           photos
-            .map(photo => photo.kategori)
+            .map(
+              photo =>
+                photo.kategori
+            )
             .filter(Boolean)
         )
       ];
 
+
       categories.sort();
 
-      categories.forEach(category => {
 
-        const option =
-          document.createElement("option");
+      categories.forEach(
+        category => {
 
-        option.value = category;
-        option.textContent = category;
+          const option =
+            document.createElement(
+              "option"
+            );
 
-        categoryFilter.appendChild(option);
 
-      });
+          option.value =
+            category;
+
+
+          option.textContent =
+            category;
+
+
+          categoryFilter.appendChild(
+            option
+          );
+
+        }
+      );
 
     }
 
 
-    /*
-     * Louvri lightbox
-     */
-    function ouvriLightbox(photo) {
+    /* =====================================================
+       LIGHTBOX
+    ====================================================== */
+
+    function ouvriLightbox(
+      photo
+    ) {
 
       lightboxImage.src =
         photo.foto_url;
 
+
       lightboxImage.alt =
-        photo.tit || "Foto LAJONÈ'M";
+        photo.tit ||
+        "Foto LAJONÈ'M";
+
 
       let caption = "";
 
+
       if (photo.tit) {
-        caption += `<strong>${escapeHTML(photo.tit)}</strong>`;
+
+        caption += `
+          <strong>
+            ${escapeHTML(
+              photo.tit
+            )}
+          </strong>
+        `;
+
       }
+
 
       if (photo.deskripsyon) {
+
         caption += `
           <br>
-          ${escapeHTML(photo.deskripsyon)}
+          ${escapeHTML(
+            photo.deskripsyon
+          )}
         `;
+
       }
 
-      lightboxCaption.innerHTML = caption;
 
-      lightbox.classList.add("show");
+      if (
+        photo.kategori
+      ) {
 
-      document.body.style.overflow = "hidden";
+        caption += `
+          <br>
+          <small>
+            ${escapeHTML(
+              photo.kategori
+            )}
+          </small>
+        `;
+
+      }
+
+
+      lightboxCaption.innerHTML =
+        caption;
+
+
+      lightbox.classList.add(
+        "show"
+      );
+
+
+      document.body.style.overflow =
+        "hidden";
 
     }
 
 
-    /*
-     * Fèmen lightbox
-     */
     function femenLightbox() {
 
-      lightbox.classList.remove("show");
+      lightbox.classList.remove(
+        "show"
+      );
+
 
       lightboxImage.src = "";
 
-      document.body.style.overflow = "";
+
+      lightboxImage.alt = "";
+
+
+      lightboxCaption.innerHTML =
+        "";
+
+
+      document.body.style.overflow =
+        "";
 
     }
 
@@ -612,8 +1417,13 @@
       "click",
       event => {
 
-        if (event.target === lightbox) {
+        if (
+          event.target ===
+          lightbox
+        ) {
+
           femenLightbox();
+
         }
 
       }
@@ -624,22 +1434,34 @@
       "keydown",
       event => {
 
-        if (event.key === "Escape") {
+        if (
+          event.key ===
+          "Escape"
+        ) {
+
           femenLightbox();
+
         }
 
       }
     );
 
 
-    /*
-     * Montre foto yo
-     */
-    function afficherGalri(photos) {
+    /* =====================================================
+       AFFICHAGE GALRI
+    ====================================================== */
 
-      if (!photos || photos.length === 0) {
+    function afficherGalri(
+      photos
+    ) {
+
+      if (
+        !photos ||
+        photos.length === 0
+      ) {
 
         galleryContainer.innerHTML = `
+
           <div class="gallery-empty">
 
             <h3>
@@ -647,144 +1469,224 @@
             </h3>
 
             <p>
-              Nou pral pataje plis moman avèk kominote a
-              pandan aktivite nou yo ap kontinye.
+              Nou pral pataje plis moman
+              avèk kominote a pandan
+              aktivite nou yo ap kontinye.
             </p>
 
           </div>
+
         `;
 
         return;
+
       }
 
 
       galleryContainer.innerHTML =
-        photos.map((photo, index) => {
 
-          return `
-            <article
-              class="gallery-card"
-              data-index="${index}"
-              tabindex="0"
-            >
+        photos
+          .map(
+            (photo, index) => {
 
-              <img
-                src="${escapeHTML(photo.foto_url)}"
-                alt="${escapeHTML(
-                  photo.tit || "Foto LAJONÈ'M"
-                )}"
-                class="gallery-image"
-                loading="lazy"
-              >
+              return `
 
-              <div class="gallery-content">
+                <article
+                  class="gallery-card"
+                  data-index="${index}"
+                  tabindex="0"
+                  role="button"
+                  aria-label="Gade foto ${escapeHTML(
+                    photo.tit ||
+                    "LAJONÈ'M"
+                  )}"
+                >
 
-                ${
-                  photo.tit
-                    ? `
-                      <h3 class="gallery-title">
-                        ${escapeHTML(photo.tit)}
-                      </h3>
-                    `
-                    : ""
-                }
+                  <div
+                    class="gallery-image-wrapper"
+                  >
 
-                ${
-                  photo.deskripsyon
-                    ? `
-                      <p class="gallery-description">
-                        ${escapeHTML(
-                          photo.deskripsyon
-                        )}
-                      </p>
-                    `
-                    : ""
-                }
+                    <img
+                      src="${escapeHTML(
+                        photo.foto_url
+                      )}"
+                      alt="${escapeHTML(
+                        photo.tit ||
+                        "Foto LAJONÈ'M"
+                      )}"
+                      class="gallery-image"
+                      loading="lazy"
+                    >
 
-                ${
-                  photo.kategori
-                    ? `
-                      <span class="gallery-category">
-                        ${escapeHTML(
-                          photo.kategori
-                        )}
-                      </span>
-                    `
-                    : ""
-                }
+                    <div
+                      class="gallery-image-overlay"
+                    >
+                      Gade foto a
+                    </div>
 
-                ${
-                  photo.aktivite
-                    ? `
-                      <div class="gallery-activity">
-                        Aktivite:
-                        ${escapeHTML(
-                          photo.aktivite.tit
-                        )}
-                      </div>
-                    `
-                    : ""
-                }
-
-              </div>
-
-            </article>
-          `;
-
-        }).join("");
+                  </div>
 
 
-      /*
-       * Evite itilize index ki chanje
-       * lè itilizatè a filtre.
-       */
+                  <div
+                    class="gallery-content"
+                  >
+
+                    ${
+                      photo.tit
+
+                        ? `
+
+                          <h3
+                            class="gallery-title"
+                          >
+
+                            ${escapeHTML(
+                              photo.tit
+                            )}
+
+                          </h3>
+
+                        `
+
+                        : ""
+                    }
+
+
+                    ${
+                      photo.deskripsyon
+
+                        ? `
+
+                          <p
+                            class="gallery-description"
+                          >
+
+                            ${escapeHTML(
+                              photo.deskripsyon
+                            )}
+
+                          </p>
+
+                        `
+
+                        : ""
+                    }
+
+
+                    ${
+                      photo.kategori
+
+                        ? `
+
+                          <span
+                            class="gallery-category"
+                          >
+
+                            ${escapeHTML(
+                              photo.kategori
+                            )}
+
+                          </span>
+
+                        `
+
+                        : ""
+                    }
+
+
+                    ${
+                      photo.aktivite
+
+                        ? `
+
+                          <div
+                            class="gallery-activity"
+                          >
+
+                            Aktivite:
+                            ${escapeHTML(
+                              photo.aktivite.tit
+                            )}
+
+                          </div>
+
+                        `
+
+                        : ""
+                    }
+
+                  </div>
+
+                </article>
+
+              `;
+
+            }
+          )
+          .join("");
+
+
+
       const cards =
         galleryContainer.querySelectorAll(
           ".gallery-card"
         );
 
 
-      cards.forEach(card => {
+      cards.forEach(
+        card => {
 
-        const index =
-          Number(card.dataset.index);
-
-        card.addEventListener(
-          "click",
-          () => {
-
-            ouvriLightbox(photos[index]);
-
-          }
-        );
+          const index =
+            Number(
+              card.dataset.index
+            );
 
 
-        card.addEventListener(
-          "keydown",
-          event => {
+          card.addEventListener(
+            "click",
+            () => {
 
-            if (
-              event.key === "Enter" ||
-              event.key === " "
-            ) {
-
-              event.preventDefault();
-
-              ouvriLightbox(photos[index]);
+              ouvriLightbox(
+                photos[index]
+              );
 
             }
+          );
 
-          }
-        );
 
-      });
+          card.addEventListener(
+            "keydown",
+            event => {
+
+              if (
+                event.key ===
+                  "Enter" ||
+                event.key ===
+                  " "
+              ) {
+
+                event.preventDefault();
+
+
+                ouvriLightbox(
+                  photos[index]
+                );
+
+              }
+
+            }
+          );
+
+        }
+      );
 
     }
 
 
-    /*
-     * Chaje galri depi Supabase
-     */
+    /* =====================================================
+       CHAJE GALRI SUPABASE
+    ====================================================== */
+
     async function chargerGalri() {
 
       try {
@@ -809,7 +1711,10 @@
             )
           `)
 
-          .eq("piblik", true)
+          .eq(
+            "piblik",
+            true
+          )
 
           .order(
             "dat_foto",
@@ -827,32 +1732,65 @@
             error
           );
 
+
           galleryContainer.innerHTML = `
+
             <div class="gallery-error">
-              Nou pa kapab chaje foto yo kounye a.
-              Tanpri eseye ankò pita.
+
+              <h3>
+                Nou pa kapab chaje foto yo.
+              </h3>
+
+              <p>
+                Tanpri eseye ankò pita.
+              </p>
+
             </div>
+
           `;
 
           return;
+
         }
 
 
-        allPhotos = data || [];
+        allPhotos =
+          data || [];
 
-        chargerCategories(allPhotos);
 
-        afficherGalri(allPhotos);
+        chargerCategories(
+          allPhotos
+        );
+
+
+        afficherGalri(
+          allPhotos
+        );
 
 
       } catch (error) {
 
-        console.error(error);
+        console.error(
+          "Erè galri:",
+          error
+        );
+
 
         galleryContainer.innerHTML = `
+
           <div class="gallery-error">
-            Yon erè rive pandan n ap chaje galri a.
+
+            <h3>
+              Yon erè rive.
+            </h3>
+
+            <p>
+              Nou pa kapab chaje galri a
+              pou kounye a.
+            </p>
+
           </div>
+
         `;
 
       }
@@ -860,9 +1798,10 @@
     }
 
 
-    /*
-     * Filtre kategori
-     */
+    /* =====================================================
+       FILTRE
+    ====================================================== */
+
     categoryFilter.addEventListener(
       "change",
       () => {
@@ -873,7 +1812,9 @@
 
         if (!category) {
 
-          afficherGalri(allPhotos);
+          afficherGalri(
+            allPhotos
+          );
 
           return;
 
@@ -883,19 +1824,23 @@
         const filtered =
           allPhotos.filter(
             photo =>
-              photo.kategori === category
+              photo.kategori ===
+              category
           );
 
 
-        afficherGalri(filtered);
+        afficherGalri(
+          filtered
+        );
 
       }
     );
 
 
-    /*
-     * Kòmanse
-     */
+    /* =====================================================
+       DEMARE
+    ====================================================== */
+
     chargerGalri();
 
   </script>
