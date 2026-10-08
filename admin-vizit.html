@@ -1,665 +1,934 @@
 <!DOCTYPE html>
 <html lang="ht">
-
 <head>
-
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta
-  name="viewport"
-  content="width=device-width, initial-scale=1.0"
->
-
-<title>Vizit | LAJONÈ'M Admin</title>
+<title>Jesyon Vizit — LAJONÈ'M</title>
+<meta name="description" content="Jesyon vizit benefisyè LAJONÈ'M.">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
-
-<link
-  rel="preconnect"
-  href="https://fonts.gstatic.com"
-  crossorigin
->
-
-<link
-  href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Open+Sans:wght@400;500;600;700&display=swap"
-  rel="stylesheet"
->
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 <script src="js/supabase.js"></script>
-
+<script src="js/permissions.js"></script>
+<script src="js/notifikasyon.js"></script>
 
 <style>
-
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+:root{
+  --blue:#0B3B75;
+  --gold:#F2B705;
+  --green:#2E8B57;
+  --red:#dc3545;
+  --bg:#f4f7fb;
+  --white:#fff;
+  --text:#1d2939;
+  --muted:#667085;
+  --border:#e5e7eb;
 }
 
-body {
-  font-family: "Open Sans", sans-serif;
-  background: #f4f7fb;
-  color: #1d2939;
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
 }
 
-h1,
-h2,
-h3 {
-  font-family: "Montserrat", sans-serif;
+body{
+  font-family:"Open Sans",sans-serif;
+  background:var(--bg);
+  color:var(--text);
 }
 
-button,
-input,
-select,
-textarea {
-  font-family: inherit;
+h1,h2,h3,h4{
+  font-family:"Montserrat",sans-serif;
 }
 
-
-/* SIDEBAR */
-
-.sidebar {
-  position: fixed;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 260px;
-  background: #0B3B75;
-  color: white;
-  overflow-y: auto;
-  z-index: 1000;
-  transition: .25s;
+button,input,select,textarea{
+  font:inherit;
 }
 
-.logo {
-  padding: 25px 20px;
-  border-bottom: 1px solid rgba(255,255,255,.15);
+/* =========================
+   SIDEBAR
+========================= */
+
+.sidebar{
+  position:fixed;
+  left:0;
+  top:0;
+  bottom:0;
+  width:260px;
+  background:var(--blue);
+  color:#fff;
+  overflow-y:auto;
+  z-index:1000;
+  transition:.25s;
 }
 
-.logo h2 {
-  font-size: 22px;
+.sidebar-logo{
+  padding:22px 20px;
+  border-bottom:1px solid rgba(255,255,255,.15);
 }
 
-.logo p {
-  font-size: 12px;
-  opacity: .8;
-  margin-top: 5px;
+.sidebar-logo h2{
+  font-size:22px;
+  font-weight:800;
 }
 
-.menu {
-  padding: 15px 10px;
+.sidebar-logo p{
+  margin-top:5px;
+  font-size:12px;
+  opacity:.8;
 }
 
-.menu-title {
-  font-size: 11px;
-  text-transform: uppercase;
-  opacity: .55;
-  padding: 15px;
+.menu{
+  padding:15px 10px;
 }
 
-.menu a {
-  display: block;
-  color: white;
-  text-decoration: none;
-  padding: 12px 15px;
-  border-radius: 8px;
-  margin-bottom: 4px;
-  font-size: 14px;
+.menu-title{
+  padding:15px;
+  font-size:11px;
+  text-transform:uppercase;
+  opacity:.55;
+}
+
+.menu a{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  color:#fff;
+  text-decoration:none;
+  padding:12px 15px;
+  border-radius:8px;
+  margin-bottom:4px;
+  font-size:14px;
+  transition:.2s;
 }
 
 .menu a:hover,
-.menu a.active {
-  background: rgba(255,255,255,.16);
+.menu a.active{
+  background:rgba(255,255,255,.16);
 }
 
-
-/* MAIN */
-
-.main {
-  margin-left: 260px;
-  min-height: 100vh;
+.menu-icon{
+  width:22px;
+  text-align:center;
 }
 
-.topbar {
-  height: 70px;
-  background: white;
-  border-bottom: 1px solid #e5e7eb;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 25px;
-  position: sticky;
-  top: 0;
-  z-index: 900;
+/* =========================
+   MAIN
+========================= */
+
+.main{
+  margin-left:260px;
+  min-height:100vh;
 }
 
-.topbar-left {
-  display: flex;
-  align-items: center;
-  gap: 12px;
+.topbar{
+  height:70px;
+  background:#fff;
+  border-bottom:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 25px;
+  position:sticky;
+  top:0;
+  z-index:900;
 }
 
-.topbar h1 {
-  color: #0B3B75;
-  font-size: 21px;
+.topbar-left{
+  display:flex;
+  align-items:center;
+  gap:12px;
 }
 
-.menu-toggle {
-  display: none;
-  background: #0B3B75;
-  color: white;
-  border: none;
-  padding: 9px 12px;
-  border-radius: 7px;
-  font-size: 18px;
+.topbar h1{
+  color:var(--blue);
+  font-size:21px;
 }
 
-.logout {
-  background: #dc3545;
-  color: white;
-  border: none;
-  padding: 9px 15px;
-  border-radius: 7px;
-  cursor: pointer;
-  font-weight: 600;
+.menu-toggle{
+  display:none;
+  border:0;
+  background:var(--blue);
+  color:#fff;
+  padding:9px 12px;
+  border-radius:7px;
+  cursor:pointer;
+  font-size:18px;
 }
 
-.content {
-  padding: 25px;
+/* =========================
+   ADMIN PROFILE / NOTIFICATION
+========================= */
+
+.topbar-right{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  position:relative;
 }
 
-
-/* MESSAGE */
-
-.message {
-  display: none;
-  padding: 13px 15px;
-  border-radius: 8px;
-  margin-bottom: 18px;
-  font-size: 14px;
+.notification-button{
+  position:relative;
+  width:42px;
+  height:42px;
+  border:1px solid var(--border);
+  background:#fff;
+  border-radius:10px;
+  cursor:pointer;
+  font-size:19px;
 }
 
-.message.success {
-  display: block;
-  background: #dcfce7;
-  color: #166534;
+.notification-badge{
+  position:absolute;
+  top:-5px;
+  right:-5px;
+  min-width:19px;
+  height:19px;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  border-radius:50%;
+  background:var(--red);
+  color:#fff;
+  font-size:10px;
+  font-weight:700;
 }
 
-.message.error {
-  display: block;
-  background: #fee2e2;
-  color: #991b1b;
+.profile{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  padding:6px 10px;
+  border-radius:10px;
+  background:#f8fafc;
 }
 
-
-/* STATS */
-
-.stats {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 15px;
-  margin-bottom: 22px;
+.profile-avatar{
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  background:var(--blue);
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:800;
 }
 
-.stat {
-  background: white;
-  border-radius: 12px;
-  padding: 20px;
-  box-shadow: 0 2px 8px rgba(0,0,0,.05);
+.profile-info strong{
+  display:block;
+  font-size:12px;
 }
 
-.stat p {
-  color: #667085;
-  font-size: 13px;
-  margin-bottom: 8px;
+.profile-info span{
+  display:block;
+  color:var(--muted);
+  font-size:10px;
 }
 
-.stat h2 {
-  color: #0B3B75;
-  font-size: 27px;
+.logout{
+  border:0;
+  background:var(--red);
+  color:#fff;
+  padding:9px 14px;
+  border-radius:7px;
+  cursor:pointer;
+  font-weight:700;
 }
 
+/* =========================
+   NOTIFICATION PANEL
+========================= */
 
-/* TOOLBAR */
-
-.toolbar {
-  background: white;
-  padding: 18px;
-  border-radius: 12px;
-  margin-bottom: 18px;
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-  flex-wrap: wrap;
-  box-shadow: 0 2px 8px rgba(0,0,0,.05);
+.notifikasyon-panel{
+  position:absolute;
+  right:120px;
+  top:55px;
+  width:360px;
+  max-width:calc(100vw - 30px);
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:12px;
+  box-shadow:0 12px 35px rgba(0,0,0,.15);
+  display:none;
+  overflow:hidden;
+  z-index:3000;
 }
 
-.toolbar-left {
-  display: flex;
-  gap: 10px;
-  flex: 1;
-  flex-wrap: wrap;
+.notifikasyon-panel.aktif{
+  display:block;
 }
 
-.search {
-  flex: 1;
-  min-width: 250px;
+.notifikasyon-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:15px;
+  border-bottom:1px solid var(--border);
 }
 
-input,
-select,
-textarea {
-  width: 100%;
-  border: 1px solid #d0d5dd;
-  border-radius: 7px;
-  padding: 10px 12px;
-  background: white;
-  outline: none;
+.notifikasyon-header h3{
+  color:var(--blue);
+  font-size:15px;
+}
+
+.notifikasyon-header button{
+  border:0;
+  background:none;
+  color:var(--blue);
+  cursor:pointer;
+  font-size:12px;
+}
+
+.notifikasyon-container{
+  max-height:420px;
+  overflow-y:auto;
+}
+
+.notifikasyon-vide{
+  padding:35px 20px;
+  text-align:center;
+  color:var(--muted);
+}
+
+.notifikasyon-vide-ikon{
+  font-size:30px;
+  margin-bottom:10px;
+}
+
+.notifikasyon-item{
+  display:flex;
+  gap:10px;
+  padding:13px;
+  border-bottom:1px solid #f0f2f5;
+}
+
+.notifikasyon-pa-li{
+  background:#f5f9ff;
+}
+
+.notifikasyon-ikon{
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  background:#eef4fb;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-shrink:0;
+}
+
+.notifikasyon-kontni{
+  flex:1;
+}
+
+.notifikasyon-tet{
+  display:flex;
+  align-items:center;
+  gap:5px;
+}
+
+.notifikasyon-tet strong{
+  font-size:12px;
+}
+
+.notifikasyon-kontni p{
+  margin-top:3px;
+  font-size:12px;
+  color:var(--muted);
+}
+
+.notifikasyon-kontni small{
+  display:block;
+  margin-top:5px;
+  color:#98a2b3;
+  font-size:10px;
+}
+
+.notifikasyon-pwen{
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:var(--red);
+}
+
+.notifikasyon-aksyon button{
+  border:0;
+  background:var(--blue);
+  color:#fff;
+  border-radius:5px;
+  padding:5px 7px;
+  font-size:10px;
+  cursor:pointer;
+}
+
+/* =========================
+   CONTENT
+========================= */
+
+.content{
+  padding:25px;
+}
+
+.page-heading{
+  margin-bottom:20px;
+}
+
+.page-heading h2{
+  color:var(--blue);
+  font-size:24px;
+}
+
+.page-heading p{
+  margin-top:5px;
+  color:var(--muted);
+  font-size:13px;
+}
+
+/* =========================
+   MESSAGE
+========================= */
+
+.message{
+  display:none;
+  padding:13px 15px;
+  border-radius:8px;
+  margin-bottom:18px;
+  font-size:14px;
+}
+
+.message.success{
+  display:block;
+  background:#dcfce7;
+  color:#166534;
+}
+
+.message.error{
+  display:block;
+  background:#fee2e2;
+  color:#991b1b;
+}
+
+/* =========================
+   STATS
+========================= */
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:15px;
+  margin-bottom:22px;
+}
+
+.stat{
+  background:#fff;
+  border-radius:12px;
+  padding:20px;
+  box-shadow:0 2px 8px rgba(0,0,0,.05);
+}
+
+.stat-icon{
+  width:40px;
+  height:40px;
+  border-radius:10px;
+  background:#eef4fb;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin-bottom:12px;
+  font-size:19px;
+}
+
+.stat p{
+  color:var(--muted);
+  font-size:13px;
+  margin-bottom:7px;
+}
+
+.stat h2{
+  color:var(--blue);
+  font-size:27px;
+}
+
+/* =========================
+   TOOLBAR
+========================= */
+
+.toolbar{
+  background:#fff;
+  padding:18px;
+  border-radius:12px;
+  margin-bottom:18px;
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  flex-wrap:wrap;
+  box-shadow:0 2px 8px rgba(0,0,0,.05);
+}
+
+.toolbar-left{
+  display:flex;
+  gap:10px;
+  flex:1;
+  flex-wrap:wrap;
+}
+
+.search{
+  flex:1;
+  min-width:250px;
+}
+
+input,select,textarea{
+  width:100%;
+  border:1px solid #d0d5dd;
+  border-radius:7px;
+  padding:10px 12px;
+  background:#fff;
+  outline:none;
 }
 
 input:focus,
 select:focus,
-textarea:focus {
-  border-color: #0B3B75;
+textarea:focus{
+  border-color:var(--blue);
+  box-shadow:0 0 0 2px rgba(11,59,117,.08);
 }
 
-textarea {
-  min-height: 105px;
-  resize: vertical;
+textarea{
+  min-height:105px;
+  resize:vertical;
 }
 
-.btn {
-  border: none;
-  padding: 10px 15px;
-  border-radius: 7px;
-  cursor: pointer;
-  font-weight: 600;
+.btn{
+  border:0;
+  padding:10px 15px;
+  border-radius:7px;
+  cursor:pointer;
+  font-weight:700;
 }
 
-.btn-primary {
-  background: #0B3B75;
-  color: white;
+.btn-primary{
+  background:var(--blue);
+  color:#fff;
 }
 
-.btn-secondary {
-  background: #667085;
-  color: white;
+.btn-secondary{
+  background:#667085;
+  color:#fff;
 }
 
-.btn-warning {
-  background: #F2B705;
-  color: #111;
+.btn-warning{
+  background:var(--gold);
+  color:#111;
 }
 
-.btn-danger {
-  background: #dc3545;
-  color: white;
+.btn-danger{
+  background:var(--red);
+  color:#fff;
 }
 
-
-/* TABLE */
-
-.table-box {
-  background: white;
-  border-radius: 12px;
-  overflow-x: auto;
-  box-shadow: 0 2px 8px rgba(0,0,0,.05);
+.btn:disabled{
+  opacity:.6;
+  cursor:not-allowed;
 }
 
-table {
-  width: 100%;
-  min-width: 1000px;
-  border-collapse: collapse;
+/* =========================
+   TABLE
+========================= */
+
+.table-box{
+  background:#fff;
+  border-radius:12px;
+  overflow-x:auto;
+  box-shadow:0 2px 8px rgba(0,0,0,.05);
 }
 
-th,
-td {
-  padding: 13px 15px;
-  border-bottom: 1px solid #eaecf0;
-  text-align: left;
-  font-size: 13px;
+table{
+  width:100%;
+  min-width:1050px;
+  border-collapse:collapse;
 }
 
-th {
-  background: #f8fafc;
-  color: #475467;
+th,td{
+  padding:13px 15px;
+  border-bottom:1px solid #eaecf0;
+  text-align:left;
+  font-size:13px;
 }
 
-tr:hover td {
-  background: #fafcff;
+th{
+  background:#f8fafc;
+  color:#475467;
+  font-weight:700;
 }
 
-
-/* BADGE */
-
-.badge {
-  display: inline-block;
-  padding: 5px 9px;
-  border-radius: 20px;
-  font-size: 11px;
-  font-weight: 700;
+tr:hover td{
+  background:#fafcff;
 }
-
-.badge-woutin {
-  background: #dbeafe;
-  color: #1e40af;
-}
-
-.badge-sive {
-  background: #dcfce7;
-  color: #166534;
-}
-
-.badge-ijans {
-  background: #fee2e2;
-  color: #991b1b;
-}
-
-.badge-default {
-  background: #e5e7eb;
-  color: #374151;
-}
-
-
-/* ACTIONS */
-
-.actions {
-  display: flex;
-  gap: 6px;
-  flex-wrap: wrap;
-}
-
-.actions button {
-  border: none;
-  border-radius: 6px;
-  padding: 7px 10px;
-  cursor: pointer;
-  font-size: 12px;
-  font-weight: 600;
-}
-
-
-/* LOADING */
 
 .loading,
-.empty {
-  text-align: center;
-  padding: 35px;
-  color: #667085;
+.empty{
+  text-align:center;
+  padding:35px;
+  color:var(--muted);
 }
 
+/* =========================
+   BADGES
+========================= */
 
-/* MODAL */
-
-.modal {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,.55);
-  z-index: 2000;
-  overflow-y: auto;
-  padding: 20px;
+.badge{
+  display:inline-block;
+  padding:5px 9px;
+  border-radius:20px;
+  font-size:11px;
+  font-weight:700;
 }
 
-.modal.show {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
+.badge-woutin{
+  background:#dbeafe;
+  color:#1e40af;
 }
 
-.modal-box {
-  width: 100%;
-  max-width: 900px;
-  background: white;
-  border-radius: 14px;
-  margin: 20px auto;
-  overflow: hidden;
+.badge-sive{
+  background:#dcfce7;
+  color:#166534;
 }
 
-.modal-header {
-  background: #0B3B75;
-  color: white;
-  padding: 18px 22px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+.badge-ijans{
+  background:#fee2e2;
+  color:#991b1b;
 }
 
-.modal-header h2 {
-  font-size: 19px;
+.badge-default{
+  background:#e5e7eb;
+  color:#374151;
 }
 
-.close {
-  border: none;
-  background: transparent;
-  color: white;
-  font-size: 28px;
-  cursor: pointer;
+/* =========================
+   ACTIONS
+========================= */
+
+.actions{
+  display:flex;
+  gap:6px;
+  flex-wrap:wrap;
 }
 
-.modal-body {
-  padding: 22px;
+.actions button{
+  border:0;
+  border-radius:6px;
+  padding:7px 10px;
+  cursor:pointer;
+  font-size:12px;
+  font-weight:700;
 }
 
-.form-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 15px;
+/* =========================
+   MODAL
+========================= */
+
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.55);
+  z-index:2000;
+  overflow-y:auto;
+  padding:20px;
 }
 
-.form-group label {
-  display: block;
-  margin-bottom: 6px;
-  font-size: 13px;
-  font-weight: 700;
-  color: #344054;
+.modal.show{
+  display:flex;
+  justify-content:center;
+  align-items:flex-start;
 }
 
-.full {
-  grid-column: 1 / -1;
+.modal-box{
+  width:100%;
+  max-width:900px;
+  background:#fff;
+  border-radius:14px;
+  margin:20px auto;
+  overflow:hidden;
 }
 
-.modal-footer {
-  border-top: 1px solid #eaecf0;
-  padding: 18px 22px;
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px;
+.modal-header{
+  background:var(--blue);
+  color:#fff;
+  padding:18px 22px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
 }
 
+.modal-header h2{
+  font-size:19px;
+}
 
-/* RESPONSIVE */
+.close{
+  border:0;
+  background:transparent;
+  color:#fff;
+  font-size:28px;
+  cursor:pointer;
+}
 
-@media(max-width:1000px) {
+.modal-body{
+  padding:22px;
+}
 
-  .stats {
-    grid-template-columns: repeat(2, 1fr);
+.form-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:15px;
+}
+
+.form-group label{
+  display:block;
+  margin-bottom:6px;
+  font-size:13px;
+  font-weight:700;
+  color:#344054;
+}
+
+.full{
+  grid-column:1/-1;
+}
+
+.modal-footer{
+  border-top:1px solid #eaecf0;
+  padding:18px 22px;
+  display:flex;
+  justify-content:flex-end;
+  gap:10px;
+}
+
+/* =========================
+   ACCESS DENIED
+========================= */
+
+.access-denied{
+  display:none;
+  background:#fff;
+  border-radius:14px;
+  padding:50px 25px;
+  text-align:center;
+  box-shadow:0 2px 8px rgba(0,0,0,.05);
+}
+
+.access-denied h2{
+  color:var(--red);
+  margin-bottom:10px;
+}
+
+.access-denied p{
+  color:var(--muted);
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:1100px){
+  .stats{
+    grid-template-columns:repeat(2,1fr);
   }
 
+  .profile-info{
+    display:none;
+  }
 }
 
-@media(max-width:768px) {
+@media(max-width:768px){
 
-  .sidebar {
-    transform: translateX(-100%);
+  .sidebar{
+    transform:translateX(-100%);
   }
 
-  .sidebar.open {
-    transform: translateX(0);
+  .sidebar.open{
+    transform:translateX(0);
   }
 
-  .main {
-    margin-left: 0;
+  .main{
+    margin-left:0;
   }
 
-  .menu-toggle {
-    display: block;
+  .menu-toggle{
+    display:block;
   }
 
-  .content {
-    padding: 15px;
+  .content{
+    padding:15px;
   }
 
-  .form-grid {
-    grid-template-columns: 1fr;
+  .form-grid{
+    grid-template-columns:1fr;
   }
 
-  .full {
-    grid-column: auto;
+  .full{
+    grid-column:auto;
   }
 
+  .topbar{
+    padding:0 15px;
+  }
+
+  .topbar h1{
+    font-size:17px;
+  }
+
+  .logout{
+    padding:8px 10px;
+    font-size:12px;
+  }
+
+  .notifikasyon-panel{
+    right:0;
+  }
 }
 
-@media(max-width:500px) {
+@media(max-width:500px){
 
-  .stats {
-    grid-template-columns: 1fr;
+  .stats{
+    grid-template-columns:1fr;
   }
 
-  .topbar {
-    padding: 0 15px;
+  .content{
+    padding:10px;
   }
 
-  .content {
-    padding: 10px;
+  .search{
+    min-width:100%;
   }
 
-  .search {
-    min-width: 100%;
+  .toolbar-left{
+    width:100%;
   }
 
+  .profile{
+    display:none;
+  }
+
+  .page-heading h2{
+    font-size:20px;
+  }
 }
-
 </style>
-
 </head>
-
 
 <body>
 
+<!-- =========================
+     SIDEBAR
+========================= -->
 
-<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
 
-<aside
-  class="sidebar"
-  id="sidebar"
->
-
-  <div class="logo">
-
+  <div class="sidebar-logo">
     <h2>LAJONÈ'M</h2>
-
-    <p>
-      Laj yo se onè nou.
-    </p>
-
+    <p>Laj yo se onè nou.</p>
   </div>
-
 
   <nav class="menu">
 
-    <div class="menu-title">
-      Prensipal
-    </div>
+    <div class="menu-title">Prensipal</div>
 
     <a href="admin.html">
+      <span class="menu-icon">📊</span>
       Dashboard
     </a>
 
+    <div class="menu-title">Jesyon</div>
 
-    <div class="menu-title">
-      Jesyon
-    </div>
-
-    <a href="admin-aktivite.html">
+    <a href="admin-aktivite.html" data-permission="jere_aktivite">
+      <span class="menu-icon">📅</span>
       Aktivite
     </a>
 
-    <a href="admin-pwogram.html">
+    <a href="admin-pwogram.html" data-permission="jere_pwogram">
+      <span class="menu-icon">📋</span>
       Pwogram
     </a>
 
-    <a href="admin-benefisye.html">
+    <a href="admin-benefisye.html" data-permission="jere_benefisye">
+      <span class="menu-icon">👴</span>
       Benefisyè
     </a>
 
-    <a href="admin-volonte.html">
+    <a href="admin-volonte.html" data-permission="jere_volonte">
+      <span class="menu-icon">🤝</span>
       Volontè
     </a>
 
-    <a
-      href="admin-vizit.html"
-      class="active"
-    >
+    <a href="admin-vizit.html"
+       class="active"
+       data-permission="jere_vizit">
+      <span class="menu-icon">🏠</span>
       Vizit
     </a>
 
+    <div class="menu-title">Resous</div>
 
-    <div class="menu-title">
-      Resous
-    </div>
-
-    <a
-      href="#"
-      onclick="paDisponib();return false;"
-    >
+    <a href="admin-don.html" data-permission="jere_don">
+      <span class="menu-icon">💰</span>
       Don
     </a>
 
-    <a
-      href="#"
-      onclick="paDisponib();return false;"
-    >
+    <a href="admin-donatè.html" data-permission="jere_donatè">
+      <span class="menu-icon">❤️</span>
       Donatè
     </a>
 
-    <a
-      href="#"
-      onclick="paDisponib();return false;"
-    >
+    <a href="admin-nouvel.html" data-permission="jere_nouvel">
+      <span class="menu-icon">📰</span>
       Nouvèl
     </a>
 
-    <a
-      href="#"
-      onclick="paDisponib();return false;"
-    >
+    <a href="admin-patner.html" data-permission="jere_patne">
+      <span class="menu-icon">🤝</span>
       Patnè
     </a>
 
-    <a
-      href="#"
-      onclick="paDisponib();return false;"
-    >
+    <a href="admin-galri.html" data-permission="jere_galri">
+      <span class="menu-icon">🖼️</span>
       Galri
     </a>
 
-    <a
-      href="#"
-      onclick="paDisponib();return false;"
-    >
+    <a href="admin-rapo.html" data-permission="jere_rapo">
+      <span class="menu-icon">📄</span>
       Rapò
     </a>
 
-    <a
-      href="#"
-      onclick="paDisponib();return false;"
-    >
+    <a href="admin-mesaj.html" data-permission="jere_mesaj">
+      <span class="menu-icon">✉️</span>
       Mesaj
     </a>
 
-  </nav>
+    <div class="menu-title">Sistèm</div>
 
+    <a href="admin-itilizatè.html" data-permission="jere_itilizatè">
+      <span class="menu-icon">⚙️</span>
+      Itilizatè
+    </a>
+
+    <a href="admin-paramet.html" data-permission="jere_paramet">
+      <span class="menu-icon">🔧</span>
+      Paramèt
+    </a>
+
+  </nav>
 </aside>
 
-
-
-<!-- MAIN -->
+<!-- =========================
+     MAIN
+========================= -->
 
 <main class="main">
-
 
   <header class="topbar">
 
@@ -667,228 +936,235 @@ tr:hover td {
 
       <button
         class="menu-toggle"
-        onclick="toggleSidebar()"
+        id="menuToggle"
+        type="button"
       >
         ☰
       </button>
 
-      <h1>
-        Jesyon Vizit
-      </h1>
+      <h1>Jesyon Vizit</h1>
 
     </div>
 
+    <div class="topbar-right">
 
-    <button
-      class="logout"
-      onclick="dekonèkte()"
-    >
-      Dekonekte
-    </button>
+      <button
+        class="notification-button"
+        id="notificationButton"
+        type="button"
+        onclick="toggleNotifikasyon()"
+        aria-label="Notifikasyon"
+      >
+        🔔
+        <span
+          class="notification-badge"
+          id="notifikasyonBadge"
+        >0</span>
+      </button>
+
+      <div
+        class="notifikasyon-panel"
+        id="notifikasyonPanel"
+      >
+
+        <div class="notifikasyon-header">
+
+          <h3>Notifikasyon</h3>
+
+          <button
+            type="button"
+            onclick="makeToutNotifikasyonLi()"
+          >
+            Make tout li
+          </button>
+
+        </div>
+
+        <div
+          class="notifikasyon-container"
+          id="notifikasyonContainer"
+        ></div>
+
+      </div>
+
+      <div class="profile">
+
+        <div
+          class="profile-avatar"
+          id="profileAvatar"
+        >
+          A
+        </div>
+
+        <div class="profile-info">
+
+          <strong id="profileName">
+            Administratè
+          </strong>
+
+          <span id="profileRole">
+            Administratè
+          </span>
+
+        </div>
+
+      </div>
+
+      <button
+        class="logout"
+        type="button"
+        onclick="dekonèkte()"
+      >
+        Dekonekte
+      </button>
+
+    </div>
 
   </header>
 
-
-
   <section class="content">
 
+    <div class="page-heading">
+      <h2>Vizit benefisyè yo</h2>
+      <p>
+        Anrejistre, suiv ak jere vizit ekip LAJONÈ'M fè avèk benefisyè yo.
+      </p>
+    </div>
 
     <div
       id="message"
       class="message"
     ></div>
 
-
-
-    <!-- STATS -->
-
-    <div class="stats">
-
-      <div class="stat">
-
-        <p>
-          Total vizit
-        </p>
-
-        <h2 id="total">
-          0
-        </h2>
-
-      </div>
-
-
-      <div class="stat">
-
-        <p>
-          Vizit jodi a
-        </p>
-
-        <h2 id="jodi">
-          0
-        </h2>
-
-      </div>
-
-
-      <div class="stat">
-
-        <p>
-          Swivi nesesè
-        </p>
-
-        <h2 id="swivi">
-          0
-        </h2>
-
-      </div>
-
-
-      <div class="stat">
-
-        <p>
-          Vizit ijans
-        </p>
-
-        <h2 id="ijans">
-          0
-        </h2>
-
-      </div>
-
+    <div
+      id="accessDenied"
+      class="access-denied"
+    >
+      <h2>Accès refize</h2>
+      <p>
+        Ou pa gen pèmisyon pou jere vizit yo.
+      </p>
     </div>
 
+    <div id="pageContent">
 
+      <!-- STATS -->
 
-    <!-- TOOLBAR -->
+      <div class="stats">
 
-    <div class="toolbar">
+        <div class="stat">
+          <div class="stat-icon">🏠</div>
+          <p>Total vizit</p>
+          <h2 id="total">0</h2>
+        </div>
 
-      <div class="toolbar-left">
+        <div class="stat">
+          <div class="stat-icon">📅</div>
+          <p>Vizit jodi a</p>
+          <h2 id="jodi">0</h2>
+        </div>
 
+        <div class="stat">
+          <div class="stat-icon">🔄</div>
+          <p>Swivi nesesè</p>
+          <h2 id="swivi">0</h2>
+        </div>
 
-        <input
-          type="search"
-          id="search"
-          class="search"
-          placeholder="Chèche benefisyè, volontè..."
-          oninput="filtre()"
+        <div class="stat">
+          <div class="stat-icon">🚨</div>
+          <p>Vizit ijans</p>
+          <h2 id="ijans">0</h2>
+        </div>
+
+      </div>
+
+      <!-- TOOLBAR -->
+
+      <div class="toolbar">
+
+        <div class="toolbar-left">
+
+          <input
+            type="search"
+            id="search"
+            class="search"
+            placeholder="Chèche benefisyè, volontè..."
+            oninput="filtre()"
+          >
+
+          <select
+            id="filtreKalite"
+            onchange="filtre()"
+          >
+            <option value="">Tout kalite vizit</option>
+            <option value="woutin">Woutin</option>
+            <option value="swivi">Swivi</option>
+            <option value="ijans">Ijans</option>
+          </select>
+
+        </div>
+
+        <button
+          class="btn btn-primary"
+          type="button"
+          onclick="nouvoVizit()"
+        >
+          + Anrejistre vizit
+        </button>
+
+      </div>
+
+      <!-- TABLE -->
+
+      <div class="table-box">
+
+        <div
+          id="loading"
+          class="loading"
+        >
+          Chaje vizit yo...
+        </div>
+
+        <table
+          id="table"
+          style="display:none;"
         >
 
+          <thead>
+            <tr>
+              <th>Dat</th>
+              <th>Benefisyè</th>
+              <th>Volontè</th>
+              <th>Kalite</th>
+              <th>Swivi</th>
+              <th>Pwochen vizit</th>
+              <th>Aksyon</th>
+            </tr>
+          </thead>
 
-        <select
-          id="filtreKalite"
-          onchange="filtre()"
+          <tbody id="tbody"></tbody>
+
+        </table>
+
+        <div
+          id="empty"
+          class="empty"
+          style="display:none;"
         >
+          Pa gen vizit pou montre.
+        </div>
 
-          <option value="">
-            Tout kalite vizit
-          </option>
-
-          <option value="woutin">
-            Woutin
-          </option>
-
-          <option value="swivi">
-            Swivi
-          </option>
-
-          <option value="ijans">
-            Ijans
-          </option>
-
-        </select>
-
-      </div>
-
-
-      <button
-        class="btn btn-primary"
-        onclick="nouvoVizit()"
-      >
-        + Anrejistre vizit
-      </button>
-
-    </div>
-
-
-
-    <!-- TABLE -->
-
-    <div class="table-box">
-
-      <div
-        id="loading"
-        class="loading"
-      >
-        Chaje vizit yo...
-      </div>
-
-
-      <table
-        id="table"
-        style="display:none;"
-      >
-
-        <thead>
-
-          <tr>
-
-            <th>
-              Dat
-            </th>
-
-            <th>
-              Benefisyè
-            </th>
-
-            <th>
-              Volontè
-            </th>
-
-            <th>
-              Kalite
-            </th>
-
-            <th>
-              Swivi
-            </th>
-
-            <th>
-              Pwochen vizit
-            </th>
-
-            <th>
-              Aksyon
-            </th>
-
-          </tr>
-
-        </thead>
-
-
-        <tbody id="tbody"></tbody>
-
-      </table>
-
-
-      <div
-        id="empty"
-        class="empty"
-        style="display:none;"
-      >
-        Pa gen vizit pou montre.
       </div>
 
     </div>
-
 
   </section>
 
 </main>
 
-
-
-<!-- MODAL -->
+<!-- =========================
+     MODAL
+========================= -->
 
 <div
   class="modal"
@@ -896,7 +1172,6 @@ tr:hover td {
 >
 
   <div class="modal-box">
-
 
     <div class="modal-header">
 
@@ -906,6 +1181,7 @@ tr:hover td {
 
       <button
         class="close"
+        type="button"
         onclick="femenModal()"
       >
         ×
@@ -913,22 +1189,15 @@ tr:hover td {
 
     </div>
 
-
-
     <form id="form">
-
 
       <div class="modal-body">
 
-
         <div class="form-grid">
-
-
-          <!-- BENEFISYE -->
 
           <div class="form-group">
 
-            <label>
+            <label for="benefisye">
               Benefisyè *
             </label>
 
@@ -936,62 +1205,44 @@ tr:hover td {
               id="benefisye"
               required
             >
-
               <option value="">
                 Chwazi benefisyè
               </option>
-
             </select>
 
           </div>
 
-
-
-          <!-- VOLONTE -->
-
           <div class="form-group">
 
-            <label>
+            <label for="volonte">
               Volontè
             </label>
 
             <select id="volonte">
-
               <option value="">
                 Chwazi volontè
               </option>
-
             </select>
 
           </div>
 
-
-
-          <!-- AKTIVITE -->
-
           <div class="form-group">
 
-            <label>
+            <label for="aktivite">
               Aktivite
             </label>
 
             <select id="aktivite">
-
               <option value="">
                 Pa asosye ak aktivite
               </option>
-
             </select>
 
           </div>
 
-
-
-          <!-- DAT -->
-
           <div class="form-group">
 
-            <label>
+            <label for="dat_vizit">
               Dat vizit *
             </label>
 
@@ -1003,13 +1254,9 @@ tr:hover td {
 
           </div>
 
-
-
-          <!-- KALITE -->
-
           <div class="form-group">
 
-            <label>
+            <label for="kalite_vizit">
               Kalite vizit *
             </label>
 
@@ -1017,54 +1264,35 @@ tr:hover td {
               id="kalite_vizit"
               required
             >
-
               <option value="woutin">
                 Vizit woutin
               </option>
-
               <option value="swivi">
                 Vizit swivi
               </option>
-
               <option value="ijans">
                 Vizit ijans
               </option>
-
             </select>
 
           </div>
 
-
-
-          <!-- SWIVI -->
-
           <div class="form-group">
 
-            <label>
+            <label for="swivi_nesesè">
               Swivi nesesè?
             </label>
 
             <select id="swivi_nesesè">
-
-              <option value="false">
-                Non
-              </option>
-
-              <option value="true">
-                Wi
-              </option>
-
+              <option value="false">Non</option>
+              <option value="true">Wi</option>
             </select>
 
           </div>
 
-
-
-          <!-- PWOCHEN VIZIT -->
-
           <div class="form-group">
 
-            <label>
+            <label for="pwochen_vizit">
               Pwochen vizit
             </label>
 
@@ -1075,13 +1303,9 @@ tr:hover td {
 
           </div>
 
-
-
-          <!-- REZIME -->
-
           <div class="form-group full">
 
-            <label>
+            <label for="rezime">
               Rezime vizit la
             </label>
 
@@ -1092,13 +1316,9 @@ tr:hover td {
 
           </div>
 
-
-
-          <!-- BEZWEN -->
-
           <div class="form-group full">
 
-            <label>
+            <label for="bezwen">
               Bezwen yo idantifye
             </label>
 
@@ -1109,13 +1329,9 @@ tr:hover td {
 
           </div>
 
-
-
-          <!-- AKSYON -->
-
           <div class="form-group full">
 
-            <label>
+            <label for="aksyon">
               Aksyon ki pran
             </label>
 
@@ -1126,12 +1342,9 @@ tr:hover td {
 
           </div>
 
-
         </div>
 
       </div>
-
-
 
       <div class="modal-footer">
 
@@ -1143,7 +1356,6 @@ tr:hover td {
           Anile
         </button>
 
-
         <button
           type="submit"
           class="btn btn-primary"
@@ -1154,105 +1366,100 @@ tr:hover td {
 
       </div>
 
-
     </form>
 
   </div>
 
 </div>
 
-
-
 <script>
 
-
-/* =========================
+/* =========================================================
    VARIABLES
-========================= */
+========================================================= */
 
 let toutVizit = [];
-
 let vizitPouModifye = null;
+let aksèVizit = false;
 
 
-/* =========================
-   VERIFY ADMIN
-========================= */
+/* =========================================================
+   VERIFYE AKSÈ RBAC
+========================================================= */
 
-async function verifyeAdmin() {
+async function verifyeAksesVizit(){
 
-  const {
-    data: { user },
-    error
-  } =
-    await supabaseClient.auth.getUser();
+  try{
 
+    await chajeRBAC();
 
-  if (error || !user) {
+    aksèVizit =
+      genPèmisyon("jere_vizit");
 
-    window.location.href =
-      "login.html";
+    if(!aksèVizit){
 
-    return false;
-  }
+      document.getElementById("pageContent")
+        .style.display = "none";
 
+      document.getElementById("accessDenied")
+        .style.display = "block";
 
-  const {
-    data,
-    error: adminError
-  } =
-    await supabaseClient
-      .from("itilizatè_admin")
-      .select(`
-        id,
-        user_id,
-        non,
-        siyati,
-        email,
-        wòl,
-        aktif
-      `)
-      .eq("user_id", user.id)
-      .eq("aktif", true)
-      .maybeSingle();
+      return false;
+    }
 
+    return true;
 
-  if (adminError) {
+  }catch(error){
 
-    montreErreur(adminError);
-
-    return false;
-  }
-
-
-  if (
-    !data ||
-    !["super_admin", "admin"]
-      .includes(data.wòl)
-  ) {
-
-    alert(
-      "Ou pa gen otorizasyon pou jwenn aksè nan paj sa a."
+    console.error(
+      "RBAC VIZIT ERROR:",
+      error
     );
 
-    await supabaseClient.auth.signOut();
+    document.getElementById("pageContent")
+      .style.display = "none";
 
-    window.location.href =
-      "login.html";
+    document.getElementById("accessDenied")
+      .style.display = "block";
 
     return false;
   }
-
-
-  return true;
 }
 
 
-/* =========================
-   CHAJE LISTE
-========================= */
+/* =========================================================
+   PROFIL ADMIN
+========================================================= */
 
-async function chajeListes() {
+function aficheProfil(){
+
+  const profil =
+    jwennProfilAdmin();
+
+  if(!profil) return;
+
+  const non =
+    `${profil.non || ""} ${profil.siyati || ""}`
+      .trim() || "Administratè";
+
+  document.getElementById("profileName")
+    .textContent = non;
+
+  document.getElementById("profileRole")
+    .textContent =
+      jwennNonWolAdmin();
+
+  document.getElementById("profileAvatar")
+    .textContent =
+      non.charAt(0).toUpperCase();
+}
+
+
+/* =========================================================
+   CHAJE LISTES
+========================================================= */
+
+async function chajeListes(){
 
   const [
     benefResult,
@@ -1262,55 +1469,66 @@ async function chajeListes() {
 
     supabaseClient
       .from("benefisye")
-      .select("id, kòd_benefisye, non, siyati")
-      .eq("estati", "aktif")
+      .select(
+        "id, kòd_benefisye, non, siyati"
+      )
+      .eq("estati","aktif")
       .order("non"),
 
     supabaseClient
       .from("volonte")
-      .select("id, nimewo_volonte, non, siyati")
-      .in("estati", ["aksepte", "aktif"])
+      .select(
+        "id, nimewo_volonte, non, siyati"
+      )
+      .in(
+        "estati",
+        ["aksepte","aktif"]
+      )
       .order("non"),
 
     supabaseClient
       .from("aktivite")
-      .select("id, tit, dat_aktivite")
+      .select(
+        "id, tit, dat_aktivite"
+      )
       .order(
         "dat_aktivite",
-        { ascending: false }
+        {ascending:false}
       )
+
   ]);
 
+  if(benefResult.error){
 
-  if (benefResult.error) {
-
-    montreErreur(benefResult.error);
-
-    return false;
-  }
-
-
-  if (volonteResult.error) {
-
-    montreErreur(volonteResult.error);
+    montreErreur(
+      benefResult.error
+    );
 
     return false;
   }
 
+  if(volonteResult.error){
 
-  if (aktiviteResult.error) {
-
-    montreErreur(aktiviteResult.error);
+    montreErreur(
+      volonteResult.error
+    );
 
     return false;
   }
 
+  if(aktiviteResult.error){
+
+    montreErreur(
+      aktiviteResult.error
+    );
+
+    return false;
+  }
 
   const benefSelect =
     document.getElementById(
       "benefisye"
     );
-
 
   benefResult.data.forEach(b => {
 
@@ -1320,18 +1538,17 @@ async function chajeListes() {
     option.value = b.id;
 
     option.textContent =
-      `${b.kòd_benefisye || ""} — ${b.non || ""} ${b.siyati || ""}`.trim();
+      `${b.kòd_benefisye || ""} — ${b.non || ""} ${b.siyati || ""}`
+        .trim();
 
     benefSelect.appendChild(option);
 
   });
 
-
   const volonteSelect =
     document.getElementById(
       "volonte"
     );
-
 
   volonteResult.data.forEach(v => {
 
@@ -1341,18 +1558,17 @@ async function chajeListes() {
     option.value = v.id;
 
     option.textContent =
-      `${v.non || ""} ${v.siyati || ""}`.trim();
+      `${v.non || ""} ${v.siyati || ""}`
+        .trim();
 
     volonteSelect.appendChild(option);
 
   });
 
-
   const aktiviteSelect =
     document.getElementById(
       "aktivite"
     );
-
 
   aktiviteResult.data.forEach(a => {
 
@@ -1368,20 +1584,18 @@ async function chajeListes() {
 
   });
 
-
   return true;
 }
 
 
-/* =========================
+/* =========================================================
    CHAJE VIZIT
-========================= */
+========================================================= */
 
-async function chajeVizit() {
+async function chajeVizit(){
 
   document.getElementById("loading")
     .style.display = "block";
-
 
   const {
     data,
@@ -1420,15 +1634,13 @@ async function chajeVizit() {
       `)
       .order(
         "dat_vizit",
-        { ascending: false }
+        {ascending:false}
       );
-
 
   document.getElementById("loading")
     .style.display = "none";
 
-
-  if (error) {
+  if(error){
 
     console.error(
       "VIZIT ERROR:",
@@ -1440,7 +1652,6 @@ async function chajeVizit() {
     return;
   }
 
-
   toutVizit = data || [];
 
   meteStatistik();
@@ -1449,55 +1660,53 @@ async function chajeVizit() {
 }
 
 
-/* =========================
+/* =========================================================
    STATISTIK
-========================= */
+========================================================= */
 
-function meteStatistik() {
+function meteStatistik(){
 
   document.getElementById("total")
     .textContent =
-    toutVizit.length;
-
+      toutVizit.length;
 
   const jodi =
     new Date()
       .toISOString()
-      .slice(0, 10);
-
+      .slice(0,10);
 
   document.getElementById("jodi")
     .textContent =
-    toutVizit.filter(v => {
+      toutVizit.filter(v => {
 
-      if (!v.dat_vizit) return false;
+        if(!v.dat_vizit)
+          return false;
 
-      return v.dat_vizit
-        .slice(0, 10) === jodi;
+        return v.dat_vizit
+          .slice(0,10) === jodi;
 
-    }).length;
-
+      }).length;
 
   document.getElementById("swivi")
     .textContent =
-    toutVizit.filter(
-      v => v.swivi_nesesè === true
-    ).length;
-
+      toutVizit.filter(
+        v => v.swivi_nesesè === true
+      ).length;
 
   document.getElementById("ijans")
     .textContent =
-    toutVizit.filter(
-      v => v.kalite_vizit === "ijans"
-    ).length;
+      toutVizit.filter(
+        v =>
+          v.kalite_vizit === "ijans"
+      ).length;
 }
 
 
-/* =========================
+/* =========================================================
    FILTRE
-========================= */
+========================================================= */
 
-function filtre() {
+function filtre(){
 
   const recherche =
     document.getElementById("search")
@@ -1505,12 +1714,10 @@ function filtre() {
       .toLowerCase()
       .trim();
 
-
   const kalite =
     document.getElementById(
       "filtreKalite"
     ).value;
-
 
   const rezilta =
     toutVizit.filter(v => {
@@ -1518,54 +1725,42 @@ function filtre() {
       const benef =
         v.benefisye || {};
 
-
       const volonte =
         v.volonte || {};
 
+      const aktivite =
+        v.aktivite || {};
 
       const texte = `
-
         ${benef.kòd_benefisye || ""}
-
         ${benef.non || ""}
-
         ${benef.siyati || ""}
-
         ${volonte.non || ""}
-
         ${volonte.siyati || ""}
-
+        ${aktivite.tit || ""}
         ${v.rezime || ""}
-
         ${v.bezwen_idantifye || ""}
-
+        ${v.aksiyon_pran || ""}
       `.toLowerCase();
 
-
       return (
-
         (!recherche ||
           texte.includes(recherche))
-
         &&
-
         (!kalite ||
           v.kalite_vizit === kalite)
-
       );
-
     });
-
 
   afiche(rezilta);
 }
 
 
-/* =========================
-   AFFICHE TABLE
-========================= */
+/* =========================================================
+   AFICHE
+========================================================= */
 
-function afiche(lis) {
+function afiche(lis){
 
   const table =
     document.getElementById("table");
@@ -1576,38 +1771,29 @@ function afiche(lis) {
   const empty =
     document.getElementById("empty");
 
-
   tbody.innerHTML = "";
 
-
-  if (!lis.length) {
+  if(!lis.length){
 
     table.style.display = "none";
-
     empty.style.display = "block";
 
     return;
   }
 
-
   table.style.display = "table";
-
   empty.style.display = "none";
 
-
   lis.forEach(v => {
-
-    const tr =
-      document.createElement("tr");
-
 
     const benef =
       v.benefisye || {};
 
-
     const volonte =
       v.volonte || {};
 
+    const tr =
+      document.createElement("tr");
 
     tr.innerHTML = `
 
@@ -1620,7 +1806,8 @@ function afiche(lis) {
       <td>
         <strong>
           ${safe(
-            `${benef.non || ""} ${benef.siyati || ""}`.trim() || "-"
+            `${benef.non || ""} ${benef.siyati || ""}`
+              .trim() || "-"
           )}
         </strong>
 
@@ -1635,7 +1822,8 @@ function afiche(lis) {
 
       <td>
         ${safe(
-          `${volonte.non || ""} ${volonte.siyati || ""}`.trim() || "-"
+          `${volonte.non || ""} ${volonte.siyati || ""}`
+            .trim() || "-"
         )}
       </td>
 
@@ -1667,14 +1855,16 @@ function afiche(lis) {
 
           <button
             class="btn-warning"
-            onclick="modifye('${v.id}')"
+            type="button"
+            onclick="modifye('${safe(v.id)}')"
           >
             Modifye
           </button>
 
           <button
             class="btn-danger"
-            onclick="efase('${v.id}')"
+            type="button"
+            onclick="efase('${safe(v.id)}')"
           >
             Efase
           </button>
@@ -1682,23 +1872,20 @@ function afiche(lis) {
         </div>
 
       </td>
-
     `;
 
-
     tbody.appendChild(tr);
-
   });
 }
 
 
-/* =========================
-   BADGE KALITE
-========================= */
+/* =========================================================
+   BADGE
+========================================================= */
 
-function badgeKalite(kalite) {
+function badgeKalite(kalite){
 
-  if (kalite === "ijans") {
+  if(kalite === "ijans"){
 
     return `
       <span class="badge badge-ijans">
@@ -1707,8 +1894,7 @@ function badgeKalite(kalite) {
     `;
   }
 
-
-  if (kalite === "swivi") {
+  if(kalite === "swivi"){
 
     return `
       <span class="badge badge-sive">
@@ -1716,7 +1902,6 @@ function badgeKalite(kalite) {
       </span>
     `;
   }
-
 
   return `
     <span class="badge badge-woutin">
@@ -1726,33 +1911,28 @@ function badgeKalite(kalite) {
 }
 
 
-/* =========================
+/* =========================================================
    NOUVO VIZIT
-========================= */
+========================================================= */
 
-function nouvoVizit() {
+function nouvoVizit(){
+
+  if(!aksèVizit) return;
 
   vizitPouModifye = null;
-
 
   document.getElementById("form")
     .reset();
 
+  document.getElementById("modalTitle")
+    .textContent =
+      "Anrejistre yon vizit";
 
-  document.getElementById(
-    "modalTitle"
-  ).textContent =
-    "Anrejistre yon vizit";
-
-
-  document.getElementById(
-    "swivi_nesesè"
-  ).value = "false";
-
+  document.getElementById("swivi_nesesè")
+    .value = "false";
 
   const kounyea =
     new Date();
-
 
   kounyea.setMinutes(
     kounyea.getMinutes()
@@ -1760,150 +1940,125 @@ function nouvoVizit() {
     kounyea.getTimezoneOffset()
   );
 
+  document.getElementById("dat_vizit")
+    .value =
+      kounyea
+        .toISOString()
+        .slice(0,16);
 
-  document.getElementById(
-    "dat_vizit"
-  ).value =
-    kounyea
-      .toISOString()
-      .slice(0, 16);
-
-
-  document.getElementById(
-    "modal"
-  ).classList.add("show");
+  document.getElementById("modal")
+    .classList.add("show");
 }
 
 
-/* =========================
+/* =========================================================
    MODIFYE
-========================= */
+========================================================= */
 
-function modifye(id) {
+function modifye(id){
 
   const v =
     toutVizit.find(
       item => item.id === id
     );
 
-
-  if (!v) return;
-
+  if(!v) return;
 
   vizitPouModifye = v;
 
+  document.getElementById("modalTitle")
+    .textContent =
+      "Modifye vizit";
 
-  document.getElementById(
-    "modalTitle"
-  ).textContent =
-    "Modifye vizit";
+  document.getElementById("benefisye")
+    .value =
+      v.benefisye_id || "";
 
+  document.getElementById("volonte")
+    .value =
+      v.volonte_id || "";
 
-  document.getElementById(
-    "benefisye"
-  ).value =
-    v.benefisye_id || "";
+  document.getElementById("aktivite")
+    .value =
+      v.aktivite_id || "";
 
+  document.getElementById("dat_vizit")
+    .value =
+      datPouInput(v.dat_vizit);
 
-  document.getElementById(
-    "volonte"
-  ).value =
-    v.volonte_id || "";
+  document.getElementById("kalite_vizit")
+    .value =
+      v.kalite_vizit || "woutin";
 
+  document.getElementById("swivi_nesesè")
+    .value =
+      v.swivi_nesesè
+        ? "true"
+        : "false";
 
-  document.getElementById(
-    "aktivite"
-  ).value =
-    v.aktivite_id || "";
+  document.getElementById("pwochen_vizit")
+    .value =
+      v.pwochen_vizit || "";
 
+  document.getElementById("rezime")
+    .value =
+      v.rezime || "";
 
-  document.getElementById(
-    "dat_vizit"
-  ).value =
-    datPouInput(v.dat_vizit);
+  document.getElementById("bezwen")
+    .value =
+      v.bezwen_idantifye || "";
 
+  document.getElementById("aksyon")
+    .value =
+      v.aksiyon_pran || "";
 
-  document.getElementById(
-    "kalite_vizit"
-  ).value =
-    v.kalite_vizit || "woutin";
-
-
-  document.getElementById(
-    "swivi_nesesè"
-  ).value =
-    v.swivi_nesesè
-      ? "true"
-      : "false";
-
-
-  document.getElementById(
-    "pwochen_vizit"
-  ).value =
-    v.pwochen_vizit || "";
-
-
-  document.getElementById(
-    "rezime"
-  ).value =
-    v.rezime || "";
-
-
-  document.getElementById(
-    "bezwen"
-  ).value =
-    v.bezwen_idantifye || "";
-
-
-  document.getElementById(
-    "aksyon"
-  ).value =
-    v.aksiyon_pran || "";
-
-
-  document.getElementById(
-    "modal"
-  ).classList.add("show");
+  document.getElementById("modal")
+    .classList.add("show");
 }
 
 
-/* =========================
+/* =========================================================
    FÈMEN MODAL
-========================= */
+========================================================= */
 
-function femenModal() {
+function femenModal(){
 
-  document.getElementById(
-    "modal"
-  ).classList.remove("show");
+  document.getElementById("modal")
+    .classList.remove("show");
 
   vizitPouModifye = null;
 }
 
 
-/* =========================
+/* =========================================================
    SAVE
-========================= */
+========================================================= */
 
 document.getElementById("form")
   .addEventListener(
     "submit",
-    async function(e) {
+    async function(e){
 
       e.preventDefault();
 
+      if(!aksèVizit){
+
+        montreErreur({
+          message:
+            "Ou pa gen pèmisyon pou jere vizit yo."
+        });
+
+        return;
+      }
 
       const bouton =
         document.getElementById(
           "saveBtn"
         );
 
-
       bouton.disabled = true;
-
       bouton.textContent =
         "Anrejistreman...";
-
 
       const donne = {
 
@@ -1925,8 +2080,7 @@ document.getElementById("form")
         dat_vizit:
           document.getElementById(
             "dat_vizit"
-          ).value
-          || null,
+          ).value || null,
 
         kalite_vizit:
           document.getElementById(
@@ -1936,20 +2090,17 @@ document.getElementById("form")
         rezime:
           document.getElementById(
             "rezime"
-          ).value.trim()
-          || null,
+          ).value.trim() || null,
 
         bezwen_idantifye:
           document.getElementById(
             "bezwen"
-          ).value.trim()
-          || null,
+          ).value.trim() || null,
 
         aksyon_pran:
           document.getElementById(
             "aksyon"
-          ).value.trim()
-          || null,
+          ).value.trim() || null,
 
         swivi_nesesè:
           document.getElementById(
@@ -1959,16 +2110,13 @@ document.getElementById("form")
         pwochen_vizit:
           document.getElementById(
             "pwochen_vizit"
-          ).value
-          || null
+          ).value || null
 
       };
 
-
       let result;
 
-
-      if (vizitPouModifye) {
+      if(vizitPouModifye){
 
         result =
           await supabaseClient
@@ -1979,23 +2127,19 @@ document.getElementById("form")
               vizitPouModifye.id
             );
 
-      } else {
+      }else{
 
         result =
           await supabaseClient
             .from("vizit")
             .insert([donne]);
-
       }
 
-
       bouton.disabled = false;
-
       bouton.textContent =
         "Anrejistre";
 
-
-      if (result.error) {
+      if(result.error){
 
         console.error(
           "SUPABASE VIZIT ERROR:",
@@ -2009,13 +2153,10 @@ document.getElementById("form")
         return;
       }
 
-
       const modifye =
         !!vizitPouModifye;
 
-
       femenModal();
-
 
       montreSucces(
         modifye
@@ -2023,45 +2164,38 @@ document.getElementById("form")
           : "Vizit la anrejistre avèk siksè."
       );
 
-
       await chajeVizit();
 
     }
   );
 
 
-/* =========================
+/* =========================================================
    EFASE
-========================= */
+========================================================= */
 
-async function efase(id) {
+async function efase(id){
 
   const v =
     toutVizit.find(
       item => item.id === id
     );
 
-
-  if (!v) return;
-
+  if(!v) return;
 
   const benef =
     v.benefisye || {};
 
-
   const non =
     `${benef.non || ""} ${benef.siyati || ""}`
       .trim();
-
 
   const konfime =
     confirm(
       `Èske ou sèten ou vle efase vizit ${non || "sa a"} ?`
     );
 
-
-  if (!konfime) return;
-
+  if(!konfime) return;
 
   const {
     error
@@ -2069,10 +2203,9 @@ async function efase(id) {
     await supabaseClient
       .from("vizit")
       .delete()
-      .eq("id", id);
+      .eq("id",id);
 
-
-  if (error) {
+  if(error){
 
     console.error(
       "DELETE VIZIT ERROR:",
@@ -2084,167 +2217,150 @@ async function efase(id) {
     return;
   }
 
-
   montreSucces(
     "Vizit la efase avèk siksè."
   );
-
 
   await chajeVizit();
 }
 
 
-/* =========================
-   DAT INPUT
-========================= */
+/* =========================================================
+   DAT
+========================================================= */
 
-function datPouInput(value) {
+function datPouInput(value){
 
-  if (!value) return "";
+  if(!value) return "";
 
-
-  return value
-    .slice(0, 16);
+  return value.slice(0,16);
 }
 
 
-/* =========================
+/* =========================================================
    FÒMA DAT
-========================= */
+========================================================= */
 
-function fòmateDat(value) {
+function fòmateDat(value){
 
-  if (!value) return "-";
+  if(!value) return "-";
 
-
-  try {
+  try{
 
     return new Date(value)
       .toLocaleString(
         "fr-FR",
         {
-          day: "2-digit",
-          month: "2-digit",
-          year: "numeric",
-          hour: "2-digit",
-          minute: "2-digit"
+          day:"2-digit",
+          month:"2-digit",
+          year:"numeric",
+          hour:"2-digit",
+          minute:"2-digit"
         }
       );
 
-  } catch {
+  }catch{
 
     return value;
   }
 }
 
 
-/* =========================
+/* =========================================================
    SECURITY
-========================= */
+========================================================= */
 
-function safe(value) {
+function safe(value){
 
   return String(value ?? "")
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
 }
 
 
-/* =========================
+/* =========================================================
    ERROR
-========================= */
+========================================================= */
 
-function montreErreur(error) {
+function montreErreur(error){
 
   let mesaj =
     "Yon erè rive.";
 
+  if(error){
 
-  if (error) {
-
-    if (error.message) {
+    if(error.message){
 
       mesaj =
         error.message;
 
-    } else if (error.details) {
+    }else if(error.details){
 
       mesaj =
         error.details;
 
-    } else if (error.hint) {
+    }else if(error.hint){
 
       mesaj =
         error.hint;
 
-    } else {
+    }else{
 
-      try {
+      try{
 
         mesaj =
           JSON.stringify(error);
 
-      } catch {
+      }catch{
 
         mesaj =
           String(error);
-
       }
-
     }
-
   }
-
 
   const box =
     document.getElementById(
       "message"
     );
-
 
   box.className =
     "message error";
 
-
   box.textContent =
     "❌ " + mesaj;
 
-
   window.scrollTo({
-    top: 0,
-    behavior: "smooth"
+    top:0,
+    behavior:"smooth"
   });
 }
 
 
-/* =========================
+/* =========================================================
    SUCCESS
-========================= */
+========================================================= */
 
-function montreSucces(mesaj) {
+function montreSucces(mesaj){
 
   const box =
     document.getElementById(
       "message"
     );
 
-
   box.className =
     "message success";
-
 
   box.textContent =
     "✓ " + mesaj;
 
-
   window.scrollTo({
-    top: 0,
-    behavior: "smooth"
+    top:0,
+    behavior:"smooth"
   });
-
 
   setTimeout(() => {
 
@@ -2254,27 +2370,64 @@ function montreSucces(mesaj) {
     box.textContent =
       "";
 
-  }, 5000);
+  },5000);
 }
 
 
-/* =========================
-   SIDEBAR
-========================= */
+/* =========================================================
+   MOBILE MENU
+========================================================= */
 
-function toggleSidebar() {
+function toggleSidebar(){
 
   document.getElementById(
     "sidebar"
   ).classList.toggle("open");
 }
 
+document.getElementById("menuToggle")
+  .addEventListener(
+    "click",
+    toggleSidebar
+  );
 
-/* =========================
+
+/* =========================================================
+   CLOSE NOTIFICATION WHEN CLICKING OUTSIDE
+========================================================= */
+
+document.addEventListener(
+  "click",
+  function(e){
+
+    const panel =
+      document.getElementById(
+        "notifikasyonPanel"
+      );
+
+    const button =
+      document.getElementById(
+        "notificationButton"
+      );
+
+    if(
+      panel &&
+      button &&
+      !panel.contains(e.target) &&
+      !button.contains(e.target)
+    ){
+
+      panel.classList.remove("aktif");
+    }
+  }
+);
+
+
+/* =========================================================
    LOGOUT
-========================= */
+========================================================= */
 
-async function dekonèkte() {
+async function dekonèkte(){
 
   await supabaseClient.auth.signOut();
 
@@ -2283,43 +2436,67 @@ async function dekonèkte() {
 }
 
 
-/* =========================
-   PLACEHOLDER
-========================= */
-
-function paDisponib() {
-
-  montreSucces(
-    "Modil sa a ap vini nan pwochen etap la."
-  );
-}
-
-
-/* =========================
+/* =========================================================
    DEMARAJ
-========================= */
+========================================================= */
 
-async function demare() {
+async function demare(){
 
-  const ok =
-    await verifyeAdmin();
+  try{
 
+    const {
+      data:{user},
+      error
+    } =
+      await supabaseClient.auth.getUser();
 
-  if (!ok) return;
+    if(error || !user){
 
+      window.location.href =
+        "login.html";
 
-  const listes =
+      return;
+    }
+
+    const aksè =
+      await verifyeAksesVizit();
+
+    if(!aksè) return;
+
+    aficheProfil();
+
     await chajeListes();
 
+    await chajeVizit();
 
-  if (!listes) return;
+    if(
+      typeof demareNotifikasyon ===
+      "function"
+    ){
 
+      await demareNotifikasyon();
+    }
 
-  await chajeVizit();
+  }catch(error){
+
+    console.error(
+      "DEMARAJ VIZIT ERROR:",
+      error
+    );
+
+    montreErreur(error);
+  }
 }
 
 
-demare();
+/* =========================================================
+   DEMARE APLIKASYON
+========================================================= */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  demare
+);
 
 </script>
 
