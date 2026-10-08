@@ -6,51 +6,98 @@
 
   <title>Aktivite LAJONÈ'M | Aksyon pou moun aje ann Ayiti</title>
 
-<meta
-  name="description"
-  content="Dekouvri aktivite LAJONÈ'M yo: aktivite ki fini, aktivite k ap fèt ak aktivite ki planifye pou sipòte moun aje ann Ayiti."
->
+  <meta
+    name="description"
+    content="Dekouvri aktivite LAJONÈ'M yo pou wè, akonpaye epi valorize moun aje yo ann Ayiti."
+  >
 
-<meta
-  name="keywords"
-  content="aktivite LAJONÈ'M, aktivite moun aje, moun aje Ayiti, volontè Ayiti, solidarite, sipò moun aje, Cap-Haïtien, aktivite kominotè"
->
+  <meta
+    name="keywords"
+    content="LAJONÈ'M, aktivite moun aje, moun aje Ayiti, volontè Ayiti, solidarite, sipò moun aje, Cap-Haïtien"
+  >
 
-<meta name="robots" content="index, follow">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="LAJONÈ'M">
 
-<link
-  rel="canonical"
-  href="https://bestdealshoping.github.io/LAJONE-M-/aktivite.html"
->
+  <link
+    rel="canonical"
+    href="https://bestdealshoping.github.io/LAJONE-M-/aktivite.html"
+  >
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="Aktivite LAJONÈ'M | Laj yo se onè nou">
-<meta
-  property="og:description"
-  content="Gade aktivite LAJONÈ'M ap reyalize pou wè, akonpaye epi valorize moun aje yo."
->
-<meta
-  property="og:url"
-  content="https://bestdealshoping.github.io/LAJONE-M-/aktivite.html"
->
-<meta property="og:site_name" content="LAJONÈ'M">
-<meta property="og:locale" content="ht_HT">
+  <meta name="theme-color" content="#0B3B75">
+
+  <meta
+    property="og:type"
+    content="website"
+  >
+
+  <meta
+    property="og:title"
+    content="Aktivite LAJONÈ'M | Laj yo se onè nou"
+  >
+
+  <meta
+    property="og:description"
+    content="Gade aktivite LAJONÈ'M ap reyalize pou wè, akonpaye epi valorize moun aje yo."
+  >
+
+  <meta
+    property="og:url"
+    content="https://bestdealshoping.github.io/LAJONE-M-/aktivite.html"
+  >
+
+  <meta
+    property="og:site_name"
+    content="LAJONÈ'M"
+  >
+
+  <meta
+    property="og:locale"
+    content="ht_HT"
+  >
+
+  <meta
+    property="og:image"
+    content="https://terjfmeuzvhcntplnbsd.supabase.co/storage/v1/object/public/galri/foto-1791543704733-hspnevg.png"
+  >
+
+  <meta
+    name="twitter:card"
+    content="summary_large_image"
+  >
+
+  <meta
+    name="twitter:title"
+    content="Aktivite LAJONÈ'M"
+  >
+
+  <meta
+    name="twitter:description"
+    content="Aktivite LAJONÈ'M pou sipòte moun aje yo."
+  >
+
+  <meta
+    name="twitter:image"
+    content="https://terjfmeuzvhcntplnbsd.supabase.co/storage/v1/object/public/galri/foto-1791543704733-hspnevg.png"
+  >
 
   <link rel="stylesheet" href="css/style.css">
 
   <style>
-    /* ================================
-       AKTIVITE PAGE
-    ================================= */
+
+    /* =====================================================
+       AKTIVITE LAJONÈ'M
+    ====================================================== */
 
     .page-hero {
       padding: 90px 20px;
       text-align: center;
-      background: linear-gradient(
-        135deg,
-        #0B3B75,
-        #07284f
-      );
+      background:
+        linear-gradient(
+          135deg,
+          rgba(11,59,117,.98),
+          rgba(7,40,79,.98)
+        );
       color: #ffffff;
     }
 
@@ -62,20 +109,109 @@
     .page-hero h1 {
       margin: 0 0 18px;
       font-size: clamp(2rem, 5vw, 3.2rem);
+      line-height: 1.15;
     }
 
     .page-hero p {
-      max-width: 760px;
+      max-width: 780px;
       margin: 0 auto;
       line-height: 1.8;
       font-size: 1.05rem;
     }
 
-    .activity-section {
-      padding: 70px 20px;
+    .hero-logo {
+      width: 95px;
+      height: 95px;
+      object-fit: contain;
+      display: block;
+      margin: 0 auto 20px;
+      border-radius: 50%;
+      background: #ffffff;
+      padding: 8px;
     }
 
-    .activity-section:nth-child(even) {
+    /* =====================================================
+       APPROCHE
+    ====================================================== */
+
+    .approach-section {
+      padding: 70px 20px;
+      background: #ffffff;
+    }
+
+    .approach-header {
+      text-align: center;
+      max-width: 760px;
+      margin: 0 auto 40px;
+    }
+
+    .approach-header h2 {
+      color: #0B3B75;
+      margin: 10px 0 15px;
+      font-size: 2rem;
+    }
+
+    .approach-header p {
+      color: #667085;
+      line-height: 1.8;
+    }
+
+    .approach-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 25px;
+    }
+
+    .approach-card {
+      padding: 30px 25px;
+      border-radius: 18px;
+      background: #f8fafc;
+      border: 1px solid #e5e9ef;
+      text-align: center;
+      transition:
+        transform .25s ease,
+        box-shadow .25s ease;
+    }
+
+    .approach-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 30px rgba(0,0,0,.08);
+    }
+
+    .approach-number {
+      width: 48px;
+      height: 48px;
+      margin: 0 auto 18px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #F2B705;
+      color: #0B3B75;
+      font-weight: 900;
+      font-size: 1.1rem;
+    }
+
+    .approach-card h3 {
+      color: #0B3B75;
+      margin: 0 0 10px;
+    }
+
+    .approach-card p {
+      color: #667085;
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    /* =====================================================
+       ACTIVITY SECTIONS
+    ====================================================== */
+
+    .activity-section {
+      padding: 75px 20px;
+    }
+
+    .activity-section:nth-of-type(even) {
       background: #f5f7fa;
     }
 
@@ -87,12 +223,14 @@
       margin: 10px 0;
       color: #0B3B75;
       font-size: 2rem;
+      line-height: 1.3;
     }
 
     .activity-section-header p {
       color: #667085;
-      max-width: 700px;
+      max-width: 720px;
       line-height: 1.7;
+      margin-bottom: 0;
     }
 
     .activity-grid {
@@ -101,22 +239,28 @@
       gap: 25px;
     }
 
+    /* =====================================================
+       ACTIVITY CARD
+    ====================================================== */
+
     .activity-card {
       background: #ffffff;
-      border-radius: 16px;
+      border-radius: 18px;
       overflow: hidden;
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      box-shadow: 0 8px 30px rgba(0,0,0,.07);
       border: 1px solid #e5e9ef;
+      transition:
+        transform .25s ease,
+        box-shadow .25s ease;
     }
 
     .activity-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 14px 35px rgba(0, 0, 0, 0.12);
+      transform: translateY(-6px);
+      box-shadow: 0 15px 35px rgba(0,0,0,.12);
     }
 
     .activity-image {
-      height: 210px;
+      height: 220px;
       background: #e5e9ef;
       overflow: hidden;
     }
@@ -133,13 +277,18 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: linear-gradient(
-        135deg,
-        #0B3B75,
-        #2E8B57
-      );
+      text-align: center;
+      padding: 20px;
+
+      background:
+        linear-gradient(
+          135deg,
+          #0B3B75,
+          #2E8B57
+        );
+
       color: #ffffff;
-      font-size: 1.5rem;
+      font-size: 1.45rem;
       font-weight: 800;
     }
 
@@ -148,12 +297,13 @@
     }
 
     .activity-status {
-      display: inline-block;
-      padding: 6px 12px;
+      display: inline-flex;
+      align-items: center;
+      padding: 7px 13px;
       border-radius: 30px;
-      font-size: 0.78rem;
-      font-weight: 700;
-      margin-bottom: 12px;
+      font-size: .78rem;
+      font-weight: 800;
+      margin-bottom: 13px;
     }
 
     .status-fini {
@@ -175,21 +325,26 @@
       margin: 0 0 12px;
       color: #0B3B75;
       font-size: 1.3rem;
+      line-height: 1.4;
     }
 
     .activity-description {
       color: #667085;
       line-height: 1.7;
-      margin-bottom: 18px;
+      margin-bottom: 20px;
     }
 
     .activity-meta {
       display: flex;
       flex-direction: column;
-      gap: 9px;
-      margin-bottom: 20px;
+      gap: 10px;
+      margin-bottom: 18px;
       color: #475467;
-      font-size: 0.92rem;
+      font-size: .92rem;
+    }
+
+    .activity-meta div {
+      line-height: 1.5;
     }
 
     .activity-meta strong {
@@ -197,18 +352,50 @@
     }
 
     .activity-program {
-      margin-bottom: 15px;
+      margin-bottom: 14px;
       color: #2E8B57;
-      font-weight: 700;
+      font-weight: 800;
+      line-height: 1.5;
     }
 
+    .activity-counter {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      min-width: 38px;
+      height: 38px;
+      padding: 0 11px;
+
+      margin-left: 8px;
+
+      border-radius: 50px;
+
+      background: #F2B705;
+      color: #07284f;
+
+      font-size: .85rem;
+      font-weight: 900;
+
+      vertical-align: middle;
+    }
+
+    /* =====================================================
+       EMPTY / LOADING / ERROR
+    ====================================================== */
+
     .empty-activity {
-      padding: 45px 20px;
+      padding: 50px 25px;
       text-align: center;
+
       background: #ffffff;
+
       border: 1px dashed #cbd5e1;
-      border-radius: 14px;
+      border-radius: 16px;
+
       color: #667085;
+
+      grid-column: 1 / -1;
     }
 
     .empty-activity h3 {
@@ -216,49 +403,144 @@
       margin-bottom: 8px;
     }
 
+    .empty-activity p {
+      margin: 0;
+      line-height: 1.7;
+    }
+
     .activity-loading {
-      padding: 50px;
+      padding: 55px 20px;
       text-align: center;
       color: #667085;
+      grid-column: 1 / -1;
     }
 
     .activity-error {
-      padding: 35px;
+      padding: 35px 25px;
       text-align: center;
+
       background: #fff5f5;
+
       border: 1px solid #f3b5b5;
-      border-radius: 14px;
+      border-radius: 16px;
+
       color: #a61b1b;
+
+      grid-column: 1 / -1;
     }
 
-    .activity-counter {
+    .activity-error h3 {
+      margin-top: 0;
+    }
+
+    /* =====================================================
+       CTA
+    ====================================================== */
+
+    .activity-cta {
+      padding: 80px 20px;
+
+      background:
+        linear-gradient(
+          135deg,
+          #0B3B75,
+          #07284f
+        );
+
+      color: #ffffff;
+      text-align: center;
+    }
+
+    .activity-cta-content {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .activity-cta h2 {
+      margin: 12px 0 18px;
+      font-size: clamp(1.8rem, 4vw, 2.7rem);
+      line-height: 1.25;
+    }
+
+    .activity-cta p {
+      max-width: 650px;
+      margin: 0 auto 30px;
+      line-height: 1.8;
+      opacity: .95;
+    }
+
+    .activity-cta-buttons {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .activity-cta-buttons a {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-width: 35px;
-      height: 35px;
-      padding: 0 10px;
-      margin-left: 8px;
-      border-radius: 50px;
-      background: #F2B705;
-      color: #07284f;
-      font-size: 0.85rem;
+
+      min-height: 48px;
+      padding: 12px 24px;
+
+      border-radius: 10px;
+
+      text-decoration: none;
       font-weight: 800;
+
+      transition:
+        transform .2s ease,
+        opacity .2s ease;
     }
 
-    @media (max-width: 900px) {
+    .activity-cta-buttons a:hover {
+      transform: translateY(-2px);
+      opacity: .92;
+    }
+
+    .btn-volonte {
+      background: #F2B705;
+      color: #07284f;
+    }
+
+    .btn-don {
+      background: #ffffff;
+      color: #0B3B75;
+    }
+
+    /* =====================================================
+       RESPONSIVE
+    ====================================================== */
+
+    @media (max-width: 950px) {
+
       .activity-grid {
         grid-template-columns: repeat(2, 1fr);
       }
+
+      .approach-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
     }
 
-    @media (max-width: 600px) {
+    @media (max-width: 700px) {
+
       .page-hero {
-        padding: 65px 18px;
+        padding: 70px 18px;
       }
 
       .activity-section {
-        padding: 50px 18px;
+        padding: 55px 18px;
+      }
+
+      .approach-section {
+        padding: 55px 18px;
+      }
+
+      .approach-grid {
+        grid-template-columns: 1fr;
       }
 
       .activity-grid {
@@ -266,33 +548,78 @@
       }
 
       .activity-image {
-        height: 220px;
+        height: 225px;
       }
 
       .activity-section-header h2 {
         font-size: 1.7rem;
       }
+
+      .activity-cta {
+        padding: 65px 18px;
+      }
+
     }
+
+    @media (max-width: 450px) {
+
+      .hero-logo {
+        width: 80px;
+        height: 80px;
+      }
+
+      .activity-content {
+        padding: 21px;
+      }
+
+      .activity-counter {
+        min-width: 34px;
+        height: 34px;
+      }
+
+      .activity-cta-buttons {
+        flex-direction: column;
+      }
+
+      .activity-cta-buttons a {
+        width: 100%;
+      }
+
+    }
+
   </style>
 </head>
 
 <body>
 
-  <!-- ================================
+  <!-- =====================================================
        HEADER
-  ================================= -->
+  ====================================================== -->
+
   <header class="site-header">
 
     <div class="container nav-container">
 
-      <a href="index.html" class="logo">
-        <span class="logo-main">LAJONÈ'M</span>
+      <a
+        href="index.html"
+        class="logo"
+        aria-label="LAJONÈ'M - Akèy"
+      >
+
+        <span class="logo-main">
+          LAJONÈ'M
+        </span>
+
         <span class="logo-sub">
           Laj yo se onè nou.
         </span>
+
       </a>
 
-      <nav class="main-nav">
+      <nav
+        class="main-nav"
+        aria-label="Navigasyon prensipal"
+      >
 
         <a href="index.html">
           Akèy
@@ -306,20 +633,28 @@
           Pwogram
         </a>
 
-        <a href="aktivite.html" class="active">
+        <a
+          href="aktivite.html"
+          class="active"
+          aria-current="page"
+        >
           Aktivite
         </a>
 
-        <a href="don.html">
-          Fè yon don
+        <a href="galri.html">
+          Galri
+        </a>
+
+        <a href="nouvel.html">
+          Nouvèl
         </a>
 
         <a href="volonte.html">
           Vin volontè
         </a>
 
-        <a href="kontak.html">
-          Kontakte nou
+        <a href="don.html">
+          Fè yon don
         </a>
 
       </nav>
@@ -329,14 +664,23 @@
   </header>
 
 
-  <!-- ================================
-       HERO
-  ================================= -->
+  <!-- =====================================================
+       MAIN
+  ====================================================== -->
+
   <main>
+
+    <!-- HERO -->
 
     <section class="page-hero">
 
       <div class="container">
+
+        <img
+          class="hero-logo"
+          src="https://terjfmeuzvhcntplnbsd.supabase.co/storage/v1/object/public/galri/foto-1791543704733-hspnevg.png"
+          alt="Logo ofisyèl LAJONÈ'M"
+        >
 
         <span class="section-tag">
           LAJONÈ'M
@@ -347,9 +691,9 @@
         </h1>
 
         <p>
-          Dekouvri travay LAJONÈ'M ap fè pou wè,
-          akonpaye epi valorize moun aje yo nan
-          kominote a.
+          Dekouvri aksyon LAJONÈ'M ap reyalize
+          pou wè, akonpaye epi valorize moun aje
+          yo nan kominote a.
         </p>
 
       </div>
@@ -357,9 +701,101 @@
     </section>
 
 
-    <!-- ================================
+    <!-- APPROCHE -->
+
+    <section class="approach-section">
+
+      <div class="container">
+
+        <div class="approach-header">
+
+          <span class="section-tag">
+            APWÒCH NOU
+          </span>
+
+          <h2>
+            Wè. Akonpaye. Valorizasyon.
+          </h2>
+
+          <p>
+            Chak aktivite LAJONÈ'M fèt avèk objektif
+            pou idantifye bezwen moun aje yo, pote
+            sipò ki adapte ak sitiyasyon yo epi
+            mete diyite yo an premye.
+          </p>
+
+        </div>
+
+
+        <div class="approach-grid">
+
+          <article class="approach-card">
+
+            <div class="approach-number">
+              1
+            </div>
+
+            <h3>
+              Wè
+            </h3>
+
+            <p>
+              Nou idantifye moun aje ki nan
+              sitiyasyon frajilite, izòlman oswa
+              bezwen.
+            </p>
+
+          </article>
+
+
+          <article class="approach-card">
+
+            <div class="approach-number">
+              2
+            </div>
+
+            <h3>
+              Akonpaye
+            </h3>
+
+            <p>
+              Nou chèche konprann bezwen yo epi
+              bay sipò imen, sosyal ak materyèl
+              ki adapte.
+            </p>
+
+          </article>
+
+
+          <article class="approach-card">
+
+            <div class="approach-number">
+              3
+            </div>
+
+            <h3>
+              Valorizasyon
+            </h3>
+
+            <p>
+              Nou rekonèt istwa, eksperyans,
+              kontribisyon ak diyite chak moun
+              aje.
+            </p>
+
+          </article>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =================================================
          AKTIVITE FINI
-    ================================= -->
+    ================================================== -->
+
     <section class="activity-section">
 
       <div class="container">
@@ -371,13 +807,16 @@
           </span>
 
           <h2>
+
             Aktivite ki fini
+
             <span
               id="total-fini"
               class="activity-counter"
             >
               0
             </span>
+
           </h2>
 
           <p>
@@ -387,6 +826,7 @@
           </p>
 
         </div>
+
 
         <div
           id="aktivite-fini"
@@ -404,9 +844,10 @@
     </section>
 
 
-    <!-- ================================
+    <!-- =================================================
          AKTIVITE ANKOU
-    ================================= -->
+    ================================================== -->
+
     <section class="activity-section">
 
       <div class="container">
@@ -418,13 +859,16 @@
           </span>
 
           <h2>
+
             Aktivite k ap fèt
+
             <span
               id="total-ankou"
               class="activity-counter"
             >
               0
             </span>
+
           </h2>
 
           <p>
@@ -433,6 +877,7 @@
           </p>
 
         </div>
+
 
         <div
           id="aktivite-ankou"
@@ -450,9 +895,10 @@
     </section>
 
 
-    <!-- ================================
+    <!-- =================================================
          AKTIVITE PLANIFYE
-    ================================= -->
+    ================================================== -->
+
     <section class="activity-section">
 
       <div class="container">
@@ -464,13 +910,16 @@
           </span>
 
           <h2>
+
             Aktivite ki planifye
+
             <span
               id="total-planifye"
               class="activity-counter"
             >
               0
             </span>
+
           </h2>
 
           <p>
@@ -479,6 +928,7 @@
           </p>
 
         </div>
+
 
         <div
           id="aktivite-planifye"
@@ -496,14 +946,15 @@
     </section>
 
 
-    <!-- ================================
+    <!-- =================================================
          CTA
-    ================================= -->
-    <section class="cta-section">
+    ================================================== -->
+
+    <section class="activity-cta">
 
       <div class="container">
 
-        <div class="cta-content">
+        <div class="activity-cta-content">
 
           <span class="section-tag">
             PATISIPE
@@ -515,23 +966,23 @@
           </h2>
 
           <p>
-            Ou kapab ede nou kontinye fè plis
-            pou moun aje ki bezwen sipò ak
-            prezans nou.
+            Ou kapab ede LAJONÈ'M kontinye
+            fè plis pou moun aje ki bezwen
+            sipò, prezans ak solidarite.
           </p>
 
-          <div class="cta-buttons">
+          <div class="activity-cta-buttons">
 
             <a
               href="volonte.html"
-              class="btn btn-primary"
+              class="btn-volonte"
             >
               Vin volontè
             </a>
 
             <a
               href="don.html"
-              class="btn btn-secondary"
+              class="btn-don"
             >
               Fè yon don
             </a>
@@ -547,9 +998,10 @@
   </main>
 
 
-  <!-- ================================
+  <!-- =====================================================
        FOOTER
-  ================================= -->
+  ====================================================== -->
+
   <footer class="site-footer">
 
     <div class="container footer-grid">
@@ -586,7 +1038,9 @@
         </p>
 
         <p>
-          lajonem.ogr@gmail.com
+          <a href="mailto:lajonem.ogr@gmail.com">
+            lajonem.ogr@gmail.com
+          </a>
         </p>
 
       </div>
@@ -607,6 +1061,18 @@
         <p>
           <a href="pwogram.html">
             Pwogram
+          </a>
+        </p>
+
+        <p>
+          <a href="aktivite.html">
+            Aktivite
+          </a>
+        </p>
+
+        <p>
+          <a href="galri.html">
+            Galri
           </a>
         </p>
 
@@ -645,18 +1111,21 @@
   </footer>
 
 
-  <!-- ================================
+  <!-- =====================================================
        SUPABASE
-  ================================= -->
+  ====================================================== -->
+
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <script src="js/supabase.js"></script>
 
-<script src="js/paramet.js"></script>
+  <script src="js/paramet.js"></script>
 
-  <!-- ================================
+
+  <!-- =====================================================
        AKTIVITE JAVASCRIPT
-  ================================= -->
+  ====================================================== -->
+
   <script>
 
     document.addEventListener(
@@ -724,17 +1193,22 @@
 
         const fini =
           aktivite.filter(
-            item => item.estati === "fini"
+            item =>
+              item.estati === "fini"
           );
+
 
         const ankou =
           aktivite.filter(
-            item => item.estati === "ankou"
+            item =>
+              item.estati === "ankou"
           );
+
 
         const planifye =
           aktivite.filter(
-            item => item.estati === "planifye"
+            item =>
+              item.estati === "planifye"
           );
 
 
@@ -743,10 +1217,12 @@
           fini.length
         );
 
+
         meteKantite(
           "total-ankou",
           ankou.length
         );
+
 
         meteKantite(
           "total-planifye",
@@ -760,11 +1236,13 @@
           "fini"
         );
 
+
         aficheAktivite(
           "aktivite-ankou",
           ankou,
           "ankou"
         );
+
 
         aficheAktivite(
           "aktivite-planifye",
@@ -785,9 +1263,11 @@
           "aktivite-fini"
         );
 
+
         montreErè(
           "aktivite-ankou"
         );
+
 
         montreErè(
           "aktivite-planifye"
@@ -805,7 +1285,9 @@
     ) {
 
       const container =
-        document.getElementById(containerId);
+        document.getElementById(
+          containerId
+        );
 
 
       if (!container) return;
@@ -814,6 +1296,7 @@
       if (aktivite.length === 0) {
 
         const mesaj = {
+
           fini:
             "Pa gen aktivite ki fini pou montre pou kounye a.",
 
@@ -822,6 +1305,7 @@
 
           planifye:
             "Pa gen aktivite planifye pou kounye a."
+
         };
 
 
@@ -847,11 +1331,12 @@
 
       container.innerHTML =
         aktivite
-          .map(item =>
-            kreyeKatAktivite(
-              item,
-              estati
-            )
+          .map(
+            item =>
+              kreyeKatAktivite(
+                item,
+                estati
+              )
           )
           .join("");
 
@@ -864,14 +1349,22 @@
     ) {
 
       const statusText = {
-        fini: "Fini",
-        ankou: "K ap fèt",
-        planifye: "Planifye"
+
+        fini:
+          "Fini",
+
+        ankou:
+          "K ap fèt",
+
+        planifye:
+          "Planifye"
+
       };
 
 
       const image =
         item.imaj_prensipal_url
+
           ? `
 
             <img
@@ -885,9 +1378,12 @@
             >
 
           `
+
           : `
 
-            <div class="activity-placeholder">
+            <div
+              class="activity-placeholder"
+            >
               LAJONÈ'M
             </div>
 
@@ -897,23 +1393,29 @@
       const program =
         item.pwogram &&
         item.pwogram.non
+
           ? `
 
             <div class="activity-program">
+
               ${escapeHTML(
                 item.pwogram.non
               )}
+
             </div>
 
           `
+
           : "";
 
 
       const description =
         item.deskripsyon
+
           ? escapeHTML(
               item.deskripsyon
             )
+
           : "Pa gen deskripsyon disponib.";
 
 
@@ -925,27 +1427,39 @@
 
       const endDate =
         item.dat_fin
+
           ? formatDate(
               item.dat_fin
             )
+
           : "";
 
 
       return `
 
-        <article class="activity-card">
+        <article
+          class="activity-card"
+        >
 
           <div class="activity-image">
+
             ${image}
+
           </div>
 
 
           <div class="activity-content">
 
+
             <span
-              class="activity-status status-${estati}"
+              class="
+                activity-status
+                status-${estati}
+              "
             >
+
               ${statusText[estati]}
+
             </span>
 
 
@@ -953,50 +1467,72 @@
 
 
             <h3>
+
               ${escapeHTML(
                 item.tit
               )}
+
             </h3>
 
 
-            <p class="activity-description">
+            <p
+              class="activity-description"
+            >
+
               ${description}
+
             </p>
 
 
             <div class="activity-meta">
 
+
               ${
                 date
+
                   ? `
+
                     <div>
+
                       <strong>
                         Dat:
                       </strong>
+
                       ${date}
+
                       ${
                         endDate
                           ? ` — ${endDate}`
                           : ""
                       }
+
                     </div>
+
                   `
+
                   : ""
               }
 
 
               ${
                 item.kote
+
                   ? `
+
                     <div>
+
                       <strong>
                         Kote:
                       </strong>
+
                       ${escapeHTML(
                         item.kote
                       )}
+
                     </div>
+
                   `
+
                   : ""
               }
 
@@ -1004,16 +1540,23 @@
               ${
                 item.kantite_benefisye !== null &&
                 item.kantite_benefisye !== undefined
+
                   ? `
+
                     <div>
+
                       <strong>
                         Benefisyè:
                       </strong>
+
                       ${Number(
                         item.kantite_benefisye
                       )}
+
                     </div>
+
                   `
+
                   : ""
               }
 
@@ -1021,18 +1564,26 @@
               ${
                 item.kantite_volonte !== null &&
                 item.kantite_volonte !== undefined
+
                   ? `
+
                     <div>
+
                       <strong>
                         Volontè:
                       </strong>
+
                       ${Number(
                         item.kantite_volonte
                       )}
+
                     </div>
+
                   `
+
                   : ""
               }
+
 
             </div>
 
@@ -1053,15 +1604,20 @@
       const element =
         document.getElementById(id);
 
+
       if (element) {
+
         element.textContent =
           kantite;
+
       }
 
     }
 
 
-    function formatDate(dateValue) {
+    function formatDate(
+      dateValue
+    ) {
 
       if (!dateValue) {
         return "";
@@ -1072,10 +1628,14 @@
         new Date(dateValue);
 
 
-      if (Number.isNaN(
-        date.getTime()
-      )) {
+      if (
+        Number.isNaN(
+          date.getTime()
+        )
+      ) {
+
         return "";
+
       }
 
 
@@ -1124,27 +1684,34 @@
     }
 
 
-    function escapeHTML(value) {
+    function escapeHTML(
+      value
+    ) {
 
       return String(
         value ?? ""
       )
+
         .replace(
           /&/g,
           "&amp;"
         )
+
         .replace(
           /</g,
           "&lt;"
         )
+
         .replace(
           />/g,
           "&gt;"
         )
+
         .replace(
           /"/g,
           "&quot;"
         )
+
         .replace(
           /'/g,
           "&#039;"
