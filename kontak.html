@@ -1,558 +1,718 @@
-<!DOCTYPE html>
-<html lang="ht">
+<!DOCTYPE html><html lang="ht">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">  <title>Kontakte LAJONÈ'M | Laj yo se onè nou</title><meta
+name="description"
+content="Kontakte LAJONÈ'M pou jwenn enfòmasyon, poze kesyon, vin volontè, sipòte aksyon nou yo oswa kolabore pou ede moun aje ann Ayiti."
 
-  <title>Kontakte nou | LAJONÈ'M</title>
-<title>Kontakte LAJONÈ'M | Nou la pou moun aje ann Ayiti</title>
-
-<meta
-  name="description"
-  content="Kontakte LAJONÈ'M pou jwenn enfòmasyon, poze kesyon, vin volontè, sipòte aksyon nou yo oswa kolabore pou ede moun aje ann Ayiti."
->
+«»
 
 <meta
-  name="keywords"
-  content="kontakte LAJONÈ'M, LAJONÈ'M Ayiti, kontak moun aje, volontè Ayiti, sipò moun aje, òganizasyon sosyal Ayiti, Cap-Haïtien"
->
+name="keywords"
+content="LAJONÈ'M, kontakte LAJONÈ'M, moun aje Ayiti, volontè Ayiti, don moun aje, patenarya sosyal, òganizasyon moun aje"
 
-<meta name="robots" content="index, follow">
+«»
 
-<link
-  rel="canonical"
-  href="https://bestdealshoping.github.io/LAJONE-M-/kontak.html"
->
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="LAJONÈ'M">  <meta name="theme-color" content="#0B3B75">  <link
+    rel="canonical"
+    href="https://bestdealshoping.github.io/LAJONE-M-/kontak.html"
+  >  <!-- Open Graph -->  <meta property="og:type" content="website">
+  <meta property="og:title" content="Kontakte LAJONÈ'M | Laj yo se onè nou">
+  <meta
+    property="og:description"
+    content="Kontakte LAJONÈ'M pou jwenn enfòmasyon oswa patisipe nan misyon nou pou moun aje yo."
+  >
+  <meta
+    property="og:url"
+    content="https://bestdealshoping.github.io/LAJONE-M-/kontak.html"
+  >
+  <meta property="og:site_name" content="LAJONÈ'M">
+  <meta property="og:locale" content="ht_HT">
+  <meta
+    property="og:image"
+    content="https://terjfmeuzvhcntplnbsd.supabase.co/storage/v1/object/public/galri/foto-1791543704733-hspnevg.png"
+  >  <!-- Twitter -->  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Kontakte LAJONÈ'M">
+  <meta
+    name="twitter:description"
+    content="Laj yo se onè nou. Kontakte LAJONÈ'M."
+  >
+  <meta
+    name="twitter:image"
+    content="https://terjfmeuzvhcntplnbsd.supabase.co/storage/v1/object/public/galri/foto-1791543704733-hspnevg.png"
+  >  <link rel="stylesheet" href="css/style.css">  <!-- Supabase -->  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>  <script src="js/supabase.js"></script>  <style>
+    .contact-logo {
+      width: 120px;
+      height: 120px;
+      object-fit: contain;
+      display: block;
+      margin: 0 auto 20px;
+      background: #ffffff;
+      border-radius: 24px;
+      padding: 10px;
+      box-shadow: 0 10px 30px rgba(11, 59, 117, 0.15);
+    }
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="Kontakte LAJONÈ'M | Laj yo se onè nou">
+    .contact-intro {
+      max-width: 760px;
+      margin: 0 auto;
+      text-align: center;
+    }
 
-<meta
-  property="og:description"
-  content="Kontakte LAJONÈ'M pou jwenn enfòmasyon oswa patisipe nan misyon nou pou moun aje yo."
->
+    .contact-grid {
+      display: grid;
+      grid-template-columns: minmax(280px, 0.85fr) minmax(320px, 1.15fr);
+      gap: 35px;
+      align-items: start;
+    }
 
-<meta
-  property="og:url"
-  content="https://bestdealshoping.github.io/LAJONE-M-/kontak.html"
->
+    .contact-info {
+      display: grid;
+      gap: 16px;
+    }
 
-<meta property="og:site_name" content="LAJONÈ'M">
-<meta property="og:locale" content="ht_HT">
+    .info-card {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      padding: 22px;
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 8px 25px rgba(11, 59, 117, 0.08);
+      border: 1px solid rgba(11, 59, 117, 0.08);
+    }
 
-  <link rel="stylesheet" href="css/style.css">
+    .info-icon {
+      width: 46px;
+      height: 46px;
+      min-width: 46px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+      background: #f2b705;
+      font-size: 22px;
+    }
 
-  <!-- Supabase -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="js/supabase.js"></script>
-</head>
+    .info-card h3 {
+      margin: 0 0 6px;
+      color: #0b3b75;
+    }
 
-<body>
+    .info-card p {
+      margin: 0;
+      line-height: 1.6;
+    }
 
-  <!-- ================= HEADER ================= -->
-  <header class="site-header">
+    .info-card a {
+      color: #0b3b75;
+      font-weight: 700;
+      text-decoration: none;
+    }
 
-    <div class="container nav-container">
+    .contact-form-wrapper {
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 10px 35px rgba(11, 59, 117, 0.10);
+      border: 1px solid rgba(11, 59, 117, 0.08);
+    }
 
-      <a href="index.html" class="logo">
-        <span>LAJONÈ'M</span>
-        <small>Laj yo se onè nou.</small>
-      </a>
+    .form-header {
+      margin-bottom: 24px;
+    }
 
-      <button
-        class="menu-toggle"
-        id="menuToggle"
-        aria-label="Louvri meni"
-      >
-        ☰
-      </button>
+    .form-header h2 {
+      margin-bottom: 8px;
+      color: #0b3b75;
+    }
 
-      <nav class="main-nav" id="mainNav">
+    .form-header p {
+      margin: 0;
+      color: #555;
+    }
 
-        <a href="index.html">Akèy</a>
+    .form-group {
+      margin-bottom: 18px;
+    }
 
-        <a href="sou-nou.html">Sou nou</a>
+    .form-group label {
+      display: block;
+      margin-bottom: 7px;
+      font-weight: 700;
+      color: #0b3b75;
+    }
 
-        <a href="pwogram.html">Pwogram</a>
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 13px 14px;
+      border: 1px solid #d7dce2;
+      border-radius: 10px;
+      background: #fff;
+      font: inherit;
+      color: #222;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
 
-        <a href="aktivite.html">Aktivite</a>
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: #0b3b75;
+      box-shadow: 0 0 0 3px rgba(11, 59, 117, 0.10);
+    }
 
-        <a href="galri.html">Galri</a>
+    .form-group textarea {
+      resize: vertical;
+      min-height: 150px;
+    }
 
-        <a href="nouvel.html">Nouvèl</a>
+    .form-status {
+      padding: 14px 16px;
+      border-radius: 10px;
+      margin-bottom: 18px;
+      line-height: 1.5;
+      font-weight: 600;
+    }
 
-        <a href="volonte.html">Vin volontè</a>
+    .form-status.success {
+      background: #e9f7ef;
+      color: #176b3a;
+      border: 1px solid #b8e2c8;
+    }
 
-        <a href="don.html">Fè yon don</a>
+    .form-status.error {
+      background: #fdecec;
+      color: #9b2226;
+      border: 1px solid #f3b7b9;
+    }
 
-        <a href="kontak.html" class="active">
-          Kontakte nou
-        </a>
+    .contact-submit {
+      width: 100%;
+      border: none;
+      cursor: pointer;
+    }
 
-      </nav>
+    .contact-submit:disabled {
+      opacity: 0.7;
+      cursor: wait;
+    }
 
-    </div>
+    .cta-box {
+      text-align: center;
+      max-width: 850px;
+      margin: 0 auto;
+    }
 
-  </header>
+    .cta-actions {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 22px;
+    }
 
+    @media (max-width: 800px) {
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
 
-  <!-- ================= HERO ================= -->
-  <section class="page-hero">
+      .contact-form-wrapper {
+        padding: 22px;
+      }
 
-    <div class="container">
+      .contact-logo {
+        width: 100px;
+        height: 100px;
+      }
+    }
+  </style></head><body>  <!-- ================= HEADER ================= -->  <header class="site-header"><div class="container nav-container">
 
-      <h1>Kontakte nou</h1>
+  <a href="index.html" class="logo" aria-label="LAJONÈ'M - Akèy">
+    <span>LAJONÈ'M</span>
+    <small>Laj yo se onè nou.</small>
+  </a>
+
+  <button
+    class="menu-toggle"
+    id="menuToggle"
+    aria-label="Louvri meni"
+    aria-expanded="false"
+    type="button"
+  >
+    ☰
+  </button>
+
+  <nav class="main-nav" id="mainNav">
+
+    <a href="index.html">Akèy</a>
+    <a href="sou-nou.html">Sou nou</a>
+    <a href="pwogram.html">Pwogram</a>
+    <a href="aktivite.html">Aktivite</a>
+    <a href="galri.html">Galri</a>
+    <a href="nouvel.html">Nouvèl</a>
+    <a href="volonte.html">Vin volontè</a>
+    <a href="don.html">Fè yon don</a>
+    <a href="patne.html">Patnè</a>
+    <a href="rapo.html">Rapò</a>
+
+    <a href="kontak.html" class="active">
+      Kontakte nou
+    </a>
+
+  </nav>
+
+</div>
+
+  </header>  <!-- ================= HERO ================= -->  <section class="page-hero"><div class="container">
+
+  <img
+    class="contact-logo"
+    src="https://terjfmeuzvhcntplnbsd.supabase.co/storage/v1/object/public/galri/foto-1791543704733-hspnevg.png"
+    alt="Logo ofisyèl LAJONÈ'M"
+  >
+
+  <h1>Kontakte nou</h1>
+
+  <p class="contact-intro">
+    Nou la pou koute w, resevwa mesaj ou epi konstwi
+    yon pi bon sipò pou moun aje ki nan bezwen.
+  </p>
+
+</div>
+
+  </section>  <!-- ================= CONTACT SECTION ================= -->  <main><section class="section">
+
+  <div class="container">
+
+    <div class="section-header">
+
+      <span class="section-label">
+        KONTAK
+      </span>
+
+      <h2>
+        Pale avèk ekip LAJONÈ'M
+      </h2>
 
       <p>
-        Nou la pou koute w, resevwa mesaj ou epi konstwi
-        yon pi bon sipò pou moun aje ki nan bezwen.
+        Si ou bezwen plis enfòmasyon, ou vle pwopoze
+        yon patenarya, ofri èd oswa pataje yon sitiyasyon,
+        ou kapab kontakte nou atravè fòm ki anba a.
       </p>
 
     </div>
 
-  </section>
+
+    <div class="contact-grid">
 
 
-  <!-- ================= CONTACT SECTION ================= -->
-  <main>
+      <!-- ================= INFORMATIONS ================= -->
+      <div class="contact-info">
 
-    <section class="section">
+        <div class="info-card">
 
-      <div class="container">
+          <div class="info-icon" aria-hidden="true">
+            📍
+          </div>
 
-        <div class="section-header">
+          <div>
 
-          <span class="section-label">
-            KONTAK
-          </span>
+            <h3>Adrès</h3>
+
+            <p>
+              Cap-Haïtien, Haïti
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="info-card">
+
+          <div class="info-icon" aria-hidden="true">
+            📞
+          </div>
+
+          <div>
+
+            <h3>Telefòn</h3>
+
+            <p>
+              <a href="tel:+50934981561">
+                509 42824391\ +509 35274215
+              </a>
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="info-card">
+
+          <div class="info-icon" aria-hidden="true">
+            ✉️
+          </div>
+
+          <div>
+
+            <h3>Imèl</h3>
+
+            <p>
+              <a href="mailto:woldjyimpactlab@gmail.com">
+                lajonem.ogr@gmail.com
+              </a>
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="info-card">
+
+          <div class="info-icon" aria-hidden="true">
+            🤝
+          </div>
+
+          <div>
+
+            <h3>Nou disponib pou</h3>
+
+            <p>
+              Kesyon, volontarya, don, patenarya,
+              oryantasyon ak lòt demann sosyal.
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- ================= FORM ================= -->
+      <div class="contact-form-wrapper">
+
+        <div class="form-header">
 
           <h2>
-            Pale avèk ekip LAJONÈ'M
+            Voye yon mesaj
           </h2>
 
           <p>
-            Si ou bezwen plis enfòmasyon, ou vle pwopoze
-            yon patenarya, ofri èd oswa pataje yon sitiyasyon,
-            ou kapab kontakte nou atravè fòm ki anba a.
+            Ranpli fòm nan epi ekip nou an ap resevwa mesaj ou.
           </p>
 
         </div>
 
 
-        <div class="contact-grid">
-
-
-          <!-- ================= INFORMATIONS ================= -->
-          <div class="contact-info">
-
-            <div class="info-card">
-
-              <div class="info-icon">
-                📍
-              </div>
-
-              <div>
-
-                <h3>Adrès</h3>
-
-                <p>
-                  Cap-Haïtien, Haïti
-                </p>
-
-              </div>
-
-            </div>
-
-
-            <div class="info-card">
-
-              <div class="info-icon">
-                📞
-              </div>
-
-              <div>
-
-                <h3>Telefòn</h3>
-
-                <p>
-                  <a href="tel:+50934981561">
-                    509 42824391\ +509 35274215
-                  </a>
-                </p>
-
-              </div>
-
-            </div>
-
-
-            <div class="info-card">
-
-              <div class="info-icon">
-                ✉️
-              </div>
-
-              <div>
-
-                <h3>Imèl</h3>
-
-                <p>
-                  <a href="mailto:woldjyimpactlab@gmail.com">
-                    lajonem.ogr@gmail.com
-                  </a>
-                </p>
-
-              </div>
-
-            </div>
-
-
-            <div class="info-card">
-
-              <div class="info-icon">
-                🤝
-              </div>
-
-              <div>
-
-                <h3>Nou disponib pou</h3>
-
-                <p>
-                  Kesyon, volontarya, don, patenarya,
-                  oryantasyon ak lòt demann sosyal.
-                </p>
-
-              </div>
-
-            </div>
-
-          </div>
-
-
-          <!-- ================= FORM ================= -->
-          <div class="contact-form-wrapper">
-
-            <div class="form-header">
-
-              <h2>
-                Voye yon mesaj
-              </h2>
-
-              <p>
-                Ranpli fòm nan epi ekip nou an ap resevwa mesaj ou.
-              </p>
-
-            </div>
-
-
-            <form id="contactForm">
-
-              <!-- NON -->
-              <div class="form-group">
-
-                <label for="non">
-                  Non konplè *
-                </label>
-
-                <input
-                  type="text"
-                  id="non"
-                  name="non"
-                  placeholder="Antre non ou"
-                  required
-                >
-
-              </div>
-
-
-              <!-- EMAIL -->
-              <div class="form-group">
-
-                <label for="email">
-                  Imèl *
-                </label>
-
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  placeholder="egzanp@email.com"
-                  required
-                >
-
-              </div>
-
-
-              <!-- TELEFON -->
-              <div class="form-group">
-
-                <label for="telefòn">
-                  Telefòn
-                </label>
-
-                <input
-                  type="tel"
-                  id="telefòn"
-                  name="telefòn"
-                  placeholder="+509..."
-                >
-
-              </div>
-
-
-              <!-- SUJET -->
-              <div class="form-group">
-
-                <label for="sijè">
-                  Sijè mesaj la *
-                </label>
-
-                <select
-                  id="sijè"
-                  name="sijè"
-                  required
-                >
-
-                  <option value="">
-                    Chwazi yon sijè
-                  </option>
-
-                  <option value="Enfòmasyon jeneral">
-                    Enfòmasyon jeneral
-                  </option>
-
-                  <option value="Volontarya">
-                    Volontarya
-                  </option>
-
-                  <option value="Don">
-                    Don
-                  </option>
-
-                  <option value="Patenarya">
-                    Patenarya
-                  </option>
-
-                  <option value="Akonpayman">
-                    Akonpayman
-                  </option>
-
-                  <option value="Sijesyon">
-                    Sijesyon
-                  </option>
-
-                  <option value="Lòt">
-                    Lòt
-                  </option>
-
-                </select>
-
-              </div>
-
-
-              <!-- MESSAGE -->
-              <div class="form-group">
-
-                <label for="mesaj">
-                  Mesaj *
-                </label>
-
-                <textarea
-                  id="mesaj"
-                  name="mesaj"
-                  rows="7"
-                  placeholder="Ekri mesaj ou la..."
-                  required
-                ></textarea>
-
-              </div>
-
-
-              <!-- MESSAGE STATUS -->
-              <div
-                id="contactStatus"
-                class="form-status"
-                style="display:none;"
-              ></div>
-
-
-              <!-- BUTTON -->
-              <button
-                type="submit"
-                class="btn btn-primary"
-                id="contactSubmit"
-              >
-                Voye mesaj la
-              </button>
-
-            </form>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- ================= CTA ================= -->
-    <section class="section section-light">
-
-      <div class="container">
-
-        <div class="cta-box">
-
-          <h2>
-            Ansanm, nou kapab fè yon diferans
-          </h2>
-
-          <p>
-            Chak aksyon konte. Yon vizit, yon don,
-            yon èdtan kòm volontè oswa yon mesaj kapab
-            pote plis diyite ak espwa nan lavi yon moun aje.
-          </p>
-
-          <div class="cta-actions">
-
-            <a
-              href="volonte.html"
-              class="btn btn-primary"
+        <form id="contactForm" novalidate>
+
+          <!-- NON -->
+          <div class="form-group">
+
+            <label for="non">
+              Non konplè *
+            </label>
+
+            <input
+              type="text"
+              id="non"
+              name="non"
+              placeholder="Antre non ou"
+              autocomplete="name"
+              required
             >
-              Vin volontè
-            </a>
-
-            <a
-              href="don.html"
-              class="btn btn-secondary"
-            >
-              Fè yon don
-            </a>
 
           </div>
 
-        </div>
+
+          <!-- EMAIL -->
+          <div class="form-group">
+
+            <label for="email">
+              Imèl *
+            </label>
+
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="egzanp@email.com"
+              autocomplete="email"
+              required
+            >
+
+          </div>
+
+
+          <!-- TELEFON -->
+          <div class="form-group">
+
+            <label for="telefòn">
+              Telefòn
+            </label>
+
+            <input
+              type="tel"
+              id="telefòn"
+              name="telefòn"
+              placeholder="+509..."
+              autocomplete="tel"
+            >
+
+          </div>
+
+
+          <!-- SUJET -->
+          <div class="form-group">
+
+            <label for="sijè">
+              Sijè mesaj la *
+            </label>
+
+            <select
+              id="sijè"
+              name="sijè"
+              required
+            >
+
+              <option value="">
+                Chwazi yon sijè
+              </option>
+
+              <option value="Enfòmasyon jeneral">
+                Enfòmasyon jeneral
+              </option>
+
+              <option value="Volontarya">
+                Volontarya
+              </option>
+
+              <option value="Don">
+                Don
+              </option>
+
+              <option value="Patenarya">
+                Patenarya
+              </option>
+
+              <option value="Akonpayman">
+                Akonpayman
+              </option>
+
+              <option value="Sijesyon">
+                Sijesyon
+              </option>
+
+              <option value="Lòt">
+                Lòt
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <!-- MESSAGE -->
+          <div class="form-group">
+
+            <label for="mesaj">
+              Mesaj *
+            </label>
+
+            <textarea
+              id="mesaj"
+              name="mesaj"
+              rows="7"
+              placeholder="Ekri mesaj ou la..."
+              required
+            ></textarea>
+
+          </div>
+
+
+          <!-- MESSAGE STATUS -->
+          <div
+            id="contactStatus"
+            class="form-status"
+            role="alert"
+            aria-live="polite"
+            style="display:none;"
+          ></div>
+
+
+          <!-- BUTTON -->
+          <button
+            type="submit"
+            class="btn btn-primary contact-submit"
+            id="contactSubmit"
+          >
+            Voye mesaj la
+          </button>
+
+        </form>
 
       </div>
 
-    </section>
+    </div>
 
-  </main>
+  </div>
 
-
-  <!-- ================= FOOTER ================= -->
-  <footer class="site-footer">
-
-    <div class="container footer-grid">
+</section>
 
 
-      <div class="footer-brand">
+<!-- ================= CTA ================= -->
+<section class="section section-light">
 
-        <h2>LAJONÈ'M</h2>
+  <div class="container">
 
-        <p>
-          Laj yo se onè nou.
-        </p>
+    <div class="cta-box">
 
-        <p>
-          Wè. Akonpaye. Valorizasyon.
-        </p>
+      <h2>
+        Ansanm, nou kapab fè yon diferans
+      </h2>
 
-      </div>
+      <p>
+        Chak aksyon konte. Yon vizit, yon don,
+        yon èdtan kòm volontè oswa yon mesaj kapab
+        pote plis diyite ak espwa nan lavi yon moun aje.
+      </p>
 
+      <div class="cta-actions">
 
-      <div>
-
-        <h3>Lyen rapid</h3>
-
-        <a href="sou-nou.html">Sou nou</a>
-
-        <a href="pwogram.html">Pwogram</a>
-
-        <a href="aktivite.html">Aktivite</a>
-
-        <a href="galri.html">Galri</a>
-
-        <a href="nouvel.html">Nouvèl</a>
-
-      </div>
-
-
-      <div>
-
-        <h3>Patisipe</h3>
-
-        <a href="volonte.html">
+        <a
+          href="volonte.html"
+          class="btn btn-primary"
+        >
           Vin volontè
         </a>
 
-        <a href="don.html">
+        <a
+          href="don.html"
+          class="btn btn-secondary"
+        >
           Fè yon don
         </a>
 
-        <a href="patne.html">
-          Vin patnè
-        </a>
-
-        <a href="kontak.html">
-          Kontakte nou
-        </a>
-
-      </div>
-
-
-      <div>
-
-        <h3>Kontak</h3>
-
-        <p>
-          Cap-Haïtien, Haïti
-        </p>
-
-        <p>
-          +509 42824391\ +509 35274215
-       
-        </p>
-<a
-    href="#"
-    data-whatsapp
-    target="_blank"
->
-    Kontakte nou sou WhatsApp
-</a>
-
-
-
-        <p>
-          lajonem.ogr@gmail.com
-        </p>
-
       </div>
 
     </div>
 
+  </div>
 
-    <div class="footer-bottom">
+</section>
 
-      <div class="container">
-
-        <p>
-          © <span id="currentYear"></span>
-          LAJONÈ'M — Laj yo se onè nou.
-        </p>
-
-        <p>
-          Respè • Solidarite • Imanite
-        </p>
-
-      </div>
-
-    </div>
-
-  </footer>
+  </main>  <!-- ================= FOOTER ================= -->  <footer class="site-footer"><div class="container footer-grid">
 
 
-  <!-- ================= JAVASCRIPT ================= -->
-  <script>
+  <div class="footer-brand">
+
+    <h2>LAJONÈ'M</h2>
+
+    <p>
+      Laj yo se onè nou.
+    </p>
+
+    <p>
+      Wè. Akonpaye. Valorizasyon.
+    </p>
+
+  </div>
+
+
+  <div>
+
+    <h3>Lyen rapid</h3>
+
+    <a href="sou-nou.html">Sou nou</a>
+    <a href="pwogram.html">Pwogram</a>
+    <a href="aktivite.html">Aktivite</a>
+    <a href="galri.html">Galri</a>
+    <a href="nouvel.html">Nouvèl</a>
+    <a href="rapo.html">Rapò</a>
+
+  </div>
+
+
+  <div>
+
+    <h3>Patisipe</h3>
+
+    <a href="volonte.html">
+      Vin volontè
+    </a>
+
+    <a href="don.html">
+      Fè yon don
+    </a>
+
+    <a href="patne.html">
+      Vin patnè
+    </a>
+
+    <a href="kontak.html">
+      Kontakte nou
+    </a>
+
+  </div>
+
+
+  <div>
+
+    <h3>Kontak</h3>
+
+    <p>
+      Cap-Haïtien, Haïti
+    </p>
+
+    <p>
+      +509 42824391\ +509 35274215
+    </p>
+
+    <a
+      href="#"
+      data-whatsapp
+      target="_blank"
+      rel="noopener"
+    >
+      Kontakte nou sou WhatsApp
+    </a>
+
+    <p>
+      lajonem.ogr@gmail.com
+    </p>
+
+  </div>
+
+</div>
+
+
+<div class="footer-bottom">
+
+  <div class="container">
+
+    <p>
+      © <span id="currentYear"></span>
+      LAJONÈ'M — Laj yo se onè nou.
+    </p>
+
+    <p>
+      Respè • Solidarite • Imanite
+    </p>
+
+  </div>
+
+</div>
+
+  </footer>  <!-- ================= JAVASCRIPT ================= -->  <script>
 
     document.addEventListener("DOMContentLoaded", function () {
 
@@ -570,7 +730,13 @@
 
         menuToggle.addEventListener("click", function () {
 
-          mainNav.classList.toggle("active");
+          const isActive =
+            mainNav.classList.toggle("active");
+
+          menuToggle.setAttribute(
+            "aria-expanded",
+            isActive ? "true" : "false"
+          );
 
         });
 
@@ -579,7 +745,8 @@
 
       /* ================= ANNÉE ================= */
 
-      const yearElement = document.getElementById("currentYear");
+      const yearElement =
+        document.getElementById("currentYear");
 
       if (yearElement) {
 
@@ -591,116 +758,156 @@
 
       /* ================= FORM CONTACT ================= */
 
-      form.addEventListener("submit", async function (event) {
+      if (!form) return;
 
-        event.preventDefault();
+      form.addEventListener(
+        "submit",
+        async function (event) {
 
-
-        submitButton.disabled = true;
-
-        submitButton.textContent =
-          "Mesaj la ap voye...";
+          event.preventDefault();
 
 
-        status.style.display = "none";
+          const non =
+            document.getElementById("non").value.trim();
+
+          const email =
+            document.getElementById("email").value.trim();
+
+          const telefòn =
+            document.getElementById("telefòn").value.trim();
+
+          const sijè =
+            document.getElementById("sijè").value.trim();
+
+          const mesaj =
+            document.getElementById("mesaj").value.trim();
 
 
-        const non =
-          document.getElementById("non").value.trim();
+          /* ================= VALIDATION ================= */
 
-        const email =
-          document.getElementById("email").value.trim();
+          if (!non || !email || !sijè || !mesaj) {
 
-        const telefòn =
-          document.getElementById("telefòn").value.trim();
+            status.textContent =
+              "Tanpri ranpli tout chan ki obligatwa yo.";
 
-        const sijè =
-          document.getElementById("sijè").value.trim();
+            status.className =
+              "form-status error";
 
-        const mesaj =
-          document.getElementById("mesaj").value.trim();
+            status.style.display =
+              "block";
 
-
-        try {
-
-          const { data, error } =
-            await supabaseClient
-              .from("mesaj_kontak")
-              .insert([
-                {
-                  non: non,
-                  email: email,
-                  telefòn: telefòn || null,
-                  sijè: sijè,
-                  mesaj: mesaj,
-                  estati: "nouvo",
-                  dat_mesaj: new Date().toISOString()
-                }
-              ])
-              .select()
-              .single();
-
-
-          if (error) {
-
-            console.error(
-              "Erè voye mesaj:",
-              error
-            );
-
-            throw error;
+            return;
 
           }
 
 
-          console.log(
-            "Mesaj LAJONÈ'M:",
-            data
-          );
+          if (!email.includes("@")) {
+
+            status.textContent =
+              "Tanpri antre yon adrès imèl ki valab.";
+
+            status.className =
+              "form-status error";
+
+            status.style.display =
+              "block";
+
+            return;
+
+          }
 
 
-          status.textContent =
-            "Mesaj ou a voye avèk siksè. Mèsi paske ou kontakte LAJONÈ'M.";
-
-          status.className =
-            "form-status success";
-
-          status.style.display =
-            "block";
-
-
-          form.reset();
-
-
-        } catch (error) {
-
-          console.error(error);
-
-
-          status.textContent =
-            "Nou pa rive voye mesaj la. Tanpri verifye koneksyon ou epi eseye ankò.";
-
-          status.className =
-            "form-status error";
-
-          status.style.display =
-            "block";
-
-
-        } finally {
-
-          submitButton.disabled = false;
+          submitButton.disabled = true;
 
           submitButton.textContent =
-            "Voye mesaj la";
+            "Mesaj la ap voye...";
+
+          status.style.display =
+            "none";
+
+
+          try {
+
+            const { data, error } =
+              await supabaseClient
+                .from("mesaj_kontak")
+                .insert([
+                  {
+                    non: non,
+                    email: email,
+                    telefòn: telefòn || null,
+                    sijè: sijè,
+                    mesaj: mesaj,
+                    estati: "nouvo",
+                    dat_mesaj: new Date().toISOString()
+                  }
+                ])
+                .select()
+                .single();
+
+
+            if (error) {
+
+              console.error(
+                "Erè voye mesaj:",
+                error
+              );
+
+              throw error;
+
+            }
+
+
+            console.log(
+              "Mesaj LAJONÈ'M:",
+              data
+            );
+
+
+            status.textContent =
+              "Mesaj ou a voye avèk siksè. Mèsi paske ou kontakte LAJONÈ'M.";
+
+            status.className =
+              "form-status success";
+
+            status.style.display =
+              "block";
+
+
+            form.reset();
+
+
+          } catch (error) {
+
+            console.error(
+              "Erè Supabase:",
+              error
+            );
+
+
+            status.textContent =
+              "Nou pa rive voye mesaj la. Tanpri verifye koneksyon ou epi eseye ankò.";
+
+            status.className =
+              "form-status error";
+
+            status.style.display =
+              "block";
+
+
+          } finally {
+
+            submitButton.disabled = false;
+
+            submitButton.textContent =
+              "Voye mesaj la";
+
+          }
 
         }
-
-      });
+      );
 
     });
 
-  </script>
-
-</body>
+  </script></body>
 </html>
