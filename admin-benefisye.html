@@ -4,510 +4,145 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Benefisyè | LAJONÈ'M Admin</title>
+  <title>Benefisyè — Admin | LAJONÈ'M</title>
+  <meta name="description" content="Jesyon benefisyè LAJONÈ'M.">
+  <meta name="robots" content="noindex, nofollow">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
   <link
-    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Open+Sans:wght@400;500;600;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Open+Sans:wght@400;500;600;700&display=swap"
     rel="stylesheet"
   >
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="js/supabase.js"></script>
 
-<script src="js/permissions.js"></script>
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: "Open Sans", sans-serif;
-      background: #f4f7fb;
-      color: #1d2939;
-    }
-
-    h1, h2, h3 {
-      font-family: "Montserrat", sans-serif;
-    }
-
-    input,
-    select,
-    textarea,
-    button {
-      font-family: inherit;
-    }
-
-    .layout {
-      min-height: 100vh;
-    }
-
-    /* SIDEBAR */
-    .sidebar {
-      position: fixed;
-      left: 0;
-      top: 0;
-      bottom: 0;
-      width: 260px;
-      background: #0B3B75;
-      color: white;
-      overflow-y: auto;
-      z-index: 1000;
-      transition: .25s;
-    }
-
-    .logo {
-      padding: 25px 20px;
-      border-bottom: 1px solid rgba(255,255,255,.15);
-    }
-
-    .logo h2 {
-      font-size: 22px;
-    }
-
-    .logo p {
-      font-size: 12px;
-      opacity: .8;
-      margin-top: 5px;
-    }
-
-    .menu {
-      padding: 15px 10px;
-    }
-
-    .menu-title {
-      font-size: 11px;
-      text-transform: uppercase;
-      opacity: .55;
-      padding: 15px;
-    }
-
-    .menu a {
-      display: block;
-      color: white;
-      text-decoration: none;
-      padding: 12px 15px;
-      border-radius: 8px;
-      margin-bottom: 4px;
-      font-size: 14px;
-    }
-
-    .menu a:hover,
-    .menu a.active {
-      background: rgba(255,255,255,.16);
-    }
-
-    /* MAIN */
-    .main {
-      margin-left: 260px;
-      min-height: 100vh;
-    }
-
-    .topbar {
-      height: 70px;
-      background: white;
-      border-bottom: 1px solid #e5e7eb;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 25px;
-      position: sticky;
-      top: 0;
-      z-index: 900;
-    }
-
-    .topbar-left {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .topbar h1 {
-      color: #0B3B75;
-      font-size: 21px;
-    }
-
-    .menu-toggle {
-      display: none;
-      background: #0B3B75;
-      color: white;
-      border: none;
-      padding: 9px 12px;
-      border-radius: 7px;
-      font-size: 18px;
-    }
-
-    .logout {
-      background: #dc3545;
-      color: white;
-      border: none;
-      padding: 9px 15px;
-      border-radius: 7px;
-      cursor: pointer;
-      font-weight: 600;
-    }
-
-    .content {
-      padding: 25px;
-    }
-
-    /* MESSAGE */
-    .message {
-      display: none;
-      padding: 13px 15px;
-      border-radius: 8px;
-      margin-bottom: 18px;
-      font-size: 14px;
-    }
-
-    .message.success {
-      display: block;
-      background: #dcfce7;
-      color: #166534;
-    }
-
-    .message.error {
-      display: block;
-      background: #fee2e2;
-      color: #991b1b;
-    }
-
-    /* STATS */
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 15px;
-      margin-bottom: 22px;
-    }
-
-    .stat {
-      background: white;
-      border-radius: 12px;
-      padding: 20px;
-      box-shadow: 0 2px 8px rgba(0,0,0,.05);
-    }
-
-    .stat p {
-      color: #667085;
-      font-size: 13px;
-      margin-bottom: 8px;
-    }
-
-    .stat h2 {
-      color: #0B3B75;
-      font-size: 28px;
-    }
-
-    /* TOOLBAR */
-    .toolbar {
-      background: white;
-      padding: 18px;
-      border-radius: 12px;
-      margin-bottom: 18px;
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      flex-wrap: wrap;
-      box-shadow: 0 2px 8px rgba(0,0,0,.05);
-    }
-
-    .toolbar-left {
-      display: flex;
-      gap: 10px;
-      flex: 1;
-      flex-wrap: wrap;
-    }
-
-    .search {
-      flex: 1;
-      min-width: 250px;
-    }
-
-    input,
-    select,
-    textarea {
-      width: 100%;
-      border: 1px solid #d0d5dd;
-      border-radius: 7px;
-      padding: 10px 12px;
-      background: white;
-      outline: none;
-    }
-
-    input:focus,
-    select:focus,
-    textarea:focus {
-      border-color: #0B3B75;
-    }
-
-    textarea {
-      min-height: 100px;
-      resize: vertical;
-    }
-
-    .btn {
-      border: none;
-      padding: 10px 15px;
-      border-radius: 7px;
-      cursor: pointer;
-      font-weight: 600;
-    }
-
-    .btn-primary {
-      background: #0B3B75;
-      color: white;
-    }
-
-    .btn-secondary {
-      background: #667085;
-      color: white;
-    }
-
-    .btn-warning {
-      background: #F2B705;
-      color: #111;
-    }
-
-    .btn-danger {
-      background: #dc3545;
-      color: white;
-    }
-
-    /* TABLE */
-    .table-box {
-      background: white;
-      border-radius: 12px;
-      overflow-x: auto;
-      box-shadow: 0 2px 8px rgba(0,0,0,.05);
-    }
-
-    table {
-      width: 100%;
-      min-width: 900px;
-      border-collapse: collapse;
-    }
-
-    th,
-    td {
-      padding: 13px 15px;
-      border-bottom: 1px solid #eaecf0;
-      text-align: left;
-      font-size: 13px;
-    }
-
-    th {
-      background: #f8fafc;
-      color: #475467;
-    }
-
-    .badge {
-      display: inline-block;
-      padding: 5px 9px;
-      border-radius: 20px;
-      font-size: 11px;
-      font-weight: 700;
-    }
-
-    .badge-actif {
-      background: #dcfce7;
-      color: #166534;
-    }
-
-    .badge-sispann {
-      background: #fef3c7;
-      color: #92400e;
-    }
-
-    .badge-fini {
-      background: #e5e7eb;
-      color: #374151;
-    }
-
-    .actions {
-      display: flex;
-      gap: 6px;
-    }
-
-    .actions button {
-      border: none;
-      border-radius: 6px;
-      padding: 7px 10px;
-      cursor: pointer;
-      font-size: 12px;
-      font-weight: 600;
-    }
-
-    .loading,
-    .empty {
-      text-align: center;
-      padding: 35px;
-      color: #667085;
-    }
-
-    /* MODAL */
-    .modal {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,.55);
-      z-index: 2000;
-      overflow-y: auto;
-      padding: 20px;
-    }
-
-    .modal.show {
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-    }
-
-    .modal-box {
-      width: 100%;
-      max-width: 850px;
-      background: white;
-      border-radius: 14px;
-      margin: 20px auto;
-      overflow: hidden;
-    }
-
-    .modal-header {
-      background: #0B3B75;
-      color: white;
-      padding: 18px 22px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .modal-header h2 {
-      font-size: 19px;
-    }
-
-    .close {
-      border: none;
-      background: transparent;
-      color: white;
-      font-size: 28px;
-      cursor: pointer;
-    }
-
-    .modal-body {
-      padding: 22px;
-    }
-
-    .form-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 15px;
-    }
-
-    .form-group label {
-      display: block;
-      margin-bottom: 6px;
-      font-size: 13px;
-      font-weight: 700;
-      color: #344054;
-    }
-
-    .full {
-      grid-column: 1 / -1;
-    }
-
-    .modal-footer {
-      border-top: 1px solid #eaecf0;
-      padding: 18px 22px;
-      display: flex;
-      justify-content: flex-end;
-      gap: 10px;
-    }
-
-    @media(max-width:1000px) {
-      .stats {
-        grid-template-columns: repeat(2,1fr);
-      }
-    }
-
-    @media(max-width:768px) {
-
-      .sidebar {
-        transform: translateX(-100%);
-      }
-
-      .sidebar.open {
-        transform: translateX(0);
-      }
-
-      .main {
-        margin-left: 0;
-      }
-
-      .menu-toggle {
-        display: block;
-      }
-
-      .content {
-        padding: 15px;
-      }
-
-      .form-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .full {
-        grid-column: auto;
-      }
-    }
-
-    @media(max-width:500px) {
-
-      .stats {
-        grid-template-columns: 1fr;
-      }
-
-      .topbar {
-        padding: 0 15px;
-      }
-
-      .topbar h1 {
-        font-size: 17px;
-      }
-
-      .content {
-        padding: 10px;
-      }
-
-      .search {
-        min-width: 100%;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
 
-<div class="layout">
+<header class="admin-header">
+
+  <div class="header-left">
+
+    <button
+      class="mobile-menu"
+      onclick="toggleMenu()"
+      aria-label="Ouvri meni"
+    >
+      ☰
+    </button>
+
+    <div class="brand">
+      LAJONÈ'M
+      <span>Laj yo se onè nou.</span>
+    </div>
+
+  </div>
+
+
+  <div class="header-right">
+
+    <span
+      class="admin-name"
+      id="adminName"
+    >
+      Administratè
+    </span>
+
+    <button
+      type="button"
+      class="notification-btn"
+      id="notificationButton"
+      onclick="toggleNotifikasyon()"
+      aria-label="Notifikasyon"
+    >
+      🔔
+
+      <span
+        class="notification-badge"
+        id="notificationBadge"
+      >
+        0
+      </span>
+
+    </button>
+
+
+    <a
+      href="index.html"
+      class="header-btn site-btn"
+    >
+      Wè sit la
+    </a>
+
+
+    <button
+      type="button"
+      class="header-btn logout-btn"
+      onclick="dekonèkte()"
+    >
+      Dekonekte
+    </button>
+
+  </div>
+
+</header>
+
+
+<!-- NOTIFICATION PANEL -->
+
+<div
+  class="notification-panel"
+  id="notificationPanel"
+>
+
+  <div class="notification-header">
+
+    <h3>Notifikasyon</h3>
+
+    <button
+      type="button"
+      onclick="makeToutNotifikasyonLi()"
+    >
+      Make tout li
+    </button>
+
+  </div>
+
+
+  <div
+    class="notification-content"
+    id="notificationContent"
+  >
+    <div class="notification-empty">
+      Pa gen nouvo notifikasyon.
+    </div>
+  </div>
+
+</div>
+
+
+<div class="admin-layout">
 
   <!-- SIDEBAR -->
-  <aside class="sidebar" id="sidebar">
 
-    <div class="logo">
-      <h2>LAJONÈ'M</h2>
-      <p>Laj yo se onè nou.</p>
+  <aside
+    class="sidebar"
+    id="sidebar"
+  >
+
+    <div class="menu-title">
+      Jeneral
     </div>
 
     <nav class="menu">
 
-      <div class="menu-title">Prensipal</div>
-
       <a href="admin.html">
         Dashboard
       </a>
-
-      <div class="menu-title">Jesyon</div>
 
       <a href="admin-aktivite.html">
         Aktivite
@@ -517,7 +152,19 @@
         Pwogram
       </a>
 
-      <a href="admin-benefisye.html" class="active">
+    </nav>
+
+
+    <div class="menu-title">
+      Benefisyè ak volontè
+    </div>
+
+    <nav class="menu">
+
+      <a
+        href="admin-benefisye.html"
+        class="active"
+      >
         Benefisyè
       </a>
 
@@ -525,157 +172,224 @@
         Volontè
       </a>
 
-      <div class="menu-title">Resous</div>
+      <a href="admin-vizit.html">
+        Vizit
+      </a>
 
-      <a href="#" onclick="paDisponib();return false;">
+    </nav>
+
+
+    <div class="menu-title">
+      Resous
+    </div>
+
+    <nav class="menu">
+
+      <a href="admin-don.html">
         Don
       </a>
 
-      <a href="#" onclick="paDisponib();return false;">
+      <a href="admin-donatè.html">
         Donatè
       </a>
 
-      <a href="#" onclick="paDisponib();return false;">
-        Nouvèl
-      </a>
-
-      <a href="#" onclick="paDisponib();return false;">
+      <a href="admin-patner.html">
         Patnè
       </a>
 
-      <a href="#" onclick="paDisponib();return false;">
+    </nav>
+
+
+    <div class="menu-title">
+      Kontni
+    </div>
+
+    <nav class="menu">
+
+      <a href="admin-nouvel.html">
+        Nouvèl
+      </a>
+
+      <a href="admin-galri.html">
         Galri
       </a>
 
-      <a href="#" onclick="paDisponib();return false;">
+      <a href="admin-rapo.html">
         Rapò
       </a>
 
-      <a href="#" onclick="paDisponib();return false;">
+      <a href="admin-mesaj.html">
         Mesaj
       </a>
 
     </nav>
+
   </aside>
 
 
   <!-- MAIN -->
-  <main class="main">
 
-    <header class="topbar">
+  <main class="admin-main">
 
-      <div class="topbar-left">
+    <div class="page-header">
 
-        <button
-          class="menu-toggle"
-          onclick="toggleSidebar()"
-        >
-          ☰
-        </button>
+      <div>
 
-        <h1>Benefisyè</h1>
+        <h1>
+          Jesyon Benefisyè
+        </h1>
+
+        <p>
+          Anrejistre, suiv epi jere moun LAJONÈ'M ap akonpaye yo.
+        </p>
 
       </div>
+
 
       <button
-        class="logout"
-        onclick="dekonèkte()"
+        type="button"
+        class="btn-primary"
+        onclick="nouvoBenefisye()"
       >
-        Dekonekte
+        + Ajoute benefisyè
       </button>
 
-    </header>
+    </div>
 
 
-    <section class="content">
-
-      <div
-        id="message"
-        class="message"
-      ></div>
+    <div
+      id="message"
+      class="message"
+    ></div>
 
 
-      <!-- STATISTIK -->
-      <div class="stats">
+    <!-- STATISTIK -->
 
-        <div class="stat">
-          <p>Total benefisyè</p>
-          <h2 id="total">0</h2>
-        </div>
+    <section class="stats-grid">
 
-        <div class="stat">
-          <p>Aktif</p>
-          <h2 id="aktif">0</h2>
-        </div>
-
-        <div class="stat">
-          <p>Sispann</p>
-          <h2 id="sispann">0</h2>
-        </div>
-
-        <div class="stat">
-          <p>Fini</p>
-          <h2 id="fini">0</h2>
-        </div>
-
-      </div>
-
-
-      <!-- TOOLBAR -->
-      <div class="toolbar">
-
-        <div class="toolbar-left">
-
-          <input
-            type="search"
-            id="search"
-            class="search"
-            placeholder="Chèche non, siyati, telefòn, adrès..."
-            oninput="filtre()"
-          >
-
-          <select
-            id="filtreStatut"
-            onchange="filtre()"
-          >
-            <option value="">
-              Tout estati
-            </option>
-
-            <option value="aktif">
-              Aktif
-            </option>
-
-            <option value="sispann">
-              Sispann
-            </option>
-
-            <option value="fini">
-              Fini
-            </option>
-          </select>
-
-        </div>
-
-        <button
-          class="btn btn-primary"
-          onclick="nouvoBenefisye()"
-        >
-          + Ajoute benefisyè
-        </button>
-
-      </div>
-
-
-      <!-- TABLE -->
-      <div class="table-box">
+      <div class="stat-card">
 
         <div
-          id="loading"
-          class="loading"
+          class="stat-number"
+          id="total"
         >
-          Chaje benefisyè yo...
+          0
         </div>
+
+        <div class="stat-label">
+          Total benefisyè
+        </div>
+
+      </div>
+
+
+      <div class="stat-card">
+
+        <div
+          class="stat-number"
+          id="aktif"
+        >
+          0
+        </div>
+
+        <div class="stat-label">
+          Aktif
+        </div>
+
+      </div>
+
+
+      <div class="stat-card">
+
+        <div
+          class="stat-number"
+          id="sispann"
+        >
+          0
+        </div>
+
+        <div class="stat-label">
+          Sispann
+        </div>
+
+      </div>
+
+
+      <div class="stat-card">
+
+        <div
+          class="stat-number"
+          id="fini"
+        >
+          0
+        </div>
+
+        <div class="stat-label">
+          Fini
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- FILTRE -->
+
+    <section class="toolbar-card">
+
+      <div class="toolbar-left">
+
+        <input
+          type="search"
+          id="search"
+          class="search-input"
+          placeholder="Chèche non, siyati, telefòn, adrès..."
+          oninput="filtre()"
+        >
+
+
+        <select
+          id="filtreStatut"
+          class="filter-select"
+          onchange="filtre()"
+        >
+
+          <option value="">
+            Tout estati
+          </option>
+
+          <option value="aktif">
+            Aktif
+          </option>
+
+          <option value="sispann">
+            Sispann
+          </option>
+
+          <option value="fini">
+            Fini
+          </option>
+
+        </select>
+
+      </div>
+
+    </section>
+
+
+    <!-- TABLE -->
+
+    <section class="table-card">
+
+      <div
+        id="loading"
+        class="loading"
+      >
+        Chaje benefisyè yo...
+      </div>
+
+
+      <div class="table-wrapper">
 
         <table
           id="table"
@@ -685,29 +399,53 @@
           <thead>
 
             <tr>
-              <th>Kòd</th>
-              <th>Non konplè</th>
-              <th>Telefòn</th>
-              <th>Adrès</th>
-              <th>Nivo depandans</th>
-              <th>Estati</th>
-              <th>Aksyon</th>
+
+              <th>
+                Kòd
+              </th>
+
+              <th>
+                Non konplè
+              </th>
+
+              <th>
+                Telefòn
+              </th>
+
+              <th>
+                Adrès
+              </th>
+
+              <th>
+                Nivo depandans
+              </th>
+
+              <th>
+                Estati
+              </th>
+
+              <th>
+                Aksyon
+              </th>
+
             </tr>
 
           </thead>
+
 
           <tbody id="tbody"></tbody>
 
         </table>
 
-        <div
-          id="empty"
-          class="empty"
-          style="display:none;"
-        >
-          Pa gen benefisyè pou montre.
-        </div>
+      </div>
 
+
+      <div
+        id="empty"
+        class="empty-message"
+        style="display:none;"
+      >
+        Pa gen benefisyè pou montre.
       </div>
 
     </section>
@@ -717,7 +455,8 @@
 </div>
 
 
-<!-- MODAL -->
+<!-- MODAL BENEFISYE -->
+
 <div
   class="modal"
   id="modal"
@@ -732,8 +471,10 @@
       </h2>
 
       <button
-        class="close"
+        type="button"
+        class="modal-close"
         onclick="femenModal()"
+        aria-label="Fèmen"
       >
         ×
       </button>
@@ -747,10 +488,10 @@
 
         <div class="form-grid">
 
-          <!-- NON -->
+
           <div class="form-group">
 
-            <label>
+            <label for="non">
               Non *
             </label>
 
@@ -763,10 +504,9 @@
           </div>
 
 
-          <!-- SIYATI -->
           <div class="form-group">
 
-            <label>
+            <label for="siyati">
               Siyati
             </label>
 
@@ -778,10 +518,9 @@
           </div>
 
 
-          <!-- DAT NESANS -->
           <div class="form-group">
 
-            <label>
+            <label for="dat_nesans">
               Dat nesans
             </label>
 
@@ -793,10 +532,9 @@
           </div>
 
 
-          <!-- SÈKS -->
           <div class="form-group">
 
-            <label>
+            <label for="seks">
               Sèks
             </label>
 
@@ -823,10 +561,9 @@
           </div>
 
 
-          <!-- TELEFÒN -->
           <div class="form-group">
 
-            <label>
+            <label for="telefon">
               Telefòn
             </label>
 
@@ -839,10 +576,9 @@
           </div>
 
 
-          <!-- ADRES -->
           <div class="form-group">
 
-            <label>
+            <label for="adres">
               Adrès
             </label>
 
@@ -854,10 +590,9 @@
           </div>
 
 
-          <!-- SITUASYON FAMILYAL -->
           <div class="form-group">
 
-            <label>
+            <label for="sitiyasyon_fanmi">
               Sitiyasyon familyal
             </label>
 
@@ -900,10 +635,9 @@
           </div>
 
 
-          <!-- SITUASYON LAVI -->
           <div class="form-group">
 
-            <label>
+            <label for="sitiyasyon_lavi">
               Sitiyasyon lavi
             </label>
 
@@ -938,10 +672,9 @@
           </div>
 
 
-          <!-- NIVO DEPANDANS -->
           <div class="form-group">
 
-            <label>
+            <label for="nivo_depandans">
               Nivo depandans
             </label>
 
@@ -972,10 +705,9 @@
           </div>
 
 
-          <!-- REFERANS SANTE -->
           <div class="form-group">
 
-            <label>
+            <label for="referans_sante">
               Referans sante
             </label>
 
@@ -988,25 +720,23 @@
           </div>
 
 
-          <!-- BEZWEN -->
           <div class="form-group full">
 
-            <label>
+            <label for="bezwen_prensipal">
               Bezwen prensipal
             </label>
 
             <textarea
               id="bezwen_prensipal"
-              placeholder="Ekri bezwen yo separe ak vigil. Egzanp: Manje, Ijyèn, Medikaman"
+              placeholder="Egzanp: Manje, Ijyèn, Medikaman"
             ></textarea>
 
           </div>
 
 
-          <!-- NOT SOSYAL -->
           <div class="form-group full">
 
-            <label>
+            <label for="not_sosyal">
               Nòt sosyal
             </label>
 
@@ -1018,10 +748,9 @@
           </div>
 
 
-          <!-- ESTATI -->
           <div class="form-group">
 
-            <label>
+            <label for="estati">
               Estati *
             </label>
 
@@ -1055,15 +784,16 @@
 
         <button
           type="button"
-          class="btn btn-secondary"
+          class="btn-cancel"
           onclick="femenModal()"
         >
           Anile
         </button>
 
+
         <button
           type="submit"
-          class="btn btn-primary"
+          class="btn-save"
           id="saveBtn"
         >
           Anrejistre
@@ -1078,94 +808,165 @@
 </div>
 
 
+<!-- TOAST -->
+
+<div
+  id="toast"
+  class="toast"
+></div>
+
+
+<script src="js/supabase.js"></script>
+<script src="js/permissions.js"></script>
+<script src="js/notifikasyon.js"></script>
+
+
 <script>
 
   let benefisye = [];
   let benefisyePouModifye = null;
 
 
-  /* ================================
-     AUTH
-  ================================= */
+  /* =========================
+     DEMARAJ
+  ========================= */
+
+  document.addEventListener(
+    "DOMContentLoaded",
+    async () => {
+
+      await demare();
+
+    }
+  );
+
+
+  /* =========================
+     VERIFY ADMIN
+  ========================= */
 
   async function verifyeAdmin() {
 
-    const {
-      data: { user },
-      error
-    } = await supabaseClient.auth.getUser();
+    try {
 
-    if (error || !user) {
+      const {
+        data: {
+          user
+        },
+        error
+      } = await supabaseClient.auth.getUser();
 
-      window.location.href = "login.html";
 
-      return false;
+      if (error || !user) {
+
+        window.location.href =
+          "login.html";
+
+        return false;
+
+      }
+
+
+      const {
+        data: admin,
+        error: adminError
+      } = await supabaseClient
+
+        .from("itilizatè_admin")
+
+        .select(`
+          id,
+          user_id,
+          non,
+          siyati,
+          email,
+          wòl,
+          aktif
+        `)
+
+        .eq("user_id", user.id)
+
+        .eq("aktif", true)
+
+        .maybeSingle();
+
+
+      if (adminError) {
+
+        console.error(adminError);
+
+        montreErreur(
+          adminError
+        );
+
+        return false;
+
+      }
+
+
+      if (
+        !admin ||
+        !["super_admin", "admin"].includes(
+          admin.wòl
+        )
+      ) {
+
+        await supabaseClient.auth.signOut();
+
+        window.location.href =
+          "login.html";
+
+        return false;
+
+      }
+
+
+      document.getElementById(
+        "adminName"
+      ).textContent =
+        admin.non || "Administratè";
+
+
+      return true;
+
     }
 
+    catch (error) {
 
-    const {
-      data,
-      error: adminError
-    } = await supabaseClient
-      .from("itilizatè_admin")
-      .select(`
-        id,
-        user_id,
-        non,
-        siyati,
-        email,
-        wòl,
-        aktif
-      `)
-      .eq("user_id", user.id)
-      .eq("aktif", true)
-      .maybeSingle();
+      console.error(error);
 
-
-    if (adminError) {
-
-      montreErreur(adminError);
+      montreErreur(error);
 
       return false;
+
     }
 
-
-    if (
-      !data ||
-      !["super_admin", "admin"].includes(data.wòl)
-    ) {
-
-      alert(
-        "Ou pa gen otorizasyon pou jwenn aksè nan paj sa a."
-      );
-
-      await supabaseClient.auth.signOut();
-
-      window.location.href = "login.html";
-
-      return false;
-    }
-
-
-    return true;
   }
 
 
-  /* ================================
-     CHAJE BENEFISYE
-  ================================= */
+  /* =========================
+     CHARGE BENEFISYE
+  ========================= */
 
   async function chajeBenefisye() {
 
-    document.getElementById("loading")
-      .style.display = "block";
+    document.getElementById(
+      "loading"
+    ).style.display = "block";
+
+
+    document.getElementById(
+      "table"
+    ).style.display = "none";
 
 
     const {
       data,
       error
     } = await supabaseClient
+
       .from("benefisye")
+
       .select(`
         id,
         kòd_benefisye,
@@ -1183,120 +984,157 @@
         nòt_sosyal,
         estati
       `)
-      .order("id", {
-        ascending: false
-      });
+
+      .order(
+        "id",
+        {
+          ascending: false
+        }
+      );
 
 
-    document.getElementById("loading")
-      .style.display = "none";
+    document.getElementById(
+      "loading"
+    ).style.display = "none";
 
 
     if (error) {
 
-      console.error("BENEFISYE ERROR:", error);
+      console.error(
+        "BENEFISYE ERROR:",
+        error
+      );
 
       montreErreur(error);
 
       return;
+
     }
 
 
-    benefisye = data || [];
+    benefisye =
+      data || [];
+
 
     meteStatistik();
 
     filtre();
+
   }
 
 
-  /* ================================
+  /* =========================
      STATISTIK
-  ================================= */
+  ========================= */
 
   function meteStatistik() {
 
-    document.getElementById("total")
-      .textContent = benefisye.length;
+    document.getElementById(
+      "total"
+    ).textContent =
+      benefisye.length;
 
-    document.getElementById("aktif")
-      .textContent =
+
+    document.getElementById(
+      "aktif"
+    ).textContent =
       benefisye.filter(
         b => b.estati === "aktif"
       ).length;
 
-    document.getElementById("sispann")
-      .textContent =
+
+    document.getElementById(
+      "sispann"
+    ).textContent =
       benefisye.filter(
         b => b.estati === "sispann"
       ).length;
 
-    document.getElementById("fini")
-      .textContent =
+
+    document.getElementById(
+      "fini"
+    ).textContent =
       benefisye.filter(
         b => b.estati === "fini"
       ).length;
+
   }
 
 
-  /* ================================
+  /* =========================
      FILTRE
-  ================================= */
+  ========================= */
 
   function filtre() {
 
     const recherche =
-      document.getElementById("search")
-        .value
-        .toLowerCase()
-        .trim();
+      document.getElementById(
+        "search"
+      )
+      .value
+      .toLowerCase()
+      .trim();
 
 
     const estati =
-      document.getElementById("filtreStatut")
-        .value;
+      document.getElementById(
+        "filtreStatut"
+      ).value;
 
 
     const rezilta =
-      benefisye.filter(b => {
+      benefisye.filter(
+        b => {
 
-        const texte = `
-          ${b.non || ""}
-          ${b.siyati || ""}
-          ${b.telefòn || ""}
-          ${b.adrès || ""}
-          ${b.kòd_benefisye || ""}
-        `.toLowerCase();
+          const texte = `
+            ${b.non || ""}
+            ${b.siyati || ""}
+            ${b.telefòn || ""}
+            ${b.adrès || ""}
+            ${b.kòd_benefisye || ""}
+          `
+          .toLowerCase();
 
 
-        return (
-          (!recherche ||
-            texte.includes(recherche))
-          &&
-          (!estati ||
-            b.estati === estati)
-        );
-      });
+          return (
+            (!recherche ||
+              texte.includes(recherche))
+            &&
+            (!estati ||
+              b.estati === estati)
+          );
+
+        }
+      );
 
 
     afiche(rezilta);
+
   }
 
 
-  /* ================================
+  /* =========================
      AFFICHE
-  ================================= */
+  ========================= */
 
   function afiche(lis) {
 
     const table =
-      document.getElementById("table");
+      document.getElementById(
+        "table"
+      );
+
 
     const tbody =
-      document.getElementById("tbody");
+      document.getElementById(
+        "tbody"
+      );
+
 
     const empty =
-      document.getElementById("empty");
+      document.getElementById(
+        "empty"
+      );
 
 
     tbody.innerHTML = "";
@@ -1304,295 +1142,432 @@
 
     if (!lis.length) {
 
-      table.style.display = "none";
-      empty.style.display = "block";
+      table.style.display =
+        "none";
+
+      empty.style.display =
+        "block";
 
       return;
+
     }
 
 
-    table.style.display = "table";
-    empty.style.display = "none";
+    table.style.display =
+      "table";
+
+    empty.style.display =
+      "none";
 
 
-    lis.forEach(b => {
+    lis.forEach(
+      b => {
 
-      const tr =
-        document.createElement("tr");
-
-
-      const nonKonple =
-        `${b.non || ""} ${b.siyati || ""}`
-        .trim();
+        const tr =
+          document.createElement(
+            "tr"
+          );
 
 
-      tr.innerHTML = `
+        const nonKonple =
+          `${b.non || ""} ${b.siyati || ""}`
+          .trim();
 
-        <td>
-          <strong>
+
+        tr.innerHTML = `
+
+          <td>
+            <strong>
+              ${safe(
+                b.kòd_benefisye || "-"
+              )}
+            </strong>
+          </td>
+
+
+          <td>
             ${safe(
-              b.kòd_benefisye || "-"
+              nonKonple || "-"
             )}
-          </strong>
-        </td>
-
-        <td>
-          ${safe(
-            nonKonple || "-"
-          )}
-        </td>
-
-        <td>
-          ${safe(
-            b.telefòn || "-"
-          )}
-        </td>
-
-        <td>
-          ${safe(
-            b.adrès || "-"
-          )}
-        </td>
-
-        <td>
-          ${safe(
-            b.nivo_depandans || "-"
-          )}
-        </td>
-
-        <td>
-          ${badge(b.estati)}
-        </td>
-
-        <td>
-
-          <div class="actions">
-
-            <button
-              class="btn-warning"
-              onclick="modifye('${b.id}')"
-            >
-              Modifye
-            </button>
-
-            <button
-              class="btn-danger"
-              onclick="efase('${b.id}')"
-            >
-              Efase
-            </button>
-
-          </div>
-
-        </td>
-      `;
+          </td>
 
 
-      tbody.appendChild(tr);
-    });
+          <td>
+            ${safe(
+              b.telefòn || "-"
+            )}
+          </td>
+
+
+          <td>
+            ${safe(
+              b.adrès || "-"
+            )}
+          </td>
+
+
+          <td>
+            ${safe(
+              b.nivo_depandans || "-"
+            )}
+          </td>
+
+
+          <td>
+            ${badge(
+              b.estati
+            )}
+          </td>
+
+
+          <td>
+
+            <div class="actions">
+
+              <button
+                type="button"
+                class="btn-small btn-edit"
+                onclick="modifye('${b.id}')"
+              >
+                Modifye
+              </button>
+
+
+              <button
+                type="button"
+                class="btn-small btn-delete"
+                onclick="efase('${b.id}')"
+              >
+                Efase
+              </button>
+
+            </div>
+
+          </td>
+
+        `;
+
+
+        tbody.appendChild(tr);
+
+      }
+    );
+
   }
 
 
-  /* ================================
+  /* =========================
      BADGE
-  ================================= */
+  ========================= */
 
   function badge(estati) {
 
-    if (estati === "sispann") {
+    if (
+      estati === "sispann"
+    ) {
 
       return `
         <span class="badge badge-sispann">
           Sispann
         </span>
       `;
+
     }
 
 
-    if (estati === "fini") {
+    if (
+      estati === "fini"
+    ) {
 
       return `
         <span class="badge badge-fini">
           Fini
         </span>
       `;
+
     }
 
 
     return `
-      <span class="badge badge-actif">
+      <span class="badge badge-active">
         Aktif
       </span>
     `;
+
   }
 
 
-  /* ================================
-     NOUVO
-  ================================= */
+  /* =========================
+     NOUVO BENEFISYE
+  ========================= */
 
   function nouvoBenefisye() {
 
-    benefisyePouModifye = null;
-
-    document.getElementById("form")
-      .reset();
-
-    document.getElementById("estati")
-      .value = "aktif";
+    benefisyePouModifye =
+      null;
 
 
-    document.getElementById("modalTitle")
-      .textContent =
+    document.getElementById(
+      "form"
+    ).reset();
+
+
+    document.getElementById(
+      "estati"
+    ).value =
+      "aktif";
+
+
+    document.getElementById(
+      "modalTitle"
+    ).textContent =
       "Ajoute benefisyè";
 
 
-    document.getElementById("modal")
-      .classList.add("show");
+    document.getElementById(
+      "saveBtn"
+    ).textContent =
+      "Anrejistre";
+
+
+    document.getElementById(
+      "modal"
+    ).classList.add(
+      "show"
+    );
+
   }
 
 
-  /* ================================
+  /* =========================
      MODIFYE
-  ================================= */
+  ========================= */
 
   function modifye(id) {
 
     const b =
       benefisye.find(
-        item => item.id === id
+        item =>
+          String(item.id) ===
+          String(id)
       );
 
 
-    if (!b) return;
+    if (!b) {
+
+      montreToast(
+        "Benefisyè a pa jwenn.",
+        "error"
+      );
+
+      return;
+
+    }
 
 
-    benefisyePouModifye = b;
+    benefisyePouModifye =
+      b;
 
 
-    document.getElementById("modalTitle")
-      .textContent =
+    document.getElementById(
+      "modalTitle"
+    ).textContent =
       "Modifye benefisyè";
 
 
-    document.getElementById("non")
-      .value = b.non || "";
+    document.getElementById(
+      "non"
+    ).value =
+      b.non || "";
 
-    document.getElementById("siyati")
-      .value = b.siyati || "";
 
-    document.getElementById("dat_nesans")
-      .value = b.dat_nesans || "";
+    document.getElementById(
+      "siyati"
+    ).value =
+      b.siyati || "";
 
-    document.getElementById("seks")
-      .value = b.sèks || "";
 
-    document.getElementById("telefon")
-      .value = b.telefòn || "";
+    document.getElementById(
+      "dat_nesans"
+    ).value =
+      b.dat_nesans || "";
 
-    document.getElementById("adres")
-      .value = b.adrès || "";
+
+    document.getElementById(
+      "seks"
+    ).value =
+      b.sèks || "";
+
+
+    document.getElementById(
+      "telefon"
+    ).value =
+      b.telefòn || "";
+
+
+    document.getElementById(
+      "adres"
+    ).value =
+      b.adrès || "";
+
 
     document.getElementById(
       "sitiyasyon_fanmi"
     ).value =
       b.sitiyasyon_fanmi || "";
 
+
     document.getElementById(
       "sitiyasyon_lavi"
     ).value =
       b.sitiyasyon_lavi || "";
+
 
     document.getElementById(
       "nivo_depandans"
     ).value =
       b.nivo_depandans || "";
 
+
     document.getElementById(
       "referans_sante"
     ).value =
       b.referans_sante || "";
 
+
     document.getElementById(
       "bezwen_prensipal"
     ).value =
-      Array.isArray(b.bezwen_prensipal)
-        ? b.bezwen_prensipal.join(", ")
-        : b.bezwen_prensipal || "";
+      Array.isArray(
+        b.bezwen_prensipal
+      )
+      ? b.bezwen_prensipal.join(", ")
+      : b.bezwen_prensipal || "";
+
 
     document.getElementById(
       "not_sosyal"
     ).value =
       b.nòt_sosyal || "";
 
-    document.getElementById("estati")
-      .value =
+
+    document.getElementById(
+      "estati"
+    ).value =
       b.estati || "aktif";
 
 
-    document.getElementById("modal")
-      .classList.add("show");
+    document.getElementById(
+      "saveBtn"
+    ).textContent =
+      "Sove chanjman yo";
+
+
+    document.getElementById(
+      "modal"
+    ).classList.add(
+      "show"
+    );
+
   }
 
 
-  /* ================================
-     FÈMEN MODAL
-  ================================= */
+  /* =========================
+     FEMEN MODAL
+  ========================= */
 
   function femenModal() {
 
-    document.getElementById("modal")
-      .classList.remove("show");
+    document.getElementById(
+      "modal"
+    ).classList.remove(
+      "show"
+    );
 
-    benefisyePouModifye = null;
+
+    benefisyePouModifye =
+      null;
+
   }
 
 
-  /* ================================
-     ANREJISTRE
-  ================================= */
+  /* =========================
+     SAVE
+  ========================= */
 
-  document.getElementById("form")
-    .addEventListener(
-      "submit",
-      async function(e) {
+  document.getElementById(
+    "form"
+  ).addEventListener(
+    "submit",
+    async function(e) {
 
-        e.preventDefault();
-
-
-        const bouton =
-          document.getElementById("saveBtn");
+      e.preventDefault();
 
 
-        bouton.disabled = true;
-        bouton.textContent =
-          "Anrejistreman...";
+      const bouton =
+        document.getElementById(
+          "saveBtn"
+        );
+
+
+      bouton.disabled =
+        true;
+
+
+      bouton.textContent =
+        "Anrejistreman...";
+
+
+      try {
+
+        const non =
+          document.getElementById(
+            "non"
+          )
+          .value
+          .trim();
+
+
+        if (!non) {
+
+          throw new Error(
+            "Non benefisyè a obligatwa."
+          );
+
+        }
 
 
         const bezwenText =
           document.getElementById(
             "bezwen_prensipal"
-          ).value.trim();
+          )
+          .value
+          .trim();
 
 
         const bezwen =
           bezwenText
-            ? bezwenText
-                .split(",")
-                .map(x => x.trim())
-                .filter(Boolean)
-            : [];
+
+          ? bezwenText
+              .split(",")
+              .map(
+                x => x.trim()
+              )
+              .filter(Boolean)
+
+          : [];
 
 
         const donne = {
 
-          non:
-            document.getElementById("non")
-              .value.trim(),
+          non: non,
 
           siyati:
-            document.getElementById("siyati")
-              .value.trim(),
+            document.getElementById(
+              "siyati"
+            )
+            .value
+            .trim() || null,
 
           dat_nesans:
             document.getElementById(
@@ -1600,16 +1575,23 @@
             ).value || null,
 
           sèks:
-            document.getElementById("seks")
-              .value || null,
+            document.getElementById(
+              "seks"
+            ).value || null,
 
           telefòn:
-            document.getElementById("telefon")
-              .value.trim() || null,
+            document.getElementById(
+              "telefon"
+            )
+            .value
+            .trim() || null,
 
           adrès:
-            document.getElementById("adres")
-              .value.trim() || null,
+            document.getElementById(
+              "adres"
+            )
+            .value
+            .trim() || null,
 
           sitiyasyon_fanmi:
             document.getElementById(
@@ -1632,12 +1614,16 @@
           referans_sante:
             document.getElementById(
               "referans_sante"
-            ).value.trim() || null,
+            )
+            .value
+            .trim() || null,
 
           nòt_sosyal:
             document.getElementById(
               "not_sosyal"
-            ).value.trim() || null,
+            )
+            .value
+            .trim() || null,
 
           estati:
             document.getElementById(
@@ -1650,8 +1636,11 @@
         let result;
 
 
-        /* NOUVO BENEFISYE */
-        if (!benefisyePouModifye) {
+        /* AJOUTE */
+
+        if (
+          !benefisyePouModifye
+        ) {
 
           donne.kòd_benefisye =
             kreyeKodBenefisye();
@@ -1659,67 +1648,115 @@
 
           result =
             await supabaseClient
+
               .from("benefisye")
-              .insert([donne]);
+
+              .insert([
+                donne
+              ]);
 
         }
 
+
         /* MODIFYE */
+
         else {
 
           result =
             await supabaseClient
+
               .from("benefisye")
-              .update(donne)
+
+              .update(
+                donne
+              )
+
               .eq(
                 "id",
                 benefisyePouModifye.id
               );
+
         }
-
-
-        bouton.disabled = false;
-        bouton.textContent =
-          "Anrejistre";
 
 
         if (result.error) {
 
-          console.error(
-            "SUPABASE ERROR:",
-            result.error
-          );
+          throw result.error;
 
-          montreErreur(result.error);
-
-          return;
         }
+
+
+        const teModifye =
+          !!benefisyePouModifye;
 
 
         femenModal();
 
 
-        montreSucces(
-          benefisyePouModifye
-            ? "Benefisyè a modifye avèk siksè."
-            : "Benefisyè a anrejistre avèk siksè."
+        montreToast(
+          teModifye
+
+          ? "Benefisyè a modifye avèk siksè."
+
+          : "Benefisyè a anrejistre avèk siksè.",
+
+          "success"
         );
 
 
         await chajeBenefisye();
+
       }
-    );
+
+      catch (error) {
+
+        console.error(
+          "SUPABASE ERROR:",
+          error
+        );
 
 
-  /* ================================
+        montreToast(
+          "Erè: " +
+          (
+            error.message ||
+            "Operasyon an echwe."
+          ),
+          "error"
+        );
+
+      }
+
+      finally {
+
+        bouton.disabled =
+          false;
+
+
+        bouton.textContent =
+          benefisyePouModifye
+
+          ? "Sove chanjman yo"
+
+          : "Anrejistre";
+
+      }
+
+    }
+  );
+
+
+  /* =========================
      EFASE
-  ================================= */
+  ========================= */
 
   async function efase(id) {
 
     const b =
       benefisye.find(
-        item => item.id === id
+        item =>
+          String(item.id) ===
+          String(id)
       );
 
 
@@ -1744,9 +1781,15 @@
     const {
       error
     } = await supabaseClient
+
       .from("benefisye")
+
       .delete()
-      .eq("id", id);
+
+      .eq(
+        "id",
+        id
+      );
 
 
     if (error) {
@@ -1756,58 +1799,80 @@
         error
       );
 
-      montreErreur(error);
+
+      montreToast(
+        "Nou pa kapab efase benefisyè a: " +
+        error.message,
+        "error"
+      );
+
 
       return;
+
     }
 
 
-    montreSucces(
-      "Dosye benefisyè a efase avèk siksè."
+    montreToast(
+      "Dosye benefisyè a efase avèk siksè.",
+      "success"
     );
 
 
     await chajeBenefisye();
+
   }
 
 
-  /* ================================
+  /* =========================
      KÒD BENEFISYE
-  ================================= */
+  ========================= */
 
   function kreyeKodBenefisye() {
 
-    const d = new Date();
+    const d =
+      new Date();
+
 
     const yyyy =
       d.getFullYear();
 
+
     const mm =
       String(
         d.getMonth() + 1
-      ).padStart(2, "0");
+      )
+      .padStart(
+        2,
+        "0"
+      );
+
 
     const dd =
       String(
         d.getDate()
-      ).padStart(2, "0");
+      )
+      .padStart(
+        2,
+        "0"
+      );
+
 
     const random =
       Math.floor(
         100000 +
-        Math.random() * 900000
+        Math.random() *
+        900000
       );
 
 
-    return (
-      `LAJ-BEF-${yyyy}${mm}${dd}-${random}`
-    );
+    return `LAJ-BEF-${yyyy}${mm}${dd}-${random}`;
+
   }
 
 
-  /* ================================
-     ERÈ
-  ================================= */
+  /* =========================
+     MESSAGE ERÈ
+  ========================= */
 
   function montreErreur(error) {
 
@@ -1818,30 +1883,53 @@
     if (error) {
 
       if (error.message) {
-        mesaj = error.message;
+
+        mesaj =
+          error.message;
+
       }
 
       else if (error.details) {
-        mesaj = error.details;
+
+        mesaj =
+          error.details;
+
       }
 
       else if (error.hint) {
-        mesaj = error.hint;
+
+        mesaj =
+          error.hint;
+
       }
 
       else {
+
         try {
-          mesaj = JSON.stringify(error);
+
+          mesaj =
+            JSON.stringify(
+              error
+            );
+
         }
+
         catch {
-          mesaj = String(error);
+
+          mesaj =
+            String(error);
+
         }
+
       }
+
     }
 
 
     const box =
-      document.getElementById("message");
+      document.getElementById(
+        "message"
+      );
 
 
     box.className =
@@ -1852,21 +1940,28 @@
       "❌ " + mesaj;
 
 
+    box.style.display =
+      "block";
+
+
     window.scrollTo({
       top: 0,
       behavior: "smooth"
     });
+
   }
 
 
-  /* ================================
+  /* =========================
      SUCCÈS
-  ================================= */
+  ========================= */
 
   function montreSucces(mesaj) {
 
     const box =
-      document.getElementById("message");
+      document.getElementById(
+        "message"
+      );
 
 
     box.className =
@@ -1877,75 +1972,230 @@
       "✓ " + mesaj;
 
 
+    box.style.display =
+      "block";
+
+
     window.scrollTo({
       top: 0,
       behavior: "smooth"
     });
 
 
-    setTimeout(() => {
+    setTimeout(
+      () => {
 
-      box.className = "message";
-      box.textContent = "";
+        box.className =
+          "message";
 
-    }, 5000);
+        box.textContent =
+          "";
+
+      },
+      5000
+    );
+
   }
 
 
-  /* ================================
-     PROTECTION HTML
-  ================================= */
+  /* =========================
+     TOAST
+  ========================= */
+
+  function montreToast(
+    message,
+    type = ""
+  ) {
+
+    const toast =
+      document.getElementById(
+        "toast"
+      );
+
+
+    toast.textContent =
+      message;
+
+
+    toast.className =
+      "toast show " +
+      type;
+
+
+    setTimeout(
+      () => {
+
+        toast.classList.remove(
+          "show"
+        );
+
+      },
+      4000
+    );
+
+  }
+
+
+  /* =========================
+     SECURITY
+  ========================= */
 
   function safe(value) {
 
-    return String(value ?? "")
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#039;");
+    return String(
+      value ?? ""
+    )
+
+      .replace(
+        /&/g,
+        "&amp;"
+      )
+
+      .replace(
+        /</g,
+        "&lt;"
+      )
+
+      .replace(
+        />/g,
+        "&gt;"
+      )
+
+      .replace(
+        /"/g,
+        "&quot;"
+      )
+
+      .replace(
+        /'/g,
+        "&#039;"
+      );
+
   }
 
 
-  /* ================================
-     SIDEBAR
-  ================================= */
+  /* =========================
+     MOBILE MENU
+  ========================= */
 
-  function toggleSidebar() {
+  function toggleMenu() {
 
-    document.getElementById("sidebar")
-      .classList.toggle("open");
-  }
-
-
-  /* ================================
-     LOGOUT
-  ================================= */
-
-  async function dekonèkte() {
-
-    await supabaseClient.auth.signOut();
-
-    window.location.href =
-      "login.html";
-  }
-
-
-  /* ================================
-     PLACEHOLDER
-  ================================= */
-
-  function paDisponib() {
-
-    montreSucces(
-      "Modil sa a ap vini nan pwochen etap la."
+    document.getElementById(
+      "sidebar"
+    ).classList.toggle(
+      "open"
     );
+
   }
 
 
-  /* ================================
-     DEMARAJ
-  ================================= */
+  /* =========================
+     NOTIFIKASYON
+  ========================= */
+
+  function toggleNotifikasyon() {
+
+    document.getElementById(
+      "notificationPanel"
+    ).classList.toggle(
+      "show"
+    );
+
+  }
+
+
+  async function makeToutNotifikasyonLi() {
+
+    try {
+
+      if (
+        typeof markAllNotificationsRead ===
+        "function"
+      ) {
+
+        await markAllNotificationsRead();
+
+      }
+
+    }
+
+    catch (error) {
+
+      console.warn(
+        error
+      );
+
+    }
+
+  }
+
+
+  /* =========================
+     CLOSE MODAL OUTSIDE
+  ========================= */
+
+  document.getElementById(
+    "modal"
+  ).addEventListener(
+    "click",
+    function(e) {
+
+      if (
+        e.target === this
+      ) {
+
+        femenModal();
+
+      }
+
+    }
+  );
+
+
+  /* =========================
+     CLOSE NOTIFICATION OUTSIDE
+  ========================= */
+
+  document.addEventListener(
+    "click",
+    function(e) {
+
+      const panel =
+        document.getElementById(
+          "notificationPanel"
+        );
+
+
+      const button =
+        document.getElementById(
+          "notificationButton"
+        );
+
+
+      if (
+        panel &&
+        button &&
+        !panel.contains(
+          e.target
+        ) &&
+        !button.contains(
+          e.target
+        )
+      ) {
+
+        panel.classList.remove(
+          "show"
+        );
+
+      }
+
+    }
+  );
+
+
+  /* =========================
+     DEMARE
+  ========================= */
 
   async function demare() {
 
@@ -1956,13 +2206,753 @@
     if (!ok) return;
 
 
+    try {
+
+      if (
+        typeof demareNotifikasyon ===
+        "function"
+      ) {
+
+        await demareNotifikasyon();
+
+      }
+
+    }
+
+    catch (error) {
+
+      console.warn(
+        "Notifikasyon pa t kapab demare:",
+        error
+      );
+
+    }
+
+
     await chajeBenefisye();
+
   }
 
-
-  demare();
-
 </script>
+
+
+<style>
+
+  :root {
+    --ble: #0B3B75;
+    --ble-dark: #082b55;
+    --lò: #F2B705;
+    --vèt: #2E8B57;
+    --wouj: #c0392b;
+    --gri: #f4f6f8;
+    --gri2: #e5e7eb;
+    --tèks: #1f2937;
+    --gri-tèks: #667085;
+    --blan: #ffffff;
+    --lonbraj: 0 4px 18px rgba(0,0,0,.08);
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    font-family: "Open Sans", Arial, sans-serif;
+    background: var(--gri);
+    color: var(--tèks);
+  }
+
+  button,
+  input,
+  textarea,
+  select {
+    font: inherit;
+  }
+
+  /* HEADER */
+
+  .admin-header {
+    height: 70px;
+    background: var(--ble);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: var(--lonbraj);
+  }
+
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .mobile-menu {
+    display: none;
+    border: none;
+    background: transparent;
+    color: white;
+    font-size: 26px;
+  }
+
+  .brand {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 800;
+    font-size: 21px;
+    line-height: 1.1;
+  }
+
+  .brand span {
+    display: block;
+    color: var(--lò);
+    font-size: 10px;
+    font-weight: 600;
+    margin-top: 3px;
+  }
+
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .admin-name {
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  .header-btn {
+    border: none;
+    border-radius: 8px;
+    padding: 9px 13px;
+    font-weight: 700;
+  }
+
+  .site-btn {
+    background: white;
+    color: var(--ble);
+  }
+
+  .logout-btn {
+    background: #b83227;
+    color: white;
+  }
+
+  .notification-btn {
+    width: 40px;
+    height: 40px;
+    border: 1px solid rgba(255,255,255,.2);
+    border-radius: 50%;
+    background: rgba(255,255,255,.1);
+    color: white;
+    position: relative;
+  }
+
+  .notification-badge {
+    position: absolute;
+    top: -3px;
+    right: -2px;
+    min-width: 18px;
+    height: 18px;
+    border-radius: 20px;
+    background: #e53935;
+    color: white;
+    font-size: 10px;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+  }
+
+  /* NOTIFICATIONS */
+
+  .notification-panel {
+    display: none;
+    position: fixed;
+    top: 65px;
+    right: 20px;
+    width: 350px;
+    max-width: calc(100vw - 30px);
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 35px rgba(0,0,0,.18);
+    z-index: 3000;
+    overflow: hidden;
+  }
+
+  .notification-panel.show {
+    display: block;
+  }
+
+  .notification-header {
+    padding: 15px;
+    background: var(--ble);
+    color: white;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .notification-header h3 {
+    margin: 0;
+    font-size: 15px;
+  }
+
+  .notification-header button {
+    border: none;
+    background: transparent;
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+  }
+
+  .notification-content {
+    max-height: 350px;
+    overflow-y: auto;
+    padding: 10px;
+  }
+
+  .notification-empty {
+    padding: 25px 15px;
+    text-align: center;
+    color: var(--gri-tèks);
+    font-size: 13px;
+  }
+
+  /* LAYOUT */
+
+  .admin-layout {
+    display: flex;
+    min-height: calc(100vh - 70px);
+  }
+
+  .sidebar {
+    width: 260px;
+    background: var(--ble-dark);
+    color: white;
+    padding: 20px 12px;
+    flex-shrink: 0;
+  }
+
+  .menu-title {
+    color: #b8c7d9;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .7px;
+    margin: 13px 12px 8px;
+  }
+
+  .menu a {
+    display: block;
+    padding: 11px 13px;
+    margin-bottom: 4px;
+    border-radius: 7px;
+    color: white;
+    text-decoration: none;
+    font-size: 13px;
+  }
+
+  .menu a:hover {
+    background: rgba(255,255,255,.1);
+  }
+
+  .menu a.active {
+    background: rgba(255,255,255,.13);
+    border-left: 4px solid var(--lò);
+    padding-left: 9px;
+    font-weight: 700;
+  }
+
+  .admin-main {
+    flex: 1;
+    min-width: 0;
+    padding: 25px;
+  }
+
+  /* PAGE */
+
+  .page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-bottom: 22px;
+  }
+
+  .page-header h1 {
+    margin: 0;
+    font-family: "Montserrat", sans-serif;
+    color: var(--ble);
+    font-size: 26px;
+  }
+
+  .page-header p {
+    margin: 5px 0 0;
+    color: var(--gri-tèks);
+    font-size: 14px;
+  }
+
+  .btn-primary {
+    border: none;
+    background: var(--ble);
+    color: white;
+    padding: 11px 17px;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  /* STATS */
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin-bottom: 22px;
+  }
+
+  .stat-card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: var(--lonbraj);
+    border-top: 4px solid var(--ble);
+  }
+
+  .stat-card:nth-child(2) {
+    border-top-color: var(--vèt);
+  }
+
+  .stat-card:nth-child(3) {
+    border-top-color: var(--lò);
+  }
+
+  .stat-card:nth-child(4) {
+    border-top-color: #8b95a5;
+  }
+
+  .stat-number {
+    font-family: "Montserrat", sans-serif;
+    color: var(--ble);
+    font-size: 29px;
+    font-weight: 800;
+  }
+
+  .stat-label {
+    color: var(--gri-tèks);
+    font-size: 13px;
+    margin-top: 5px;
+  }
+
+  /* TOOLBAR */
+
+  .toolbar-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: var(--lonbraj);
+    padding: 17px;
+    margin-bottom: 20px;
+  }
+
+  .toolbar-left {
+    display: flex;
+    gap: 10px;
+  }
+
+  .search-input {
+    flex: 1;
+    width: 100%;
+    padding: 12px 13px;
+    border: 1px solid var(--gri2);
+    border-radius: 8px;
+    outline: none;
+  }
+
+  .filter-select {
+    width: 180px;
+    padding: 12px;
+    border: 1px solid var(--gri2);
+    border-radius: 8px;
+    background: white;
+  }
+
+  /* TABLE */
+
+  .table-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: var(--lonbraj);
+    overflow: hidden;
+  }
+
+  .table-wrapper {
+    overflow-x: auto;
+  }
+
+  table {
+    width: 100%;
+    min-width: 900px;
+    border-collapse: collapse;
+  }
+
+  th,
+  td {
+    padding: 14px;
+    text-align: left;
+    border-bottom: 1px solid #edf0f2;
+    font-size: 13px;
+    vertical-align: top;
+  }
+
+  th {
+    background: #f8fafc;
+    color: var(--ble);
+  }
+
+  tbody tr:hover td {
+    background: #fafcff;
+  }
+
+  .actions {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .btn-small {
+    border: none;
+    padding: 7px 10px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .btn-edit {
+    background: #e5eef9;
+    color: var(--ble);
+  }
+
+  .btn-delete {
+    background: #fde3e1;
+    color: #a52c22;
+  }
+
+  .badge {
+    display: inline-flex;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+  }
+
+  .badge-active {
+    background: #dff5e8;
+    color: #21643d;
+  }
+
+  .badge-sispann {
+    background: #fff4cc;
+    color: #806000;
+  }
+
+  .badge-fini {
+    background: #eeeeee;
+    color: #555;
+  }
+
+  .loading,
+  .empty-message {
+    padding: 40px 20px;
+    text-align: center;
+    color: var(--gri-tèks);
+  }
+
+  .loading {
+    color: var(--ble);
+    font-weight: 700;
+  }
+
+  /* MESSAGE */
+
+  .message {
+    display: none;
+    padding: 13px 15px;
+    border-radius: 8px;
+    margin-bottom: 18px;
+    font-size: 13px;
+  }
+
+  .message.success {
+    display: block;
+    background: #dcfce7;
+    color: #166534;
+  }
+
+  .message.error {
+    display: block;
+    background: #fee2e2;
+    color: #991b1b;
+  }
+
+  /* MODAL */
+
+  .modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.55);
+    z-index: 5000;
+    overflow-y: auto;
+    padding: 25px 15px;
+  }
+
+  .modal.show {
+    display: block;
+  }
+
+  .modal-box {
+    width: 100%;
+    max-width: 850px;
+    margin: 20px auto;
+    background: white;
+    border-radius: 13px;
+    overflow: hidden;
+    box-shadow: 0 12px 45px rgba(0,0,0,.25);
+  }
+
+  .modal-header {
+    background: var(--ble);
+    color: white;
+    padding: 18px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .modal-header h2 {
+    margin: 0;
+    font-family: "Montserrat", sans-serif;
+    font-size: 19px;
+  }
+
+  .modal-close {
+    border: none;
+    background: transparent;
+    color: white;
+    font-size: 28px;
+    cursor: pointer;
+  }
+
+  .modal-body {
+    padding: 22px;
+  }
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .full {
+    grid-column: 1 / -1;
+  }
+
+  .form-group label {
+    font-size: 13px;
+    font-weight: 700;
+    color: #344054;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
+    padding: 10px 11px;
+    border: 1px solid var(--gri2);
+    border-radius: 8px;
+    outline: none;
+  }
+
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    border-color: var(--ble);
+    box-shadow: 0 0 0 3px rgba(11,59,117,.07);
+  }
+
+  .form-group textarea {
+    min-height: 105px;
+    resize: vertical;
+  }
+
+  .modal-footer {
+    border-top: 1px solid #eaecf0;
+    padding: 18px 22px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+  }
+
+  .btn-cancel,
+  .btn-save {
+    border: none;
+    padding: 10px 17px;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .btn-cancel {
+    background: #e5e7eb;
+    color: #333;
+  }
+
+  .btn-save {
+    background: var(--vèt);
+    color: white;
+  }
+
+  .btn-save:disabled {
+    opacity: .65;
+  }
+
+  /* TOAST */
+
+  .toast {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    max-width: 380px;
+    padding: 13px 17px;
+    border-radius: 9px;
+    background: var(--ble);
+    color: white;
+    box-shadow: var(--lonbraj);
+    display: none;
+    z-index: 6000;
+    font-size: 13px;
+  }
+
+  .toast.show {
+    display: block;
+  }
+
+  .toast.success {
+    background: var(--vèt);
+  }
+
+  .toast.error {
+    background: var(--wouj);
+  }
+
+  /* RESPONSIVE */
+
+  @media (max-width: 1000px) {
+
+    .stats-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+  }
+
+  @media (max-width: 900px) {
+
+    .sidebar {
+      position: fixed;
+      left: -270px;
+      top: 70px;
+      bottom: 0;
+      z-index: 2500;
+      overflow-y: auto;
+      transition: .25s;
+    }
+
+    .sidebar.open {
+      left: 0;
+    }
+
+    .mobile-menu {
+      display: block;
+    }
+
+    .admin-main {
+      padding: 18px;
+    }
+
+    .admin-name {
+      display: none;
+    }
+
+  }
+
+  @media (max-width: 650px) {
+
+    .admin-header {
+      padding: 0 14px;
+    }
+
+    .site-btn {
+      display: none;
+    }
+
+    .stats-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .toolbar-left {
+      flex-direction: column;
+    }
+
+    .filter-select {
+      width: 100%;
+    }
+
+    .form-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .full {
+      grid-column: auto;
+    }
+
+    .modal {
+      padding: 10px;
+    }
+
+    .modal-body {
+      padding: 17px;
+    }
+
+    .modal-footer {
+      flex-direction: column-reverse;
+    }
+
+    .btn-cancel,
+    .btn-save {
+      width: 100%;
+    }
+
+    .notification-panel {
+      right: 10px;
+      top: 65px;
+    }
+
+  }
+
+</style>
 
 </body>
 </html>
