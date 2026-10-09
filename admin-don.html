@@ -1,0 +1,3137 @@
+<!DOCTYPE html>
+<html lang="ht">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<meta
+    name="description"
+    content="Jesyon don LAJONÈ'M — Administrasyon"
+>
+
+<title>Jesyon Don — LAJONÈ'M</title>
+
+<link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+>
+
+<link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+>
+
+<link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="js/supabase.js"></script>
+<script src="js/permissions.js"></script>
+<script src="js/notifikasyon.js"></script>
+
+<style>
+
+:root{
+    --ble:#0B3B75;
+    --or:#F2B705;
+    --vet:#2E8B57;
+    --blan:#FFFFFF;
+    --gris:#f5f7fa;
+    --gris2:#e5e7eb;
+    --tèks:#1f2937;
+    --muted:#6b7280;
+    --danger:#dc2626;
+    --success:#16a34a;
+    --warning:#d97706;
+    --ombre:0 8px 30px rgba(0,0,0,.08);
+}
+
+*{
+    box-sizing:border-box;
+}
+
+html,
+body{
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:"Open Sans",sans-serif;
+    background:var(--gris);
+    color:var(--tèks);
+}
+
+button,
+input,
+select,
+textarea{
+    font-family:inherit;
+}
+
+
+/* ==================================================
+   LAYOUT
+================================================== */
+
+.admin-layout{
+    display:flex;
+    min-height:100vh;
+}
+
+
+/* ==================================================
+   SIDEBAR
+================================================== */
+
+.admin-sidebar{
+    width:260px;
+    background:var(--ble);
+    color:white;
+    position:fixed;
+    top:0;
+    left:0;
+    bottom:0;
+    overflow-y:auto;
+    z-index:1000;
+    transition:.25s;
+}
+
+.admin-logo{
+    padding:24px 20px;
+    border-bottom:1px solid rgba(255,255,255,.15);
+}
+
+.admin-logo h2{
+    margin:0;
+    font-family:"Montserrat",sans-serif;
+    font-size:22px;
+    font-weight:800;
+}
+
+.admin-logo span{
+    display:block;
+    margin-top:5px;
+    color:var(--or);
+    font-size:12px;
+}
+
+.admin-nav{
+    padding:15px 10px 30px;
+}
+
+.admin-nav-title{
+    padding:12px 12px 7px;
+    font-size:10px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    color:rgba(255,255,255,.55);
+}
+
+.admin-nav a{
+    display:flex;
+    align-items:center;
+    gap:11px;
+    padding:11px 12px;
+    margin:3px 0;
+    color:rgba(255,255,255,.88);
+    text-decoration:none;
+    border-radius:8px;
+    font-size:13px;
+    transition:.2s;
+}
+
+.admin-nav a:hover,
+.admin-nav a.active{
+    background:rgba(255,255,255,.12);
+    color:white;
+}
+
+.admin-nav a.active{
+    border-left:3px solid var(--or);
+}
+
+.nav-icon{
+    width:20px;
+    text-align:center;
+}
+
+
+/* ==================================================
+   MAIN
+================================================== */
+
+.admin-main{
+    margin-left:260px;
+    width:calc(100% - 260px);
+    min-height:100vh;
+}
+
+
+/* ==================================================
+   HEADER
+================================================== */
+
+.admin-header{
+    height:74px;
+    background:white;
+    border-bottom:1px solid var(--gris2);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 28px;
+    position:sticky;
+    top:0;
+    z-index:900;
+}
+
+.header-left{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.header-left h1{
+    margin:0;
+    font-family:"Montserrat",sans-serif;
+    font-size:20px;
+    color:var(--ble);
+}
+
+.header-left p{
+    margin:3px 0 0;
+    font-size:12px;
+    color:var(--muted);
+}
+
+.header-right{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+
+/* ==================================================
+   MOBILE MENU
+================================================== */
+
+.mobile-menu-btn{
+    display:none;
+    border:0;
+    background:transparent;
+    font-size:23px;
+    cursor:pointer;
+    color:var(--ble);
+}
+
+
+/* ==================================================
+   NOTIFICATION
+================================================== */
+
+.notification-button{
+    position:relative;
+    width:42px;
+    height:42px;
+    border:1px solid var(--gris2);
+    background:white;
+    border-radius:50%;
+    cursor:pointer;
+    font-size:19px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.notification-badge{
+    position:absolute;
+    top:-3px;
+    right:-3px;
+    min-width:19px;
+    height:19px;
+    padding:0 5px;
+    border-radius:20px;
+    background:#dc2626;
+    color:white;
+    font-size:10px;
+    font-weight:700;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    border:2px solid white;
+}
+
+.notification-panel{
+    position:fixed;
+    top:82px;
+    right:25px;
+    width:390px;
+    max-width:calc(100vw - 30px);
+    max-height:570px;
+    background:white;
+    border-radius:14px;
+    box-shadow:0 15px 50px rgba(0,0,0,.18);
+    border:1px solid var(--gris2);
+    z-index:2000;
+    display:none;
+    overflow:hidden;
+}
+
+.notification-panel.aktif{
+    display:block;
+}
+
+.notification-header{
+    padding:16px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    border-bottom:1px solid var(--gris2);
+}
+
+.notification-header h3{
+    margin:0;
+    font-family:"Montserrat",sans-serif;
+    color:var(--ble);
+    font-size:15px;
+}
+
+.notification-header button{
+    border:0;
+    background:transparent;
+    color:var(--ble);
+    cursor:pointer;
+    font-size:11px;
+    font-weight:700;
+}
+
+.notification-list{
+    max-height:490px;
+    overflow-y:auto;
+}
+
+.notifikasyon-item{
+    display:flex;
+    gap:11px;
+    padding:14px;
+    border-bottom:1px solid #f0f2f5;
+}
+
+.notifikasyon-pa-li{
+    background:#fffaf0;
+}
+
+.notifikasyon-ikon{
+    width:38px;
+    height:38px;
+    flex:0 0 38px;
+    border-radius:50%;
+    background:#eef4fb;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.notifikasyon-kontni{
+    flex:1;
+    min-width:0;
+}
+
+.notifikasyon-tet{
+    display:flex;
+    align-items:center;
+    gap:6px;
+}
+
+.notifikasyon-tet strong{
+    font-size:12px;
+}
+
+.notifikasyon-kontni p{
+    margin:4px 0;
+    font-size:11px;
+    line-height:1.5;
+    color:#4b5563;
+}
+
+.notifikasyon-kontni small{
+    font-size:9px;
+    color:#9ca3af;
+}
+
+.notifikasyon-pwen{
+    width:7px;
+    height:7px;
+    background:#dc2626;
+    border-radius:50%;
+}
+
+.notifikasyon-aksyon button{
+    border:0;
+    background:var(--ble);
+    color:white;
+    border-radius:6px;
+    padding:6px 8px;
+    font-size:10px;
+    cursor:pointer;
+}
+
+.notifikasyon-vide{
+    padding:40px 20px;
+    text-align:center;
+}
+
+.notifikasyon-vide-ikon{
+    font-size:32px;
+    margin-bottom:10px;
+}
+
+.notifikasyon-vide h3{
+    margin:0 0 6px;
+    color:var(--ble);
+    font-family:"Montserrat",sans-serif;
+    font-size:15px;
+}
+
+.notifikasyon-vide p{
+    margin:0;
+    font-size:12px;
+    color:var(--muted);
+}
+
+
+/* ==================================================
+   ADMIN USER
+================================================== */
+
+.admin-user{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding-left:12px;
+    border-left:1px solid var(--gris2);
+}
+
+.admin-avatar{
+    width:38px;
+    height:38px;
+    border-radius:50%;
+    background:var(--ble);
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:700;
+}
+
+.admin-user-info strong{
+    display:block;
+    font-size:13px;
+}
+
+.admin-user-info span{
+    display:block;
+    font-size:11px;
+    color:var(--muted);
+}
+
+.logout-btn{
+    border:0;
+    background:transparent;
+    color:var(--danger);
+    cursor:pointer;
+    font-size:18px;
+    padding:8px;
+}
+
+
+/* ==================================================
+   CONTENT
+================================================== */
+
+.admin-content{
+    padding:28px;
+}
+
+.page-intro{
+    margin-bottom:22px;
+}
+
+.page-intro h2{
+    margin:0;
+    font-family:"Montserrat",sans-serif;
+    color:var(--ble);
+    font-size:22px;
+}
+
+.page-intro p{
+    margin:7px 0 0;
+    color:var(--muted);
+    font-size:13px;
+}
+
+
+/* ==================================================
+   MESSAGE
+================================================== */
+
+.message{
+    display:none;
+    padding:13px 15px;
+    border-radius:9px;
+    margin-bottom:18px;
+    font-size:13px;
+}
+
+.message.success{
+    display:block;
+    background:#dcfce7;
+    color:#166534;
+}
+
+.message.error{
+    display:block;
+    background:#fee2e2;
+    color:#991b1b;
+}
+
+
+/* ==================================================
+   STATS
+================================================== */
+
+.stats-grid{
+    display:grid;
+    grid-template-columns:repeat(4,minmax(0,1fr));
+    gap:17px;
+    margin-bottom:22px;
+}
+
+.stat-card{
+    background:white;
+    border-radius:13px;
+    padding:18px;
+    box-shadow:var(--ombre);
+    border:1px solid #edf0f4;
+}
+
+.stat-top{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.stat-icon{
+    width:40px;
+    height:40px;
+    border-radius:10px;
+    background:#eef4fb;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:19px;
+}
+
+.stat-label{
+    font-size:11px;
+    color:var(--muted);
+    margin-top:12px;
+}
+
+.stat-value{
+    margin-top:3px;
+    font-family:"Montserrat",sans-serif;
+    font-size:23px;
+    font-weight:800;
+    color:var(--ble);
+}
+
+
+/* ==================================================
+   TOOLBAR
+================================================== */
+
+.toolbar-card{
+    background:white;
+    border-radius:14px;
+    padding:17px;
+    box-shadow:var(--ombre);
+    margin-bottom:18px;
+}
+
+.toolbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+    flex-wrap:wrap;
+}
+
+.toolbar-left{
+    display:flex;
+    gap:10px;
+    flex:1;
+    flex-wrap:wrap;
+}
+
+.search{
+    min-width:260px;
+    flex:1;
+}
+
+input,
+select,
+textarea{
+    width:100%;
+    border:1px solid #d0d5dd;
+    border-radius:8px;
+    padding:10px 12px;
+    background:white;
+    color:var(--tèks);
+    outline:none;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+    border-color:var(--ble);
+    box-shadow:0 0 0 3px rgba(11,59,117,.08);
+}
+
+.btn{
+    border:0;
+    padding:10px 15px;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:700;
+    font-size:12px;
+}
+
+.btn-primary{
+    background:var(--ble);
+    color:white;
+}
+
+.btn-primary:hover{
+    background:#082e5d;
+}
+
+.btn-secondary{
+    background:#667085;
+    color:white;
+}
+
+.btn-warning{
+    background:var(--or);
+    color:#111827;
+}
+
+.btn-danger{
+    background:#dc2626;
+    color:white;
+}
+
+
+/* ==================================================
+   TABLE
+================================================== */
+
+.table-card{
+    background:white;
+    border-radius:14px;
+    box-shadow:var(--ombre);
+    overflow:hidden;
+}
+
+.table-wrapper{
+    overflow-x:auto;
+}
+
+table{
+    width:100%;
+    min-width:1100px;
+    border-collapse:collapse;
+}
+
+th,
+td{
+    padding:13px 15px;
+    border-bottom:1px solid #eaecf0;
+    text-align:left;
+    font-size:12px;
+}
+
+th{
+    background:#f8fafc;
+    color:#475467;
+    font-weight:700;
+}
+
+tbody tr:hover td{
+    background:#fafcff;
+}
+
+.actions{
+    display:flex;
+    gap:6px;
+    flex-wrap:wrap;
+}
+
+.actions button{
+    border:0;
+    border-radius:6px;
+    padding:7px 10px;
+    cursor:pointer;
+    font-size:11px;
+    font-weight:700;
+}
+
+
+/* ==================================================
+   BADGES
+================================================== */
+
+.badge{
+    display:inline-block;
+    padding:5px 9px;
+    border-radius:20px;
+    font-size:10px;
+    font-weight:700;
+}
+
+.badge-confirme{
+    background:#dcfce7;
+    color:#166534;
+}
+
+.badge-attente{
+    background:#fef3c7;
+    color:#92400e;
+}
+
+.badge-refize{
+    background:#fee2e2;
+    color:#991b1b;
+}
+
+.badge-anile{
+    background:#e5e7eb;
+    color:#374151;
+}
+
+.badge-don{
+    background:#dbeafe;
+    color:#1e40af;
+}
+
+
+/* ==================================================
+   LOADING / EMPTY
+================================================== */
+
+.loading,
+.empty{
+    padding:40px;
+    text-align:center;
+    color:var(--muted);
+}
+
+
+/* ==================================================
+   MODAL
+================================================== */
+
+.modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.55);
+    z-index:3000;
+    overflow-y:auto;
+    padding:20px;
+}
+
+.modal.show{
+    display:flex;
+    justify-content:center;
+    align-items:flex-start;
+}
+
+.modal-box{
+    width:100%;
+    max-width:900px;
+    background:white;
+    border-radius:15px;
+    margin:20px auto;
+    overflow:hidden;
+}
+
+.modal-header{
+    background:var(--ble);
+    color:white;
+    padding:18px 22px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.modal-header h2{
+    margin:0;
+    font-family:"Montserrat",sans-serif;
+    font-size:18px;
+}
+
+.close{
+    border:0;
+    background:transparent;
+    color:white;
+    font-size:28px;
+    cursor:pointer;
+}
+
+.modal-body{
+    padding:22px;
+}
+
+.form-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:15px;
+}
+
+.form-group label{
+    display:block;
+    margin-bottom:6px;
+    font-size:12px;
+    font-weight:700;
+    color:#344054;
+}
+
+.full{
+    grid-column:1 / -1;
+}
+
+textarea{
+    min-height:100px;
+    resize:vertical;
+}
+
+.modal-footer{
+    border-top:1px solid #eaecf0;
+    padding:18px 22px;
+    display:flex;
+    justify-content:flex-end;
+    gap:10px;
+}
+
+
+/* ==================================================
+   ACCESS DENIED
+================================================== */
+
+.access-denied{
+    display:none;
+    min-height:70vh;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:30px;
+}
+
+.access-box{
+    background:white;
+    border-radius:16px;
+    padding:40px;
+    max-width:450px;
+    box-shadow:var(--ombre);
+}
+
+.access-box .icon{
+    font-size:45px;
+}
+
+.access-box h2{
+    font-family:"Montserrat",sans-serif;
+    color:var(--ble);
+}
+
+.access-box p{
+    color:var(--muted);
+    font-size:13px;
+    line-height:1.6;
+}
+
+
+/* ==================================================
+   RESPONSIVE
+================================================== */
+
+@media(max-width:1100px){
+
+    .stats-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+}
+
+@media(max-width:800px){
+
+    .admin-sidebar{
+        transform:translateX(-100%);
+    }
+
+    .admin-sidebar.mobile-open{
+        transform:translateX(0);
+    }
+
+    .admin-main{
+        margin-left:0;
+        width:100%;
+    }
+
+    .mobile-menu-btn{
+        display:block;
+    }
+
+    .admin-header{
+        padding:0 15px;
+    }
+
+    .admin-content{
+        padding:18px 14px;
+    }
+
+    .header-left h1{
+        font-size:16px;
+    }
+
+    .header-left p{
+        display:none;
+    }
+
+    .admin-user-info{
+        display:none;
+    }
+
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+
+    .full{
+        grid-column:auto;
+    }
+
+}
+
+@media(max-width:550px){
+
+    .stats-grid{
+        grid-template-columns:1fr 1fr;
+        gap:10px;
+    }
+
+    .stat-card{
+        padding:13px;
+    }
+
+    .stat-value{
+        font-size:19px;
+    }
+
+    .search{
+        min-width:100%;
+    }
+
+    .notification-panel{
+        right:10px;
+        top:70px;
+        width:calc(100vw - 20px);
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="admin-layout">
+
+
+<!-- ==================================================
+     SIDEBAR
+================================================== -->
+
+<aside
+    class="admin-sidebar"
+    id="adminSidebar"
+>
+
+    <div class="admin-logo">
+
+        <h2>LAJONÈ'M</h2>
+
+        <span>
+            Laj yo se onè nou.
+        </span>
+
+    </div>
+
+
+    <nav class="admin-nav">
+
+        <div class="admin-nav-title">
+            Prensipal
+        </div>
+
+        <a href="admin.html">
+            <span class="nav-icon">📊</span>
+            Dashboard
+        </a>
+
+
+        <div class="admin-nav-title">
+            Jesyon
+        </div>
+
+        <a href="admin-aktivite.html">
+            <span class="nav-icon">📅</span>
+            Aktivite
+        </a>
+
+        <a href="admin-pwogram.html">
+            <span class="nav-icon">📋</span>
+            Pwogram
+        </a>
+
+        <a href="admin-benefisye.html">
+            <span class="nav-icon">👴</span>
+            Benefisyè
+        </a>
+
+        <a href="admin-volonte.html">
+            <span class="nav-icon">🤝</span>
+            Volontè
+        </a>
+
+        <a href="admin-vizit.html">
+            <span class="nav-icon">🏠</span>
+            Vizit
+        </a>
+
+
+        <div class="admin-nav-title">
+            Finans
+        </div>
+
+        <a href="admin-donatè.html">
+            <span class="nav-icon">👤</span>
+            Donatè
+        </a>
+
+        <a
+            href="admin-don.html"
+            class="active"
+            data-permission="jere_don"
+        >
+            <span class="nav-icon">💰</span>
+            Don
+        </a>
+
+
+        <div class="admin-nav-title">
+            Lòt
+        </div>
+
+        <a href="admin-nouvel.html">
+            <span class="nav-icon">📰</span>
+            Nouvèl
+        </a>
+
+        <a href="admin-patner.html">
+            <span class="nav-icon">🤝</span>
+            Patnè
+        </a>
+
+        <a href="admin-galri.html">
+            <span class="nav-icon">🖼️</span>
+            Galri
+        </a>
+
+        <a href="admin-rapo.html">
+            <span class="nav-icon">📑</span>
+            Rapò
+        </a>
+
+        <a href="admin-mesaj.html">
+            <span class="nav-icon">✉️</span>
+            Mesaj
+        </a>
+
+
+        <div class="admin-nav-title">
+            Administrasyon
+        </div>
+
+        <a href="admin-itilizatè.html">
+            <span class="nav-icon">⚙️</span>
+            Itilizatè
+        </a>
+
+        <a href="admin-paramet.html">
+            <span class="nav-icon">🔧</span>
+            Paramèt
+        </a>
+
+    </nav>
+
+</aside>
+
+
+<!-- ==================================================
+     MAIN
+================================================== -->
+
+<main class="admin-main">
+
+
+<header class="admin-header">
+
+    <div class="header-left">
+
+        <button
+            class="mobile-menu-btn"
+            onclick="toggleSidebar()"
+            aria-label="Louvri meni"
+        >
+            ☰
+        </button>
+
+        <div>
+
+            <h1>
+                Jesyon Don
+            </h1>
+
+            <p>
+                Jere tout don LAJONÈ'M yo
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="header-right">
+
+
+        <button
+            class="notification-button"
+            onclick="toggleNotifikasyon()"
+            aria-label="Notifikasyon"
+        >
+
+            🔔
+
+            <span
+                id="notifikasyonBadge"
+                class="notification-badge"
+            >
+                0
+            </span>
+
+        </button>
+
+
+        <div class="admin-user">
+
+            <div
+                class="admin-avatar"
+                id="adminAvatar"
+            >
+                A
+            </div>
+
+            <div class="admin-user-info">
+
+                <strong id="adminName">
+                    Administratè
+                </strong>
+
+                <span id="adminRole">
+                    Administratè
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <button
+            class="logout-btn"
+            onclick="dekonèkte()"
+            title="Dekonekte"
+        >
+            ⎋
+        </button>
+
+    </div>
+
+</header>
+
+
+<!-- ==================================================
+     NOTIFICATION PANEL
+================================================== -->
+
+<div
+    class="notification-panel"
+    id="notifikasyonPanel"
+>
+
+    <div class="notification-header">
+
+        <h3>
+            Notifikasyon
+        </h3>
+
+        <button
+            type="button"
+            onclick="makeToutNotifikasyonLi()"
+        >
+            Make tout kòm li
+        </button>
+
+    </div>
+
+
+    <div
+        class="notification-list"
+        id="notifikasyonContainer"
+    >
+
+        <div class="notifikasyon-vide">
+
+            <div class="notifikasyon-vide-ikon">
+                🔔
+            </div>
+
+            <h3>
+                Chaje...
+            </h3>
+
+            <p>
+                Tanpri tann.
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ==================================================
+     CONTENT
+================================================== -->
+
+<section class="admin-content">
+
+
+    <div class="page-intro">
+
+        <h2>
+            Don
+        </h2>
+
+        <p>
+            Anrejistre, verifye, modifye epi swiv don resevwa yo.
+        </p>
+
+    </div>
+
+
+    <div
+        id="message"
+        class="message"
+    ></div>
+
+
+    <!-- ==================================================
+         STATS
+    ================================================== -->
+
+    <div class="stats-grid">
+
+
+        <div class="stat-card">
+
+            <div class="stat-top">
+
+                <div class="stat-icon">
+                    💰
+                </div>
+
+            </div>
+
+            <div class="stat-label">
+                Total don
+            </div>
+
+            <div
+                class="stat-value"
+                id="total"
+            >
+                0
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-top">
+
+                <div class="stat-icon">
+                    ✅
+                </div>
+
+            </div>
+
+            <div class="stat-label">
+                Don konfime
+            </div>
+
+            <div
+                class="stat-value"
+                id="confirme"
+            >
+                0
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-top">
+
+                <div class="stat-icon">
+                    ⏳
+                </div>
+
+            </div>
+
+            <div class="stat-label">
+                Don an atant
+            </div>
+
+            <div
+                class="stat-value"
+                id="attente"
+            >
+                0
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-top">
+
+                <div class="stat-icon">
+                    💵
+                </div>
+
+            </div>
+
+            <div class="stat-label">
+                Total HTG konfime
+            </div>
+
+            <div
+                class="stat-value"
+                id="montan"
+            >
+                0 HTG
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+    <!-- ==================================================
+         TOOLBAR
+    ================================================== -->
+
+    <div class="toolbar-card">
+
+        <div class="toolbar">
+
+            <div class="toolbar-left">
+
+
+                <input
+                    type="search"
+                    id="search"
+                    class="search"
+                    placeholder="Chèche donatè, referans..."
+                    oninput="filtre()"
+                >
+
+
+                <select
+                    id="filtreEstati"
+                    onchange="filtre()"
+                >
+
+                    <option value="">
+                        Tout estati
+                    </option>
+
+                    <option value="an_atant">
+                        An atant
+                    </option>
+
+                    <option value="konfime">
+                        Konfime
+                    </option>
+
+                    <option value="refize">
+                        Refize
+                    </option>
+
+                    <option value="anile">
+                        Anile
+                    </option>
+
+                </select>
+
+
+                <select
+                    id="filtreTip"
+                    onchange="filtre()"
+                >
+
+                    <option value="">
+                        Tout kalite don
+                    </option>
+
+                    <option value="lajan">
+                        Lajan
+                    </option>
+
+                    <option value="manje">
+                        Manje
+                    </option>
+
+                    <option value="rad">
+                        Rad
+                    </option>
+
+                    <option value="medikaman">
+                        Medikaman
+                    </option>
+
+                    <option value="materyèl">
+                        Materyèl
+                    </option>
+
+                    <option value="ekipman">
+                        Ekipman
+                    </option>
+
+                    <option value="lòt">
+                        Lòt
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <button
+                class="btn btn-primary"
+                id="btnNouvoDon"
+                onclick="nouvoDon()"
+            >
+                + Anrejistre yon don
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         TABLE
+    ================================================== -->
+
+    <div class="table-card">
+
+
+        <div
+            id="loading"
+            class="loading"
+        >
+            Chaje don yo...
+        </div>
+
+
+        <div class="table-wrapper">
+
+            <table
+                id="table"
+                style="display:none;"
+            >
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Dat
+                        </th>
+
+                        <th>
+                            Donatè
+                        </th>
+
+                        <th>
+                            Kalite
+                        </th>
+
+                        <th>
+                            Montan
+                        </th>
+
+                        <th>
+                            Aktivite
+                        </th>
+
+                        <th>
+                            Estati
+                        </th>
+
+                        <th>
+                            Referans
+                        </th>
+
+                        <th>
+                            Aksyon
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="tbody"></tbody>
+
+            </table>
+
+        </div>
+
+
+        <div
+            id="empty"
+            class="empty"
+            style="display:none;"
+        >
+            Pa gen don pou montre.
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- ==================================================
+     ACCESS DENIED
+================================================== -->
+
+<section
+    class="access-denied"
+    id="accessDenied"
+>
+
+    <div class="access-box">
+
+        <div class="icon">
+            🔒
+        </div>
+
+        <h2>
+            Aksè limite
+        </h2>
+
+        <p>
+            Kont ou pa gen pèmisyon pou jere don yo.
+        </p>
+
+    </div>
+
+</section>
+
+
+</main>
+
+</div>
+
+
+<!-- ==================================================
+     MODAL DON
+================================================== -->
+
+<div
+    class="modal"
+    id="modal"
+>
+
+    <div class="modal-box">
+
+
+        <div class="modal-header">
+
+            <h2 id="modalTitle">
+                Anrejistre yon don
+            </h2>
+
+            <button
+                class="close"
+                onclick="femenModal()"
+                type="button"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <form id="form">
+
+            <div class="modal-body">
+
+
+                <div class="form-grid">
+
+
+                    <div class="form-group">
+
+                        <label for="donate_id">
+                            Donatè *
+                        </label>
+
+                        <select
+                            id="donate_id"
+                            required
+                        >
+
+                            <option value="">
+                                Chwazi donatè
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="aktivite_id">
+                            Aktivite
+                        </label>
+
+                        <select id="aktivite_id">
+
+                            <option value="">
+                                Pa asosye ak aktivite
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="tip_don">
+                            Kalite don *
+                        </label>
+
+                        <select
+                            id="tip_don"
+                            required
+                        >
+
+                            <option value="lajan">
+                                Lajan
+                            </option>
+
+                            <option value="manje">
+                                Manje
+                            </option>
+
+                            <option value="rad">
+                                Rad
+                            </option>
+
+                            <option value="medikaman">
+                                Medikaman
+                            </option>
+
+                            <option value="materyèl">
+                                Materyèl
+                            </option>
+
+                            <option value="ekipman">
+                                Ekipman
+                            </option>
+
+                            <option value="lòt">
+                                Lòt
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="montan">
+                            Montan
+                        </label>
+
+                        <input
+                            type="number"
+                            id="montan"
+                            min="0"
+                            step="0.01"
+                            placeholder="0.00"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="lajan">
+                            Lajan
+                        </label>
+
+                        <select id="lajan">
+
+                            <option value="HTG">
+                                HTG — Goud
+                            </option>
+
+                            <option value="USD">
+                                USD — Dola ameriken
+                            </option>
+
+                            <option value="EUR">
+                                EUR — Euro
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="metòd_peman">
+                            Metòd peman
+                        </label>
+
+                        <select id="metòd_peman">
+
+                            <option value="">
+                                Chwazi metòd
+                            </option>
+
+                            <option value="MonCash">
+                                MonCash
+                            </option>
+
+                            <option value="NatCash">
+                                NatCash
+                            </option>
+
+                            <option value="Bank">
+                                Bank
+                            </option>
+
+                            <option value="Lajan Kach">
+                                Lajan Kach
+                            </option>
+
+                            <option value="Transfè">
+                                Transfè
+                            </option>
+
+                            <option value="Lòt">
+                                Lòt
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="referans_peman">
+                            Referans peman
+                        </label>
+
+                        <input
+                            type="text"
+                            id="referans_peman"
+                            placeholder="Nimewo tranzaksyon..."
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="estati">
+                            Estati *
+                        </label>
+
+                        <select
+                            id="estati"
+                            required
+                        >
+
+                            <option value="an_atant">
+                                An atant
+                            </option>
+
+                            <option value="konfime">
+                                Konfime
+                            </option>
+
+                            <option value="refize">
+                                Refize
+                            </option>
+
+                            <option value="anile">
+                                Anile
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="dat_don">
+                            Dat don *
+                        </label>
+
+                        <input
+                            type="date"
+                            id="dat_don"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group full">
+
+                        <label for="deskripsyon">
+                            Deskripsyon
+                        </label>
+
+                        <textarea
+                            id="deskripsyon"
+                            placeholder="Dekri don an oswa materyèl yo resevwa..."
+                        ></textarea>
+
+                    </div>
+
+
+                    <div class="form-group full">
+
+                        <label for="nòt">
+                            Nòt
+                        </label>
+
+                        <textarea
+                            id="nòt"
+                            placeholder="Lòt enfòmasyon..."
+                        ></textarea>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+            <div class="modal-footer">
+
+                <button
+                    type="button"
+                    class="btn btn-secondary"
+                    onclick="femenModal()"
+                >
+                    Anile
+                </button>
+
+
+                <button
+                    type="submit"
+                    class="btn btn-primary"
+                    id="saveBtn"
+                >
+                    Anrejistre
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   VARIABLES
+========================================================= */
+
+let toutDon = [];
+let donPouModifye = null;
+
+
+/* =========================================================
+   CHARGE PROFIL ADMIN
+========================================================= */
+
+function aficheProfilAdminPage(){
+
+    const profil =
+        typeof jwennProfilAdmin === "function"
+        ? jwennProfilAdmin()
+        : null;
+
+    if(!profil){
+        return;
+    }
+
+    const non =
+        `${profil.non || ""} ${profil.siyati || ""}`.trim()
+        || profil.email
+        || "Administratè";
+
+    const role =
+        typeof jwennNonWolAdmin === "function"
+        ? jwennNonWolAdmin()
+        : profil.wòl || "Administratè";
+
+    document.getElementById("adminName")
+        .textContent = non;
+
+    document.getElementById("adminRole")
+        .textContent = role;
+
+    document.getElementById("adminAvatar")
+        .textContent =
+        non.charAt(0).toUpperCase();
+}
+
+
+/* =========================================================
+   CHAJE LISTES
+========================================================= */
+
+async function chajeListes(){
+
+    const [
+        donateResult,
+        aktiviteResult
+    ] = await Promise.all([
+
+        supabaseClient
+            .from("donate")
+            .select(`
+                id,
+                non,
+                òganizasyon,
+                kalite_donatè
+            `)
+            .order("non"),
+
+        supabaseClient
+            .from("aktivite")
+            .select(`
+                id,
+                tit,
+                dat_aktivite
+            `)
+            .order(
+                "dat_aktivite",
+                {ascending:false}
+            )
+
+    ]);
+
+
+    if(donateResult.error){
+
+        montreErreur(donateResult.error);
+
+        return false;
+    }
+
+
+    if(aktiviteResult.error){
+
+        montreErreur(aktiviteResult.error);
+
+        return false;
+    }
+
+
+    const donateSelect =
+        document.getElementById("donate_id");
+
+    donateSelect.innerHTML = `
+        <option value="">
+            Chwazi donatè
+        </option>
+    `;
+
+
+    (donateResult.data || []).forEach(d => {
+
+        const option =
+            document.createElement("option");
+
+        option.value = d.id;
+
+        option.textContent =
+            d.òganizasyon
+            ? `${d.non} — ${d.òganizasyon}`
+            : d.non;
+
+        donateSelect.appendChild(option);
+
+    });
+
+
+    const aktiviteSelect =
+        document.getElementById("aktivite_id");
+
+    aktiviteSelect.innerHTML = `
+        <option value="">
+            Pa asosye ak aktivite
+        </option>
+    `;
+
+
+    (aktiviteResult.data || []).forEach(a => {
+
+        const option =
+            document.createElement("option");
+
+        option.value = a.id;
+        option.textContent = a.tit;
+
+        aktiviteSelect.appendChild(option);
+
+    });
+
+
+    return true;
+}
+
+
+/* =========================================================
+   CHAJE DON
+========================================================= */
+
+async function chajeDon(){
+
+    document.getElementById("loading")
+        .style.display = "block";
+
+    document.getElementById("table")
+        .style.display = "none";
+
+    document.getElementById("empty")
+        .style.display = "none";
+
+
+    const {
+        data,
+        error
+    } = await supabaseClient
+        .from("don")
+        .select(`
+            id,
+            donate_id,
+            aktivite_id,
+            tip_don,
+            montan,
+            lajan,
+            deskripsyon,
+            metòd_peman,
+            referans_peman,
+            estati,
+            dat_don,
+            nòt,
+
+            donate(
+                id,
+                non,
+                òganizasyon
+            ),
+
+            aktivite(
+                id,
+                tit
+            )
+        `)
+        .order(
+            "dat_don",
+            {ascending:false}
+        );
+
+
+    document.getElementById("loading")
+        .style.display = "none";
+
+
+    if(error){
+
+        console.error(
+            "DON ERROR:",
+            error
+        );
+
+        montreErreur(error);
+
+        return;
+    }
+
+
+    toutDon = data || [];
+
+    meteStatistik();
+
+    filtre();
+}
+
+
+/* =========================================================
+   STATISTIK
+========================================================= */
+
+function meteStatistik(){
+
+    document.getElementById("total")
+        .textContent = toutDon.length;
+
+
+    document.getElementById("confirme")
+        .textContent =
+        toutDon.filter(
+            d => d.estati === "konfime"
+        ).length;
+
+
+    document.getElementById("attente")
+        .textContent =
+        toutDon.filter(
+            d => d.estati === "an_atant"
+        ).length;
+
+
+    const totalHTG =
+        toutDon
+            .filter(
+                d =>
+                    d.estati === "konfime" &&
+                    d.lajan === "HTG" &&
+                    d.montan
+            )
+            .reduce(
+                (total,d) =>
+                    total + Number(d.montan),
+                0
+            );
+
+
+    document.getElementById("montan")
+        .textContent =
+        new Intl.NumberFormat(
+            "fr-FR",
+            {
+                maximumFractionDigits:2
+            }
+        ).format(totalHTG)
+        + " HTG";
+}
+
+
+/* =========================================================
+   FILTRE
+========================================================= */
+
+function filtre(){
+
+    const recherche =
+        document.getElementById("search")
+            .value
+            .toLowerCase()
+            .trim();
+
+
+    const estati =
+        document.getElementById("filtreEstati")
+            .value;
+
+
+    const tip =
+        document.getElementById("filtreTip")
+            .value;
+
+
+    const rezilta =
+        toutDon.filter(d => {
+
+            const donate =
+                d.donate || {};
+
+
+            const texte = `
+                ${donate.non || ""}
+                ${donate.òganizasyon || ""}
+                ${d.referans_peman || ""}
+                ${d.deskripsyon || ""}
+                ${d.nòt || ""}
+                ${d.tip_don || ""}
+                ${d.estati || ""}
+            `.toLowerCase();
+
+
+            return (
+
+                (!recherche ||
+                    texte.includes(recherche))
+
+                &&
+
+                (!estati ||
+                    d.estati === estati)
+
+                &&
+
+                (!tip ||
+                    d.tip_don === tip)
+
+            );
+
+        });
+
+
+    afiche(rezilta);
+}
+
+
+/* =========================================================
+   AFFICHE DON
+========================================================= */
+
+function afiche(lis){
+
+    const table =
+        document.getElementById("table");
+
+    const tbody =
+        document.getElementById("tbody");
+
+    const empty =
+        document.getElementById("empty");
+
+
+    tbody.innerHTML = "";
+
+
+    if(!lis.length){
+
+        table.style.display = "none";
+        empty.style.display = "block";
+
+        return;
+    }
+
+
+    table.style.display = "table";
+    empty.style.display = "none";
+
+
+    lis.forEach(d => {
+
+        const tr =
+            document.createElement("tr");
+
+        const donate =
+            d.donate || {};
+
+        const aktivite =
+            d.aktivite || {};
+
+
+        tr.innerHTML = `
+
+            <td>
+                ${safe(fòmateDat(d.dat_don))}
+            </td>
+
+
+            <td>
+
+                <strong>
+                    ${safe(donate.non || "-")}
+                </strong>
+
+                ${
+                    donate.òganizasyon
+                    ?
+                    `<br>
+                     <small>
+                        ${safe(donate.òganizasyon)}
+                     </small>`
+                    :
+                    ""
+                }
+
+            </td>
+
+
+            <td>
+
+                <span class="badge badge-don">
+                    ${safe(tipDon(d.tip_don))}
+                </span>
+
+            </td>
+
+
+            <td>
+
+                ${
+                    d.montan !== null &&
+                    d.montan !== undefined
+                    ?
+                    `${safe(
+                        fòmateMontan(d.montan)
+                    )} ${safe(d.lajan || "")}`
+                    :
+                    "-"
+                }
+
+            </td>
+
+
+            <td>
+                ${safe(aktivite.tit || "-")}
+            </td>
+
+
+            <td>
+                ${badgeEstati(d.estati)}
+            </td>
+
+
+            <td>
+                ${safe(d.referans_peman || "-")}
+            </td>
+
+
+            <td>
+
+                <div class="actions">
+
+                    <button
+                        class="btn-warning"
+                        onclick="modifye('${safe(d.id)}')"
+                    >
+                        Modifye
+                    </button>
+
+                    <button
+                        class="btn-danger"
+                        onclick="efase('${safe(d.id)}')"
+                    >
+                        Efase
+                    </button>
+
+                </div>
+
+            </td>
+
+        `;
+
+
+        tbody.appendChild(tr);
+
+    });
+}
+
+
+/* =========================================================
+   TIP DON
+========================================================= */
+
+function tipDon(tip){
+
+    const labels = {
+
+        lajan:"Lajan",
+        manje:"Manje",
+        rad:"Rad",
+        medikaman:"Medikaman",
+        materyèl:"Materyèl",
+        ekipman:"Ekipman",
+        lòt:"Lòt"
+
+    };
+
+    return labels[tip] || tip || "-";
+}
+
+
+/* =========================================================
+   BADGE ESTATI
+========================================================= */
+
+function badgeEstati(estati){
+
+    if(estati === "konfime"){
+
+        return `
+            <span class="badge badge-confirme">
+                Konfime
+            </span>
+        `;
+    }
+
+
+    if(estati === "an_atant"){
+
+        return `
+            <span class="badge badge-attente">
+                An atant
+            </span>
+        `;
+    }
+
+
+    if(estati === "refize"){
+
+        return `
+            <span class="badge badge-refize">
+                Refize
+            </span>
+        `;
+    }
+
+
+    return `
+        <span class="badge badge-anile">
+            Anile
+        </span>
+    `;
+}
+
+
+/* =========================================================
+   NOUVO DON
+========================================================= */
+
+function nouvoDon(){
+
+    donPouModifye = null;
+
+    document.getElementById("form")
+        .reset();
+
+
+    document.getElementById("modalTitle")
+        .textContent =
+        "Anrejistre yon don";
+
+
+    const jodi =
+        new Date()
+            .toISOString()
+            .slice(0,10);
+
+
+    document.getElementById("dat_don")
+        .value = jodi;
+
+
+    document.getElementById("lajan")
+        .value = "HTG";
+
+
+    document.getElementById("estati")
+        .value = "an_atant";
+
+
+    document.getElementById("modal")
+        .classList.add("show");
+}
+
+
+/* =========================================================
+   MODIFYE DON
+========================================================= */
+
+function modifye(id){
+
+    const d =
+        toutDon.find(
+            item => item.id === id
+        );
+
+
+    if(!d){
+        return;
+    }
+
+
+    donPouModifye = d;
+
+
+    document.getElementById("modalTitle")
+        .textContent =
+        "Modifye don";
+
+
+    document.getElementById("donate_id")
+        .value =
+        d.donate_id || "";
+
+
+    document.getElementById("aktivite_id")
+        .value =
+        d.aktivite_id || "";
+
+
+    document.getElementById("tip_don")
+        .value =
+        d.tip_don || "lajan";
+
+
+    document.getElementById("montan")
+        .value =
+        d.montan ?? "";
+
+
+    document.getElementById("lajan")
+        .value =
+        d.lajan || "HTG";
+
+
+    document.getElementById("metòd_peman")
+        .value =
+        d.metòd_peman || "";
+
+
+    document.getElementById("referans_peman")
+        .value =
+        d.referans_peman || "";
+
+
+    document.getElementById("estati")
+        .value =
+        d.estati || "an_atant";
+
+
+    document.getElementById("dat_don")
+        .value =
+        d.dat_don
+        ? String(d.dat_don).slice(0,10)
+        : "";
+
+
+    document.getElementById("deskripsyon")
+        .value =
+        d.deskripsyon || "";
+
+
+    document.getElementById("nòt")
+        .value =
+        d.nòt || "";
+
+
+    document.getElementById("modal")
+        .classList.add("show");
+}
+
+
+/* =========================================================
+   FÈMEN MODAL
+========================================================= */
+
+function femenModal(){
+
+    document.getElementById("modal")
+        .classList.remove("show");
+
+    donPouModifye = null;
+}
+
+
+/* =========================================================
+   SAVE DON
+========================================================= */
+
+document.getElementById("form")
+    .addEventListener(
+        "submit",
+        async function(e){
+
+            e.preventDefault();
+
+
+            const bouton =
+                document.getElementById("saveBtn");
+
+
+            bouton.disabled = true;
+
+            bouton.textContent =
+                "Anrejistreman...";
+
+
+            const montanVal =
+                document.getElementById("montan")
+                    .value;
+
+
+            const donne = {
+
+                donate_id:
+                    document.getElementById("donate_id")
+                        .value,
+
+                aktivite_id:
+                    document.getElementById("aktivite_id")
+                        .value || null,
+
+                tip_don:
+                    document.getElementById("tip_don")
+                        .value,
+
+                montan:
+                    montanVal === ""
+                    ? null
+                    : Number(montanVal),
+
+                lajan:
+                    document.getElementById("lajan")
+                        .value,
+
+                deskripsyon:
+                    document.getElementById("deskripsyon")
+                        .value
+                        .trim()
+                        || null,
+
+                metòd_peman:
+                    document.getElementById("metòd_peman")
+                        .value
+                        || null,
+
+                referans_peman:
+                    document.getElementById("referans_peman")
+                        .value
+                        .trim()
+                        || null,
+
+                estati:
+                    document.getElementById("estati")
+                        .value,
+
+                dat_don:
+                    document.getElementById("dat_don")
+                        .value,
+
+                nòt:
+                    document.getElementById("nòt")
+                        .value
+                        .trim()
+                        || null
+
+            };
+
+
+            let result;
+
+
+            if(donPouModifye){
+
+                result =
+                    await supabaseClient
+                        .from("don")
+                        .update(donne)
+                        .eq(
+                            "id",
+                            donPouModifye.id
+                        );
+
+            }else{
+
+                result =
+                    await supabaseClient
+                        .from("don")
+                        .insert([donne]);
+
+            }
+
+
+            bouton.disabled = false;
+
+            bouton.textContent =
+                "Anrejistre";
+
+
+            if(result.error){
+
+                console.error(
+                    "SAVE DON ERROR:",
+                    result.error
+                );
+
+                montreErreur(
+                    result.error
+                );
+
+                return;
+            }
+
+
+            const modification =
+                !!donPouModifye;
+
+
+            femenModal();
+
+
+            montreSucces(
+                modification
+                ?
+                "Don an modifye avèk siksè."
+                :
+                "Don anrejistre avèk siksè."
+            );
+
+
+            await chajeDon();
+
+        }
+    );
+
+
+/* =========================================================
+   EFASE
+========================================================= */
+
+async function efase(id){
+
+    const d =
+        toutDon.find(
+            item => item.id === id
+        );
+
+
+    if(!d){
+        return;
+    }
+
+
+    const konfime =
+        confirm(
+            "Èske ou sèten ou vle efase don sa a?"
+        );
+
+
+    if(!konfime){
+        return;
+    }
+
+
+    const {
+        error
+    } =
+    await supabaseClient
+        .from("don")
+        .delete()
+        .eq("id",id);
+
+
+    if(error){
+
+        console.error(
+            "DELETE DON ERROR:",
+            error
+        );
+
+        montreErreur(error);
+
+        return;
+    }
+
+
+    montreSucces(
+        "Don an efase avèk siksè."
+    );
+
+
+    await chajeDon();
+}
+
+
+/* =========================================================
+   FORMAT DAT
+========================================================= */
+
+function fòmateDat(value){
+
+    if(!value){
+        return "-";
+    }
+
+
+    try{
+
+        return new Date(value)
+            .toLocaleDateString(
+                "fr-FR",
+                {
+                    day:"2-digit",
+                    month:"2-digit",
+                    year:"numeric"
+                }
+            );
+
+    }catch{
+
+        return value;
+
+    }
+}
+
+
+/* =========================================================
+   FORMAT MONTAN
+========================================================= */
+
+function fòmateMontan(value){
+
+    return new Intl.NumberFormat(
+        "fr-FR",
+        {
+            maximumFractionDigits:2
+        }
+    ).format(
+        Number(value)
+    );
+}
+
+
+/* =========================================================
+   SECURITY
+========================================================= */
+
+function safe(value){
+
+    return String(value ?? "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+}
+
+
+/* =========================================================
+   MESSAGE ERROR
+========================================================= */
+
+function montreErreur(error){
+
+    let mesaj =
+        "Yon erè rive.";
+
+
+    if(error){
+
+        if(error.message){
+
+            mesaj =
+                error.message;
+
+        }else if(error.details){
+
+            mesaj =
+                error.details;
+
+        }else if(error.hint){
+
+            mesaj =
+                error.hint;
+
+        }else{
+
+            try{
+
+                mesaj =
+                    JSON.stringify(error);
+
+            }catch{
+
+                mesaj =
+                    String(error);
+
+            }
+
+        }
+
+    }
+
+
+    const box =
+        document.getElementById("message");
+
+
+    box.className =
+        "message error";
+
+
+    box.textContent =
+        "❌ " + mesaj;
+
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+}
+
+
+/* =========================================================
+   MESSAGE SUCCESS
+========================================================= */
+
+function montreSucces(mesaj){
+
+    const box =
+        document.getElementById("message");
+
+
+    box.className =
+        "message success";
+
+
+    box.textContent =
+        "✓ " + mesaj;
+
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+
+    setTimeout(() => {
+
+        box.className =
+            "message";
+
+        box.textContent = "";
+
+    },5000);
+}
+
+
+/* =========================================================
+   SIDEBAR
+========================================================= */
+
+function toggleSidebar(){
+
+    document.getElementById("adminSidebar")
+        .classList.toggle("mobile-open");
+}
+
+
+/* =========================================================
+   LOGOUT
+========================================================= */
+
+async function dekonèkte(){
+
+    await supabaseClient.auth.signOut();
+
+    window.location.href =
+        "login.html";
+}
+
+
+/* =========================================================
+   DEMARE
+========================================================= */
+
+async function demare(){
+
+    try{
+
+        /*
+         * RBAC
+         */
+
+        if(
+            typeof chajeRBAC === "function"
+        ){
+
+            await chajeRBAC();
+
+        }
+
+
+        /*
+         * Verifye pèmisyon don
+         */
+
+        if(
+            typeof genPèmisyon === "function" &&
+            !genPèmisyon("jere_don")
+        ){
+
+            document.querySelector(".admin-content")
+                .style.display = "none";
+
+            document.getElementById("accessDenied")
+                .style.display = "flex";
+
+            return;
+        }
+
+
+        /*
+         * Profil admin
+         */
+
+        aficheProfilAdminPage();
+
+
+        /*
+         * Chaje notifikasyon
+         */
+
+        if(
+            typeof demareNotifikasyon === "function"
+        ){
+
+            await demareNotifikasyon();
+
+        }
+
+
+        /*
+         * Chaje lis donatè + aktivite
+         */
+
+        const listes =
+            await chajeListes();
+
+
+        if(!listes){
+            return;
+        }
+
+
+        /*
+         * Chaje don
+         */
+
+        await chajeDon();
+
+
+    }catch(error){
+
+        console.error(
+            "DEMARRAGE DON ERROR:",
+            error
+        );
+
+        montreErreur(error);
+
+    }
+
+}
+
+
+/* =========================================================
+   CLOSE MODAL OUTSIDE
+========================================================= */
+
+document.getElementById("modal")
+    .addEventListener(
+        "click",
+        function(e){
+
+            if(e.target === this){
+
+                femenModal();
+
+            }
+
+        }
+    );
+
+
+/* =========================================================
+   DEMARE APP
+========================================================= */
+
+demare();
+
+</script>
+
+</body>
+</html>
