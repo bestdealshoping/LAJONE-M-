@@ -2,1339 +2,762 @@
 <html lang="ht">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#0B3B75">
-  <title>Jesyon Nouvèl | LAJONÈ'M</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Jesyon galri LAJONÈ'M">
+  <title>Jesyon galri — LAJONÈ'M</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <style>
     :root {
-      --ble: #0B3B75;
-      --ble2: #14549b;
-      --or: #F2B705;
-      --vèt: #2E8B57;
-      --rouj: #dc2626;
-      --tèks: #243247;
-      --gris: #f4f6f9;
-      --gris2: #e5eaf0;
-      --blan: #ffffff;
-      --ombre: 0 5px 20px rgba(11,59,117,.07);
-      --sidebar-width: 255px;
+      --ble:#0B3B75;
+      --or:#F2B705;
+      --vet:#2E8B57;
+      --gri:#f5f7fa;
+      --bord:#e5e7eb;
+      --teks:#1f2937;
+      --wouj:#dc2626;
+      --lonbraj:0 8px 30px #00000010;
     }
 
-    * { box-sizing: border-box; }
+    * { box-sizing:border-box; }
+    body { margin:0; font-family:"Open Sans",sans-serif; background:var(--gri); color:var(--teks); }
+    button,input,select,textarea { font:inherit; }
+    button { cursor:pointer; }
 
-    body {
-      margin: 0;
-      background: var(--gris);
-      color: var(--tèks);
-      font-family: "Open Sans", sans-serif;
-      font-size: 13px;
-    }
+    .admin-layout { display:flex; min-height:100vh; }
 
-    button, input, select, textarea { font: inherit; }
-    button { cursor: pointer; }
-    a { color: inherit; }
-
-    .admin-layout { min-height: 100vh; }
-
-    /* MENI LATERAL */
     .admin-sidebar {
-      width: var(--sidebar-width);
-      position: fixed;
-      inset: 0 auto 0 0;
-      z-index: 1200;
-      overflow-y: auto;
-      background: var(--blan);
-      border-right: 1px solid var(--gris2);
-      padding-bottom: 24px;
+      width:260px; background:var(--ble); color:white;
+      position:fixed; inset:0 auto 0 0; overflow-y:auto; z-index:1000;
     }
 
-    .admin-logo {
-      padding: 25px 22px 22px;
-      border-bottom: 1px solid var(--gris2);
-    }
+    .admin-logo { padding:24px 20px; border-bottom:1px solid #ffffff26; }
+    .admin-logo h2 { margin:0; font:800 22px Montserrat,sans-serif; }
+    .admin-logo span { display:block; margin-top:5px; color:var(--or); font-size:12px; }
 
-    .admin-logo h2 {
-      margin: 0;
-      font-family: "Montserrat", sans-serif;
-      font-size: 22px;
-      font-weight: 800;
-      color: var(--ble);
-    }
-
-    .admin-logo h2 span { color: var(--or); }
-
-    .admin-logo p {
-      margin: 7px 0 0;
-      color: #7a8595;
-      font-size: 11px;
-    }
-
-    .admin-nav { padding: 14px 12px; }
-
+    .admin-nav { padding:15px 10px 30px; }
     .admin-nav-title {
-      margin: 17px 10px 8px;
-      color: #8a94a3;
-      font-size: 10px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 1px;
+      padding:12px 12px 7px; font-size:10px; font-weight:700;
+      text-transform:uppercase; letter-spacing:1px; color:#ffffff8c;
     }
 
     .admin-nav a {
-      display: flex;
-      align-items: center;
-      gap: 11px;
-      padding: 11px 12px;
-      margin: 3px 0;
-      border-radius: 8px;
-      text-decoration: none;
-      color: #536174;
-      font-size: 12px;
-      font-weight: 600;
-      transition: .2s;
+      display:flex; gap:11px; align-items:center; padding:11px 12px;
+      margin:3px 0; color:#ffffffdf; text-decoration:none;
+      border-radius:8px; font-size:13px;
     }
 
-    .admin-nav a:hover {
-      background: #f0f5fb;
-      color: var(--ble);
-    }
+    .admin-nav a:hover,.admin-nav a.active { background:#ffffff1f; color:white; }
+    .admin-nav a.active { border-left:3px solid var(--or); }
+    .nav-icon { width:20px; text-align:center; }
 
-    .admin-nav a.active {
-      background: var(--ble);
-      color: white;
-    }
-
-    .nav-icon {
-      width: 22px;
-      text-align: center;
-      font-size: 16px;
-    }
-
-    /* ZÒN TRAVAY */
-    .admin-main {
-      margin-left: var(--sidebar-width);
-      min-height: 100vh;
-    }
+    .admin-main { margin-left:260px; width:calc(100% - 260px); min-height:100vh; }
 
     .admin-header {
-      height: 78px;
-      padding: 0 28px;
-      background: white;
-      border-bottom: 1px solid var(--gris2);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 18px;
-      position: sticky;
-      top: 0;
-      z-index: 900;
+      min-height:74px; background:white; border-bottom:1px solid var(--bord);
+      display:flex; align-items:center; justify-content:space-between;
+      padding:12px 28px; position:sticky; top:0; z-index:900; gap:12px;
     }
 
-    .header-left {
-      display: flex;
-      align-items: center;
-      gap: 13px;
-      min-width: 0;
-    }
+    .header-left h1 { margin:0; font:700 20px Montserrat,sans-serif; color:var(--ble); }
+    .header-left p { margin:3px 0 0; font-size:12px; color:#6b7280; }
+    .header-right { display:flex; align-items:center; gap:12px; }
 
-    .header-left h1 {
-      margin: 0;
-      font: 700 19px "Montserrat", sans-serif;
-      color: var(--ble);
-    }
+    .mobile-menu-btn { display:none; border:0; background:transparent; color:var(--ble); font-size:24px; }
 
-    .header-left p {
-      margin: 5px 0 0;
-      color: #7b8797;
-      font-size: 11px;
-    }
-
-    .header-right {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-    }
-
-    .admin-user {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .admin-avatar {
-      width: 39px;
-      height: 39px;
-      border-radius: 50%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: #eaf1fa;
-      color: var(--ble);
-      font-weight: 800;
-      font-size: 15px;
-    }
-
-    .admin-user-info {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .admin-user-info strong {
-      font-size: 12px;
-      color: var(--ble);
-    }
-
-    .admin-user-info span {
-      font-size: 10px;
-      color: #7b8797;
-    }
-
-    .logout-btn {
-      border: 1px solid var(--gris2);
-      border-radius: 8px;
-      padding: 9px 12px;
-      background: white;
-      color: #596579;
-    }
-
-    .logout-btn:hover {
-      color: var(--rouj);
-      border-color: #fecaca;
-    }
-
-    .mobile-menu-btn {
-      display: none;
-      border: 0;
-      background: transparent;
-      color: var(--ble);
-      font-size: 23px;
-      padding: 4px;
-    }
-
-    .admin-content { padding: 27px; }
-
-    .welcome-card {
-      background: linear-gradient(135deg, var(--ble), var(--ble2));
-      color: white;
-      padding: 23px 25px;
-      border-radius: 14px;
-      margin-bottom: 22px;
-      box-shadow: var(--ombre);
-    }
-
-    .welcome-card h2 {
-      margin: 0;
-      font: 700 20px "Montserrat", sans-serif;
-    }
-
-    .welcome-card p {
-      margin: 8px 0 0;
-      font-size: 12px;
-      line-height: 1.6;
-      opacity: .93;
-    }
-
-    /* ESTATISTIK */
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 16px;
-      margin-bottom: 22px;
-    }
-
-    .stat-card {
-      background: white;
-      border: 1px solid #edf0f4;
-      border-radius: 12px;
-      padding: 19px;
-      box-shadow: var(--ombre);
-    }
-
-    .stat-label { color: #6b7788; font-size: 11px; }
-
-    .stat-value {
-      margin-top: 8px;
-      font: 800 27px "Montserrat", sans-serif;
-      color: var(--ble);
-    }
-
-    .stat-card.published .stat-value { color: var(--vèt); }
-    .stat-card.draft .stat-value { color: #b7791f; }
-
-    /* KONTNI AK BOUTON */
-    .content-card {
-      background: white;
-      border: 1px solid #edf0f4;
-      border-radius: 13px;
-      padding: 21px;
-      box-shadow: var(--ombre);
-      margin-bottom: 22px;
-    }
-
-    .section-heading {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 13px;
-      margin-bottom: 18px;
-    }
-
-    .section-heading h2 {
-      margin: 0;
-      color: var(--ble);
-      font: 700 15px "Montserrat", sans-serif;
-    }
-
-    .section-heading p {
-      margin: 6px 0 0;
-      color: #7b8797;
-      font-size: 11px;
-    }
-
-    .primary-btn, .save-btn {
-      border: 0;
-      border-radius: 8px;
-      padding: 11px 16px;
-      background: var(--ble);
-      color: white;
-      font-weight: 700;
-      transition: .2s;
-    }
-
-    .primary-btn:hover, .save-btn:hover { background: var(--ble2); }
-
-    .toolbar {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) 220px;
-      gap: 12px;
-      margin-bottom: 18px;
-    }
-
-    input, select, textarea {
-      width: 100%;
-      border: 1px solid #dce3eb;
-      border-radius: 8px;
-      background: white;
-      padding: 11px 12px;
-      color: var(--tèks);
-      outline: none;
-    }
-
-    input:focus, select:focus, textarea:focus {
-      border-color: var(--ble);
-      box-shadow: 0 0 0 3px rgba(11,59,117,.08);
-    }
-
-    textarea {
-      min-height: 105px;
-      resize: vertical;
-      line-height: 1.6;
-    }
-
-    .table-scroll { overflow-x: auto; }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      min-width: 750px;
-    }
-
-    th {
-      padding: 13px 12px;
-      text-align: left;
-      background: #f7f9fc;
-      color: #657286;
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: .4px;
-      white-space: nowrap;
-    }
-
-    td {
-      padding: 14px 12px;
-      border-bottom: 1px solid #edf0f4;
-      vertical-align: middle;
-      font-size: 12px;
-    }
-
-    tbody tr:hover { background: #fbfcfe; }
-
-    .news-title {
-      color: var(--ble);
-      font-weight: 700;
-      max-width: 260px;
-      overflow-wrap: anywhere;
-    }
-
-    .status {
-      display: inline-block;
-      border-radius: 30px;
-      padding: 5px 9px;
-      font-size: 10px;
-      font-weight: 700;
-      white-space: nowrap;
-    }
-
-    .status-public { background: #e7f7ed; color: #187443; }
-    .status-draft { background: #fff4d5; color: #956600; }
-
-    .actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      min-width: 210px;
-    }
-
-    .action-btn {
-      border: 1px solid transparent;
-      border-radius: 6px;
-      padding: 7px 9px;
-      font-size: 10px;
-      font-weight: 700;
-    }
-
-    .edit-btn { background: #eaf1fb; color: var(--ble); }
-    .publish-btn { background: #e7f7ed; color: #187443; }
-    .draft-btn { background: #fff4d5; color: #956600; }
-    .delete-btn { background: #feecec; color: #b91c1c; }
-
-    .empty, .loading {
-      padding: 30px 15px;
-      text-align: center;
-      color: #7b8797;
-    }
-
-    /* MODAL FÒM */
-    .modal {
-      display: none;
-      position: fixed;
-      inset: 0;
-      z-index: 2000;
-      background: rgba(9,25,46,.62);
-      padding: 20px;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .modal.show { display: flex; }
-
-    .modal-box {
-      width: min(780px, 100%);
-      max-height: 92vh;
-      overflow-y: auto;
-      background: white;
-      border-radius: 14px;
-      box-shadow: 0 20px 60px rgba(0,0,0,.22);
-    }
-
-    .modal-header {
-      position: sticky;
-      top: 0;
-      z-index: 2;
-      background: white;
-      border-bottom: 1px solid var(--gris2);
-      padding: 18px 22px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .modal-header h2 {
-      margin: 0;
-      color: var(--ble);
-      font: 700 16px "Montserrat", sans-serif;
-    }
-
-    .close-btn {
-      border: 0;
-      background: transparent;
-      color: #657286;
-      font-size: 27px;
-    }
-
-    .modal-body { padding: 22px; }
-
-    .form-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 16px;
-    }
-
-    .form-group { min-width: 0; }
-    .form-group.full { grid-column: 1 / -1; }
-
-    .form-group label {
-      display: block;
-      margin-bottom: 7px;
-      color: #475569;
-      font-size: 11px;
-      font-weight: 700;
-    }
-
-    .checkbox-line {
-      display: flex !important;
-      align-items: center;
-      gap: 10px;
-      padding: 11px;
-      border: 1px solid var(--gris2);
-      border-radius: 8px;
-    }
-
-    .checkbox-line input {
-      width: auto;
-      accent-color: var(--ble);
-    }
-
-    .modal-footer {
-      display: flex;
-      justify-content: flex-end;
-      gap: 10px;
-      padding: 16px 22px;
-      border-top: 1px solid var(--gris2);
-    }
-
-    .cancel-btn {
-      border: 1px solid var(--gris2);
-      background: white;
-      color: #526074;
-      border-radius: 8px;
-      padding: 10px 15px;
-    }
-
-    .message {
-      position: fixed;
-      right: 22px;
-      bottom: 22px;
-      z-index: 3000;
-      max-width: min(420px, calc(100vw - 30px));
-      padding: 14px 18px;
-      border-radius: 9px;
-      color: white;
-      background: var(--ble);
-      box-shadow: var(--ombre);
-      opacity: 0;
-      transform: translateY(10px);
-      pointer-events: none;
-      transition: .25s;
-    }
-
-    .message.show { opacity: 1; transform: translateY(0); }
-    .message.success { background: #187443; }
-    .message.error { background: #b91c1c; }
-
-    /* NOTIFIKASYON */
     .notification-button {
-      position: relative;
-      border: 1px solid var(--gris2);
-      background: white;
-      border-radius: 9px;
-      width: 40px;
-      height: 40px;
-      font-size: 18px;
+      position:relative; width:42px; height:42px; border:1px solid var(--bord);
+      background:white; border-radius:50%; font-size:19px;
     }
 
     .notification-badge {
-      position: absolute;
-      top: -5px;
-      right: -5px;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      min-width: 18px;
-      height: 18px;
-      padding: 0 4px;
-      border-radius: 20px;
-      color: white;
-      background: var(--rouj);
-      font-size: 9px;
-      font-weight: 800;
+      position:absolute; top:-3px; right:-3px; min-width:19px; height:19px;
+      padding:0 5px; border-radius:20px; background:var(--wouj); color:white;
+      font-size:10px; font-weight:700; display:none; align-items:center;
+      justify-content:center; border:2px solid white;
     }
+
+    .admin-user { display:flex; align-items:center; gap:10px; padding-left:12px; border-left:1px solid var(--bord); }
+    .admin-avatar {
+      width:38px; height:38px; border-radius:50%; background:var(--ble); color:white;
+      display:flex; align-items:center; justify-content:center; font-weight:700;
+    }
+    .admin-user-info strong,.admin-user-info span { display:block; }
+    .admin-user-info strong { font-size:13px; }
+    .admin-user-info span { font-size:11px; color:#6b7280; }
+    .logout-btn { border:0; background:transparent; color:var(--wouj); font-size:18px; padding:8px; }
 
     .notification-panel {
-      display: none;
-      position: fixed;
-      top: 70px;
-      right: 25px;
-      z-index: 1800;
-      width: 360px;
-      max-width: calc(100vw - 30px);
-      max-height: 70vh;
-      overflow: hidden;
-      background: white;
-      border: 1px solid var(--gris2);
-      border-radius: 12px;
-      box-shadow: 0 15px 45px rgba(0,0,0,.18);
+      position:fixed; top:82px; right:25px; width:390px;
+      max-width:calc(100vw - 30px); max-height:570px; background:white;
+      border-radius:14px; box-shadow:0 15px 50px #0003; border:1px solid var(--bord);
+      z-index:2000; display:none; overflow:hidden;
     }
-
-    .notification-panel.aktif { display: block; }
-
+    .notification-panel.aktif { display:block; }
     .notification-header {
-      padding: 15px;
-      border-bottom: 1px solid var(--gris2);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
+      padding:16px; display:flex; justify-content:space-between; align-items:center;
+      border-bottom:1px solid var(--bord);
     }
-
-    .notification-header h3 {
-      margin: 0;
-      color: var(--ble);
-      font: 700 13px "Montserrat", sans-serif;
+    .notification-header h3 { margin:0; font:700 15px Montserrat,sans-serif; color:var(--ble); }
+    .notification-header button { border:0; background:transparent; color:var(--ble); font-size:11px; font-weight:700; }
+    .notification-list { max-height:490px; overflow:auto; }
+    .notifikasyon-item { display:flex; gap:11px; padding:14px; border-bottom:1px solid #f0f2f5; }
+    .notifikasyon-pa-li { background:#fffaf0; }
+    .notifikasyon-ikon {
+      width:38px; height:38px; flex:0 0 38px; border-radius:50%;
+      background:#eef4fb; display:flex; align-items:center; justify-content:center;
     }
+    .notifikasyon-kontni { flex:1; min-width:0; }
+    .notifikasyon-tet strong { font-size:12px; }
+    .notifikasyon-kontni p { margin:4px 0; font-size:11px; line-height:1.5; color:#4b5563; }
+    .notifikasyon-kontni small { font-size:9px; color:#9ca3af; }
+    .notifikasyon-pwen { display:inline-block; width:7px; height:7px; background:var(--wouj); border-radius:50%; }
+    .notifikasyon-aksyon button { border:0; background:var(--ble); color:white; border-radius:6px; padding:6px 8px; font-size:10px; }
+    .notifikasyon-vide { padding:30px 20px; text-align:center; }
+    .notifikasyon-vide h3 { color:var(--ble); font:700 15px Montserrat,sans-serif; }
 
-    .notification-header button {
-      border: 0;
-      background: transparent;
-      color: var(--ble);
-      font-size: 10px;
+    .admin-content { padding:28px; }
+    .page-heading { display:flex; justify-content:space-between; align-items:center; gap:15px; margin-bottom:22px; }
+    .page-heading h2 { margin:0 0 5px; font:700 25px Montserrat,sans-serif; color:var(--ble); }
+    .page-heading p { margin:0; color:#6b7280; font-size:13px; }
+
+    .primary-btn,.success-btn,.danger-btn,.secondary-btn,.small-btn {
+      border:0; padding:10px 14px; border-radius:8px; font-weight:700;
     }
+    .primary-btn { background:var(--ble); color:white; }
+    .success-btn { background:var(--vet); color:white; }
+    .danger-btn { background:#fee2e2; color:#991b1b; }
+    .secondary-btn,.small-btn { background:#e0ecff; color:var(--ble); }
+    button:disabled { opacity:.55; cursor:not-allowed; }
 
-    .notification-list { max-height: 55vh; overflow-y: auto; }
-
-    .notifikasyon-item {
-      display: flex;
-      gap: 10px;
-      padding: 13px;
-      border-bottom: 1px solid #edf0f4;
+    .stats-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:17px; margin-bottom:22px; }
+    .stat-card,.panel {
+      background:white; border-radius:13px; box-shadow:var(--lonbraj); border:1px solid #edf0f4;
     }
+    .stat-card { padding:18px; }
+    .stat-label { font-size:12px; color:#6b7280; margin-bottom:9px; }
+    .stat-value { font:800 25px Montserrat,sans-serif; color:var(--ble); }
+    .panel { margin-bottom:22px; overflow:hidden; }
+    .panel-header { padding:16px 20px; border-bottom:1px solid var(--bord); }
+    .panel-header h3 { margin:0; color:var(--ble); font:700 16px Montserrat,sans-serif; }
+    .panel-body { padding:20px; }
 
-    .notifikasyon-pa-li { background: #f0f6ff; }
-    .notifikasyon-ikon { font-size: 18px; }
-    .notifikasyon-kontni { flex: 1; min-width: 0; }
-    .notifikasyon-tet { display: flex; gap: 8px; align-items: center; }
-    .notifikasyon-tet strong { color: var(--ble); font-size: 11px; }
-    .notifikasyon-kontni p { margin: 5px 0; font-size: 11px; line-height: 1.5; overflow-wrap: anywhere; }
-    .notifikasyon-kontni small { color: #7b8797; font-size: 9px; }
-    .notifikasyon-pwen { width: 7px; height: 7px; border-radius: 50%; background: var(--rouj); }
-    .notifikasyon-aksyon button { border: 0; background: var(--ble); color: white; border-radius: 6px; padding: 6px 8px; font-size: 10px; }
-    .notifikasyon-vide { padding: 28px 18px; text-align: center; }
-    .notifikasyon-vide-ikon { font-size: 28px; }
-    .notifikasyon-vide h3 { color: var(--ble); font-size: 13px; }
-    .notifikasyon-vide p { color: #7b8797; font-size: 11px; }
-
-    .access-denied {
-      display: none;
-      min-height: 70vh;
-      padding: 30px;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
+    .form-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:15px; }
+    .form-group { display:flex; flex-direction:column; gap:6px; }
+    .form-group.full { grid-column:1/-1; }
+    .form-group label { font-size:12px; font-weight:700; }
+    .form-group input,.form-group select,.form-group textarea {
+      width:100%; border:1px solid #cbd5e1; border-radius:8px; padding:11px 12px; background:white;
     }
+    .form-group textarea { min-height:90px; resize:vertical; }
+    .form-actions { display:flex; flex-wrap:wrap; gap:10px; margin-top:18px; }
+    .file-info { font-size:12px; color:#6b7280; }
+    .preview-container { display:none; margin-top:12px; }
+    .preview-container img { max-width:230px; max-height:160px; object-fit:cover; border-radius:8px; border:1px solid var(--bord); }
 
-    .access-denied-box {
-      max-width: 430px;
-      padding: 35px;
-      background: white;
-      border-radius: 14px;
-      box-shadow: var(--ombre);
+    .toolbar { display:flex; gap:12px; margin-bottom:18px; }
+    .toolbar input,.toolbar select { border:1px solid var(--bord); border-radius:8px; padding:11px 12px; background:white; }
+    .toolbar input { flex:1; min-width:0; }
+    .gallery-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:18px; }
+    .photo-card { background:white; border:1px solid var(--bord); border-radius:12px; overflow:hidden; min-width:0; }
+    .photo-image { width:100%; height:190px; background:#edf0f2; overflow:hidden; }
+    .photo-image img { width:100%; height:100%; object-fit:cover; display:block; }
+    .photo-content { padding:15px; }
+    .photo-title { color:var(--ble); font:700 15px Montserrat,sans-serif; margin-bottom:7px; overflow-wrap:anywhere; }
+    .photo-description { font-size:13px; color:#65727a; line-height:1.5; margin:10px 0; white-space:pre-wrap; }
+    .photo-meta { font-size:12px; color:#777; line-height:1.8; margin-bottom:12px; }
+    .badge { display:inline-block; padding:4px 8px; border-radius:20px; font-size:11px; font-weight:700; }
+    .badge-published { background:#e5f5ec; color:#237348; }
+    .badge-hidden { background:#f0f1f2; color:#68747c; }
+    .photo-actions { display:flex; flex-wrap:wrap; gap:7px; }
+    .message { display:none; padding:12px 15px; border-radius:8px; margin-bottom:18px; font-size:13px; }
+    .message.success { display:block; background:#e7f5ed; color:#236b45; border:1px solid #bce3cc; }
+    .message.error { display:block; background:#fdecec; color:#9c2424; border:1px solid #efbcbc; }
+    .loading,.empty { text-align:center; padding:35px 20px; color:#68747c; }
+    .access-denied { display:none; padding:20px; background:white; border-radius:12px; color:var(--wouj); }
+
+    .modal { display:none; position:fixed; inset:0; background:#0009; z-index:2100; padding:20px; overflow:auto; }
+    .modal.show { display:flex; align-items:center; justify-content:center; }
+    .modal-box { background:white; width:min(700px,100%); max-height:90vh; overflow:auto; border-radius:14px; }
+    .modal-header { padding:16px 20px; display:flex; align-items:center; justify-content:space-between; background:var(--ble); color:white; }
+    .modal-header h3 { margin:0; font:700 17px Montserrat,sans-serif; }
+    .close-btn { background:transparent; border:0; color:white; font-size:25px; }
+    .modal-body { padding:20px; }
+    .modal-body img { width:100%; max-height:420px; object-fit:contain; background:#f1f2f3; border-radius:8px; }
+
+    @media(max-width:1100px) {
+      .gallery-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
     }
-
-    .access-denied-box h2 {
-      color: var(--ble);
-      font-family: "Montserrat", sans-serif;
+    @media(max-width:1000px) {
+      .admin-sidebar { transform:translateX(-100%); transition:transform .25s; }
+      .admin-sidebar.open { transform:translateX(0); }
+      .admin-main { margin-left:0; width:100%; }
+      .mobile-menu-btn { display:block; }
+      .admin-content { padding:20px 15px; }
+      .admin-header { padding:10px 15px; }
+      .notification-panel { right:10px; top:70px; width:calc(100vw - 20px); }
     }
-
-    .access-denied-box p { color: #6b7788; line-height: 1.7; }
-
-    .back-btn {
-      display: inline-block;
-      padding: 10px 15px;
-      background: var(--ble);
-      color: white;
-      border-radius: 8px;
-      text-decoration: none;
-    }
-
-    @media (max-width: 1100px) {
-      .admin-content { padding: 20px; }
-      .stats-grid { gap: 10px; }
-    }
-
-    @media (max-width: 800px) {
-      .admin-sidebar {
-        transform: translateX(-100%);
-        transition: transform .25s;
-        box-shadow: 10px 0 30px rgba(0,0,0,.12);
-      }
-
-      .admin-sidebar.mobile-open { transform: translateX(0); }
-      .admin-main { margin-left: 0; }
-      .mobile-menu-btn { display: block; }
-      .admin-header { height: 70px; padding: 0 14px; }
-      .admin-content { padding: 17px 13px; }
-      .header-left h1 { font-size: 15px; }
-      .header-left p, .admin-user-info { display: none; }
-      .stats-grid { grid-template-columns: repeat(3, minmax(0,1fr)); }
-      .content-card { padding: 15px; }
-      .notification-panel { right: 10px; top: 65px; }
-    }
-
-    @media (max-width: 550px) {
-      .stats-grid { grid-template-columns: 1fr 1fr; }
-      .stat-card { padding: 14px; }
-      .stat-value { font-size: 22px; }
-      .toolbar { grid-template-columns: 1fr; }
-      .form-grid { grid-template-columns: 1fr; }
-      .form-group.full { grid-column: auto; }
-      .welcome-card { padding: 19px; }
-      .welcome-card h2 { font-size: 17px; }
-      .header-right { gap: 7px; }
-      .logout-btn { padding: 8px; font-size: 10px; }
-      .admin-avatar { width: 34px; height: 34px; }
-      .modal { padding: 8px; }
-      .modal-body { padding: 15px; }
-      .modal-header, .modal-footer { padding: 14px 15px; }
+    @media(max-width:700px) {
+      .header-left p,.admin-user-info { display:none; }
+      .stats-grid,.form-grid,.gallery-grid { grid-template-columns:1fr; }
+      .form-group.full { grid-column:auto; }
+      .page-heading { align-items:flex-start; flex-direction:column; }
+      .toolbar { flex-direction:column; }
+      .panel-body { padding:15px; }
+      .admin-header { min-height:68px; }
     }
   </style>
 </head>
 
 <body>
 <div class="admin-layout">
-
   <aside class="admin-sidebar" id="adminSidebar">
     <div class="admin-logo">
-      <h2>LAJONÈ<span>'M</span></h2>
-      <p>Administrasyon</p>
+      <h2>LAJONÈ'M</h2>
+      <span>Administrasyon</span>
     </div>
 
     <nav class="admin-nav">
-      <div class="admin-nav-title">Prensipal</div>
+      <div class="admin-nav-title">Dashboard</div>
       <a href="admin.html"><span class="nav-icon">📊</span>Dashboard</a>
 
       <div class="admin-nav-title">Jesyon</div>
-      <a href="admin-aktivite.html" data-permission="jere_aktivite"><span class="nav-icon">📅</span>Aktivite</a>
-      <a href="admin-pwogram.html" data-permission="jere_pwogram"><span class="nav-icon">📚</span>Pwogram</a>
-      <a href="admin-volonte.html" data-permission="jere_volonte"><span class="nav-icon">🤝</span>Volontè</a>
-      <a href="admin-benefisye.html" data-permission="jere_benefisye"><span class="nav-icon">👥</span>Benefisyè</a>
-      <a href="admin-vizit.html" data-permission="jere_vizit"><span class="nav-icon">🏠</span>Vizit</a>
-      <a href="admin-don.html" data-permission="jere_don"><span class="nav-icon">💰</span>Don</a>
-      <a href="admin-donatè.html" data-permission="jere_donatè"><span class="nav-icon">🎁</span>Donatè</a>
-      <a href="admin-patne.html" data-permission="jere_patne"><span class="nav-icon">🤝</span>Patnè</a>
-      <a href="admin-nouvel.html" class="active" data-permission="jere_nouvel"><span class="nav-icon">📰</span>Nouvèl</a>
-      <a href="admin-galri.html" data-permission="jere_galri"><span class="nav-icon">🖼️</span>Galri</a>
-      <a href="admin-rapo.html" data-permission="jere_rapo"><span class="nav-icon">📄</span>Rapò</a>
-      <a href="admin-mesaj.html" data-permission="jere_mesaj"><span class="nav-icon">✉️</span>Mesaj</a>
+      <a data-permission="jere_aktivite" href="admin-aktivite.html"><span class="nav-icon">📅</span>Aktivite</a>
+      <a data-permission="jere_pwogram" href="admin-pwogram.html"><span class="nav-icon">📋</span>Pwogram</a>
+      <a data-permission="jere_volonte" href="admin-volonte.html"><span class="nav-icon">🤝</span>Volontè</a>
+      <a data-permission="jere_benefisye" href="admin-benefisye.html"><span class="nav-icon">👵</span>Benefisyè</a>
+      <a data-permission="jere_vizit" href="admin-vizit.html"><span class="nav-icon">🏠</span>Vizit</a>
+      <a data-permission="jere_don" href="admin-don.html"><span class="nav-icon">💝</span>Don</a>
+      <a data-permission="jere_donatè" href="admin-donatè.html"><span class="nav-icon">💳</span>Donatè</a>
+      <a data-permission="jere_patne" href="admin-patne.html"><span class="nav-icon">🏢</span>Patnè</a>
+      <a data-permission="jere_nouvel" href="admin-nouvel.html"><span class="nav-icon">📰</span>Nouvèl</a>
+      <a data-permission="jere_galri" href="admin-galri.html" class="active"><span class="nav-icon">🖼️</span>Galri</a>
+      <a data-permission="jere_rapo" href="admin-rapo.html"><span class="nav-icon">📈</span>Rapò</a>
+      <a data-permission="jere_mesaj" href="admin-mesaj.html"><span class="nav-icon">✉️</span>Mesaj</a>
 
       <div class="admin-nav-title">Administrasyon</div>
-      <a href="admin-itilizatè.html" data-permission="jere_itilizatè"><span class="nav-icon">🔐</span>Itilizatè & Aksè</a>
-      <a href="admin-paramet.html" data-permission="jere_paramet"><span class="nav-icon">⚙️</span>Paramèt</a>
+      <a data-permission="jere_itilizatè" href="admin-itilizatè.html"><span class="nav-icon">👥</span>Itilizatè</a>
+      <a data-permission="jere_paramet" href="admin-paramet.html"><span class="nav-icon">⚙️</span>Paramèt</a>
     </nav>
   </aside>
 
   <main class="admin-main">
     <header class="admin-header">
-      <div class="header-left">
+      <div style="display:flex;align-items:center;gap:12px">
         <button class="mobile-menu-btn" id="mobileMenuBtn" type="button" aria-label="Louvri meni">☰</button>
-        <div>
-          <h1>Jesyon nouvèl</h1>
-          <p>Kontni ak piblikasyon LAJONÈ'M</p>
+        <div class="header-left">
+          <h1>Jesyon galri</h1>
+          <p>Ajoute, jere epi pibliye foto aktivite LAJONÈ'M yo.</p>
         </div>
       </div>
 
       <div class="header-right">
-        <button class="notification-button" type="button" aria-label="Notifikasyon" onclick="toggleNotifikasyon()">
-          🔔 <span class="notification-badge" id="notifikasyonBadge">0</span>
+        <button class="notification-button" type="button" onclick="toggleNotifikasyon()" aria-label="Notifikasyon">
+          🔔<span class="notification-badge" id="notifikasyonBadge">0</span>
         </button>
-
         <div class="admin-user">
           <div class="admin-avatar" id="adminAvatar">A</div>
           <div class="admin-user-info">
             <strong id="adminName">Administratè</strong>
-            <span id="adminRole">—</span>
+            <span id="adminRole">Admin</span>
           </div>
         </div>
-
-        <button class="logout-btn" id="logoutBtn" type="button">Dekonekte</button>
+        <button class="logout-btn" id="logoutBtn" type="button" title="Dekonekte" aria-label="Dekonekte">↪</button>
       </div>
     </header>
 
-    <div class="notification-panel" id="notifikasyonPanel">
-      <div class="notification-header">
-        <h3>Notifikasyon</h3>
-        <button type="button" onclick="makeToutNotifikasyonLi()">Make tout kòm li</button>
-      </div>
-      <div class="notification-list" id="notifikasyonContainer">
-        <div class="notifikasyon-vide">
-          <div class="notifikasyon-vide-ikon">🔔</div>
-          <h3>Chajman...</h3>
-          <p>N ap chaje notifikasyon yo.</p>
+    <section class="admin-content">
+      <div class="page-heading">
+        <div>
+          <h2>Galri LAJONÈ'M</h2>
+          <p>Jere foto òganizasyon an avèk swen.</p>
         </div>
-      </div>
-    </div>
-
-    <section class="admin-content" id="newsContent">
-      <div class="welcome-card">
-        <h2>Jere nouvèl LAJONÈ'M</h2>
-        <p>Kreye, modifye, pibliye oswa mete nouvèl an bouyon pou pataje enfòmasyon òganizasyon an ak kominote a.</p>
+        <button class="primary-btn" id="addPhotoBtn" type="button">+ Ajoute yon foto</button>
       </div>
 
-      <section class="stats-grid">
-        <div class="stat-card">
-          <div class="stat-label">Total nouvèl</div>
-          <div class="stat-value" id="statTotal">0</div>
-        </div>
-        <div class="stat-card published">
-          <div class="stat-label">Nouvèl pibliye</div>
-          <div class="stat-value" id="statPublished">0</div>
-        </div>
-        <div class="stat-card draft">
-          <div class="stat-label">Bouyon</div>
-          <div class="stat-value" id="statDraft">0</div>
+      <div id="accessDenied" class="access-denied">Ou pa gen pèmisyon pou jere galri a.</div>
+      <div id="messageSuccess" class="message"></div>
+      <div id="messageError" class="message"></div>
+
+      <div class="stats-grid">
+        <div class="stat-card"><div class="stat-label">Total foto</div><div class="stat-value" id="statTotal">0</div></div>
+        <div class="stat-card"><div class="stat-label">Foto pibliye</div><div class="stat-value" id="statPublie">0</div></div>
+        <div class="stat-card"><div class="stat-label">Foto kache</div><div class="stat-value" id="statKache">0</div></div>
+      </div>
+
+      <section class="panel" id="uploadPanel" style="display:none">
+        <div class="panel-header"><h3 id="formTitle">Ajoute yon nouvo foto</h3></div>
+        <div class="panel-body">
+          <form id="formGalri">
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="tit">Tit foto *</label>
+                <input id="tit" type="text" maxlength="200" required>
+              </div>
+
+              <div class="form-group">
+                <label for="kategori">Kategori</label>
+                <select id="kategori">
+                  <option value="">Chwazi yon kategori</option>
+                  <option>Aktivite</option><option>Benefisyè</option>
+                  <option>Volontè</option><option>Don</option>
+                  <option>Evènman</option><option>Kominote</option><option>Lòt</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="aktivite_id">Aktivite ki asosye</label>
+                <select id="aktivite_id"><option value="">San aktivite</option></select>
+              </div>
+
+              <div class="form-group">
+                <label for="dat_foto">Dat foto</label>
+                <input id="dat_foto" type="date">
+              </div>
+
+              <div class="form-group full">
+                <label for="deskripsyon">Deskripsyon</label>
+                <textarea id="deskripsyon" maxlength="3000" placeholder="Bay yon ti deskripsyon sou foto a..."></textarea>
+              </div>
+
+              <div class="form-group full">
+                <label for="foto">Chwazi foto *</label>
+                <input id="foto" type="file" accept="image/jpeg,image/png,image/webp,image/gif" required>
+                <div class="file-info">Fòma aksepte: JPG, PNG, WEBP, GIF. Maksimòm 5 MB.</div>
+                <div class="preview-container" id="previewContainer"><img id="previewImage" alt="Aperçu foto"></div>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="primary-btn" id="btnUpload">Upload foto</button>
+              <button type="button" class="secondary-btn" id="cancelUploadBtn">Anile</button>
+            </div>
+          </form>
         </div>
       </section>
 
-      <section class="content-card">
-        <div class="section-heading">
-          <div>
-            <h2>Tout nouvèl yo</h2>
-            <p>Chèche, modifye oswa chanje estati piblikasyon yon nouvèl.</p>
+      <div class="toolbar">
+        <input type="search" id="searchInput" placeholder="Chèche tit oswa deskripsyon...">
+        <select id="statusFilter">
+          <option value="">Tout foto</option>
+          <option value="true">Foto pibliye</option>
+          <option value="false">Foto kache</option>
+        </select>
+      </div>
+
+      <section class="panel">
+        <div class="panel-header"><h3>Foto yo</h3></div>
+        <div class="panel-body">
+          <div id="galleryContainer" class="gallery-grid">
+            <div class="loading">Ap chaje foto yo...</div>
           </div>
-          <button class="primary-btn" id="addBtn" type="button">+ Ajoute yon nouvèl</button>
-        </div>
-
-        <div class="toolbar">
-          <input type="search" id="searchInput" placeholder="Chèche pa tit, rezime oswa otè..." aria-label="Chèche nouvèl">
-          <select id="categoryFilter" aria-label="Filtre kategori">
-            <option value="">Tout kategori</option>
-            <option value="LAJONÈ'M">LAJONÈ'M</option>
-            <option value="Aktivite">Aktivite</option>
-            <option value="Sante">Sante</option>
-            <option value="Sosyal">Sosyal</option>
-            <option value="Volontarya">Volontarya</option>
-            <option value="Don">Don</option>
-            <option value="Patnè">Patnè</option>
-            <option value="Lòt">Lòt</option>
-          </select>
-        </div>
-
-        <div class="table-scroll">
-          <table>
-            <thead>
-              <tr>
-                <th>Tit nouvèl</th>
-                <th>Kategori</th>
-                <th>Otè</th>
-                <th>Dat</th>
-                <th>Estati</th>
-                <th>Aksyon</th>
-              </tr>
-            </thead>
-            <tbody id="newsTable">
-              <tr><td colspan="6" class="loading">Ap chaje nouvèl yo...</td></tr>
-            </tbody>
-          </table>
         </div>
       </section>
-    </section>
-
-    <section class="access-denied" id="accessDenied">
-      <div class="access-denied-box">
-        <div style="font-size:40px">🔐</div>
-        <h2>Aksè limite</h2>
-        <p>Kont ou a pa gen pèmisyon pou jere nouvèl yo. Kontakte yon administratè si ou panse se yon erè.</p>
-        <a class="back-btn" href="admin.html">Retounen nan dashboard</a>
-      </div>
     </section>
   </main>
 </div>
 
-<!-- FÒM NOUVÈL -->
-<div class="modal" id="newsModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-  <div class="modal-box">
-    <div class="modal-header">
-      <h2 id="modalTitle">Ajoute yon nouvèl</h2>
-      <button class="close-btn" id="closeModal" type="button" aria-label="Fèmen">×</button>
-    </div>
-
-    <form id="newsForm">
-      <div class="modal-body">
-        <input type="hidden" id="newsId">
-
-        <div class="form-grid">
-          <div class="form-group full">
-            <label for="tit">Tit nouvèl la *</label>
-            <input type="text" id="tit" required maxlength="250" placeholder="Ekri tit nouvèl la">
-          </div>
-
-          <div class="form-group full">
-            <label for="slug">Slug URL *</label>
-            <input type="text" id="slug" required placeholder="egzanp-tit-nouvel">
-            <small style="display:block;color:#7b8797;margin-top:6px">Li kreye otomatikman apati tit la; ou ka modifye li.</small>
-          </div>
-
-          <div class="form-group">
-            <label for="kategori">Kategori</label>
-            <select id="kategori">
-              <option value="LAJONÈ'M">LAJONÈ'M</option>
-              <option value="Aktivite">Aktivite</option>
-              <option value="Sante">Sante</option>
-              <option value="Sosyal">Sosyal</option>
-              <option value="Volontarya">Volontarya</option>
-              <option value="Don">Don</option>
-              <option value="Patnè">Patnè</option>
-              <option value="Lòt">Lòt</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label for="otè">Otè</label>
-            <input type="text" id="otè" value="LAJONÈ'M" placeholder="LAJONÈ'M">
-          </div>
-
-          <div class="form-group full">
-            <label for="rezime">Rezime</label>
-            <textarea id="rezime" placeholder="Ekri yon ti rezime sou nouvèl la..."></textarea>
-          </div>
-
-          <div class="form-group full">
-            <label for="kontni">Kontni nouvèl la *</label>
-            <textarea id="kontni" required style="min-height:220px" placeholder="Ekri tout kontni nouvèl la..."></textarea>
-          </div>
-
-          <div class="form-group full">
-            <label for="imaj_url">URL imaj</label>
-            <input type="url" id="imaj_url" placeholder="https://...">
-          </div>
-
-          <div class="form-group full">
-            <label for="dat_piblikasyon">Dat piblikasyon</label>
-            <input type="datetime-local" id="dat_piblikasyon">
-          </div>
-
-          <div class="form-group full">
-            <label class="checkbox-line" for="pibliye">
-              <input type="checkbox" id="pibliye">
-              <span>Pibliye nouvèl sa a sou sit la</span>
-            </label>
-          </div>
-        </div>
-      </div>
-
-      <div class="modal-footer">
-        <button class="cancel-btn" type="button" id="cancelBtn">Anile</button>
-        <button class="save-btn" type="submit" id="saveBtn">Anrejistre nouvèl la</button>
-      </div>
-    </form>
+<div class="notification-panel" id="notificationPanel">
+  <div class="notification-header">
+    <h3>Notifikasyon</h3>
+    <button type="button" onclick="makeToutNotifikasyonLi()">Make tout li</button>
+  </div>
+  <div class="notification-list" id="notifikasyonContainer">
+    <div class="notifikasyon-vide"><h3>Ap chaje notifikasyon yo...</h3></div>
   </div>
 </div>
 
-<div class="message" id="message" role="status" aria-live="polite"></div>
+<div class="modal" id="photoModal">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h3 id="modalTitle">Foto</h3>
+      <button class="close-btn" type="button" id="closePhotoModal" aria-label="Fèmen">×</button>
+    </div>
+    <div class="modal-body">
+      <img id="modalImage" src="" alt="Foto">
+      <p id="modalDescription" style="margin-top:15px;line-height:1.6"></p>
+    </div>
+  </div>
+</div>
 
 <script src="js/supabase.js"></script>
 <script src="js/permissions.js"></script>
 <script src="js/notifikasyon.js"></script>
 
 <script>
-  "use strict";
+'use strict';
 
-  let toutNouvel = [];
-  let modeEdition = false;
-  let mesajTimer = null;
-  let pajApChaje = false;
+const BUCKET = 'galri';
+let toutFoto = [];
+let operasyonAnKou = false;
 
-  const $ = id => document.getElementById(id);
+const $ = id => document.getElementById(id);
 
-  function escapeHTML(value) {
-    if (value === null || value === undefined) return "";
-    return String(value)
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#039;");
+function escapeHTML(value) {
+  return String(value ?? '').replace(/[&<>"']/g, c => ({
+    '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#039;'
+  })[c]);
+}
+
+function montreMesaj(id, message, type) {
+  const el = $(id);
+  el.textContent = message;
+  el.className = 'message ' + type;
+  el.style.display = 'block';
+  setTimeout(() => { el.style.display = 'none'; }, 5000);
+}
+function montreSucces(message) { montreMesaj('messageSuccess', message, 'success'); }
+function montreErreur(message) { montreMesaj('messageError', message, 'error'); }
+
+function aficheProfil() {
+  const p = jwennProfilAdmin();
+  if (!p) return;
+  const non = [p.non, p.siyati].filter(Boolean).join(' ').trim() || p.email || 'Administratè';
+  $('adminName').textContent = non;
+  $('adminRole').textContent = jwennNonWolAdmin();
+  $('adminAvatar').textContent = non.charAt(0).toUpperCase();
+}
+
+function meteStatistik() {
+  $('statTotal').textContent = toutFoto.length;
+  $('statPublie').textContent = toutFoto.filter(f => f.piblik === true).length;
+  $('statKache').textContent = toutFoto.filter(f => f.piblik !== true).length;
+}
+
+async function chajeAktivite() {
+  const select = $('aktivite_id');
+  const { data, error } = await supabaseClient
+    .from('aktivite')
+    .select('id,tit,dat_aktivite')
+    .order('dat_aktivite', { ascending:false });
+
+  if (error) {
+    console.warn('Pa kapab chaje aktivite:', error.message);
+    return;
   }
 
-  function montreMesaj(texte, type = "") {
-    const box = $("message");
-    box.textContent = texte;
-    box.className = "message show " + type;
+  (data || []).forEach(a => {
+    const option = document.createElement('option');
+    option.value = a.id;
+    option.textContent = a.tit || 'Aktivite';
+    select.appendChild(option);
+  });
+}
 
-    if (mesajTimer) clearTimeout(mesajTimer);
-    mesajTimer = setTimeout(() => {
-      box.className = "message";
-    }, 4000);
+async function chajeGalri() {
+  const container = $('galleryContainer');
+  container.innerHTML = '<div class="loading">Ap chaje foto yo...</div>';
+
+  const { data, error } = await supabaseClient
+    .from('galri')
+    .select('id,tit,deskripsyon,foto_url,aktivite_id,kategori,piblik,dat_foto')
+    .order('dat_foto', { ascending:false, nullsFirst:false });
+
+  if (error) {
+    console.error(error);
+    container.innerHTML = '<div class="empty">Nou pa kapab chaje foto yo.</div>';
+    montreErreur('Erè pandan chajman galri a: ' + error.message);
+    return;
   }
 
-  function montreAksèRefize() {
-    $("newsContent").style.display = "none";
-    $("accessDenied").style.display = "flex";
+  toutFoto = data || [];
+  meteStatistik();
+  aficheGalri();
+}
+
+function aficheGalri() {
+  const container = $('galleryContainer');
+  const rech = $('searchInput').value.toLowerCase().trim();
+  const estati = $('statusFilter').value;
+
+  const lis = toutFoto.filter(f => {
+    const texte = [f.tit, f.deskripsyon, f.kategori].filter(Boolean).join(' ').toLowerCase();
+    return texte.includes(rech) && (estati === '' || String(f.piblik) === estati);
+  });
+
+  if (!lis.length) {
+    container.innerHTML = '<div class="empty">Pa gen foto ki koresponn ak rechèch la.</div>';
+    return;
   }
 
-  function kreyeSlug(tit) {
-    return String(tit || "")
-      .toLowerCase()
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "")
-      .replace(/[’']/g, "")
-      .replace(/[^a-z0-9]+/g, "-")
-      .replace(/^-+|-+$/g, "");
+  container.innerHTML = lis.map(f => {
+    const date = f.dat_foto ? new Date(f.dat_foto + 'T00:00:00').toLocaleDateString('fr-FR') : 'Pa espesifye';
+    return `
+      <article class="photo-card">
+        <div class="photo-image">
+          <img src="${escapeHTML(f.foto_url)}" alt="${escapeHTML(f.tit || 'Foto')}" loading="lazy">
+        </div>
+        <div class="photo-content">
+          <div class="photo-title">${escapeHTML(f.tit || 'San tit')}</div>
+          <span class="badge ${f.piblik ? 'badge-published' : 'badge-hidden'}">${f.piblik ? 'Pibliye' : 'Kache'}</span>
+          <div class="photo-description">${escapeHTML(f.deskripsyon || 'Pa gen deskripsyon.')}</div>
+          <div class="photo-meta">
+            <strong>Kategori:</strong> ${escapeHTML(f.kategori || 'Lòt')}<br>
+            <strong>Dat:</strong> ${escapeHTML(date)}
+          </div>
+          <div class="photo-actions">
+            <button class="small-btn" type="button" data-action="preview" data-id="${escapeHTML(f.id)}">Wè</button>
+            <button class="small-btn" type="button" data-action="edit" data-id="${escapeHTML(f.id)}">Modifye</button>
+            <button class="${f.piblik ? 'secondary-btn' : 'success-btn'}" type="button" data-action="publish" data-id="${escapeHTML(f.id)}" data-value="${!f.piblik}">${f.piblik ? 'Kache' : 'Pibliye'}</button>
+            <button class="danger-btn" type="button" data-action="delete" data-id="${escapeHTML(f.id)}">Efase</button>
+          </div>
+        </div>
+      </article>`;
+  }).join('');
+}
+
+function ouvriFormUpload() {
+  $('formGalri').reset();
+  $('formTitle').textContent = 'Ajoute yon nouvo foto';
+  $('btnUpload').textContent = 'Upload foto';
+  $('foto').required = true;
+  $('previewContainer').style.display = 'none';
+  $('uploadPanel').style.display = 'block';
+  window.scrollTo({ top:0, behavior:'smooth' });
+}
+
+function femenFormUpload() {
+  $('uploadPanel').style.display = 'none';
+  $('formGalri').reset();
+  $('foto').required = true;
+  $('previewContainer').style.display = 'none';
+}
+
+function previewFoto(id) {
+  const f = toutFoto.find(x => String(x.id) === String(id));
+  if (!f) return;
+  $('modalTitle').textContent = f.tit || 'Foto';
+  $('modalImage').src = f.foto_url || '';
+  $('modalDescription').textContent = f.deskripsyon || 'Pa gen deskripsyon.';
+  $('photoModal').classList.add('show');
+}
+
+function femenModal() {
+  $('photoModal').classList.remove('show');
+  $('modalImage').src = '';
+}
+
+async function modifieFoto(id) {
+  if (!genPèmisyon('jere_galri')) return montreErreur('Ou pa gen pèmisyon pou modifye galri a.');
+  const f = toutFoto.find(x => String(x.id) === String(id));
+  if (!f) return;
+
+  const tit = prompt('Nouvo tit foto a:', f.tit || '');
+  if (tit === null) return;
+  if (!tit.trim()) return montreErreur('Tit foto a obligatwa.');
+
+  const deskripsyon = prompt('Nouvo deskripsyon:', f.deskripsyon || '');
+  if (deskripsyon === null) return;
+
+  const { error } = await supabaseClient.from('galri')
+    .update({ tit:tit.trim(), deskripsyon:deskripsyon.trim() || null })
+    .eq('id', id);
+
+  if (error) return montreErreur('Nou pa kapab modifye foto a: ' + error.message);
+  montreSucces('Enfòmasyon foto a modifye.');
+  await chajeGalri();
+}
+
+async function chanjePublication(id, piblik) {
+  if (!genPèmisyon('jere_galri')) return montreErreur('Ou pa gen pèmisyon pou chanje piblikasyon.');
+  const { error } = await supabaseClient.from('galri').update({ piblik }).eq('id', id);
+  if (error) return montreErreur('Nou pa kapab chanje piblikasyon an: ' + error.message);
+  montreSucces(piblik ? 'Foto a pibliye.' : 'Foto a kache.');
+  await chajeGalri();
+}
+
+async function efaseFoto(id) {
+  if (!genPèmisyon('jere_galri')) return montreErreur('Ou pa gen pèmisyon pou efase foto.');
+  const f = toutFoto.find(x => String(x.id) === String(id));
+  if (!f || !confirm('Èske ou sèten ou vle efase foto sa a? Aksyon sa a pa ka anile.')) return;
+
+  try {
+    let chemen = null;
+    const makè = '/storage/v1/object/public/' + BUCKET + '/';
+    if (f.foto_url && f.foto_url.includes(makè)) {
+      chemen = decodeURIComponent(f.foto_url.split(makè)[1]);
+    }
+
+    if (chemen) {
+      const { error: storageError } = await supabaseClient.storage.from(BUCKET).remove([chemen]);
+      if (storageError) console.warn('Pa kapab efase fichye Storage la:', storageError.message);
+    }
+
+    const { error } = await supabaseClient.from('galri').delete().eq('id', id);
+    if (error) throw error;
+
+    montreSucces('Foto a efase avèk siksè.');
+    await chajeGalri();
+  } catch (error) {
+    montreErreur('Nou pa kapab efase foto a: ' + error.message);
+  }
+}
+
+$('galleryContainer').addEventListener('click', async e => {
+  const btn = e.target.closest('button[data-action]');
+  if (!btn) return;
+  const { action, id, value } = btn.dataset;
+
+  if (action === 'preview') previewFoto(id);
+  if (action === 'edit') await modifieFoto(id);
+  if (action === 'publish') await chanjePublication(id, value === 'true');
+  if (action === 'delete') await efaseFoto(id);
+});
+
+$('foto').addEventListener('change', function() {
+  const file = this.files[0];
+  if (!file) {
+    $('previewContainer').style.display = 'none';
+    return;
   }
 
-  function fòmateDat(date) {
-    if (!date) return "—";
-    const d = new Date(date);
-    if (Number.isNaN(d.getTime())) return "—";
+  if (!file.type.startsWith('image/')) {
+    montreErreur('Fichye sa a pa yon imaj.');
+    this.value = '';
+    return;
+  }
 
-    return d.toLocaleDateString("fr-FR", {
-      day: "2-digit",
-      month: "2-digit",
-      year: "numeric"
+  if (file.size > 5 * 1024 * 1024) {
+    montreErreur('Foto a twò gwo. Maksimòm lan se 5 MB.');
+    this.value = '';
+    return;
+  }
+
+  const reader = new FileReader();
+  reader.onload = e => {
+    $('previewImage').src = e.target.result;
+    $('previewContainer').style.display = 'block';
+  };
+  reader.readAsDataURL(file);
+});
+
+$('formGalri').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  if (!genPèmisyon('jere_galri')) return montreErreur('Ou pa gen pèmisyon pou ajoute foto.');
+  if (operasyonAnKou) return;
+
+  const tit = $('tit').value.trim();
+  const file = $('foto').files[0];
+  if (!tit || !file) return montreErreur('Tanpri mete tit la epi chwazi yon foto.');
+  if (file.size > 5 * 1024 * 1024) return montreErreur('Foto a pa dwe depase 5 MB.');
+
+  operasyonAnKou = true;
+  $('btnUpload').disabled = true;
+  $('btnUpload').textContent = 'Ap upload foto a...';
+
+  let nonFichye = null;
+
+  try {
+    const extension = (file.name.split('.').pop() || 'jpg').toLowerCase().replace(/[^a-z0-9]/g, '');
+    nonFichye = 'foto-' + Date.now() + '-' + Math.random().toString(36).slice(2,9) + '.' + extension;
+
+    const { error: uploadError } = await supabaseClient.storage.from(BUCKET).upload(nonFichye, file, {
+      cacheControl:'3600', upsert:false, contentType:file.type
     });
+    if (uploadError) throw new Error('Upload foto a echwe: ' + uploadError.message);
+
+    const { data } = supabaseClient.storage.from(BUCKET).getPublicUrl(nonFichye);
+    const foto_url = data.publicUrl;
+
+    const { error: dbError } = await supabaseClient.from('galri').insert({
+      tit,
+      deskripsyon:$('deskripsyon').value.trim() || null,
+      foto_url,
+      aktivite_id:$('aktivite_id').value || null,
+      kategori:$('kategori').value || null,
+      piblik:true,
+      dat_foto:$('dat_foto').value || null
+    });
+
+    if (dbError) {
+      await supabaseClient.storage.from(BUCKET).remove([nonFichye]);
+      throw new Error('Foto a te upload men li pa anrejistre: ' + dbError.message);
+    }
+
+    montreSucces('Foto a upload epi pibliye avèk siksè.');
+    femenFormUpload();
+    await chajeGalri();
+  } catch (error) {
+    console.error(error);
+    montreErreur(error.message || 'Nou pa kapab upload foto a.');
+  } finally {
+    operasyonAnKou = false;
+    $('btnUpload').disabled = false;
+    $('btnUpload').textContent = 'Upload foto';
   }
+});
 
-  function fòmateDatetimeLocal(date) {
-    if (!date) return "";
-    const d = new Date(date);
-    if (Number.isNaN(d.getTime())) return "";
+$('searchInput').addEventListener('input', aficheGalri);
+$('statusFilter').addEventListener('change', aficheGalri);
+$('addPhotoBtn').addEventListener('click', () => {
+  if (!genPèmisyon('jere_galri')) return montreErreur('Ou pa gen pèmisyon pou ajoute foto.');
+  ouvriFormUpload();
+});
+$('cancelUploadBtn').addEventListener('click', femenFormUpload);
+$('closePhotoModal').addEventListener('click', femenModal);
 
-    const lokal = new Date(d.getTime() - d.getTimezoneOffset() * 60000);
-    return lokal.toISOString().slice(0, 16);
+$('photoModal').addEventListener('click', e => {
+  if (e.target === $('photoModal')) femenModal();
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') femenModal();
+});
+
+$('mobileMenuBtn').addEventListener('click', () => $('adminSidebar').classList.toggle('open'));
+document.addEventListener('click', e => {
+  if (innerWidth <= 1000 && !$('adminSidebar').contains(e.target) && !$('mobileMenuBtn').contains(e.target)) {
+    $('adminSidebar').classList.remove('open');
   }
+});
 
-  function meteProfilAdmin() {
+$('logoutBtn').addEventListener('click', async () => {
+  await supabaseClient.auth.signOut();
+  location.href = 'login.html';
+});
+
+async function demare() {
+  try {
+    const { data:{user}, error } = await supabaseClient.auth.getUser();
+    if (error || !user) {
+      location.href = 'login.html';
+      return;
+    }
+
+    await chajeRBAC();
     const profil = jwennProfilAdmin();
-    if (!profil) return;
 
-    const nonKonplè = [profil.non, profil.siyati]
-      .filter(Boolean)
-      .join(" ")
-      .trim();
-
-    $("adminName").textContent = nonKonplè || profil.email || "Administratè";
-    $("adminRole").textContent = jwennNonWolAdmin() || "Itilizatè";
-    $("adminAvatar").textContent = (profil.non || profil.email || "A")
-      .trim()
-      .charAt(0)
-      .toUpperCase();
-  }
-
-  async function verifyeAksè() {
-    try {
-      await chajeRBAC();
-
-      if (!rbacPare || !jwennProfilAdmin()) {
-        window.location.href = "login.html";
-        return false;
-      }
-
-      if (!genPèmisyon("jere_nouvel")) {
-        montreAksèRefize();
-        return false;
-      }
-
-      pwotejeMeniAdmin();
-      meteProfilAdmin();
-      return true;
-    } catch (error) {
-      console.error("Erè verifikasyon aksè:", error);
-      montreMesaj("Nou pa kapab verifye aksè administratè a.", "error");
-      window.location.href = "login.html";
-      return false;
-    }
-  }
-
-  async function chajeNouvel() {
-    const tbody = $("newsTable");
-    tbody.innerHTML = '<tr><td colspan="6" class="loading">Ap chaje nouvèl yo...</td></tr>';
-
-    const { data, error } = await supabaseClient
-      .from("nouvel")
-      .select("id,tit,slug,rezime,kontni,imaj_url,kategori,otè,pibliye,dat_piblikasyon,kreye_nan,modifye_nan")
-      .order("kreye_nan", { ascending: false });
-
-    if (error) {
-      console.error("Erè chajman nouvèl:", error);
-      tbody.innerHTML = '<tr><td colspan="6" class="empty">Nou pa kapab chaje nouvèl yo.</td></tr>';
-      montreMesaj("Erè pandan chajman nouvèl yo: " + error.message, "error");
-      return;
-    }
-
-    toutNouvel = data || [];
-    meteStatistik();
-    montreNouvel();
-  }
-
-  function meteStatistik() {
-    $("statTotal").textContent = toutNouvel.length;
-    $("statPublished").textContent = toutNouvel.filter(n => n.pibliye === true).length;
-    $("statDraft").textContent = toutNouvel.filter(n => n.pibliye !== true).length;
-  }
-
-  function montreNouvel() {
-    const tbody = $("newsTable");
-    const rechèch = $("searchInput").value.toLowerCase().trim();
-    const kategori = $("categoryFilter").value;
-
-    const lisFiltre = toutNouvel.filter(nouv => {
-      const tèks = [
-        nouv.tit, nouv.rezime, nouv.otè, nouv.slug, nouv.kontni
-      ].filter(Boolean).join(" ").toLowerCase();
-
-      return (!rechèch || tèks.includes(rechèch)) &&
-        (!kategori || nouv.kategori === kategori);
-    });
-
-    if (!lisFiltre.length) {
-      tbody.innerHTML = '<tr><td colspan="6" class="empty">Pa gen nouvèl ki koresponn ak rechèch la.</td></tr>';
-      return;
-    }
-
-    tbody.innerHTML = lisFiltre.map(nouv => {
-      const status = nouv.pibliye
-        ? '<span class="status status-public">Pibliye</span>'
-        : '<span class="status status-draft">Bouyon</span>';
-
-      const boutonPiblikasyon = nouv.pibliye
-        ? `<button type="button" class="action-btn draft-btn" data-action="publish" data-id="${escapeHTML(nouv.id)}" data-value="false">Depibliye</button>`
-        : `<button type="button" class="action-btn publish-btn" data-action="publish" data-id="${escapeHTML(nouv.id)}" data-value="true">Pibliye</button>`;
-
-      return `
-        <tr>
-          <td><div class="news-title">${escapeHTML(nouv.tit || "San tit")}</div></td>
-          <td>${escapeHTML(nouv.kategori || "—")}</td>
-          <td>${escapeHTML(nouv.otè || "—")}</td>
-          <td>${fòmateDat(nouv.dat_piblikasyon)}</td>
-          <td>${status}</td>
-          <td>
-            <div class="actions">
-              <button type="button" class="action-btn edit-btn" data-action="edit" data-id="${escapeHTML(nouv.id)}">Modifye</button>
-              ${boutonPiblikasyon}
-              <button type="button" class="action-btn delete-btn" data-action="delete" data-id="${escapeHTML(nouv.id)}">Efase</button>
-            </div>
-          </td>
-        </tr>
-      `;
-    }).join("");
-  }
-
-  function ouvriModal() {
-    $("newsModal").classList.add("show");
-    document.body.style.overflow = "hidden";
-    $("tit").focus();
-  }
-
-  function femenModal() {
-    $("newsModal").classList.remove("show");
-    document.body.style.overflow = "";
-  }
-
-  function resetForm() {
-    $("newsForm").reset();
-    $("newsId").value = "";
-    $("otè").value = "LAJONÈ'M";
-    $("kategori").value = "LAJONÈ'M";
-    $("modalTitle").textContent = "Ajoute yon nouvèl";
-    $("saveBtn").textContent = "Anrejistre nouvèl la";
-    modeEdition = false;
-  }
-
-  function prepareAjoute() {
-    resetForm();
-    ouvriModal();
-  }
-
-  function editeNouvel(id) {
-    const nouv = toutNouvel.find(n => n.id === id);
-    if (!nouv) return;
-
-    modeEdition = true;
-    $("newsId").value = nouv.id;
-    $("tit").value = nouv.tit || "";
-    $("slug").value = nouv.slug || "";
-    $("rezime").value = nouv.rezime || "";
-    $("kontni").value = nouv.kontni || "";
-    $("imaj_url").value = nouv.imaj_url || "";
-    $("kategori").value = nouv.kategori || "LAJONÈ'M";
-    $("otè").value = nouv.otè || "LAJONÈ'M";
-    $("pibliye").checked = nouv.pibliye === true;
-    $("dat_piblikasyon").value = fòmateDatetimeLocal(nouv.dat_piblikasyon);
-    $("modalTitle").textContent = "Modifye nouvèl";
-    $("saveBtn").textContent = "Sove modifikasyon yo";
-    ouvriModal();
-  }
-
-  async function soveNouvel(event) {
-    event.preventDefault();
-
-    const id = $("newsId").value;
-    const tit = $("tit").value.trim();
-    const slug = kreyeSlug($("slug").value.trim() || tit);
-    const kontni = $("kontni").value.trim();
-
-    if (!tit || !slug || !kontni) {
-      montreMesaj("Tanpri ranpli tit, slug ak kontni nouvèl la.", "error");
-      return;
-    }
-
-    const datInput = $("dat_piblikasyon").value;
-    const datPiblikasyon = datInput
-      ? new Date(datInput).toISOString()
-      : new Date().toISOString();
-
-    const payload = {
-      tit: tit,
-      slug: slug,
-      rezime: $("rezime").value.trim() || null,
-      kontni: kontni,
-      imaj_url: $("imaj_url").value.trim() || null,
-      kategori: $("kategori").value || null,
-      "otè": $("otè").value.trim() || "LAJONÈ'M",
-      pibliye: $("pibliye").checked,
-      dat_piblikasyon: datPiblikasyon,
-      modifye_nan: new Date().toISOString()
-    };
-
-    $("saveBtn").disabled = true;
-    $("saveBtn").textContent = "Ap anrejistre...";
-
-    try {
-      let result;
-
-      if (id) {
-        result = await supabaseClient
-          .from("nouvel")
-          .update(payload)
-          .eq("id", id);
-      } else {
-        result = await supabaseClient
-          .from("nouvel")
-          .insert(payload);
-      }
-
-      if (result.error) throw result.error;
-
-      montreMesaj(id ? "Nouvèl la modifye avèk siksè." : "Nouvèl la ajoute avèk siksè.", "success");
-      femenModal();
-      resetForm();
-      await chajeNouvel();
-    } catch (error) {
-      console.error("Erè anrejistreman nouvèl:", error);
-      montreMesaj("Nou pa kapab anrejistre nouvèl la: " + (error.message || "Erè enkoni"), "error");
-    } finally {
-      $("saveBtn").disabled = false;
-      $("saveBtn").textContent = modeEdition ? "Sove modifikasyon yo" : "Anrejistre nouvèl la";
-    }
-  }
-
-  async function chanjePublication(id, pibliye) {
-    const { error } = await supabaseClient
-      .from("nouvel")
-      .update({
-        pibliye: pibliye,
-        modifye_nan: new Date().toISOString()
-      })
-      .eq("id", id);
-
-    if (error) {
-      console.error(error);
-      montreMesaj("Nou pa kapab chanje estati piblikasyon an: " + error.message, "error");
-      return;
-    }
-
-    montreMesaj(pibliye ? "Nouvèl la pibliye." : "Nouvèl la retire nan piblikasyon.", "success");
-    await chajeNouvel();
-  }
-
-  async function efaseNouvel(id) {
-    const nouv = toutNouvel.find(n => n.id === id);
-    if (!nouv) return;
-
-    const konfime = confirm(`Èske ou sèten ou vle efase nouvèl sa a?\n\n"${nouv.tit}"`);
-    if (!konfime) return;
-
-    const { error } = await supabaseClient
-      .from("nouvel")
-      .delete()
-      .eq("id", id);
-
-    if (error) {
-      console.error(error);
-      montreMesaj("Nou pa kapab efase nouvèl la: " + error.message, "error");
-      return;
-    }
-
-    montreMesaj("Nouvèl la efase avèk siksè.", "success");
-    await chajeNouvel();
-  }
-
-  // Evite mete ID dirèkteman nan onclick HTML.
-  $("newsTable").addEventListener("click", async event => {
-    const bouton = event.target.closest("button[data-action]");
-    if (!bouton) return;
-
-    const { action, id, value } = bouton.dataset;
-
-    if (action === "edit") editeNouvel(id);
-    if (action === "delete") await efaseNouvel(id);
-    if (action === "publish") await chanjePublication(id, value === "true");
-  });
-
-  $("addBtn").addEventListener("click", prepareAjoute);
-  $("closeModal").addEventListener("click", femenModal);
-  $("cancelBtn").addEventListener("click", femenModal);
-  $("newsForm").addEventListener("submit", soveNouvel);
-  $("searchInput").addEventListener("input", montreNouvel);
-  $("categoryFilter").addEventListener("change", montreNouvel);
-
-  $("tit").addEventListener("input", function() {
-    if (!modeEdition) $("slug").value = kreyeSlug(this.value);
-  });
-
-  $("slug").addEventListener("input", function() {
-    this.value = kreyeSlug(this.value);
-  });
-
-  $("mobileMenuBtn").addEventListener("click", () => {
-    $("adminSidebar").classList.toggle("mobile-open");
-  });
-
-  document.addEventListener("click", event => {
-    if (window.innerWidth <= 800) {
-      const sidebar = $("adminSidebar");
-      if (!sidebar.contains(event.target) &&
-          !$("mobileMenuBtn").contains(event.target)) {
-        sidebar.classList.remove("mobile-open");
-      }
-    }
-  });
-
-  $("newsModal").addEventListener("click", event => {
-    if (event.target === $("newsModal")) femenModal();
-  });
-
-  document.addEventListener("keydown", event => {
-    if (event.key === "Escape") femenModal();
-  });
-
-  $("logoutBtn").addEventListener("click", async () => {
-    const bouton = $("logoutBtn");
-    bouton.disabled = true;
-
-    try {
+    if (!profil || !profil.aktif) {
       await supabaseClient.auth.signOut();
-    } finally {
-      window.location.href = "login.html";
+      location.href = 'login.html';
+      return;
     }
-  });
 
-  async function init() {
-    if (pajApChaje) return;
-    pajApChaje = true;
+    aficheProfil();
+    pwotejeMeniAdmin();
 
-    const aksè = await verifyeAksè();
-    if (!aksè) return;
+    if (!genPèmisyon('jere_galri')) {
+      $('accessDenied').style.display = 'block';
+      $('addPhotoBtn').style.display = 'none';
+      $('uploadPanel').style.display = 'none';
+      $('galleryContainer').innerHTML = '<div class="empty">Ou pa gen aksè pou jere galri a.</div>';
+      return;
+    }
 
-    await chajeNouvel();
+    await chajeAktivite();
+    await chajeGalri();
+
+    if (typeof chajeNotifikasyon === 'function') await chajeNotifikasyon();
+  } catch (error) {
+    console.error('Erè demaraj admin galri:', error);
+    montreErreur('Nou pa kapab verifye aksè ou. Tanpri konekte ankò.');
+    setTimeout(() => location.href = 'login.html', 1800);
   }
+}
 
-  init();
+demare();
 </script>
 </body>
 </html>
