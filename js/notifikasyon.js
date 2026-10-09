@@ -1,56 +1,112 @@
 // ============================================================
-// LAJONÈ'M — SISTÈM NOTIFIKASYON ADMINISTRASYON
+// LAJONÈ'M — NOTIFIKASYON AN TAN REYÈL
 // ============================================================
 
 let notifikasyonAdmin = [];
 let notifikasyonPare = false;
+let adminNotifikasyon = null;
+let chanNotifikasyon = null;
+let notifikasyonAnChajman = false;
+
+const NOTIF_STYLE_ID = "lajonem-notifikasyon-style";
 
 // ------------------------------------------------------------
-// JWENN ID ADMIN KI KONEKTE A
+// STYLE: BADGE AK PWEN WOUJ
+// ------------------------------------------------------------
+
+function meteStyleNotifikasyon() {
+    if (document.getElementById(NOTIF_STYLE_ID)) return;
+
+    const style = document.createElement("style");
+    style.id = NOTIF_STYLE_ID;
+    style.textContent = `
+        .notification-button,
+        #notificationButton,
+        #notifikasyonButton {
+            position: relative !important;
+        }
+
+        .lajonem-bell-dot {
+            position: absolute;
+            top: 3px;
+            right: 3px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #e32636;
+            border: 2px solid #fff;
+            display: none;
+            z-index: 10;
+            box-shadow: 0 0 0 1px rgba(227,38,54,.15);
+        }
+
+        .lajonem-bell-dot.aktif {
+            display: block;
+        }
+
+        .notifikasyon-item.notifikasyon-pa-li {
+            background: #eef5ff !important;
+            border-left: 3px solid #e32636;
+        }
+
+        .notifikasyon-pwen {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            min-width: 8px;
+            border-radius: 50%;
+            background: #e32636;
+        }
+
+        .lajonem-notif-toast {
+            position: fixed;
+            right: 16px;
+            bottom: 18px;
+            z-index: 99999;
+            width: min(360px, calc(100vw - 32px));
+            background: #fff;
+            color: #183b67;
+            border-left: 4px solid #e32636;
+            border-radius: 10px;
+            padding: 14px 16px;
+            box-shadow: 0 8px 30px rgba(0,0,0,.18);
+            font: 14px/1.5 Arial, sans-serif;
+        }
+
+        .lajonem-notif-toast strong {
+            display: block;
+            margin-bottom: 4px;
+        }
+    `;
+    document.head.appendChild(style);
+}
+
+// ------------------------------------------------------------
+// ID ADMIN KI KONEKTE A
 // ------------------------------------------------------------
 
 async function jwennAdminKonekte() {
     try {
-        const {
-            data: { user },
-            error: authError
-        } = await supabaseClient.auth.getUser();
+        const { data: { user }, error: authError } =
+            await supabaseClient.auth.getUser();
 
-        if (authError || !user) {
-            return null;
-        }
+        if (authError || !user) return null;
 
         const { data, error } = await supabaseClient
             .from("itilizatè_admin")
-            .select(`
-                id,
-                user_id,
-                non,
-                siyati,
-                email,
-                wòl,
-                aktif
-            `)
+            .select("id,user_id,non,siyati,email,wòl,aktif")
             .eq("user_id", user.id)
             .eq("aktif", true)
             .maybeSingle();
 
         if (error) {
-            console.error(
-                "❌ Erè pwofil admin:",
-                error
-            );
+            console.error("Erè pwofil administratè:", error);
             return null;
         }
 
         return data || null;
-
     } catch (error) {
-        console.error(
-            "❌ Erè jwenn admin:",
-            error
-        );
-
+        console.error("Erè jwenn administratè:", error);
         return null;
     }
 }
@@ -60,18 +116,11 @@ async function jwennAdminKonekte() {
 // ------------------------------------------------------------
 
 async function chajeNotifikasyon() {
+    if (!adminNotifikasyon || notifikasyonAnChajman) return;
+
+    notifikasyonAnChajman = true;
 
     try {
-
-        const admin = await jwennAdminKonekte();
-
-        if (!admin) {
-            console.warn(
-                "⚠️ Pa gen pwofil admin aktif."
-            );
-            return;
-        }
-
         const { data, error } = await supabaseClient
             .from("notifikasyon")
             .select(`
@@ -85,109 +134,73 @@ async function chajeNotifikasyon() {
                 dat_kreyasyon,
                 dat_li
             `)
-            .eq("itilizatè_id", admin.id)
-            .order("dat_kreyasyon", {
-                ascending: false
-            })
-            .limit(30);
+            .eq("itilizatè_id", adminNotifikasyon.id)
+            .order("dat_kreyasyon", { ascending: false })
+            .limit(50);
 
         if (error) {
-            console.error(
-                "❌ Erè chaje notifikasyon:",
-                error
-            );
+            console.error("Erè chaje notifikasyon:", error);
             return;
         }
 
         notifikasyonAdmin = data || [];
         notifikasyonPare = true;
-
         aficheNotifikasyon();
-
     } catch (error) {
-
-        console.error(
-            "❌ Erè sistèm notifikasyon:",
-            error
-        );
-
+        console.error("Erè sistèm notifikasyon:", error);
+    } finally {
+        notifikasyonAnChajman = false;
     }
 }
 
 // ------------------------------------------------------------
-// KONTE NOTIFIKASYON KI PA LI
+// KANTITE NOTIFIKASYON KI PA LI
 // ------------------------------------------------------------
 
 function konteNotifikasyonPaLi() {
-
-    return notifikasyonAdmin.filter(
-        notification => notification.li === false
-    ).length;
+    return notifikasyonAdmin.filter(item => item.li === false).length;
 }
 
 // ------------------------------------------------------------
-// IKÒN SELON TIP NOTIFIKASYON
+// IKÒN NOTIFIKASYON
 // ------------------------------------------------------------
 
 function jwennIkonNotifikasyon(tip) {
-
     const ikon = {
-
         volonte: "👤",
-
         mesaj: "✉️",
-
         don: "💰",
-
         aktivite: "📅",
-
         vizit: "🏠",
-
+        galri: "🖼️",
         sistèm: "⚙️",
-
         info: "🔔"
-
     };
 
     return ikon[tip] || "🔔";
 }
 
-// ------------------------------------------------------------
-// KLAS SELON TIP
-// ------------------------------------------------------------
-
 function jwennKlasNotifikasyon(tip) {
-
     const klas = {
-
         volonte: "notif-volonte",
-
         mesaj: "notif-mesaj",
-
         don: "notif-don",
-
         aktivite: "notif-aktivite",
-
         vizit: "notif-vizit",
-
+        galri: "notif-galri",
         sistèm: "notif-systeme",
-
         info: "notif-info"
-
     };
 
     return klas[tip] || "notif-info";
 }
 
 // ------------------------------------------------------------
-// ESCAPE HTML
+// PWOTEJE TÈKS HTML
 // ------------------------------------------------------------
 
 function escapeNotifikasyon(value) {
-
-    if (value === null || value === undefined) {
-        return "";
-    }
+    if (value === null || value === undefined) return "";
 
     return String(value)
         .replace(/&/g, "&amp;")
@@ -202,16 +215,10 @@ function escapeNotifikasyon(value) {
 // ------------------------------------------------------------
 
 function fòmateDatNotifikasyon(date) {
-
-    if (!date) {
-        return "";
-    }
+    if (!date) return "";
 
     const d = new Date(date);
-
-    if (Number.isNaN(d.getTime())) {
-        return "";
-    }
+    if (Number.isNaN(d.getTime())) return "";
 
     return d.toLocaleString("fr-FR", {
         day: "2-digit",
@@ -223,284 +230,250 @@ function fòmateDatNotifikasyon(date) {
 }
 
 // ------------------------------------------------------------
+// KLOCH AK BADGE
+// ------------------------------------------------------------
+
+function jwennBoutonKlòch() {
+    return document.getElementById("notificationButton")
+        || document.getElementById("notifikasyonButton")
+        || document.querySelector(".notification-button");
+}
+
+function meteBadgeNotifikasyon() {
+    const badge = document.getElementById("notifikasyonBadge");
+    const bouton = jwennBoutonKlòch();
+
+    const kantite = konteNotifikasyonPaLi();
+
+    if (badge) {
+        badge.textContent = kantite > 99 ? "99+" : String(kantite);
+        badge.style.display = kantite > 0 ? "flex" : "none";
+    }
+
+    if (bouton) {
+        let pwen = bouton.querySelector(".lajonem-bell-dot");
+
+        if (!pwen) {
+            pwen = document.createElement("span");
+            pwen.className = "lajonem-bell-dot";
+            pwen.setAttribute("aria-label", "Gen notifikasyon ki poko li");
+            bouton.appendChild(pwen);
+        }
+
+        pwen.classList.toggle("aktif", kantite > 0);
+    }
+}
+
+// ------------------------------------------------------------
 // AFICHE NOTIFIKASYON YO
 // ------------------------------------------------------------
 
 function aficheNotifikasyon() {
-
-    const container =
-        document.getElementById(
-            "notifikasyonContainer"
-        );
-
-    if (!container) {
-        return;
-    }
-
-    if (!notifikasyonAdmin.length) {
-
-        container.innerHTML = `
-            <div class="notifikasyon-vide">
-                <div class="notifikasyon-vide-ikon">
-                    🔔
-                </div>
-
-                <h3>Pa gen notifikasyon</h3>
-
-                <p>
-                    Ou pa gen okenn nouvo notifikasyon
-                    pou kounye a.
-                </p>
-            </div>
-        `;
-
-        meteBadgeNotifikasyon();
-
-        return;
-    }
-
-    container.innerHTML =
-        notifikasyonAdmin.map(notification => {
-
-            const klase =
-                jwennKlasNotifikasyon(
-                    notification.tip
-                );
-
-            const ikon =
-                jwennIkonNotifikasyon(
-                    notification.tip
-                );
-
-            const paLi =
-                notification.li === false
-                    ? "notifikasyon-pa-li"
-                    : "";
-
-            return `
-
-                <div
-                    class="notifikasyon-item ${klase} ${paLi}"
-                    data-id="${escapeNotifikasyon(notification.id)}"
-                >
-
-                    <div class="notifikasyon-ikon">
-                        ${ikon}
-                    </div>
-
-                    <div class="notifikasyon-kontni">
-
-                        <div class="notifikasyon-tet">
-
-                            <strong>
-                                ${escapeNotifikasyon(
-                                    notification.tit
-                                )}
-                            </strong>
-
-                            ${
-                                notification.li === false
-                                ? `
-                                    <span class="notifikasyon-pwen"></span>
-                                  `
-                                : ""
-                            }
-
-                        </div>
-
-                        <p>
-                            ${escapeNotifikasyon(
-                                notification.mesaj
-                            )}
-                        </p>
-
-                        <small>
-                            ${fòmateDatNotifikasyon(
-                                notification.dat_kreyasyon
-                            )}
-                        </small>
-
-                    </div>
-
-                    <div class="notifikasyon-aksyon">
-
-                        ${
-                            notification.url
-                            ? `
-                                <button
-                                    type="button"
-                                    onclick="ouvriNotifikasyon(
-                                        '${escapeNotifikasyon(notification.id)}'
-                                    )"
-                                >
-                                    Gade
-                                </button>
-                              `
-                            : ""
-                        }
-
-                    </div>
-
-                </div>
-            `;
-
-        }).join("");
+    const container = document.getElementById("notifikasyonContainer");
 
     meteBadgeNotifikasyon();
-}
 
-// ------------------------------------------------------------
-// BADGE SOU BOUTON NOTIFIKASYON AN
-// ------------------------------------------------------------
+    if (!container) return;
 
-function meteBadgeNotifikasyon() {
-
-    const badge =
-        document.getElementById(
-            "notifikasyonBadge"
-        );
-
-    if (!badge) {
+    if (!notifikasyonAdmin.length) {
+        container.innerHTML = `
+            <div class="notifikasyon-vide">
+                <div class="notifikasyon-vide-ikon">🔔</div>
+                <h3>Pa gen notifikasyon</h3>
+                <p>Nouvo mesaj ak mizajou yo ap parèt isit la.</p>
+            </div>
+        `;
         return;
     }
 
-    const kantite =
-        konteNotifikasyonPaLi();
+    container.innerHTML = notifikasyonAdmin.map(notification => {
+        const paLi = notification.li === false;
+        const id = escapeNotifikasyon(notification.id);
+        const url = notification.url || "";
 
-    if (kantite > 0) {
+        return `
+            <div class="notifikasyon-item ${
+                escapeNotifikasyon(jwennKlasNotifikasyon(notification.tip))
+            } ${paLi ? "notifikasyon-pa-li" : ""}">
+                <div class="notifikasyon-ikon">
+                    ${jwennIkonNotifikasyon(notification.tip)}
+                </div>
 
-        badge.textContent =
-            kantite > 99
-                ? "99+"
-                : kantite;
+                <div class="notifikasyon-kontni">
+                    <div class="notifikasyon-tet">
+                        <strong>${escapeNotifikasyon(notification.tit)}</strong>
+                        ${paLi ? '<span class="notifikasyon-pwen"></span>' : ""}
+                    </div>
 
-        badge.style.display =
-            "flex";
+                    <p>${escapeNotifikasyon(notification.mesaj)}</p>
 
-    } else {
+                    <small>
+                        ${fòmateDatNotifikasyon(notification.dat_kreyasyon)}
+                    </small>
 
-        badge.textContent =
-            "0";
+                    <div class="notifikasyon-aksyon">
+                        <button type="button"
+                            data-notif-id="${id}"
+                            data-notif-url="${escapeNotifikasyon(url)}">
+                            ${url ? "Gade" : "Make kòm li"}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+    }).join("");
 
-        badge.style.display =
-            "none";
-    }
-}
-
-// ------------------------------------------------------------
-// LOUVRI YON NOTIFIKASYON
-// ------------------------------------------------------------
-
-async function ouvriNotifikasyon(id) {
-
-    const notification =
-        notifikasyonAdmin.find(
-            item => item.id === id
-        );
-
-    if (!notification) {
-        return;
-    }
-
-    if (!notification.li) {
-
-        const { error } =
-            await supabaseClient
-                .from("notifikasyon")
-                .update({
-                    li: true,
-                    dat_li: new Date().toISOString()
-                })
-                .eq("id", id);
-
-        if (error) {
-
-            console.error(
-                "❌ Erè make notifikasyon kòm li:",
-                error
+    container.querySelectorAll("button[data-notif-id]").forEach(button => {
+        button.addEventListener("click", async () => {
+            await ouvriNotifikasyon(
+                button.dataset.notifId,
+                button.dataset.notifUrl
             );
-
-            return;
-        }
-
-        notification.li = true;
-        notification.dat_li =
-            new Date().toISOString();
-
-        aficheNotifikasyon();
-    }
-
-    if (notification.url) {
-
-        window.location.href =
-            notification.url;
-    }
+        });
+    });
 }
 
 // ------------------------------------------------------------
-// MAKE TOUT NOTIFIKASYON YO KÒM LI
+// MAKE NOTIFIKASYON KÒM LI
 // ------------------------------------------------------------
 
-async function makeToutNotifikasyonLi() {
+async function ouvriNotifikasyon(id, url) {
+    const notification = notifikasyonAdmin.find(item => item.id === id);
+    if (!notification) return;
 
-    const kiPaLi =
-        notifikasyonAdmin
-            .filter(item => item.li === false)
-            .map(item => item.id);
-
-    if (!kiPaLi.length) {
-        return;
-    }
-
-    const { error } =
-        await supabaseClient
+    if (notification.li === false) {
+        const { error } = await supabaseClient
             .from("notifikasyon")
             .update({
                 li: true,
                 dat_li: new Date().toISOString()
             })
-            .in("id", kiPaLi);
+            .eq("id", id)
+            .eq("itilizatè_id", adminNotifikasyon.id);
+
+        if (error) {
+            console.error("Erè make notifikasyon kòm li:", error);
+            return;
+        }
+
+        notification.li = true;
+        notification.dat_li = new Date().toISOString();
+        aficheNotifikasyon();
+    }
+
+    if (url) {
+        window.location.href = url;
+    }
+}
+
+async function makeToutNotifikasyonLi() {
+    if (!adminNotifikasyon) return;
+
+    const kiPaLi = notifikasyonAdmin
+        .filter(item => item.li === false)
+        .map(item => item.id);
+
+    if (!kiPaLi.length) return;
+
+    const { error } = await supabaseClient
+        .from("notifikasyon")
+        .update({
+            li: true,
+            dat_li: new Date().toISOString()
+        })
+        .in("id", kiPaLi)
+        .eq("itilizatè_id", adminNotifikasyon.id);
 
     if (error) {
-
-        console.error(
-            "❌ Erè make tout notifikasyon kòm li:",
-            error
-        );
-
+        console.error("Erè make tout notifikasyon kòm li:", error);
         return;
     }
 
     notifikasyonAdmin.forEach(item => {
-
         item.li = true;
-
-        item.dat_li =
-            new Date().toISOString();
-
+        item.dat_li = new Date().toISOString();
     });
 
     aficheNotifikasyon();
 }
 
 // ------------------------------------------------------------
-// OUVRI / FÈMEN PANÈL NOTIFIKASYON
+// PANÈL NOTIFIKASYON
 // ------------------------------------------------------------
 
 function toggleNotifikasyon() {
+    const panel = document.getElementById("notifikasyonPanel");
+    if (!panel) return;
 
-    const panel =
-        document.getElementById(
-            "notifikasyonPanel"
-        );
+    panel.classList.toggle("aktif");
 
-    if (!panel) {
-        return;
+    if (panel.classList.contains("aktif")) {
+        chajeNotifikasyon();
+    }
+}
+
+// ------------------------------------------------------------
+// TI MESAJ LÈ YON NOUVO NOTIFIKASYON RIVE
+// ------------------------------------------------------------
+
+function montreToastNotifikasyon(notification) {
+    const toast = document.createElement("div");
+    toast.className = "lajonem-notif-toast";
+
+    const tit = document.createElement("strong");
+    tit.textContent = notification.tit || "Nouvo notifikasyon";
+
+    const mesaj = document.createElement("div");
+    mesaj.textContent = notification.mesaj || "Gen yon nouvo mizajou.";
+
+    toast.appendChild(tit);
+    toast.appendChild(mesaj);
+    document.body.appendChild(toast);
+
+    setTimeout(() => toast.remove(), 6000);
+}
+
+// ------------------------------------------------------------
+// KONEKSYON AN TAN REYÈL
+// ------------------------------------------------------------
+
+function konekteNotifikasyonAnTanReyel() {
+    if (!adminNotifikasyon || !window.supabaseClient) return;
+
+    if (chanNotifikasyon) {
+        supabaseClient.removeChannel(chanNotifikasyon);
+        chanNotifikasyon = null;
     }
 
-    panel.classList.toggle(
-        "aktif"
-    );
+    chanNotifikasyon = supabaseClient
+        .channel("lajonem-notifikasyon-" + adminNotifikasyon.id)
+        .on(
+            "postgres_changes",
+            {
+                event: "INSERT",
+                schema: "public",
+                table: "notifikasyon",
+                filter: "itilizatè_id=eq." + adminNotifikasyon.id
+            },
+            payload => {
+                const nouvo = payload.new;
+                if (!nouvo) return;
+
+                const dejaEgziste = notifikasyonAdmin.some(
+                    item => item.id === nouvo.id
+                );
+
+                if (!dejaEgziste) {
+                    notifikasyonAdmin.unshift(nouvo);
+                    notifikasyonAdmin = notifikasyonAdmin.slice(0, 50);
+                    aficheNotifikasyon();
+                    montreToastNotifikasyon(nouvo);
+                }
+            }
+        )
+        .subscribe(status => {
+            console.log("Estati notifikasyon LAJONÈ'M:", status);
+        });
 }
 
 // ------------------------------------------------------------
@@ -508,31 +481,41 @@ function toggleNotifikasyon() {
 // ------------------------------------------------------------
 
 async function demareNotifikasyon() {
+    if (typeof supabaseClient === "undefined") {
+        console.error("supabaseClient pa disponib.");
+        return;
+    }
 
-    if (
-        typeof supabaseClient ===
-        "undefined"
-    ) {
+    meteStyleNotifikasyon();
+    adminNotifikasyon = await jwennAdminKonekte();
 
-        console.error(
-            "❌ supabaseClient pa disponib."
-        );
-
+    if (!adminNotifikasyon) {
+        console.warn("Pa gen administratè aktif ki konekte.");
         return;
     }
 
     await chajeNotifikasyon();
+    konekteNotifikasyonAnTanReyel();
+
+    // Sekou si koneksyon an tan reyèl la dekonekte tanporèman.
+    window.setInterval(() => {
+        if (document.visibilityState === "visible") {
+            chajeNotifikasyon();
+        }
+    }, 60000);
 }
 
 // ------------------------------------------------------------
-// DOM READY
+// DEMARE LÈ PAJ LA FIN CHARGE
 // ------------------------------------------------------------
 
-document.addEventListener(
-    "DOMContentLoaded",
-    () => {
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", demareNotifikasyon);
+} else {
+    demareNotifikasyon();
+}
 
-        demareNotifikasyon();
-
-    }
-);
+// Fonksyon sa yo disponib pou bouton ki sèvi ak onclick.
+window.toggleNotifikasyon = toggleNotifikasyon;
+window.makeToutNotifikasyonLi = makeToutNotifikasyonLi;
+window.ouvriNotifikasyon = ouvriNotifikasyon;
