@@ -777,6 +777,115 @@
             }
         }
 
+
+.notification-button {
+  position: relative;
+  border: 1px solid #e5e7eb;
+  background: #fff;
+  border-radius: 9px;
+  padding: 10px 12px;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.notification-badge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  min-width: 19px;
+  height: 19px;
+  border-radius: 50%;
+  background: #dc2626;
+  color: #fff;
+  font-size: 11px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4px;
+}
+
+.notification-panel {
+  display: none;
+  position: fixed;
+  top: 82px;
+  right: 25px;
+  width: min(420px, calc(100vw - 30px));
+  max-height: 70vh;
+  overflow-y: auto;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0,0,0,.12);
+  z-index: 2000;
+}
+
+.notification-panel.aktif {
+  display: block;
+}
+
+.notification-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 15px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.notification-header h3 {
+  color: #0B3B75;
+  font-size: 16px;
+}
+
+.notification-header button {
+  border: 0;
+  background: transparent;
+  color: #0B3B75;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.notification-list {
+  padding: 10px;
+}
+
+.notifikasyon-item {
+  display: flex;
+  gap: 10px;
+  padding: 12px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.notifikasyon-kontni {
+  min-width: 0;
+  flex: 1;
+}
+
+.notifikasyon-kontni p {
+  margin: 5px 0;
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+
+.notifikasyon-kontni small {
+  color: #6b7280;
+  font-size: 11px;
+}
+
+.notifikasyon-tet {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.notifikasyon-tet strong {
+  font-size: 13px;
+}
+
+.notifikasyon-pa-li {
+  background: #eff6ff;
+}
+
     </style>
 </head>
 
