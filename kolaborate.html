@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="ht">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Kolaboratè nou yo | LAJONÈ'M</title>
+
+  <meta name="description" content="Dekouvri ekip administrasyon ak patnè LAJONÈ'M yo, ansanm pou diyite ak byennèt moun aje ann Ayiti.">
+
+  <meta name="theme-color" content="#0B3B75">
+
+  <link rel="stylesheet" href="css/style.css">
+
+  <style>
+    :root {
+      --ble: #0B3B75;
+      --lo: #F2B705;
+      --vet: #2E8B57;
+      --fond: #f5f8fc;
+      --tèks: #243247;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Open Sans", Arial, sans-serif;
+      color: var(--tèks);
+      background: var(--fond);
+    }
+
+    a { text-decoration: none; }
+
+    .kol-nav {
+      background: white;
+      padding: 14px 5%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      box-shadow: 0 3px 16px #0b3b7510;
+    }
+
+    .kol-brand {
+      color: var(--ble);
+      font-size: 22px;
+      font-weight: 800;
+    }
+
+    .kol-brand span { color: var(--lo); }
+
+    .kol-nav a.kol-back {
+      color: var(--ble);
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .kol-hero {
+      padding: 65px 20px;
+      text-align: center;
+      color: white;
+      background: linear-gradient(135deg, #0B3B75, #174f8c);
+    }
+
+    .kol-hero .etikèt {
+      display: inline-block;
+      padding: 7px 15px;
+      border: 1px solid #ffffff55;
+      border-radius: 30px;
+      color: var(--lo);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 1px;
+    }
+
+    .kol-hero h1 {
+      font-size: clamp(30px, 5vw, 46px);
+      margin: 18px 0 12px;
+    }
+
+    .kol-hero p {
+      max-width: 760px;
+      margin: auto;
+      line-height: 1.8;
+      font-size: 16px;
+    }
+
+    .kol-section {
+      padding: 55px 5%;
+      max-width: 1250px;
+      margin: auto;
+    }
+
+    .kol-heading {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    .kol-heading h2 {
+      color: var(--ble);
+      font-size: clamp(25px, 4vw, 34px);
+      margin-bottom: 10px;
+    }
+
+    .kol-heading p {
+      max-width: 720px;
+      margin: auto;
+      color: #637083;
+      line-height: 1.8;
+    }
+
+    .kol-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 22px;
+    }
+
+    .kol-card {
+      background: white;
+      border: 1px solid #e6edf5;
+      border-radius: 16px;
+      padding: 25px 20px;
+      text-align: center;
+      box-shadow: 0 8px 25px #0b3b7509;
+      overflow-wrap: anywhere;
+    }
+
+    .kol-photo {
+      width: 105px;
+      height: 105px;
+      border-radius: 50%;
+      object-fit: cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 18px;
+      background: #eaf1fa;
+      color: var(--ble);
+      font-size: 32px;
+      font-weight: 800;
+      border: 4px solid #f4f7fb;
+    }
+
+    .kol-card h3 {
+      margin: 0 0 8px;
+      color: var(--ble);
+      font-size: 18px;
+    }
+
+    .kol-role {
+      display: inline-block;
+      background: #fff7d6;
+      color: #765900;
+      border-radius: 20px;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .kol-card p {
+      font-size: 14px;
+      line-height: 1.7;
+      color: #5c6879;
+      margin: 8px 0;
+    }
+
+    .kol-card a {
+      color: var(--ble);
+      font-weight: 700;
+      overflow-wrap: anywhere;
+    }
+
+    .kol-empty,
+    .kol-loading,
+    .kol-error {
+      grid-column: 1 / -1;
+      text-align: center;
+      background: white;
+      padding: 30px 20px;
+      border-radius: 14px;
+      color: #637083;
+      line-height: 1.8;
+    }
+
+    .kol-partners .kol-photo {
+      border-radius: 16px;
+      object-fit: contain;
+      padding: 10px;
+      background: #f7f9fc;
+    }
+
+    .kol-footer {
+      text-align: center;
+      background: var(--ble);
+      color: white;
+      padding: 28px 20px;
+      line-height: 1.8;
+    }
+
+    .kol-footer strong { color: var(--lo); }
+
+    @media (max-width: 900px) {
+      .kol-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 580px) {
+      .kol-grid { grid-template-columns: 1fr; }
+      .kol-nav { padding: 13px 16px; }
+      .kol-brand { font-size: 19px; }
+      .kol-section { padding: 40px 16px; }
+      .kol-hero { padding: 48px 18px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav class="kol-nav">
+    <a class="kol-brand" href="index.html">LAJONÈ<span>'M</span></a>
+    <a class="kol-back" href="index.html">← Retounen akèy</a>
+  </nav>
+
+  <header class="kol-hero">
+    <span class="etikèt">ANSANM NOU PI FÒ</span>
+    <h1>Kolaboratè nou yo</h1>
+    <p>
+      Dèyè chak aksyon LAJONÈ'M gen moun ak òganizasyon ki mete
+      tan yo, konpetans yo ak resous yo ansanm pou soutni diyite,
+      respè ak byennèt moun aje yo.
+    </p>
+  </header>
+
+  <main>
+    <section class="kol-section">
+      <div class="kol-heading">
+        <h2>Ekip administrasyon nou an</h2>
+        <p>
+          Dekouvri moun ki kontribye nan òganizasyon, jesyon
+          ak devlopman misyon LAJONÈ'M.
+        </p>
+      </div>
+
+      <div id="kolAdministratè" class="kol-grid">
+        <div class="kol-loading">N ap chaje ekip administrasyon an...</div>
+      </div>
+    </section>
+
+    <section class="kol-section kol-partners">
+      <div class="kol-heading">
+        <h2>Patnè nou yo</h2>
+        <p>
+          Nou remèsye antrepriz, enstitisyon ak òganizasyon ki
+          mache ansanm avèk nou pou amelyore lavi moun aje yo.
+        </p>
+      </div>
+
+      <div id="kolPatnè" class="kol-grid">
+        <div class="kol-loading">N ap chaje patnè nou yo...</div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="kol-footer">
+    <strong>LAJONÈ'M</strong><br>
+    Laj yo se onè nou.<br>
+    Voir. Accompagner. Valoriser.
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase.js"></script>
+
+  <script>
+    const kolAdministratè = document.getElementById("kolAdministratè");
+    const kolPatnè = document.getElementById("kolPatnè");
+
+    function kolPwotejeTèks(valè) {
+      return String(valè ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    function kolPremyeLèt(non) {
+      const pati = String(non || "").trim().split(/\s+/).filter(Boolean);
+      return pati.slice(0, 2).map(mo => mo.charAt(0).toUpperCase()).join("") || "?";
+    }
+
+    function kolValidUrl(url) {
+      try {
+        const parsed = new URL(url);
+        return ["https:", "http:"].includes(parsed.protocol) ? parsed.href : "";
+      } catch {
+        return "";
+      }
+    }
+
+    async function chajeAdministratè() {
+      const { data, error } = await supabaseClient
+        .from("itilizatè_admin")
+        .select("id,non,siyati,wòl,aktif")
+        .eq("aktif", true)
+        .order("kreye_nan", { ascending: true });
+
+      if (error) {
+        console.error("Erè ekip administrasyon:", error);
+        kolAdministratè.innerHTML = `
+          <div class="kol-error">
+            Nou pa kapab chaje ekip administrasyon an kounye a.
+            Tanpri eseye ankò pita.
+          </div>`;
+        return;
+      }
+
+      if (!data || data.length === 0) {
+        kolAdministratè.innerHTML = `
+          <div class="kol-empty">
+            Enfòmasyon sou ekip administrasyon an ap disponib byento.
+          </div>`;
+        return;
+      }
+
+      kolAdministratè.innerHTML = data.map(moun => {
+        const non = [moun.non, moun.siyati].filter(Boolean).join(" ").trim()
+          || "Manm administrasyon";
+
+        return `
+          <article class="kol-card">
+            <div class="kol-photo" aria-hidden="true">
+              ${kolPwotejeTèks(kolPremyeLèt(non))}
+            </div>
+            <h3>${kolPwotejeTèks(non)}</h3>
+            <span class="kol-role">${kolPwotejeTèks(moun.wòl || "Administrasyon")}</span>
+            <p>Manm ekip LAJONÈ'M, angaje nan misyon òganizasyon an.</p>
+          </article>`;
+      }).join("");
+    }
+
+    async function chajePatnè() {
+      const { data, error } = await supabaseClient
+        .from("patne")
+        .select("id,non,kalite,deskripsyon,logo_url,sit_web,telefòn,email,adrès,kontak_prensipal,aktif")
+        .eq("aktif", true)
+        .order("kreye_nan", { ascending: false });
+
+      if (error) {
+        console.error("Erè patnè:", error);
+        kolPatnè.innerHTML = `
+          <div class="kol-error">
+            Nou pa kapab chaje patnè yo kounye a.
+            Tanpri eseye ankò pita.
+          </div>`;
+        return;
+      }
+
+      if (!data || data.length === 0) {
+        kolPatnè.innerHTML = `
+          <div class="kol-empty">
+            Nou ap prezante patnè nou yo isit la lè enfòmasyon yo disponib.
+          </div>`;
+        return;
+      }
+
+      kolPatnè.innerHTML = data.map(patnè => {
+        const non = patnè.non || "Patnè LAJONÈ'M";
+        const logo = kolValidUrl(patnè.logo_url);
+        const sit = kolValidUrl(patnè.sit_web);
+
+        const imaj = logo
+          ? `<img class="kol-photo" src="${kolPwotejeTèks(logo)}" alt="Logo ${kolPwotejeTèks(non)}" loading="lazy">`
+          : `<div class="kol-photo" aria-hidden="true">${kolPwotejeTèks(kolPremyeLèt(non))}</div>`;
+
+        const kontak = patnè.kontak_prensipal
+          ? `<p><strong>Responsab:</strong> ${kolPwotejeTèks(patnè.kontak_prensipal)}</p>`
+          : "";
+
+        const telefòn = patnè.telefòn
+          ? `<p><strong>Telefòn:</strong> ${kolPwotejeTèks(patnè.telefòn)}</p>`
+          : "";
+
+        const kalite = patnè.kalite
+          ? `<span class="kol-role">${kolPwotejeTèks(patnè.kalite)}</span>`
+          : "";
+
+        const deskripsyon = patnè.deskripsyon
+          ? `<p>${kolPwotejeTèks(patnè.deskripsyon)}</p>`
+          : "";
+
+        const lyen = sit
+          ? `<p><a href="${kolPwotejeTèks(sit)}" target="_blank" rel="noopener noreferrer">Vizite sit entènèt ↗</a></p>`
+          : "";
+
+        return `
+          <article class="kol-card">
+            ${imaj}
+            <h3>${kolPwotejeTèks(non)}</h3>
+            ${kalite}
+            ${kontak}
+            ${deskripsyon}
+            ${telefòn}
+            ${lyen}
+          </article>`;
+      }).join("");
+    }
+
+    async function demareKolaboratè() {
+      if (typeof supabaseClient === "undefined") {
+        kolAdministratè.innerHTML = `
+          <div class="kol-error">Koneksyon ak bazdone a pa disponib.</div>`;
+        kolPatnè.innerHTML = `
+          <div class="kol-error">Koneksyon ak bazdone a pa disponib.</div>`;
+        return;
+      }
+
+      await Promise.all([
+        chajeAdministratè(),
+        chajePatnè()
+      ]);
+    }
+
+    demareKolaboratè();
+  </script>
+
+</body>
+</html>
