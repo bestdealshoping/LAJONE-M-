@@ -3,12 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0B3B75">
 
-  <title>Kolaboratè nou yo | LAJONÈ'M</title>
+  <title>Ekip nou ak patnè nou yo | LAJONÈ'M</title>
 
   <meta name="description" content="Dekouvri ekip administrasyon ak patnè LAJONÈ'M yo, ansanm pou diyite ak byennèt moun aje ann Ayiti.">
 
-  <meta name="theme-color" content="#0B3B75">
+  <link rel="icon" type="image/png"
+    href="https://terjfmeuzvhcntplnbsd.supabase.co/storage/v1/object/public/galri/foto-1791543704733-hspnevg.png">
 
   <link rel="stylesheet" href="css/style.css">
 
@@ -18,27 +20,31 @@
       --lo: #F2B705;
       --vet: #2E8B57;
       --fond: #f5f8fc;
-      --tèks: #243247;
+      --teks: #243247;
     }
 
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
 
     body {
       margin: 0;
       font-family: "Open Sans", Arial, sans-serif;
-      color: var(--tèks);
+      color: var(--teks);
       background: var(--fond);
     }
 
-    a { text-decoration: none; }
+    a {
+      text-decoration: none;
+    }
 
     .kol-nav {
       background: white;
-      padding: 14px 5%;
+      padding: 15px 5%;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 18px;
+      gap: 15px;
       box-shadow: 0 3px 16px #0b3b7510;
     }
 
@@ -48,9 +54,11 @@
       font-weight: 800;
     }
 
-    .kol-brand span { color: var(--lo); }
+    .kol-brand span {
+      color: var(--lo);
+    }
 
-    .kol-nav a.kol-back {
+    .kol-back {
       color: var(--ble);
       font-weight: 700;
       font-size: 14px;
@@ -63,7 +71,7 @@
       background: linear-gradient(135deg, #0B3B75, #174f8c);
     }
 
-    .kol-hero .etikèt {
+    .kol-label {
       display: inline-block;
       padding: 7px 15px;
       border: 1px solid #ffffff55;
@@ -83,7 +91,6 @@
       max-width: 760px;
       margin: auto;
       line-height: 1.8;
-      font-size: 16px;
     }
 
     .kol-section {
@@ -117,6 +124,7 @@
     }
 
     .kol-card {
+      min-width: 0;
       background: white;
       border: 1px solid #e6edf5;
       border-radius: 16px;
@@ -127,8 +135,8 @@
     }
 
     .kol-photo {
-      width: 105px;
-      height: 105px;
+      width: 110px;
+      height: 110px;
       border-radius: 50%;
       object-fit: cover;
       display: flex;
@@ -140,6 +148,13 @@
       font-size: 32px;
       font-weight: 800;
       border: 4px solid #f4f7fb;
+    }
+
+    .kol-partner-logo {
+      border-radius: 16px;
+      object-fit: contain;
+      padding: 8px;
+      background: #f7f9fc;
     }
 
     .kol-card h3 {
@@ -169,7 +184,10 @@
     .kol-card a {
       color: var(--ble);
       font-weight: 700;
-      overflow-wrap: anywhere;
+    }
+
+    .kol-card strong {
+      color: var(--ble);
     }
 
     .kol-empty,
@@ -184,11 +202,8 @@
       line-height: 1.8;
     }
 
-    .kol-partners .kol-photo {
-      border-radius: 16px;
-      object-fit: contain;
-      padding: 10px;
-      background: #f7f9fc;
+    .kol-error {
+      color: #9b2525;
     }
 
     .kol-footer {
@@ -199,81 +214,110 @@
       line-height: 1.8;
     }
 
-    .kol-footer strong { color: var(--lo); }
+    .kol-footer strong {
+      color: var(--lo);
+    }
 
     @media (max-width: 900px) {
-      .kol-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .kol-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
     }
 
     @media (max-width: 580px) {
-      .kol-grid { grid-template-columns: 1fr; }
-      .kol-nav { padding: 13px 16px; }
-      .kol-brand { font-size: 19px; }
-      .kol-section { padding: 40px 16px; }
-      .kol-hero { padding: 48px 18px; }
+      .kol-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .kol-nav {
+        padding: 13px 16px;
+      }
+
+      .kol-brand {
+        font-size: 19px;
+      }
+
+      .kol-section {
+        padding: 40px 16px;
+      }
+
+      .kol-hero {
+        padding: 48px 18px;
+      }
     }
   </style>
 </head>
 
 <body>
 
-  <nav class="kol-nav">
-    <a class="kol-brand" href="index.html">LAJONÈ<span>'M</span></a>
+  <nav class="kol-nav" aria-label="Navigasyon">
+    <a class="kol-brand" href="index.html">
+      LAJONÈ<span>'M</span>
+    </a>
     <a class="kol-back" href="index.html">← Retounen akèy</a>
   </nav>
 
   <header class="kol-hero">
-    <span class="etikèt">ANSANM NOU PI FÒ</span>
-    <h1>Kolaboratè nou yo</h1>
+    <span class="kol-label">ANSANM NOU PI FÒ</span>
+    <h1>Ekip nou ak patnè nou yo</h1>
     <p>
-      Dèyè chak aksyon LAJONÈ'M gen moun ak òganizasyon ki mete
-      tan yo, konpetans yo ak resous yo ansanm pou soutni diyite,
-      respè ak byennèt moun aje yo.
+      Dèyè chak aksyon LAJONÈ'M gen moun ak òganizasyon
+      ki mete tan yo, konpetans yo ak resous yo ansanm
+      pou soutni diyite, respè ak byennèt moun aje yo.
     </p>
   </header>
 
   <main>
+
     <section class="kol-section">
       <div class="kol-heading">
         <h2>Ekip administrasyon nou an</h2>
         <p>
-          Dekouvri moun ki kontribye nan òganizasyon, jesyon
-          ak devlopman misyon LAJONÈ'M.
+          Dekouvri moun ki kontribye nan òganizasyon,
+          jesyon ak devlopman misyon LAJONÈ'M.
         </p>
       </div>
 
-      <div id="kolAdministratè" class="kol-grid">
-        <div class="kol-loading">N ap chaje ekip administrasyon an...</div>
+      <div id="kolAdministratè" class="kol-grid" aria-live="polite">
+        <div class="kol-loading">
+          N ap chaje ekip administrasyon an...
+        </div>
       </div>
     </section>
 
-    <section class="kol-section kol-partners">
+    <section class="kol-section">
       <div class="kol-heading">
         <h2>Patnè nou yo</h2>
         <p>
-          Nou remèsye antrepriz, enstitisyon ak òganizasyon ki
-          mache ansanm avèk nou pou amelyore lavi moun aje yo.
+          Nou remèsye antrepriz, enstitisyon ak òganizasyon
+          ki mache ansanm avèk nou pou amelyore lavi moun aje yo.
         </p>
       </div>
 
-      <div id="kolPatnè" class="kol-grid">
-        <div class="kol-loading">N ap chaje patnè nou yo...</div>
+      <div id="kolPatnè" class="kol-grid" aria-live="polite">
+        <div class="kol-loading">
+          N ap chaje patnè nou yo...
+        </div>
       </div>
     </section>
+
   </main>
 
   <footer class="kol-footer">
     <strong>LAJONÈ'M</strong><br>
     Laj yo se onè nou.<br>
-    Voir. Accompagner. Valoriser.
+    Wè. Akonpaye. Valorize.
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/supabase.js"></script>
 
   <script>
-    const kolAdministratè = document.getElementById("kolAdministratè");
-    const kolPatnè = document.getElementById("kolPatnè");
+    const kolAdministratè =
+      document.getElementById("kolAdministratè");
+
+    const kolPatnè =
+      document.getElementById("kolPatnè");
 
     function kolPwotejeTèks(valè) {
       return String(valè ?? "")
@@ -285,32 +329,74 @@
     }
 
     function kolPremyeLèt(non) {
-      const pati = String(non || "").trim().split(/\s+/).filter(Boolean);
-      return pati.slice(0, 2).map(mo => mo.charAt(0).toUpperCase()).join("") || "?";
+      const mo = String(non || "")
+        .trim()
+        .split(/\s+/)
+        .filter(Boolean);
+
+      return mo.slice(0, 2)
+        .map(pati => pati.charAt(0).toUpperCase())
+        .join("") || "?";
     }
 
-    function kolValidUrl(url) {
+    function kolValidUrl(valè) {
       try {
-        const parsed = new URL(url);
-        return ["https:", "http:"].includes(parsed.protocol) ? parsed.href : "";
+        const url = new URL(String(valè || "").trim());
+
+        if (url.protocol === "https:" || url.protocol === "http:") {
+          return url.href;
+        }
+
+        return "";
       } catch {
         return "";
       }
     }
 
+    function kolFoto(url, non, seLogo = false) {
+      const validUrl = kolValidUrl(url);
+
+      if (!validUrl) {
+        return `
+          <div class="kol-photo ${seLogo ? "kol-partner-logo" : ""}"
+               aria-hidden="true">
+            ${kolPwotejeTèks(kolPremyeLèt(non))}
+          </div>`;
+      }
+
+      return `
+        <img
+          class="kol-photo ${seLogo ? "kol-partner-logo" : ""}"
+          src="${kolPwotejeTèks(validUrl)}"
+          alt="${kolPwotejeTèks(seLogo ? "Logo " + non : "Foto " + non)}"
+          loading="lazy"
+          referrerpolicy="no-referrer"
+          onerror="this.replaceWith(kolRanplaseFoto(this.alt))"
+        >`;
+    }
+
+    function kolRanplaseFoto(alt) {
+      const div = document.createElement("div");
+      div.className = "kol-photo";
+      div.setAttribute("aria-label", alt || "Imaj pa disponib");
+      div.textContent = "?";
+      return div;
+    }
+
     async function chajeAdministratè() {
       const { data, error } = await supabaseClient
         .from("itilizatè_admin")
-        .select("id,non,siyati,wòl,aktif")
+        .select("id,non,siyati,wòl,aktif,foto_url,biyografi,kreye_nan")
         .eq("aktif", true)
         .order("kreye_nan", { ascending: true });
 
       if (error) {
         console.error("Erè ekip administrasyon:", error);
+
         kolAdministratè.innerHTML = `
           <div class="kol-error">
-            Nou pa kapab chaje ekip administrasyon an kounye a.
-            Tanpri eseye ankò pita.
+            Nou pa kapab chaje ekip administrasyon an.
+            Verifye aksè piblik Supabase la epi eseye ankò.
           </div>`;
         return;
       }
@@ -324,17 +410,23 @@
       }
 
       kolAdministratè.innerHTML = data.map(moun => {
-        const non = [moun.non, moun.siyati].filter(Boolean).join(" ").trim()
-          || "Manm administrasyon";
+        const non = [
+          moun.non,
+          moun.siyati
+        ].filter(Boolean).join(" ").trim() || "Manm administrasyon";
+
+        const foto = kolFoto(moun.foto_url, non);
+        const wol = moun.wòl || "Administrasyon";
+        const biyografi = moun.biyografi
+          ? `<p>${kolPwotejeTèks(moun.biyografi)}</p>`
+          : `<p>Manm ekip LAJONÈ'M, angaje nan misyon òganizasyon an.</p>`;
 
         return `
           <article class="kol-card">
-            <div class="kol-photo" aria-hidden="true">
-              ${kolPwotejeTèks(kolPremyeLèt(non))}
-            </div>
+            ${foto}
             <h3>${kolPwotejeTèks(non)}</h3>
-            <span class="kol-role">${kolPwotejeTèks(moun.wòl || "Administrasyon")}</span>
-            <p>Manm ekip LAJONÈ'M, angaje nan misyon òganizasyon an.</p>
+            <span class="kol-role">${kolPwotejeTèks(wol)}</span>
+            ${biyografi}
           </article>`;
       }).join("");
     }
@@ -342,16 +434,17 @@
     async function chajePatnè() {
       const { data, error } = await supabaseClient
         .from("patne")
-        .select("id,non,kalite,deskripsyon,logo_url,sit_web,telefòn,email,adrès,kontak_prensipal,aktif")
+        .select("id,non,kalite,deskripsyon,logo_url,sit_web,telefòn,email,adrès,kontak_prensipal,responsab_wòl,aktif,kreye_nan")
         .eq("aktif", true)
         .order("kreye_nan", { ascending: false });
 
       if (error) {
         console.error("Erè patnè:", error);
+
         kolPatnè.innerHTML = `
           <div class="kol-error">
-            Nou pa kapab chaje patnè yo kounye a.
-            Tanpri eseye ankò pita.
+            Nou pa kapab chaje patnè yo.
+            Verifye aksè piblik Supabase la epi eseye ankò.
           </div>`;
         return;
       }
@@ -366,52 +459,72 @@
 
       kolPatnè.innerHTML = data.map(patnè => {
         const non = patnè.non || "Patnè LAJONÈ'M";
-        const logo = kolValidUrl(patnè.logo_url);
-        const sit = kolValidUrl(patnè.sit_web);
-
-        const imaj = logo
-          ? `<img class="kol-photo" src="${kolPwotejeTèks(logo)}" alt="Logo ${kolPwotejeTèks(non)}" loading="lazy">`
-          : `<div class="kol-photo" aria-hidden="true">${kolPwotejeTèks(kolPremyeLèt(non))}</div>`;
-
-        const kontak = patnè.kontak_prensipal
-          ? `<p><strong>Responsab:</strong> ${kolPwotejeTèks(patnè.kontak_prensipal)}</p>`
-          : "";
-
-        const telefòn = patnè.telefòn
-          ? `<p><strong>Telefòn:</strong> ${kolPwotejeTèks(patnè.telefòn)}</p>`
-          : "";
+        const logo = kolFoto(patnè.logo_url, non, true);
 
         const kalite = patnè.kalite
           ? `<span class="kol-role">${kolPwotejeTèks(patnè.kalite)}</span>`
+          : "";
+
+        const responsab = patnè.kontak_prensipal
+          ? `<p><strong>Responsab:</strong> ${kolPwotejeTèks(patnè.kontak_prensipal)}</p>`
+          : "";
+
+        const fonksyon = patnè.responsab_wòl
+          ? `<p><strong>Fonksyon:</strong> ${kolPwotejeTèks(patnè.responsab_wòl)}</p>`
           : "";
 
         const deskripsyon = patnè.deskripsyon
           ? `<p>${kolPwotejeTèks(patnè.deskripsyon)}</p>`
           : "";
 
-        const lyen = sit
+        // Montre nimewo a jan li anrejistre nan bazdone a.
+        const telefòn = patnè.telefòn
+          ? `<p><strong>Telefòn:</strong> ${kolPwotejeTèks(patnè.telefòn)}</p>`
+          : "";
+
+        const sit = kolValidUrl(patnè.sit_web);
+        const lyenSit = sit
           ? `<p><a href="${kolPwotejeTèks(sit)}" target="_blank" rel="noopener noreferrer">Vizite sit entènèt ↗</a></p>`
+          : "";
+
+        const email = patnè.email
+          ? `<p><strong>Imèl:</strong> <a href="mailto:${kolPwotejeTèks(patnè.email)}">${kolPwotejeTèks(patnè.email)}</a></p>`
+          : "";
+
+        const adrès = patnè.adrès
+          ? `<p><strong>Adrès:</strong> ${kolPwotejeTèks(patnè.adrès)}</p>`
           : "";
 
         return `
           <article class="kol-card">
-            ${imaj}
+            ${logo}
             <h3>${kolPwotejeTèks(non)}</h3>
             ${kalite}
-            ${kontak}
+            ${responsab}
+            ${fonksyon}
             ${deskripsyon}
             ${telefòn}
-            ${lyen}
+            ${email}
+            ${adrès}
+            ${lyenSit}
           </article>`;
       }).join("");
     }
 
     async function demareKolaboratè() {
-      if (typeof supabaseClient === "undefined") {
+      if (
+        typeof supabaseClient === "undefined" ||
+        !supabaseClient
+      ) {
         kolAdministratè.innerHTML = `
-          <div class="kol-error">Koneksyon ak bazdone a pa disponib.</div>`;
+          <div class="kol-error">
+            Koneksyon ak bazdone a pa disponib.
+          </div>`;
+
         kolPatnè.innerHTML = `
-          <div class="kol-error">Koneksyon ak bazdone a pa disponib.</div>`;
+          <div class="kol-error">
+            Koneksyon ak bazdone a pa disponib.
+          </div>`;
         return;
       }
 
